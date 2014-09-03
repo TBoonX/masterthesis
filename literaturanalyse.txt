@@ -1,0 +1,8 @@
+Hadoop GIS: A High Performance Spatial Data Warehousing System over MapReduce
+
+Indroduction ebschreibt Anforderungen an Umgebung: Big Data, high computation complexity
+there are two major problems to handle for spatial partitioning: spatial data skew problem and boundary object problem.
+spatial query algorith created
+eigene query engine RESQUE: verwendet map/reduce von hadoop, hive anbindung, diverse staial query arten möglich (speziell für rasterdaten mit tiles)
+
+
