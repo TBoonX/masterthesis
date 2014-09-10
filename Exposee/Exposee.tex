@@ -197,7 +197,7 @@ a4paper,     %% defines the paper size: a4paper (default), a5paper, letterpaper,
 \author{Kurt Junghanns (59886)}
 
 %%% date
-\date{Leipzig, am \today{}}
+\date{Leipzig, der \today{}}
 
 \publishers{Betreuer: M. Sc. Volkmar Herbst}
 
@@ -292,17 +292,24 @@ a4paper,     %% defines the paper size: a4paper (default), a5paper, letterpaper,
 
 \section{Motivation}
 
+Die Agri Con GmbH verwaltet als Akteur im Bereich \glqq Precision Farming\grqq \ täglich mehrere Millionen geografische Punktdaten.
+Diese Daten werden von aktiven Landwirtschaftsmaschinen und durch die Verarbeitung durch firmeninterne und firmenexterene Mitarbeiter sowie Systeme erzeugt.
+Weiterhin fallen dadurch Vektor- und Rasterdaten an, welche gespeichert und anschließend verarbeitet werden müssen.
+
+- Daten sind essentiell für den Betrieb
+- Notwendigkeit von Speicherung und schneller mächtiger Verarbeitung
+- Nicht nur Agri Con steht vor dieser Notwendigkeit
+- normalerweise Oracle DB oder PostGIS, keine Alternativen bekannt
+- da viele Daten und verteilt -> NoSQL interessant
+
+
+
+\section{Fragestellung}
+
 Täglich anfallende geographische Daten sollen in einer zu definierenden Umgebung im Gigabytebereich persistent gespeichert werden.
 Außerdem sollen diese Daten mit geringer Laufzeit aggregiert und verarbeitet werden.
 Die Verarbeitung der Daten soll anhand der geographischen Informationen mit Hilfe dafür vorgesehener Funktionen der Umgebung erfolgen.
 Das Ergebnis der Verarbeitung soll stets eine Menge von aufbereiteten Geodaten sein, welche von GIS direkt interpretiert werden können.
-
-Für dieses Szenario sind die technischen Möglichkeiten zu analysieren und zu vergleichen.
-Darin sollen besonders die Möglichkeiten der geographischen Speicherung und Verarbeitung der Daten und deren Beziehungen betrachtet werden.
-Der Vergleich soll anschließend in einer Empfehlung für das dargestellte Szenario münden.
-Damit die Aussagefähigkeit des Vergleiches und der Empfehlung für die Umsetzung in der Agri Con GmbH hoch ist, sind Studien in Form von empirischen Leistungsvergleichen der Laufzeit und des Funktionsumfanges durchzuführen.
-
-\section{Fragestellung}
 
 Die Daten fallen dynamisch im Tagesbetrieb an.
 Dabei handelt sich um Raster- sowie Vektordaten.
@@ -325,7 +332,7 @@ Dabei soll die Filterung anhand von Meta- und Geoinformationen erfolgen.
 Neben der Datenhaltung soll auch die Verarbeitung verteilt durchführbar sein.
 Die Laufzeit ist eine essentielle Anforderung, wie auch der Umfang der geographischen Funktionen, wobei die Qualität der Funktionen die Laufzeit wesentlich beeinflusst.
 
-Die in der Umgebung vorhandenen geographischen Funktionen sind zu nutzen und fehlende zu implementieren oder durch Erweiterungen verfügbar zu machen.
+
 
 \section{Stand der Forschung}
 
@@ -349,17 +356,47 @@ Eine andere ist Hadoop-GIS, ein komplettes System welches Hadoop verwendet und e
 
 \section{Methodik und Vorgehen}
 
+Für dieses Szenario sind die technischen Möglichkeiten zu analysieren und zu vergleichen.
+Darin sollen besonders die Möglichkeiten der geographischen Speicherung und Verarbeitung der Daten und deren Beziehungen betrachtet werden.
+Der Vergleich soll anschließend in einer Empfehlung für das dargestellte Szenario münden.
+Damit die Aussagefähigkeit des Vergleiches und der Empfehlung für die Umsetzung in der Agri Con GmbH hoch ist, sind Studien in Form von empirischen Leistungsvergleichen der Laufzeit und des Funktionsumfanges durchzuführen.
 
+Die in der Umgebung vorhandenen geographischen Funktionen sind zu nutzen und fehlende zu implementieren oder durch Erweiterungen verfügbar zu machen.
 
 
 \section{Zeitplan}
+
+Die Thesis wird zum ersten Oktober 2014 angemeldet und ist spätestens am 31 März abzugeben.
+
 
 
 
 
 \section{vorläufige Gliederung}
 
-
+1. Einleitung\\
+1.1 Motivation\\
+1.2 Zielsetzung\\
+2. Grundlagen\\
+2.1 geografische Datenverarbeitung\\
+2.1.1 Bezugssysteme\\
+2.1.2 Geometriearten\\
+2.1.2 PostGIS\\
+2.2 NoSQL\\
+2.2.1 Abgrenzung zu relationalen Systemen\\
+2.2.2 NoSQL GIS\\
+2.3 Leistungstests\\
+3. Ausgangssituation\\
+4. System 1\\
+4.1 Überblick\\
+4.2 Datenhaltung\\
+4.3 Verarbeitung\\
+4.4 Testumgebung\\
+4.5 Zusammenfassung\\
+5. System 2\\
+6. System 3\\
+7. Vergleich\\
+8. Schlussfolgerung\\
 
 
 
