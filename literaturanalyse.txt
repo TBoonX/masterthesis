@@ -6,3 +6,10 @@ spatial query algorith created
 eigene query engine RESQUE: verwendet map/reduce von hadoop, hive anbindung, diverse staial query arten möglich (speziell für rasterdaten mit tiles)
 
 
+---------------------------------------------------------------------
+BA Dan
+
+Hadoop+HBase Speicherung Messdaten
+Eumonis
+schemadesign in HBase
+Phoernix framework zur datenabfrage
