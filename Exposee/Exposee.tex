@@ -296,12 +296,11 @@ Die Agri Con GmbH verwaltet als Akteur im Bereich \glqq Precision Farming\grqq \
 Diese Daten werden von aktiven Landwirtschaftsmaschinen und durch die Verarbeitung durch firmeninterne und firmenexterene Mitarbeiter sowie Systeme erzeugt.
 Weiterhin fallen dadurch Vektor- und Rasterdaten an, welche gespeichert und anschließend verarbeitet werden müssen.
 
-- Daten sind essentiell für den Betrieb
-- Notwendigkeit von Speicherung und schneller mächtiger Verarbeitung
-- Nicht nur Agri Con steht vor dieser Notwendigkeit
-- normalerweise Oracle DB oder PostGIS, keine Alternativen bekannt
-- da viele Daten und verteilt -> NoSQL interessant
+Aus den Quelldaten werden Vektordaten für beispielsweise Verteilung der Grunddüngung erzeugt. Rasterdaten werden für \glqq N-Düngung\grqq \ verwendet, was unter anderem die Biomasse, die Nährstoffaufnahme und die Nährstoffverteilung beinhaltet.
 
+Diese Menge an Daten ist essentiell für den Betrieb, weshalb diese strukturiert gespeichert und kostengünstig verarbeitet werden müssen.
+Nicht nur Agri Con steht vor dieser Notwendigkeit, sondern der Großteil der Unternehmen, die sich mit komplexen Geodaten beschäftigen.
+wie Google, Facebook, ESRI, OpenGEO, etc.
 
 
 \section{Fragestellung}
@@ -332,6 +331,13 @@ Dabei soll die Filterung anhand von Meta- und Geoinformationen erfolgen.
 Neben der Datenhaltung soll auch die Verarbeitung verteilt durchführbar sein.
 Die Laufzeit ist eine essentielle Anforderung, wie auch der Umfang der geographischen Funktionen, wobei die Qualität der Funktionen die Laufzeit wesentlich beeinflusst.
 
+
+Raumbezogene OpenSource Systeme bestehen zumeist aus PostgreSQL mit PostGIS, MariaDB, CouchDB mit GeoCouch oder MongoDB als Datenbank und einer beliebigen Middleware.
+Werden jedoch komplexe raumbezogene Datentypen und Funktionen benötigt, ist nur PostgreSQL mit PostGIS in solchen Systemen anzutreffen.
+PostgreSQL ist jedoch nicht für die verteilte Verwendung konzipiert, sodass nur vertikal skaliert werden kann.
+
+
+Einerseits sind die Alternativen zu PostgreSQL zu untersuchen, andererseits die Eignung von NoSQL Systemen herauszuarbeiten.
 
 
 \section{Stand der Forschung}
