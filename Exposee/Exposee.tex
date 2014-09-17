@@ -300,7 +300,7 @@ Aus den Quelldaten werden Vektordaten für beispielsweise Verteilung der Grundd�
 
 Diese Menge an Daten ist essentiell für den Betrieb, weshalb diese strukturiert gespeichert und kostengünstig verarbeitet werden müssen.
 Nicht nur Agri Con steht vor dieser Notwendigkeit, sondern der Großteil der Unternehmen, die sich mit komplexen Geodaten beschäftigen.
-wie Google, Facebook, ESRI, OpenGEO, etc.
+wie Monsanto, Google, Facebook, ESRI, OpenGEO, etc.
 
 
 \section{Fragestellung}
@@ -344,7 +344,7 @@ Zur Datenhaltung und -verarbeitung wird PostGreSQL mit der Erweiterung PostGIS v
 Denkbare Systeme sind folgende:
 \begin{itemize}
 \item PostGIS mit Optimierung durch Reorganisation der Datenbank und verteilte Verwendung\footnote{Dazu zählt Multi-Master Replikation, Load-Balancing und clustering}
-\item MongoDB mit spatial Extension
+\item MongoDB mit spatial Extension\footnote{vorhandene oder mit GDAL Treibern ein Mapping zwischen Geometrieobjekten und BSON erstellen (plus eigenen Indexen und Analyse- und Verarbeitungsfunktionen)}
 \item Spacebase
 \item Hadoop, Hive und ArcGis
 \item Hadoop mit einer spatial Datenbank und spatial Extension
