@@ -310,12 +310,8 @@ Außerdem sollen diese Daten mit geringer Laufzeit aggregiert und verarbeitet we
 Die Verarbeitung der Daten soll anhand der geographischen Informationen mit Hilfe dafür vorgesehener Funktionen der Umgebung erfolgen.
 Das Ergebnis der Verarbeitung soll stets eine Menge von aufbereiteten Geodaten sein, welche von GIS direkt interpretiert werden können.
 
-Die Daten fallen dynamisch im Tagesbetrieb an.
-Dabei handelt sich um Raster- sowie Vektordaten.
-Es ist davon auszugehen, dass innerhalb eines Monats schätzungsweise 30GB an neuen Daten anfallen.
-Dabei sind bereits 200 GB an Daten vorhanden.
-
-Die Umgebung muss somit große Mengen an Daten raumbezogen ablegen können.
+Die Daten fallen dynamisch im Tagesbetrieb als Raster- sowie Vektordaten an.
+Die Umgebung muss große Mengen an Daten raumbezogen ablegen können.
 
 An die Datenhaltung werden folgende Anforderungen gestellt:
 \begin{itemize}
@@ -342,23 +338,22 @@ Einerseits sind die Alternativen zu PostgreSQL zu untersuchen, andererseits die 
 
 \section{Stand der Forschung}
 
-In der Agri Con GmbH werden täglich angefallene Daten nachts verarbeitet und stehen nur in verarbeiteter Form bereit.
+In der Agri Con GmbH werden täglich angefallene Daten nachts verarbeitet und stehen teilweise nur in verarbeiteter Form bereit.
 Zur Datenhaltung und -verarbeitung wird PostGreSQL mit der Erweiterung PostGIS verwendet. Auch R wird als Programmiersprache zur Verarbeitung eingesetzt.
 
 Denkbare Systeme sind folgende:
 \begin{itemize}
 \item PostGIS mit Optimierung durch Reorganisation der Datenbank und verteilte Verwendung\footnote{Dazu zählt Multi-Master Replikation, Load-Balancing und clustering}
-\item MongoDB
-\item (GeoCouch)
+\item MongoDB mit spatial Extension
 \item Spacebase
 \item Hadoop, Hive und ArcGis
-\item Hadoop mit einer der Datenbanken und spatial Extension
+\item Hadoop mit einer spatial Datenbank und spatial Extension
 \item AsterixDB mit spatial Extension
 \end{itemize}
 
 
 Momentan existieren komplette Systeme oder Teilsysteme für das beschriebene Szenario.
-Eine Lösung ist clustering von PostGIS oder Oracles Geodatenbank.
+Eine Lösung ist clustering von PostGIS.
 Eine andere ist Hadoop-GIS, ein komplettes System welches Hadoop verwendet und eine eigene Engine zur Verarbeitung bereitstellt, oder SpatialHadoop, welches einen Hadoop Aufsatz zur Verarbeitung darstellt.
 
 \section{Methodik und Vorgehen}
@@ -388,7 +383,8 @@ Die Thesis wird zum ersten Oktober 2014 angemeldet und ist spätestens am 31 Mä
 2.1 geografische Datenverarbeitung\\
 2.1.1 Bezugssysteme\\
 2.1.2 Geometriearten\\
-2.1.2 PostGIS\\
+2.1.3 GIS\\
+2.1.4 PostGIS\\
 2.2 NoSQL\\
 2.2.1 Abgrenzung zu relationalen Systemen\\
 2.2.2 NoSQL GIS\\
