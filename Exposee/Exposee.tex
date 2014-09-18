@@ -163,6 +163,11 @@ a4paper,     %% defines the paper size: a4paper (default), a5paper, letterpaper,
 }
 
 
+% bibtex
+%\usepackage[numbers]{natbib}
+%\usepackage[style=authortitle-icomp]{biblatex}
+
+
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %%%
 %%% user defined commands
@@ -346,7 +351,7 @@ Denkbare Systeme sind folgende:
 \item PostGIS mit Optimierung durch Reorganisation der Datenbank und verteilte Verwendung\footnote{Dazu zählt Multi-Master Replikation, Load-Balancing und clustering}
 \item MongoDB mit spatial Extension\footnote{vorhandene oder mit GDAL Treibern ein Mapping zwischen Geometrieobjekten und BSON erstellen (plus eigenen Indexen und Analyse- und Verarbeitungsfunktionen)}
 \item Spacebase
-\item Hadoop, Hive und ArcGis
+\item Hadoop, Hive und ArcGis\cite{website:esri-hadoop1}
 \item Hadoop mit einer spatial Datenbank und spatial Extension
 \item AsterixDB mit spatial Extension
 \end{itemize}
@@ -396,29 +401,17 @@ Die Thesis wird zum ersten Oktober 2014 angemeldet und ist spätestens am 31 Mä
 4.3 Verarbeitung\\
 4.4 Testumgebung\\
 4.5 Zusammenfassung\\
-5. System 2\\
-6. System 3\\
+5. System 2\cite{website:9}\\
+6. System 3\cite{website:7}\\
 7. Vergleich\\
 8. Schlussfolgerung\\
 
 
 
-\section{Literatur}
-\begin{itemize}
-\item \url{http://blogs.esri.com/esri/arcgis/2012/05/02/mongodb-example-code-for-adding-a-nosql-plug-in-data-source/}
-\item \url{http://www.paolocorti.net/2009/12/06/using-mongodb-to-store-geographic-data/}
-\item \url{http://www-users.cs.umn.edu/~shekhar/talk/2012/12.6.sbd.duke.pdf}
-\item \url{http://esri.github.io/gis-tools-for-hadoop/}
-\item \url{http://www.vldb.org/pvldb/vol6/p1009-aji.pdf}
-\item \url{https://www.youtube.com/watch?v=_JCPf89s-NI} plus \url{http://de.slideshare.net/Hadoop_Summit/grailer-hochmuth-june27515pmroom212v3}
-\item \url{http://video.arcgis.com/watch/2394/big-data-using-arcgis-with-apache-hadoop}
-\item \url{http://spatialhadoop.cs.umn.edu/}
-\item \url{http://backstopmedia.booktype.pro/big-data-dictionary/preface/}
-\item \url{http://www.rasdaman.de/}
-\item \url{http://en.wikipedia.org/wiki/SciDB}
-\item \url{http://www.openscg.com/wp-content/uploads/2013/03/NYC-PGday-BigSQL1.pdf}
+%\section{Literatur}
 
-\end{itemize}
+\bibliographystyle{alpha}
+\bibliography{literatur.bib}
 
 %%%
 %%% end main document
