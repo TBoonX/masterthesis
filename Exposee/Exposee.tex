@@ -305,7 +305,7 @@ Aus den Quelldaten werden Vektordaten für beispielsweise Verteilung der Grundd�
 
 Diese Menge an Daten ist essentiell für den Betrieb, weshalb diese strukturiert gespeichert und kostengünstig verarbeitet werden müssen.
 Nicht nur Agri Con steht vor dieser Notwendigkeit, sondern der Großteil der Unternehmen, die sich mit komplexen Geodaten beschäftigen.
-wie Monsanto, Google, Facebook, ESRI, OpenGEO, etc.
+wie Monsanto, Google, Facebook, ESRI, OpenGEO, etc.\cite{website:2}
 
 
 \section{Fragestellung}
@@ -332,6 +332,8 @@ Dabei soll die Filterung anhand von Meta- und Geoinformationen erfolgen.
 Neben der Datenhaltung soll auch die Verarbeitung verteilt durchführbar sein.
 Die Laufzeit ist eine essentielle Anforderung, wie auch der Umfang der geographischen Funktionen, wobei die Qualität der Funktionen die Laufzeit wesentlich beeinflusst.
 
+Für dieses Szenario wird ein System gesucht oder ist ein System zu entwerfen.\\\\
+
 
 Raumbezogene OpenSource Systeme bestehen zumeist aus PostgreSQL mit PostGIS, MariaDB, CouchDB mit GeoCouch oder MongoDB als Datenbank und einer beliebigen Middleware.
 Werden jedoch komplexe raumbezogene Datentypen und Funktionen benötigt, ist nur PostgreSQL mit PostGIS in solchen Systemen anzutreffen.
@@ -349,11 +351,14 @@ Zur Datenhaltung und -verarbeitung wird PostGreSQL mit der Erweiterung PostGIS v
 Denkbare Systeme sind folgende:
 \begin{itemize}
 \item PostGIS mit Optimierung durch Reorganisation der Datenbank und verteilte Verwendung\footnote{Dazu zählt Multi-Master Replikation, Load-Balancing und clustering}
-\item MongoDB mit spatial Extension\footnote{vorhandene oder mit GDAL Treibern ein Mapping zwischen Geometrieobjekten und BSON erstellen (plus eigenen Indexen und Analyse- und Verarbeitungsfunktionen)}
+\item PostGIs mit Hadoop\cite{website:10}
+\item MongoDB mit spatial Extension\footnote{vorhandene Extensions sind zu analysieren oder mit GDAL Treibern ein Mapping zwischen Geometrieobjekten und BSON zu erstellen (plus eigenen Indexen und Analyse- und Verarbeitungsfunktionen)} auf Hadoop
 \item Spacebase
+\item Rasdaman\cite{website:7}
 \item Hadoop, Hive und ArcGis\cite{website:esri-hadoop1}
-\item Hadoop mit einer spatial Datenbank und spatial Extension
+\item Hadoop mit Neo4j\cite{ma:neo4j}
 \item AsterixDB mit spatial Extension
+\item einen BigTable Ansatz\cite{ba:dan}
 \end{itemize}
 
 
@@ -386,13 +391,13 @@ Die Thesis wird zum ersten Oktober 2014 angemeldet und ist spätestens am 31 Mä
 1.2 Zielsetzung\\
 2. Grundlagen\\
 2.1 geografische Datenverarbeitung\\
-2.1.1 Bezugssysteme\\
-2.1.2 Geometriearten\\
-2.1.3 GIS\\
+2.1.1 Bezugssysteme\cite{book:kudrass}\\
+2.1.2 Geometriearten\cite{book:gi-theopluspraxis3}\\
+2.1.3 GIS\\cite{book:gi-theopluspraxis}\
 2.1.4 PostGIS\\
 2.2 NoSQL\\
 2.2.1 Abgrenzung zu relationalen Systemen\\
-2.2.2 NoSQL GIS\\
+2.2.2 NoSQL GIS\cite{ba:nosqlfuergeodaten}\\
 2.3 Leistungstests\\
 3. Ausgangssituation\\
 4. System 1\\
