@@ -13,3 +13,58 @@ Hadoop+HBase Speicherung Messdaten
 Eumonis
 schemadesign in HBase
 Phoernix framework zur datenabfrage
+
+
+---------------------------------------------------------------------
+
+BA Thurm: Einsatz von NoSQL-Datenbanksystemen für Geodaten
+
+grober Inhalt: NoSQL definition, analyse vorhandener noSQL Systeme und spatial extensions, vorstellung vorhandener implementierungen, allgemeine aussage über eignung von nosql für spatial data
+
+Kapitel 1:
+NoSQL orignal im Zusammenhang mit Carlo Strozzi
+Big Table Google plus GFS -> Standardserver, verteilt, wachsende Datenmengen
+amazon Dynamo
+Konferenz in San Francisco -> NoSQL
+NoSQL Definition von Stefan Edlich
+Skalierung def.
+CAP: beschreibende Definition
+ACID/BASE
+MapReduce: mit Edlich als Quelle
+
+Kapitel 2:
+Kategorisierung:
+  Key/value:	Beispiel Redis mit Persistenzmodi, verteilt und Datentypen wie List
+	        spatial nicht verfügbar (nur binärablage)
+  Wide Column Stores:	Big Table, Hadoop und cassandra
+			Datenhaltung: Map zeigt auf columns
+			Cassandra super column und consitent hashing
+			spatial extension nicht vorhanden, Datenhaltung macht es aber möglich (google als vorbild)
+  Document stores:	JSON/BSON
+			CouchDB 
+		      
+
+
+---------------------------------------------------------------------
+
+Taschenbuch Datenbanken
+
+S. 21 
+"Ein Datenmodell enthällt drei Bestandteile:
+- Datenstrukturen: Objekte und deren Beziehungen (statische Eigenschaften)
+- Operationen und Beziehungen zwischen Operationen (dynamische Eigenschaften)
+- Integraionsbedingungen auf Objekten und Beziehungen. Dies sind Regeln, die die Menge der erlaubten Zustände bzw. Zustandsübergänge definieren. Sie können modellinhärent sein oder explizit definiert werden."
+
+S. 22
+"Ein Datenbankmodell ist ein Datenmodell für ein Datenbanksystem. Es bestimmt. auf welche Art und Weise Daten prinzpiell gespeichert werden und wie man die Daten manipulieren kann."
+
+S. 32
+"Ein Informationssystem (IS) dient der rechnergestützten Erfassung, Speicherung, Verarbeitung, Pflege, Analyse, Verbreitung, Übertragung und Anzeige von Informationen. Es ist ein soziotechnisches System, das menschlische und maschinelle Komponenten (Teilsysteme) für die optimale Bereitstellung von Informationen und Kommunikation umfasst."
+
+S. 73
+relationales Datenmodell: relation - zeilen=Tupel und Spalten=Attribute
+
+S. 74
+"Ein Attribut repräsentiert eine Eigenschaft eines Objekttyps und wird über eine Tabellenspaöte abgebildet."
+"Eine Relation ist eine Teilmenge des kartesischen Produktes über den Wertebereich ihrer Attribute. Inhaltlich repräsentiert die Relation eine Menge von Objekten eines Objekttyps."
+
