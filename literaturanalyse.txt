@@ -56,7 +56,7 @@ S. 21
 - Integraionsbedingungen auf Objekten und Beziehungen. Dies sind Regeln, die die Menge der erlaubten Zustände bzw. Zustandsübergänge definieren. Sie können modellinhärent sein oder explizit definiert werden."
 
 S. 22
-"Ein Datenbankmodell ist ein Datenmodell für ein Datenbanksystem. Es bestimmt. auf welche Art und Weise Daten prinzpiell gespeichert werden und wie man die Daten manipulieren kann."
+"Ein Datenbankmodell ist ein Datenmodell für ein Datenbanksystem. Es bestimmt. auf welche Art und Weise Daten prinzipiell gespeichert werden und wie man die Daten manipulieren kann."
 
 S. 32
 "Ein Informationssystem (IS) dient der rechnergestützten Erfassung, Speicherung, Verarbeitung, Pflege, Analyse, Verbreitung, Übertragung und Anzeige von Informationen. Es ist ein soziotechnisches System, das menschlische und maschinelle Komponenten (Teilsysteme) für die optimale Bereitstellung von Informationen und Kommunikation umfasst."
@@ -68,3 +68,53 @@ S. 74
 "Ein Attribut repräsentiert eine Eigenschaft eines Objekttyps und wird über eine Tabellenspaöte abgebildet."
 "Eine Relation ist eine Teilmenge des kartesischen Produktes über den Wertebereich ihrer Attribute. Inhaltlich repräsentiert die Relation eine Menge von Objekten eines Objekttyps."
 
+S. 240
+"Das Speichersystem bildet die Speicherstrukturen der internen Satzschnittstelle auf Speicherseiten eines linearen virtuellen Adressraums ab. Aufgabe des Speichersystems ist es somit, die internen Datensätze und Einträge der Zugriffspfade auf Seiten fester Größe einzupassen. Hinzu kommen Operationen zur Verwaltung von Sperren sowie zur Wiederherstellung im Fehlerfall."
+
+S. 243
+"Lokalität bezeichnet die Eigenschaft, dass Zugriffe typischerweise auf einen kleineren Bereich der Datenbank bzw. des Externspeichers begrenzt sind."
+
+S. 262
+ACID:
+Atomarität: Transaktionen sind atomar, wodurch ein Abbruch einer Transaktion deren Operationen rückgängig macht.
+Konsistenz: Ende/Abbruch einer Transaktion mit Nachbedingung aller Intergritätsbedingungen
+Isolation: Transaktionen verschiedener Benutzer beeinflussen sich nicht gegenseitig
+Dauerhaftigkeit: Jede Änderung einer Transaktion ist nach Ende dieser auf die Festplatte geschrieben und nicht mehr im Puffer
+
+S. 284
+"Ein Index ist ein Verzeichnis von Dateneinträgen der Form (k, k*), das den effizienten Zugriff auf allen Einträgen mit einem Suchschlüsselwert k erlaubt. Dabei bezeichnet k den Wert eines Suchschlüssels (auch Zugriffsattribut) und k* den Verweis auf den Datensatz in der Datei, der k als Wert des Suchschlüssels enthält."
+
+S. 285
+"ein geclusteter Index ist (annähernd) in der gleichen Reihenfolge sortiert wie die Datei, auf die der Index verweist."
+
+S. 285 f
+"ein dicht besetzter Index(dense index) enthält enthällt für jeden Suchschlüsselwert, der in einem Datensatz der Datei vorkommt, (mindestens) einen Dateneintrag..."
+
+S. 286
+"Ein dünn besetzter Index (sparse Index) speichert nicht für jeden Suchschlüsselwert einen Eintrag im Index."
+
+S. 287
+ISAM: index-sequential access method, Grundlage ist eine sortierte Datei, neue Datei mit Index zu jeder Seite der Originaldatei einen Eintrag (mit dem ersten Schlüsselwert auf dieser Seite), auch Baumstruktur möglich (Blätter enthalten Dateneinträge und verweisen jeweils auf die Datenseite die als erste einen Satz mit dem Suchschlüsselwert k in der Hauptdatei enthält), statisch, effektiv wenn die Datei nicht häufig geändert wird, Überlaufseiten ergänzen Blattseiten um neue Dateneinträge, lange Ketten von Überlaufseiten mindern performanz von suchoperationen, häufige inserts oder deletes sind ungeeignet und erfordern oft eine Reorganisation
+
+S. 288
+B-Baum: "Der B-Baum ist ein dynamisch balancierter Indexbaum, bei dem jeder Indexeintrag auf eine Seite der Hauptdatei zeigt.", Höhe h und Ordnung m, Eigenschaften: "1. Jeder Weg von der Wurzel zum Blatt hat die Länge h (balanciert) 2. Jeder Knoten enthält mindestens m Elemente (außer der Wurzel) und  höchstens 2m Elemente (mindestens halbvolle Belegung) 3. Jeder Knoten ist entweder eine Blattseite oder hat höchstens 2m + 1 Kinder (maximale Belegung)", garantierte minimale Belegung von 50%, h beschreibt die Anzahl der Seitenzugriffe  als relevantes Maß für die Zugriffskosten, n Datensätze: Zugriff in maximal logm(n) Seitenzugriffen
+B+-Baum: Dateneinträge aussschließlich in Blattknoten, Blattknoten unidirektional verkettet, Ordnung ist hier (m -> Mindestbelegung für Indexseiten, m* -> Mindestbelegung der Blattseiten)
+
+S. 289
+Bulk Loading:  großer Datensatz wird sortiert und anschließend ein B-Baum aufgebaut
+
+S. 290
+digitale Bäume: Verfahren, mit Schlüsselwerten von Zeichenketten aus einem festen Alphabet, lexikografische Ordnung, nicht ausgeglichen, Vorteil ist das keine kompletten Schlüssel gespeichert werden müssen
+
+S. 291
+Hashing: Hashfunktion ordnet Speicherbereich (Bucket) einen Wert zu sodass ein direkter Zugriff möglich ist, erweitertes hashing  stellt eine dynamische Hashfunktion zur Verfügung (index wird dynamisch angepasst)
+
+S. 296
+"Die gemeinsame Speicherung von Datensätzen, die in typischen Anfragen zusammen benötigt werden, wird als Clustering bezeichnet."
+clusering: setzt Indeystruktur vorraus, kann nach Schlüsselattributen oder Fremdschlüsselattributen erfolgen
+"Bei der Partitionierung wird eine Relation in disjunkte Partitionen aufgeteilt, die auf verschiedenen Platten gespeichert werden."
+
+S. 297
+Partitionierung: Vorteile: Anfrageoptimierung durch auslasten der Partitionen; Vereinfachung der Administration der Partitionen; Paralelle Verarbeitung,
+				 Bereichspartitionierung, Round-Robin-Partitionierung, Hash-Partitionierung
+				 
