@@ -118,3 +118,19 @@ S. 297
 Partitionierung: Vorteile: Anfrageoptimierung durch auslasten der Partitionen; Vereinfachung der Administration der Partitionen; Paralelle Verarbeitung,
 				 Bereichspartitionierung, Round-Robin-Partitionierung, Hash-Partitionierung
 				 
+S. 333
+"Die Begriffe Benchmark (Maßstab) bzw. Benchmarking (Maßstäbe setzen) bezeichnen ein formalisiertes Konzept, um Verbesserungsmöglichkeiten durch Gegenüberstellung von Leistungsmerkmalen mehrerer vergleichbarer Objekte, Prozesse oder Programme zu finden."
+Benchmarkingergebnisse= Durchsatzwert und Preis-/Leistungsverhältniss
+
+TPC hat Benchmarks definiert: TPC-D wäre gut
+
+S. 394 ff.
+"Bei einem Mehrrechner-Datenbanksystem (MDBS) werden die Datenbankverwaltungsfunktionen auf mehreren Prozessoren bzw. Rechnern ausgeführt."
+MDBS shared everything: ein DBMS auf eng gekoppelten Multiprozessor-Rechnerumgebung
+     shared Nothing: Verarbeitung durch mehrere Rechner mit jeweils einem DBMS (Externspeicher ist unter den beteiligten Rechnern partitioniert)
+	 shared disk: mehrere lokal angeordnete, lose oder nah gekoppelte Rechner mit je einem DBMS und einer gemeinsamen Speicherzuordnung
+	 Lokal verteilte Systeme werden als parallele Datenbanksysteme bezeichnet
+
+S. 398
+"Verteilte Datenbanksysteme (VDBS) sind geografisch verteilte Shared-Nothing Systeme mit homogenen lokalen DBMS, die gemeinsam ein globales konzeptionelles DB-Schema unterstützen.
+Förderierte Datenbanksysteme (FDBS) sind ebenfalls geografisch verteilte Sgated nothing systeme, wobei die beteiligten lokalen DBMS eine höhere Autonomie aufweisen, d.h. dass jeweils eine eigene lokale Datenbank mit lokalem DB-schema vorliegt."
