@@ -134,3 +134,12 @@ MDBS shared everything: ein DBMS auf eng gekoppelten Multiprozessor-Rechnerumgeb
 S. 398
 "Verteilte Datenbanksysteme (VDBS) sind geografisch verteilte Shared-Nothing Systeme mit homogenen lokalen DBMS, die gemeinsam ein globales konzeptionelles DB-Schema unterstützen.
 Förderierte Datenbanksysteme (FDBS) sind ebenfalls geografisch verteilte Sgated nothing systeme, wobei die beteiligten lokalen DBMS eine höhere Autonomie aufweisen, d.h. dass jeweils eine eigene lokale Datenbank mit lokalem DB-schema vorliegt."
+
+S. 404
+"Zuverlässigkeit entspricht der Wahrscheinlichkeit, dass das System zu einem bestimmten Zeitpunkt läuft;
+Verfügbarkeit ist die Wagscheinlichkeit, dass während einer bestimmten Zeitdauer ein Zugriff möglich ist."
+
+S. 497
+"Geoobjekte ((geographic)features) besitzen eine ausgezeichnete geometrische Eigenschaft, auf die sich räumliche Anfragen und Operationen beziehen. Daneben können sie weitere (geometrische und nicht geometrische) Eigenschaften aufweisen. Geoobjekte dienen der Beschreibung von Objekten oder Phänomenen der realen Welt, die einen Lagebezug zur Erde aufweisen."
+"Topologische Eigenschaften dienen zur Beschreibung der relativen räumlichen Beziehungen von Geoobjekten zueinander, wobei von der Geometrie abstrahiert wird."
+
