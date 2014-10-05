@@ -41,10 +41,27 @@ Kategorisierung:
 			Cassandra super column und consitent hashing
 			spatial extension nicht vorhanden, Datenhaltung macht es aber möglich (google als vorbild)
   Document stores:	JSON/BSON
-			CouchDB 
-		      
+			CouchDB mit Maparedue und Mvcc
+			 -> Geocouch: GeoJSON, bisher nur bounding box abfragen, GDAL enthalten wodurcj alle simple fesature objekte gespeichert und indexiert werden können
+			 Mongodb mit Punktoberationen
+graphendatenbanken:	Graphen, wird für semantic web verwendet (RDF und sparql)
+			kanten und knoten besitzen mehrere attribute -> datenhaltung: <String, Object>
+			strukturiert
+			abstriche bei skalierbarkeit
+			Neo4j: Tinkerpop graph processing stack für schnitstelle, tinkerpop gremlin oder cypher als traversierungssprache, apache lucene auch für die suche verwendbar
+			ACID
+			neo4j spatial: basiert auf gis toolkits, gis funktionalität für java, versteht alle ogc simple features und shapefiles
+			
+Kapitel 3:
+Machbarkeit nosql für geodaten
 
-
+was sind geodaten: strukturen mit raumbezug, vektor oder rasterdarstellung
+Datenhaltung: BLOB oder strukturiert(topologie und metrik)
+Objektorientierte DBs  bieten vorteile - iso 19107
+es muss ein kompromiss aus skalierbarkeit und komplexität gefunden werden
+Indexierung: Couchdb mit R-Tree, MOngodb mit Geohash
+komplexe geodatentypen in DBs: Indexierung mindestens in 2 Richtungen notwendig, komplexität sollte mit unterstützt werden oder andere vorteile müssen weniger komplexe datenhaltungsmöglichkeiten aufwiegen, 
+			
 ---------------------------------------------------------------------
 
 Taschenbuch Datenbanken
