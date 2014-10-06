@@ -160,3 +160,51 @@ S. 497
 "Geoobjekte ((geographic)features) besitzen eine ausgezeichnete geometrische Eigenschaft, auf die sich räumliche Anfragen und Operationen beziehen. Daneben können sie weitere (geometrische und nicht geometrische) Eigenschaften aufweisen. Geoobjekte dienen der Beschreibung von Objekten oder Phänomenen der realen Welt, die einen Lagebezug zur Erde aufweisen."
 "Topologische Eigenschaften dienen zur Beschreibung der relativen räumlichen Beziehungen von Geoobjekten zueinander, wobei von der Geometrie abstrahiert wird."
 
+S. 500
+ISO 19107: spatial schema, beschreibt geometrische Objekte und Eigenschaften sowie deren Beziehungen
+
+S. 502
+"Simple Features sind Geometrien im zweidimensionellen Raum, deren Stützpunkte geradlinig verbunden sind."
+
+S. 506
+"Räumliche Bezugssysteme (spatial reference systems) erlauben die Interpretation der gespeicherten Koordinaten als Beschreibung von Lage- und Ausdehnungsinformationen in einem (realen)  Datenraum. Ein räumliches Bezugssystem besteht aus einem Koordinatensystem (coordinate system), einem Geltungsbereich und Angaben, die es erlauben, Daten aus unterschiedlichen Koordinatensystemen auf ein globales System abzubilden."
+
+S. 509ff
+geometrische funktionen wie intersection
+topologische Prädikate (innere und äußere Ränder -> charakterisierung)
+Operationen mit topologischen prädikaten möglich (matrix mit wahrheitswerten)
+
+S. 516
+mehrstufige Anfragebearbeitung
+
+S. 517
+"Räumliche Indexe (Spatial Access Methods, SAM) dienen dazu, die Kandidaten zu bestimmen, die potentiell eine Anfragebedingung erfüllen."
+
+S.518
+anforderungen an räumliche Indexstrukturen:
+	Approximationen sind zu verwalten
+	effiziente ausführung -> benachbarte daten auch im selben Datenbankblock
+	einfügen und löschen und update darf die effizienz kaum verändern
+	gute speicherplatzauslastung
+	speicherplatzauslastung und Bearbeitungszeit unabhängig von Ungleichverteilung der Geoobjekte
+	
+S. 519
+"Clipping ordnet ein Geoobjekt bzw. dessen Approximation jeder Blockregion zu, die es schneidet."
+Punkttransformation: Überführung k-dimensionaler Rechtecke in 2k-dikmensionelle Punkte
+
+S. 520
+fraktale Kurven
+
+S. 521ff
+Quadtrees: "sind räumliche Datenstrukturen, die einen k-dimensionalen Datenraum rekursiv in 2^k gleich große Zellen unterteilen."
+			lineare quadtrees: abbildung quadtree in 1-dimensionalen raum -> Indexstruktur (B+ Baum)
+			Datenraumbeszogener lieare quadtree: Quadtree-zellen in Z-Werten mit indexstruktur
+			Datenbezogene lineare quadtrees: approximieren der geometrien durch eine oder mehrere Quadtree-Zellen, wieder Z-werte und indexstruktur
+			
+S. 523ff
+R-Bäume: "organisieren k-dimensionale Rechtecke mithilfe überlappender Blockregionen", balancierte bäume,
+		Verzeichnissknoten: Tupel (ref, mur), ref ist Verweis auf direkten Nachfahren, mur ist minimal umgebende Rechteck alle Rechtecke der Kindknoten
+		Datenknoten: mor ist das eigentliche geoobjekt
+		
+R*-Bäume: neue einfügeoperation welche den baum schrittweise organisiert
+
