@@ -60,7 +60,10 @@ Datenhaltung: BLOB oder strukturiert(topologie und metrik)
 Objektorientierte DBs  bieten vorteile - iso 19107
 es muss ein kompromiss aus skalierbarkeit und komplexität gefunden werden
 Indexierung: Couchdb mit R-Tree, MOngodb mit Geohash
-komplexe geodatentypen in DBs: Indexierung mindestens in 2 Richtungen notwendig, komplexität sollte mit unterstützt werden oder andere vorteile müssen weniger komplexe datenhaltungsmöglichkeiten aufwiegen, 
+GeoCouch und neo4j besitzen einzig mehrdimensionalen Index
+komplexe geodatentypen in DBs: Indexierung mindestens in 2 Richtungen notwendig, komplexität sollte mit unterstützt werden oder andere vorteile müssen weniger komplexe datenhaltungsmöglichkeiten aufwiegen
+key/value oder wide column store nur geeignet wenn sehr große Datenmenge, dokumentbasiert durch multidimensionale abfrage, spatial extension und mapreduce geeigneter, graphbasiert speichert komplex strukturierte
+
 			
 ---------------------------------------------------------------------
 
@@ -207,4 +210,6 @@ R-Bäume: "organisieren k-dimensionale Rechtecke mithilfe überlappender Blockre
 		Datenknoten: mor ist das eigentliche geoobjekt
 		
 R*-Bäume: neue einfügeoperation welche den baum schrittweise organisiert
+
+--------------------------------------------------------------------------------------------------
 
