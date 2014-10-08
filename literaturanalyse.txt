@@ -62,7 +62,25 @@ es muss ein kompromiss aus skalierbarkeit und komplexität gefunden werden
 Indexierung: Couchdb mit R-Tree, MOngodb mit Geohash
 GeoCouch und neo4j besitzen einzig mehrdimensionalen Index
 komplexe geodatentypen in DBs: Indexierung mindestens in 2 Richtungen notwendig, komplexität sollte mit unterstützt werden oder andere vorteile müssen weniger komplexe datenhaltungsmöglichkeiten aufwiegen
-key/value oder wide column store nur geeignet wenn sehr große Datenmenge, dokumentbasiert durch multidimensionale abfrage, spatial extension und mapreduce geeigneter, graphbasiert speichert komplex strukturierte
+key/value oder wide column store nur geeignet wenn sehr große Datenmenge, dokumentbasiert durch multidimensionale abfrage, spatial extension und mapreduce geeigneter, graphbasiert speichert komplex strukturiert
+Rasterdaten wichtig, wurden von goolges big table mit wide column store gespeichert
+
+
+Kapitel 4:
+Webpräsenz mit couchdb/geocouch
+R-Tree indexierung, punkte und polygone anzeigbar, momentan nur bounding box abfragen
+
+
+Kapitel 5:
+Neo4J Beispiel mit verbunden Punkten und vektordaten des osm
+topologische  analyse möglich
+OSM Import eingebaut
+topologische vorteile gegenüber objektorientierten Datenbanken
+BEschreibung der Neo4J Graphen
+
+
+Kapitel 6:
+Zusammenfassung
 
 			
 ---------------------------------------------------------------------
