@@ -230,4 +230,16 @@ R-Bäume: "organisieren k-dimensionale Rechtecke mithilfe überlappender Blockre
 R*-Bäume: neue einfügeoperation welche den baum schrittweise organisiert
 
 --------------------------------------------------------------------------------------------------
+MA Untersuchung von Techniken verteilter Datenbanksysteme zur Speicherung und Abfrage von räumlichen Daten, Jörn Ahlers
 
+Kapitel 1:
+Vorstellung Postgre und postgis und oracle 11g und ESXI(Virtualisierungssoftware)
+
+
+Kapitel 2:
+ausführliche Definitionen: verteilte Systeme, Datenbanken, verteilte DB, parallele DB, Replikationsverfahren
+
+
+Kapitel 3:
+verteilte Geodatenbanksysteme
+homogene prä-integrierte Datenbanksysteme, heterogene prä-integrierte Datenbanksysteme, post-integrierte Geodatenbanksysteme, Parallele Geodatenbanksysteme
