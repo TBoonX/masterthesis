@@ -39,7 +39,7 @@ Modellierung der Eumonisdatensätze für Apache HBaseSoftwarearchitektur zur Ers
 Kapitel 4:
 Zugriff auf Apache HBase
 API
-Phoernix framework zur datenabfrage
+Phoenix framework zur datenabfrage
 Evaluation des Rowkey-Design für lesende Anfragen
 
 
