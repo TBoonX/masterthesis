@@ -9,11 +9,44 @@ eigene query engine RESQUE: verwendet map/reduce von hadoop, hive anbindung, div
 ---------------------------------------------------------------------
 BA Dan
 
-Hadoop+HBase Speicherung Messdaten
-Eumonis
-schemadesign in HBase
-Phoernix framework zur datenabfrage
+Kapitel 1:
+Zielstellung:
+	evaluation Hadoop+HBase Speicherung Messdaten
+	Eumonis
+	schemadesign in HBase
 
+
+Kapitel 2:
+Definitionen: BigData, Cluster, Skalierbarkeit, Transparenz, NoSQL
+Hadoop
+HBase
+Datenmodell: logisch und physisch
+Lese- und Schreibpfad
+Konsistenzmodell
+
+
+Kapitel 3:
+Datenmodellierung und -migration in HBase
+Vergleich zu relationalen Systemen
+Datenbeschaffenheit
+Anforderungen an die Persistenzschicht der Eumonisplattform
+Forderungen des logischen Datenmodells von HBase
+HBase Schema- und Tabellendesign
+Modellierung der Eumonisdatensätze für Apache HBaseSoftwarearchitektur zur Erstellung von schreibenden Anfragen
+
+
+
+Kapitel 4:
+Zugriff auf Apache HBase
+API
+Phoernix framework zur datenabfrage
+Evaluation des Rowkey-Design für lesende Anfragen
+
+
+Kapitel 5:
+Zusammenfassung
+HBase kann für Szenario verwendet werden
+keine Aussage über Performanz möglich
 
 ---------------------------------------------------------------------
 
@@ -243,3 +276,17 @@ ausführliche Definitionen: verteilte Systeme, Datenbanken, verteilte DB, parall
 Kapitel 3:
 verteilte Geodatenbanksysteme
 homogene prä-integrierte Datenbanksysteme, heterogene prä-integrierte Datenbanksysteme, post-integrierte Geodatenbanksysteme, Parallele Geodatenbanksysteme
+
+
+Kapitel 4:
+PostgreSQL
+Grundlagen, Installation, Pgpool
+
+
+Kapitel 5:
+Oracle DB
+Grundlagen, Installation
+
+
+Kapitel 6:
+Zusammenfassung
