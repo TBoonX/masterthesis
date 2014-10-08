@@ -2,7 +2,7 @@ Hadoop GIS: A High Performance Spatial Data Warehousing System over MapReduce
 
 Indroduction ebschreibt Anforderungen an Umgebung: Big Data, high computation complexity
 there are two major problems to handle for spatial partitioning: spatial data skew problem and boundary object problem.
-spatial query algorith created
+spatial query algorithm created
 eigene query engine RESQUE: verwendet map/reduce von hadoop, hive anbindung, diverse staial query arten möglich (speziell für rasterdaten mit tiles)
 
 
@@ -221,7 +221,7 @@ S. 502
 "Simple Features sind Geometrien im zweidimensionellen Raum, deren Stützpunkte geradlinig verbunden sind."
 
 S. 506
-"Räumliche Bezugssysteme (spatial reference systems) erlauben die Interpretation der gespeicherten Koordinaten als Beschreibung von Lage- und Ausdehnungsinformationen in einem (realen)  Datenraum. Ein räumliches Bezugssystem besteht aus einem Koordinatensystem (coordinate system), einem Geltungsbereich und Angaben, die es erlauben, Daten aus unterschiedlichen Koordinatensystemen auf ein globales System abzubilden."
+"Räumliche Bezugssysteme (spatial reference systems) erlauben die Interpretation der gespeicherten Koordinaten als Beschreibung von Lage- und Ausdehnungsinformationen in einem (realen) Datenraum. Ein räumliches Bezugssystem besteht aus einem Koordinatensystem (coordinate system), einem Geltungsbereich und Angaben, die es erlauben, Daten aus unterschiedlichen Koordinatensystemen auf ein globales System abzubilden."
 
 S. 509ff
 geometrische funktionen wie intersection
