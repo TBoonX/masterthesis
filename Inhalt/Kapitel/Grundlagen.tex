@@ -22,6 +22,8 @@
 
 \subsubsection{LSM-Baum}
 
+\subsubsection{Geohash}
+
 \subsection{Mehrrechner-Datenbanksystem}
 
 \subsection{Verteiltes Datenbanksystem}
@@ -54,13 +56,20 @@
 
 \subsection{PostGIS}
 
+\subsection{GeoTools}
+
 
 
 \section{NoSQL}
 
 \subsection{Definition}
 
+\subsection{Kategorisierung}
+
 \subsection{Hadoop}
+
+\subsection{Accumulo}
+\url{https://en.wikipedia.org/wiki/Apache_Accumulo}
 
 \subsection{NoSQL GIS}
 
@@ -74,10 +83,66 @@
 
 \subsection{Rasdaman}
 
+\url{http://live.osgeo.org/de/overview/rasdaman_overview.html} :\\
+- Array-Datenbanksystem
+- PostgreSQL Aufsatz
+- Multi-Dimensionalität
+- eigene Anfragesprache
+- skalierend
+- unterstützt WCS Core und WCPS
+- Implementierte Standards: OGC WMS 1.3, WCS 2.0, WCS-T 1.4, WCPS 1.0, WPS 1.0
+- Lizenz: Clients und APIs: GNU Lesser General Public License (LGPL) version 3; Server-Engine: GNU General Public License (GPL) version 3
+- Unterstützte Plattformen: Linux, MacOS, Solaris
+- APIs: rasql, C++, Java
+
+
+\url{http://www.rasdaman.org/} :\\
+- open-source
+- "extends standard relational database systems with the ability to store and retrieve multi-dimensional raster data"
+
+
+\url{http://www.rasdaman.de/} :\\
+- "erlaubt die Ablage von unbeschränkt grossen multi-dimensionalen Arrays ("Rasterdaten") in einer konventionellen Datenbank"
 
 
 \subsection{Spacebase}
 
+\url{http://docs.paralleluniverse.co/spacebase/} :\\
+- serverseitig
+- in-memory
+- spatial data store
+- ausgelegt für viele rechner und hohen Durchsatz (real-time)
+- 2D und 3D Objekte mit 3D bbox
+- load balancing enthalten
+- spatial querys möglich
+- benötigt JVM
+- API für Java, Ruby, Python, Node.js, C++, Erlang
+- API stellt nur elementare spatial querys zur verfügung: intersect oder contains
+- eigene spatial querys können definiert werden
+
+\subsection{Geomesa}
+
+\url{http://www.eclipse.org/community/eclipse_newsletter/2014/march/article3.php} :\\
+- open-source
+- build on Accumulo and Hadoop
+- Supporting the GeoTools API
+- GeoServer Plugin
+- geohash for indexing
+
+
+\url{https://www.locationtech.org/proposals/geomesa} :\\
+- outperforming postgis with geoserver
+
+
+\url{http://de.slideshare.net/CCRinc/location-techdc-talk2-28465214}
+- Verwendung fraktaler Kurven
+- mit Spark und Scalding wesentlich schneller als PostGIS
+
+
+\url{https://docs.google.com/presentation/d/1NO0ppk8MfDs8Q-QcUidZCSZK7YYwd9RjJoHV1V4Yq_w/edit?pli=1#slide=id.p} :\\
+- 
+
+%storm vs spark: http://xinhstechblog.blogspot.de/2014/06/storm-vs-spark-streaming-side-by-side.html https://stackoverflow.com/questions/24119897/apache-spark-vs-apache-storm http://www.zdatainc.com/2014/09/apache-storm-apache-spark/
 
 \section{Leistungstests}
 
