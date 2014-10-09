@@ -87,3 +87,9 @@ sympy-plots-for-*.tex/
 
 # xindy
 *.xdy
+
+
+
+# Eclipse
+.project
+.texlipse
