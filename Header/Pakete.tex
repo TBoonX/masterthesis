@@ -44,20 +44,21 @@
 \usepackage{listings} 											% f�r angepasste Quellcodeansichten siehe
 % Kurzeinf�hrung unter http://blog.robert-kummer.de/2006/04/latex-quellcode-listing.html
 
-% Glossar und Abbildungsverzeichnis
-\usepackage[
-nonumberlist, %keine Seitenzahlen anzeigen
-acronym,      %ein Abk�rzungsverzeichnis erstellen
-toc          %Eintr�ge im Inhaltsverzeichnis
-]      %im Inhaltsverzeichnis auf section-Ebene erscheinen
-{glossaries}
-
 % verlinktes und Farblich angepasstes Inhaltsverzeichnis
 \usepackage[pdftex,
 colorlinks=true,
 linkcolor=InterneLinkfarbe,
 urlcolor=ExterneLinkfarbe]{hyperref}
 \usepackage[all]{hypcap}
+
+% Glossar und Abbildungsverzeichnis
+\usepackage[
+xindy,          %indexing phase
+nonumberlist, %keine Seitenzahlen anzeigen
+acronym,      %ein Abk�rzungsverzeichnis erstellen
+toc          %Eintr�ge im Inhaltsverzeichnis
+]      %im Inhaltsverzeichnis auf section-Ebene erscheinen
+{glossaries}
 
 % URL verlinken, lange URLs umbrechen
 \usepackage{url}
