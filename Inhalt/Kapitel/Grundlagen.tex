@@ -69,6 +69,30 @@
 \subsection{Hadoop}
 % http://blog.samibadawi.com/2012/03/hive-pig-scalding-scoobi-scrunch-and.html
 
+Hadoop ist ein unter der Apache Lizenz 2.0 stehendes Java-Framework zur Datenhaltung und Verarbeitung von großen Datenmengen auf mehrerern Computern.
+Es basiert auf dem Dateisystem HDFS und MapReduce.
+
+HDFS ist ein verteiltes Dateisystem, welches keine besonderen Anforderungen an die Hardware stellt und für die Verwendung von mehreren hundert bis tausend Computern\footnote{die in einem verteilten System teilnehmenden Computer heißen Knoten} ausgelegt ist.
+Es besitzt eine hohe Fehlertoleranz und ist für den Einsatz auf kostengünstiger Hardware ausgelegt.
+Hoher Datendurchsatz und die Verwendung großer Dateien\footnote{eine Datei kann mehrere Gigabyte bis mehrere Terrabyte groß sein und wird in Blöcke gleicher Länge aufgeteilt} sind wesentliche Merkmale.[vgl. \cite{paper:hadoop} S. 3]
+Die Datei-Blöcke werden redundant auf die Knoten verteilt.
+
+Die verteilte Verarbeitung übernimmt MapReduce.
+Entsprechend dem Namen entspring MapReduce aus der funktionalen Programmierung, in welcher die Funktionen \glqq map\grqq \ und \glqq reduce\grqq \ zum Einsatz kommen.
+So werden hier die Daten mit einer map-Funktion verändert und mit reduce-Funktion aggregiert.
+Ein Master weist die Daten und Funktionen den Slaves\footnote{auch Worker genannt} zu.
+Die Slaves führen die Funktionen mit den ihnen zugewiesenen Daten aus und speichern ihre Ergebnisse auf deren Festplatte ab.
+MapReduce wurde von Google definiert.
+Auch hier werden keine besonderen Anforderungen an die Hardware gestellt.[vgl. \cite{paper:mapreduce} S. 3]
+
+
+In Hadoop agiert eine Master-Slave Architektur, wobei der Name-Node\footnote{Master-Knoten} ankommende Anfragen bearbeitet und die Slave-Knoten organisiert.
+Hadoop wird meist nur als Grundgerüst verwendet und mit Datenbanken wie HBase, MongoDB oder PostgreSQL sowie mit Frameworks für die Nutzung wie Hive, Pig, Spark oder Scalding erweitert.
+
+
+
+
+
 \subsection{Accumulo}
 \url{https://en.wikipedia.org/wiki/Apache_Accumulo}
 

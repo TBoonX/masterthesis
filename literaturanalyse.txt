@@ -290,3 +290,8 @@ Grundlagen, Installation
 
 Kapitel 6:
 Zusammenfassung
+
+--------------------------------------------------------------------------------------------------
+
+MapReduce: Simpliﬁed Data Processing on Large Clusters
+
