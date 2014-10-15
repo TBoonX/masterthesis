@@ -5,15 +5,18 @@
 
 Die Agri Con GmbH verwaltet als Akteur im Bereich \glqq Precision Farming\grqq\ täglich mehrere Millionen geografische Punktdaten. Diese Daten werden von aktiven Landwirtschaftsmaschinen und durch die Verarbeitung durch firmeninterne und firmenexterne Mitarbeiter sowie Systeme erzeugt. Weiterhin fallen dadurch indirekt Vektor- und Rasterdaten an, welche gespeichert und anschließend verarbeitet werden müssen.
 Aus den Quelldaten werden Vektordaten für beispielsweise Verteilung der Grunddüngung erzeugt. Rasterdaten werden für \glqq N-Düngung\grqq\  verwendet, was unter anderem die Biomasse, die Nährstoffaufnahme und die Nährstoffverteilung beinhaltet.
-Diese Menge an Daten ist essentiell für den Betrieb, weshalb diese strukturiert gespeichert und kostengünstig verarbeitet werden müssen. Nicht nur Agri Con steht vor dieser Notwendigkeit, sondern der Großteil der Unternehmen, die sich mit komplexen Geodaten beschäftigen. wie Monsanto, Google, Facebook, ESRI, OpenGEO, etc.
+Diese Menge an Daten ist essentiell für den Betrieb, weshalb diese strukturiert gespeichert und kostengünstig verarbeitet werden müssen. Nicht nur Agri Con steht vor dieser Notwendigkeit, sondern der Großteil der Unternehmen, die sich mit komplexen Geodaten beschäftigen, wie Monsanto, Google, Facebook, ESRI, OpenGEO, etc.
+
+
+% Zur Verbreitung von Postgis leider nichts gefunden
 
 
 \section{Zielsetzung}
 Eine PostgreSQL Installation auf einem Computersystem stößt bei der aktuellen Nutzung durch Agri Con an die Leistungsgrenze.
-Aus diesem Grund ist die Speicherung und erste Verarbeitung in ein anderes System auszulagern.
+Aus diesem Grund ist die Speicherung und die Verarbeitung der Quelldaten in ein anderes System auszulagern.
 Dafür sind existierende \Gls{gis} zu untersuchen und deren Eignung für den in Kapitel 3 beschriebenen Anwendungsfall festzustellen. Der Schwerpunkt der Untersuchung sind die Möglichkeiten und Leistungsfähigkeit der räumlichen Datenverarbeitung.
 Dabei werden NoSQL und Open-Source Systeme höher gewichtet.
-Aus geeigneten Systemen werden bis zu 3 ausgewählt. Die Auswahl wird speziell untersucht und eine prototypische Installation\footnote{Dabei kann eine Installation aus mehreren Systemen bestehen und  eigens implementierte Funktionalitäten enthalten} erstellt.
+Aus geeigneten Systemen werden bis zu 3 ausgewählt. Die Auswahl wird speziell untersucht und eine prototypische Installation\footnote{Dabei kann eine Installation aus mehreren Systemen bestehen und eigens implementierte Funktionalitäten enthalten} erstellt.
 Somit sollen die Systeme mit dem Ist-Stand unter den Faktoren Kosten, Funktionalität und Leistungsfähigkeit verglichen werden.
 
 
