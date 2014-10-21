@@ -4,6 +4,25 @@ Indroduction ebschreibt Anforderungen an Umgebung: Big Data, high computation co
 there are two major problems to handle for spatial partitioning: spatial data skew problem and boundary object problem.
 spatial query algorithm created
 eigene query engine RESQUE: verwendet map/reduce von hadoop, hive anbindung, diverse staial query arten möglich (speziell für rasterdaten mit tiles)
+---------------------------------------------------------------------
+
+Seminararbeit Dan: Spark und Shark
+
+Kapitel 2:
+Map-Reduce bei bestimmten Algorithmen langsam, da Zwischenergebnisse auf der HDD landen
+Nutzung des Hauptspeichers für Zwischenergebnisse fördern fehleranfälligkeit
+SQL notwendig, da nicht nur Programmierer die systeme verwenden wollen
+
+Kapitel 3:
+Definitionen Haddop, Hive, Spark und Shark(sehr genau)
+
+Kapitel 4:
+Installationsbeschreibung
+Vergleich mit Hive und anderen verteilten Programmierumgebungen -> Fazit: Spark ist immer schneller
+
+Fazit:
+Es fehlen Daten für langen produktiven Einsatz und Skalierung
+aber besonders für Hive Nutzer empfehlenswert
 
 
 ---------------------------------------------------------------------
