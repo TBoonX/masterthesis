@@ -93,3 +93,8 @@ sympy-plots-for-*.tex/
 # Eclipse
 .project
 .texlipse
+
+
+
+# Skripte
+clean.sh
