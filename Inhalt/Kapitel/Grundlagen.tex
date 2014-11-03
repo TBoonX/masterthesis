@@ -6,17 +6,51 @@
 \subsection{Begriffsdefinitionen}
 
 \subsubsection{ACID}
-\Gls{acid}
+Die bekanntesten Vertreter von relationalen Datenbanksystemen wie Oracle, MySQL und PostgreSQL arbeiten transaktional nach \Gls{acid}.
+\Gls{acid} kann nach \cite{book:kudrass} S. 262 wie folgt definiert werden:
+\begin{description}
+\item[Atomarität] \hfill \\
+Transaktionen sind atomar, wodurch ein Abbruch einer Transaktion deren enthaltenen Operationen rückgängig macht.
+\item[Konsistenz] \hfill \\
+Das Ende oder der Abbruch einer Transaktion geht immer mit Nachbedingung aller Intergritätsbedingungen einher.
+\item[Isolation] \hfill \\
+Transaktionen verschiedener Benutzer beeinflussen sich nicht gegenseitig.
+\item[Dauerhaftigkeit] \hfill \\
+Jede Änderung einer Transaktion ist nach Ende dieser auf die Festplatte geschrieben und nicht mehr im Puffer vorhanden.
+\end{description}
+Die Definition dieses anerkannten Begriffes ist für Kapitel 2.3 notwendig.
 
 \subsubsection{MVCC}
-\Gls{mvcc}
+In grundlegenden relationalen Systemen werden Transaktionen verzögert oder sogar gesperrt, um Konsistenz und Isolation zu gewährleisten.
+\Gls{mvcc} erhöht die Effizienz des  blockierenden Verhaltens.
+Dabei werden von jedem Objekt mehrere Versionen verwaltet.
+Neue Versionen entstehen durch Änderungen einer anderen.
+Eine Transaktion verwendet die zu Transaktionsbeginn aktuelle Version.
+Dadurch werden die allgemeinen Sperrverfahren (siehe \cite{book:kudrass} S. 266 ff.) verbessert, indem lesende Transaktionen sich nicht gegenseitig blockieren und schreibende- gegen lesende Transaktionen nicht mehr synchronisiert werden müssen. (vgl. \cite{book:kudrass} S. 270)
 
 \subsubsection{BASE}
-\Gls{base}
+\Gls{base} ist ein optimistischer und sperrenfreier Ansatz mit fließender Konsistenz.
+\cite{book:nosql-einfuehrung}
+
+\subsubsection{CAP}
+\Gls{cap}
+
+\subsubsection{Partition Tolerance}
+
+\subsubsection{Eventual-Consistency}
+
+\subsubsection{Consistent-Hashing}
+
 
 %weitere Begriffsdefinitionen
 
 \subsection{Indexstrukturen}
+
+Indexstrukturen oder allgemein Zugriffsstrukturen dienen dem effizienten Zugriff auf Dateneinträge.
+Ein Index ist nach \cite{book:kudrass} S. 284 wie folgt definiert:
+\begin{quote}
+Ein Index ist ein Verzeichnis von Dateneinträgen der Form (k, k*), das den effizienten Zugriff auf allen Einträgen mit einem Suchschlüsselwert k erlaubt. Dabei bezeichnet k den Wert eines Suchschlüssels (auch Zugriffsattribut) und k* den Verweis auf den Datensatz in der Datei, der k als Wert des Suchschlüssels enthält.
+\end{quote}
 
 \subsubsection{R-Baum}
 

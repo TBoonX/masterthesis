@@ -28,6 +28,12 @@
 % Stil der Quellenangabe
 \bibliographystyle{alphadin}
 
+% Stil Zitate
+\renewenvironment{quote}
+               {\list{}{\rightmargin\leftmargin}%
+                \item\relax\small\begin{itshape}\ignorespaces}
+               {\unskip\unskip\end{itshape}\endlist}
+
 %Ausschluss von Schusterjungen
 \clubpenalty = 10000
 %Ausschluss von Hurenkindern
