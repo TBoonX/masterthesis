@@ -51,19 +51,60 @@ Ein Index ist nach \cite{book:kudrass} S. 284 wie folgt definiert:
 \begin{quote}
 Ein Index ist ein Verzeichnis von Dateneinträgen der Form (k, k*), das den effizienten Zugriff auf allen Einträgen mit einem Suchschlüsselwert k erlaubt. Dabei bezeichnet k den Wert eines Suchschlüssels (auch Zugriffsattribut) und k* den Verweis auf den Datensatz in der Datei, der k als Wert des Suchschlüssels enthält.
 \end{quote}
+Zugriffsstrukturen haben je nach Art und Umfang der Daten sowie entsprechend den Anforderungen an das \Gls{dbs} unterschiedliche Strukturen.
+In der einfachsten Struktur unterscheidet man nach Indexen die direkt die Daten beinhalten, auf die Daten zeigen oder eine Menge von Adressen beinhalten. (siehe \cite{book:kudrass} S. 284)
 
-
-\subsubsection{R-Baum}
+Im folgenden werden spezielle Indexstrukturen vorgestellt, da dieses Wissen zur Bewertung von \Gls{dbs} herangezogen werden müssen.
 
 \subsubsection{B-Baum}
 
+\begin{quote}
+Der B-Baum ist ein dynamisch balancierter Indexbaum, bei dem jeder Indexeintrag auf eine Seite der Hauptdatei zeigt.\footnote{\cite{book:kudrass} S. 288}
+\end{quote}
+Der Baum besitzt die Höhe h und die Ordnung m sowie die folgenden Eigenschaften:
+\begin{quote}
+1. Jeder Weg von der Wurzel zum Blatt hat die Länge h (balanciert)\\
+2. Jeder Knoten enthält mindestens m Elemente (außer der Wurzel) und  höchstens 2m Elemente (mindestens halbvolle Belegung)\\
+3. Jeder Knoten ist entweder eine Blattseite oder hat höchstens 2m + 1 Kinder (maximale Belegung)\footnote{ebenda}
+\end{quote}
+Diese Struktur garantiert eine Belegung von 50\%.
+Weiterhin beschreibt h die Anzahl der Seitenzugriffe als relevantes Maß für die Zugriffskosten und Datensätze n bedingen den Zugriff in maximal logm(n) Seitenzugriffen. (vgl. \cite{book:kudrass} S. 288)
+
+Eine Spezialisierung stellt der B+-Baum dar.
+Hierbei befinden sich die Dateneinträge ausschließlich in den Blattknoten.
+Die Blattknoten sind unidirektional verkettet.
+%Ordnung ist hier (m -> Mindestbelegung für Indexseiten, m* -> Mindestbelegung der Blattseiten) m>m*
+
 \subsubsection{LSM-Baum}
+Log structured merge tree
+
+\subsubsection{R-Baum}
+R-Bäume sind balancierte Bäume und \glqq organisieren k-dimensionale Rechtecke mithilfe überlappender Blockregionen\grqq \ (\cite{book:kudrass} S. 523)
+Diese Struktur wird folglich zur räumlichen Datenhaltung eingesetzt, da die Indexierung anhand räumlicher Informationen der Daten erfolgt.
+Ein Verzeichnisknoten besteht aus einem Tupel (ref, mur).
+ref steht für den Verweis auf den direkten Nachfahren und mur für das minimal umgebende Rechteck der Kindknoten.
+Datenknoten enthalten dagegen nur mur als eigentliches Geoobjekt. (vgl. \cite{book:kudrass} S. 523 ff.)
 
 \subsubsection{Geohash}
 
 \subsection{Mehrrechner-Datenbanksystem}
 
+\begin{quote}
+Bei einem Mehrrechner-Datenbanksystem (MDBS) werden die Datenbankverwaltungsfunktionen auf mehreren Prozessoren bzw. Rechnern ausgeführt.\footnote{\cite{book:kudrass} S. 394}
+\end{quote}
+Kudraß ergänzt dies durch folgende Unterscheidungen:
+\begin{description}
+\item[shared everything] \Gls{dbms} befindet sich auf eng gekoppelter Multiprozessor-Umgebung.
+\item[shared nothing] Die Verarbeitung erfolgt durch mehrere Rechner mit jeweils einem \Gls{dbms}, dabei ist der Externspeicher unter den beteiligten Rechnern partitioniert.
+\item[shared disk] Hierbei handelt es sich um mehrere lokal angeordnete, lose oder nah gekoppelte Rechner mit je einem \Gls{dbms} und einer gemeinsamen Speicherzuordnung. Lokal verteilte Systeme werden als parallele Datenbanksysteme bezeichnet.
+\end{description}
+
 \subsection{Verteiltes Datenbanksystem}
+
+\begin{quote}
+Verteilte Datenbanksysteme (VDBS) sind geografisch verteilte Shared-Nothing Systeme mit homogenen lokalen DBMS, die gemeinsam ein globales konzeptionelles DB-Schema unterstützen.
+Förderierte Datenbanksysteme (FDBS) sind ebenfalls geografisch verteilte Sgated nothing systeme, wobei die beteiligten lokalen DBMS eine höhere Autonomie aufweisen, d.h. dass jeweils eine eigene lokale Datenbank mit lokalem DB-schema vorliegt.\footnote{\cite{book:kudrass} S. 398}
+\end{quote}
 
 \subsection{Replikationsverfahren}
 
