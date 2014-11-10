@@ -122,11 +122,36 @@ Förderierte Datenbanksysteme (FDBS) sind ebenfalls geografisch verteilte Sgated
 
 \subsection{Datenformate}
 
-\subsubsection{Punkte}
 
-\subsubsection{Vektoren}
+\begin{quote}
+Geoobjekte sind räumliche Elemente, die zusätzlich zu Sachinformationen geometrische und topologische Eigenschaften besitzen und zeitlichen Veränderungen unterliegen können. Kennzeichnend für Geoobjekte sind somit Geometrie, Topologie, Thematik und Dynamik.\footnote{\cite{book:gi-theopluspraxis3} S. 133}
+\end{quote}
+De Lange definiert räumliche Objekte bzw. Geoobjekte ausreichend.
+Ein Geoobjekt enthält als Geometrie eine oder mehrere zwei- oder dreidimensionale Koordinaten, was die Lage, den Umfang und die Ausdehnung beschreibt.
+Zur Topologie zählt de Lange Umgebungen, Nachbarschaften, Teilmengen und Überlagerungen.
+Weiterhin werden Geoobjekte mit Sachinformationen gespeichert und je nach Anwendungsfall versioniert.[vgl. \cite{book:gi-theopluspraxis3} S. 133]
 
-\subsubsection{Raster}
+
+\subsubsection{einfache Geoobjekte}
+
+Ein Punkt besteht aus einer zwei- oder dreidimensionalen Koordinate und beliebigen Sach-, Topologie- und Dynamikinformationen.
+Mehrere Punkte bilden Linien.
+Bildet eine Linie eine geschlossene Fläche, handelt es sich um ein Polygon.
+
+\subsubsection{Vektorenmodell}
+
+Es besteht die Möglichkeit eine Menge von Punkten als Vektoren aufzufassen und daraus topologische Objekte entstehen zu lassen.
+Um damit geografisch zu modellieren, ist eine Diskretisierung d.h. eine Zuordnung der Vektoren notwendig. 
+
+\subsubsection{Rastermodell}
+
+Ein Raster löst einen rechteckigen Bereich mit in einem Koordinatensystem gleichmäßig angeordneten quadratischen Bildelementen bzw. Pixeln fester Größe auf.
+Geodaten werden ergo mit einer indizierten Matrix abgebildet.
+Ein dreidimensionales Raster heißt Voxel.
+\begin{quote}
+Ein Punkt wird näherungsweise durch ein einzelnes Pixel dargestellt. Ein Linienzug wird durch entsprechende Anordnungen zusammenhängender Pixel angenähert erfasst. Linienzüge können dann z.B. durch Folgen von Indexpaaren (Zeile, Spalte) der zugehörigen Pixel beschrieben werden. Eine Fläche ist ebenfalls durch zusammenhängende Pixel darstellbar. Somit sind keine weiteren Zusatzinformationen zur Modellierung von Flächen wie im Vektormodell notwendig [...].\footnote{\cite{book:gi-theopluspraxis3} S. 136}
+\end{quote}
+
 
 \subsubsection{Shapefile}
 
