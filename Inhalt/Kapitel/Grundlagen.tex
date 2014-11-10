@@ -142,16 +142,28 @@ Förderierte Datenbanksysteme (FDBS) sind ebenfalls geografisch verteilte Sgated
 
 \subsection{Definition}
 
-NoSQL steht für eine Bewegung der letzten 6 Jahre, in welcher die Abkehr von klassischen relationalen Systemen gefordert oder zumindest ein Umdenken angestrebt wird.
+NoSQL steht für eine Bewegung der letzten 6 Jahre, in welcher die Abkehr von klassischen relationalen Systemen gefordert oder zumindest ein Umdenken bestehender Strukturen, Vorgehen und Grundsätze angestrebt wird.
 Dies wird durch andere Abfragesprachen, nicht relationale Datenbanksysteme oder Neudefinitionen von Begriffen wie der Konsistenz zum Ausdruck gebracht.
-Auf einer Messe zu aktuellen Trends im Datenbankbereich wurde der Begriff NoSQL zuerst öffentlich verwendet.[vgl. ]
+Der Ursprung wird in der Literatur verschieden hergeleitet, jedoch wird immer zu den ersten Vertretern der NoSQL Bewegung Systeme mit einer anderen Abfragesprache und einfache Schlüssel-Hash Datenbanken gezählt.
+Auf einer Messe zu aktuellen Trends im Datenbankbereich wurde der Begriff NoSQL zuerst öffentlich für Lösungen dieser Bewegung verwendet [vgl. \cite{website:originnosql}] und ist seitdem ein Sammelbegriff für eine hohe Anzahl an Systemen.
 
 \subsubsection{NoSQL GIS}
 
+Ein \Gls{gis} ist wie folgt definiert:
+\begin{quote}
+Ein System,  das  auf einen Datenbestand zurückgreift und Auswertungen dieser Daten zulässt,  so dass Informationen abgeleitet und wiedergegeben werden können,  kann  allgemein  als  ein  Informationssystem  bezeichnet  werden. [...]
+
+Im Mittelpunkt  der  Geoinformatik  stehen  mit den  Geoinformationssystemen raumbezogene Informationssysteme, die im Gegensatz zu den übrigen Informationssystemen Geoobjekte  der realen Welt modellieren und diese in ein digitales Informationssystem abbilden [...]. Die Gegenstände eines Geoinformationssystems  besitzen  wie  auch  bei  allen  anderen  Informationssystemen  eine 
+Thematik (und Dynamik). Das Besondere bei Geoinformationssystemen ist, dass Geoobjekte darüber hinaus Geometrie und Topologie als implizite und untrennbare Bestandteile aufweisen!  Die Verarbeitung derartiger raumbezogener Informationen erfordert spezielle Werkzeuge bzw. Funktionen, die von den übrigen Informationssystemen nicht bereitgestellt werden [...].\footnote{\cite{book:gi-theopluspraxis3} S. 337}
+\end{quote}
+
+In Bezug auf NoSQL kann \Gls{gis} ebenso definiert werden, jedoch muss das zugrunde liegende System nicht relational sein.
+Im Rahmen dieser Arbeit ist mit \Gls{gis} ein System oder die Teilsysteme zur räumlichen Datenhaltung, Datenverarbeitung und Bereitstellung gemeint.
 
 \subsection{Kategorisierung}
 Edlich unterscheidet, wie andere Autoren, NoSQL Datenbanken nach vier Kategorien.
 Jedoch kann eine eindeutige Zuteilung nicht für jedes System erfolgen, da Prinzipien verschiedener Kategorien auf eines zutreffen können.
+Unter \url{http://nosql-database.org/} ist eine persönliche Übersicht der NoSQL Datenbanken von Herrn Edlich dargestellt.
 
 
 \subsubsection{Key Value Datenbank}
