@@ -155,6 +155,15 @@ Ein Punkt wird näherungsweise durch ein einzelnes Pixel dargestellt. Ein Linien
 \subsubsection{Shapefile}
 
 \subsection{GIS}
+\label{grundlagen:gis}
+
+Ein \Gls{gis} ist wie folgt definiert:
+\begin{quote}
+Ein System,  das  auf einen Datenbestand zurückgreift und Auswertungen dieser Daten zulässt,  so dass Informationen abgeleitet und wiedergegeben werden können,  kann  allgemein  als  ein  Informationssystem  bezeichnet  werden. [...]
+
+Im Mittelpunkt  der  Geoinformatik  stehen  mit den  Geoinformationssystemen raumbezogene Informationssysteme, die im Gegensatz zu den übrigen Informationssystemen Geoobjekte  der realen Welt modellieren und diese in ein digitales Informationssystem abbilden [...]. Die Gegenstände eines Geoinformationssystems  besitzen  wie  auch  bei  allen  anderen  Informationssystemen  eine 
+Thematik (und Dynamik). Das Besondere bei Geoinformationssystemen ist, dass Geoobjekte darüber hinaus Geometrie und Topologie als implizite und untrennbare Bestandteile aufweisen!  Die Verarbeitung derartiger raumbezogener Informationen erfordert spezielle Werkzeuge bzw. Funktionen, die von den übrigen Informationssystemen nicht bereitgestellt werden [...].\footnote{\cite{book:gi-theopluspraxis3} S. 337}
+\end{quote}
 
 \subsection{PostGIS}
 
@@ -166,45 +175,72 @@ Ein Punkt wird näherungsweise durch ein einzelnes Pixel dargestellt. Ein Linien
 
 \subsection{Definition}
 
-NoSQL steht für eine Bewegung der letzten 6 Jahre, in welcher die Abkehr von klassischen relationalen Systemen gefordert oder zumindest ein Umdenken bestehender Strukturen, Vorgehen und Grundsätze angestrebt wird.
+NoSQL steht für eine Bewegung des letzten Jahrzehnts, in welcher die Abkehr von klassischen relationalen Systemen gefordert oder zumindest ein Umdenken bestehender Strukturen, Vorgehen und Grundsätze angestrebt wird.
 Dies wird durch andere Abfragesprachen, nicht relationale Datenbanksysteme oder Neudefinitionen von Begriffen wie der Konsistenz zum Ausdruck gebracht.
 Der Ursprung wird in der Literatur verschieden hergeleitet, jedoch wird immer zu den ersten Vertretern der NoSQL Bewegung Systeme mit einer anderen Abfragesprache und einfache Schlüssel-Hash Datenbanken gezählt.
 Auf einer Messe zu aktuellen Trends im Datenbankbereich wurde der Begriff NoSQL zuerst öffentlich für Lösungen dieser Bewegung verwendet [vgl. \cite{website:originnosql}] und ist seitdem ein Sammelbegriff für eine hohe Anzahl an Systemen.
 
 \subsubsection{NoSQL GIS}
 
-Ein \Gls{gis} ist wie folgt definiert:
-\begin{quote}
-Ein System,  das  auf einen Datenbestand zurückgreift und Auswertungen dieser Daten zulässt,  so dass Informationen abgeleitet und wiedergegeben werden können,  kann  allgemein  als  ein  Informationssystem  bezeichnet  werden. [...]
-
-Im Mittelpunkt  der  Geoinformatik  stehen  mit den  Geoinformationssystemen raumbezogene Informationssysteme, die im Gegensatz zu den übrigen Informationssystemen Geoobjekte  der realen Welt modellieren und diese in ein digitales Informationssystem abbilden [...]. Die Gegenstände eines Geoinformationssystems  besitzen  wie  auch  bei  allen  anderen  Informationssystemen  eine 
-Thematik (und Dynamik). Das Besondere bei Geoinformationssystemen ist, dass Geoobjekte darüber hinaus Geometrie und Topologie als implizite und untrennbare Bestandteile aufweisen!  Die Verarbeitung derartiger raumbezogener Informationen erfordert spezielle Werkzeuge bzw. Funktionen, die von den übrigen Informationssystemen nicht bereitgestellt werden [...].\footnote{\cite{book:gi-theopluspraxis3} S. 337}
-\end{quote}
-
-In Bezug auf NoSQL kann \Gls{gis} ebenso definiert werden, jedoch muss das zugrunde liegende System nicht relational sein.
+In Bezug auf NoSQL kann \Gls{gis} wie in \ref{grundlagen:gis} definiert werden, jedoch muss das zugrunde liegende System nicht relational sein.
 Im Rahmen dieser Arbeit ist mit \Gls{gis} ein System oder die Teilsysteme zur räumlichen Datenhaltung, Datenverarbeitung und Bereitstellung gemeint.
 
 \subsection{Kategorisierung}
 Edlich unterscheidet, wie andere Autoren, NoSQL Datenbanken nach vier Kategorien.
 Jedoch kann eine eindeutige Zuteilung nicht für jedes System erfolgen, da Prinzipien verschiedener Kategorien auf eines zutreffen können.
 Unter \url{http://nosql-database.org/} ist eine persönliche Übersicht der NoSQL Datenbanken von Herrn Edlich dargestellt.
+Für dieses Kapitel diente wesentlich \cite{beamer:nosql} als Quelle.
 
 
 \subsubsection{Key Value Datenbank}
 
+Key Value Datenbanken speichern Daten in Tupeln aus Schlüssel und Wert.
+Der Key ist eine Zeichenkette oder ein Hashwert und der Datentyp von Value ist beliebig.
+Datenzugriff erfolgt über Key.
+Es existiert keine einheitliche Abfragesprache.
 
+Erste Datenbanken die zu NoSQL zugeordnet werden sind Key Value Datenbanken. Konkret DBM und BerkleyDB.
+Aktuelle Vertreter sind Amazon Dynamo, Riak, Voldemort und Redis.
+
+Diese Datenbanken eignen sich für heterogene Daten, horizontale Skalierung und Schemafreiheit.
 
 \subsubsection{Dokumentenbasierende Datenbank}
 
+Hierbei werden strukturierte Daten, hier Dokumente, unter einem Hash abgelegt und sind über diesen abrufbar.
+Diese Dokumente sind im großteil der dokumentenbasierten Datenbanken versioniert.
+Häufige Formate sind JSON, BSON und YAML.
+
+Ziel ist hier schemafreie Daten zu speichern und den Zugriff zu skalieren.
+Dabei können zumeist keine Joins verwendbar.
+
+Bekannte Vertreter sind MongoDB, CouchDB und Terrastore.
+
 \subsubsection{Spaltenorientierte Datenbank}
+
+Im Gegensatz zu zeilenorientierten Datenbanken legen spalteniorientierte Datenbanken ihre Werte, hier Attribute einer Tabelle, spaltenweise ab.
+
+Dies eignet sich für OLAP und Data Warehouse, da Spalteneinfügungen kostengünstig und Garbage Collection effektiv ist.
+Dagegen besteht ein hoher Aufwand beim Lesen und Schreiben von zusammengehörigen Spaltendaten.
+
+Googles Big Table erweitert diesen Ansatz und beschreibt es wie folgt:
+\begin{quote}
+A  Bigtable  is  a  sparse,  distributed,  persistent  multi-dimensional sorted map. The map is indexed by a row key, column key, and a timestamp; each value in the map is an uninterpreted array of bytes.\footnote{\cite{paper:bigtable} S. 1}
+\end{quote}
+Die mehrdimensionalen Tabellen oder Maps sind vom Format:\\
+$n*[Domain / Keyspace]\ x\ [item / Column\ Family]\ x\ [Key\ x]*n*[key+Value]$
 
 \subsubsection{Graphendatanbank Datenbank}
 
 Der bekannteste Vertreter der graphenbasierten Datenbanken ist Neo4J.
 Alle Daten und deren Beziehungen werden in Form von Graphen persistiert.
 Ein Graph besteht dabei aus Knoten und gerichteten Kanten.
-Somit lassen sich direkt Beziehungen zwischen den Daten definieren.
+Knoten sind dabei strukturierte Objekte und Kanten Beziehungen zwischen den Objekten.
+Diese strukturierten Objekte sind Key Value Tupel.
+Kanten können typisiert sein.
+Somit lassen sich direkt Beziehungen zwischen den Daten definieren, was sich für semantic web, social network, Bioinformatik und Internetrouting.
 
+Diese Datenbanken sind nur optional mit einem Schema versehen und besizten keine einheitliche Abfragesprache.
+Auch hier werden im allgemeinen keine Joins vorgesehen.
 
 
 \subsection{Hadoop}
