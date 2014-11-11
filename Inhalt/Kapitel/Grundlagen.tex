@@ -195,20 +195,20 @@ Für dieses Kapitel diente wesentlich \cite{beamer:nosql} als Quelle.
 \subsubsection{Key Value Datenbank}
 
 Key Value Datenbanken speichern Daten in Tupeln aus Schlüssel und Wert.
-Der Key ist eine Zeichenkette oder ein Hashwert und der Datentyp von Value ist beliebig.
+Der Key ist eine Zeichenkette oder ein Hashwert und der Datentyp von Value ist beliebig im Rahmen der Datentypen der Datenbank.
 Datenzugriff erfolgt über Key.
 Es existiert keine einheitliche Abfragesprache.
 
 Erste Datenbanken die zu NoSQL zugeordnet werden sind Key Value Datenbanken. Konkret DBM und BerkleyDB.
 Aktuelle Vertreter sind Amazon Dynamo, Riak, Voldemort und Redis.
 
-Diese Datenbanken eignen sich für heterogene Daten, horizontale Skalierung und Schemafreiheit.
+Diese Datenbanken eignen sich für heterogene Daten, horizontale Skalierung und Schemafreiheit, da diese einfach strukturierten Daten sich in keiner Relation zueinander befinden.
 
 \subsubsection{Dokumentenbasierende Datenbank}
 
 Hierbei werden strukturierte Daten, hier Dokumente, unter einem Hash abgelegt und sind über diesen abrufbar.
 Diese Dokumente sind im großteil der dokumentenbasierten Datenbanken versioniert.
-Häufige Formate sind JSON, BSON und YAML.
+Häufige Formate sind \Gls{json}, \Gls{bson} und YAML.
 
 Ziel ist hier schemafreie Daten zu speichern und den Zugriff zu skalieren.
 Dabei können zumeist keine Joins verwendbar.
@@ -222,14 +222,18 @@ Im Gegensatz zu zeilenorientierten Datenbanken legen spalteniorientierte Datenba
 Dies eignet sich für OLAP und Data Warehouse, da Spalteneinfügungen kostengünstig und Garbage Collection effektiv ist.
 Dagegen besteht ein hoher Aufwand beim Lesen und Schreiben von zusammengehörigen Spaltendaten.
 
-Googles Big Table erweitert diesen Ansatz und beschreibt es wie folgt:
+Googles Big Table erweitert diesen Ansatz und beschreibt es in dessen Paper wie folgt:
 \begin{quote}
 A  Bigtable  is  a  sparse,  distributed,  persistent  multi-dimensional sorted map. The map is indexed by a row key, column key, and a timestamp; each value in the map is an uninterpreted array of bytes.\footnote{\cite{paper:bigtable} S. 1}
 \end{quote}
 Die mehrdimensionalen Tabellen oder Maps sind vom Format:\\
 $n*[Domain / Keyspace]\ x\ [item / Column\ Family]\ x\ [Key\ x]*n*[key+Value]$
+%Dans zeug dazu anschauen
 
-\subsubsection{Graphendatanbank Datenbank}
+Googles Ansatz wurde OpenSource in HBase und Cassandra umgesetzt. Die konkrete Implementierung von Google wurde jedoch nicht veröffentlicht.
+HBase verwendet folgendes Format: Pro Table Zugriff auf Zeilen per Rowkey, diese enthalten Column Familys oder Spalten welche wiederum eine Map namens Column Qualifier mit Tupeln aus der Version als Schlüssel und ein Byte-Array als Wert besitzt.[vgl. \cite{ba:dan} S. 13]
+
+\subsubsection{Graphenbasierte Datenbank}
 
 Der bekannteste Vertreter der graphenbasierten Datenbanken ist Neo4J.
 Alle Daten und deren Beziehungen werden in Form von Graphen persistiert.
