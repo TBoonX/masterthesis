@@ -241,19 +241,19 @@ Ein Graph besteht dabei aus Knoten und gerichteten Kanten.
 Knoten sind dabei strukturierte Objekte und Kanten Beziehungen zwischen den Objekten.
 Diese strukturierten Objekte sind Key Value Tupel.
 Kanten können typisiert sein.
-Somit lassen sich direkt Beziehungen zwischen den Daten definieren, was sich für semantic web, social network, Bioinformatik und Internetrouting.
+Somit lassen sich direkt Beziehungen zwischen Daten definieren, was sich für semantic web, social network, Bioinformatik und Internetrouting eignet.
 
-Diese Datenbanken sind nur optional mit einem Schema versehen und besizten keine einheitliche Abfragesprache.
-Auch hier werden im allgemeinen keine Joins vorgesehen.
+Diese Datenbanken sind nur optional mit einem Schema versehen und besitzen keine einheitliche Abfragesprache.
+Auch sind im allgemeinen keine Joins vorgesehen.
 
 
 \subsection{Hadoop}
 % http://blog.samibadawi.com/2012/03/hive-pig-scalding-scoobi-scrunch-and.html
 
-Hadoop ist ein unter der Apache Lizenz 2.0 stehendes Java-Framework zur Datenhaltung und Verarbeitung von großen Datenmengen auf mehrerern Computern.
+Hadoop ist ein unter der Apache Lizenz 2.0 stehendes Java-Framework zur Datenhaltung und Verarbeitung von großen Datenmengen auf einem Verbund von mehrerern Computern.
 Es basiert auf MapReduce und dem Dateisystem HDFS.
 
-\Gls{hdfs} ist ein verteiltes Dateisystem, welches keine besonderen Anforderungen an die Hardware stellt und für die Verwendung von mehreren hundert bis tausend Computern\footnote{die in einem verteilten System teilnehmenden Computer heißen Knoten} ausgelegt ist.
+Das \Gls{hdfs} ist ein verteiltes Dateisystem, welches keine besonderen Anforderungen an die Hardware stellt und für die Verwendung von mehreren hundert bis tausend Computern\footnote{die in einem verteilten System teilnehmenden Computer heißen Knoten} ausgelegt ist.
 Es besitzt eine hohe Fehlertoleranz und ist für den Einsatz auf kostengünstiger Hardware ausgelegt.
 Hoher Datendurchsatz und die Verwendung großer Dateien\footnote{eine Datei kann mehrere Gigabyte bis mehrere Terrabyte groß sein und wird in Blöcke gleicher Länge aufgeteilt} sind wesentliche Merkmale.[vgl. \cite{paper:hadoop} S. 3]
 Die Datei-Blöcke werden redundant auf die Knoten verteilt und sind mit Hilfe des Name-Node abrufbar.[vgl. \cite{ba:dan} S. 7]
@@ -264,8 +264,20 @@ So werden hier die Daten mit einer map-Funktion verändert und mit reduce-Funkti
 Ein Master weist die Daten und Funktionen den Slaves\footnote{In diesem Zusammenhang auch Worker genannt} zu.
 Die Slaves führen die Funktionen mit den ihnen zugewiesenen Daten aus und speichern ihre Ergebnisse auf deren Festplatte ab.
 MapReduce wurde von Google definiert.
+In Abbildung \ref{fig:mapreduce} ist der beschriebe Ablauf dargestellt.
 Auch hier werden keine besonderen Anforderungen an die Hardware gestellt.[vgl. \cite{paper:mapreduce} S. 3]
 
+\begin{figure}[h]
+\centering
+\includegraphics[width=\textwidth]{Abbildungen/mapreduce.png}
+\caption[Übersicht der Ausführung von Googles MapReduce]{Übersicht der Ausführung von Googles MapReduce, Quelle: \cite{paper:mapreduce} S. 3}
+\label{fig:mapreduce}
+\end{figure}
+%\begin{center}
+%\centering
+%\includegraphics[width=12cm]{Abbildungen/Testumgebung.png}%
+%\captionof{figure}[Testumgebung]{Testumgebung}%
+%\end{center}
 
 Hadoop besitzt eine Master-Slave Architektur, wobei der Name-Node\footnote{damit ist der Master-Knoten gemeint, auch Jobtracker genannt} ankommende Anfragen bearbeitet und die Slave-Knoten organisiert.
 Hadoop ist per API verwendbar und bietet sich somit zur Stapelverarbeitung an. %Todo: belegen
