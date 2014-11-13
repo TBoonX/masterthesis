@@ -178,6 +178,8 @@ Im Mittelpunkt  der  Geoinformatik  stehen  mit den  Geoinformationssystemen rau
 Thematik (und Dynamik). Das Besondere bei Geoinformationssystemen ist, dass Geoobjekte darüber hinaus Geometrie und Topologie als implizite und untrennbare Bestandteile aufweisen!  Die Verarbeitung derartiger raumbezogener Informationen erfordert spezielle Werkzeuge bzw. Funktionen, die von den übrigen Informationssystemen nicht bereitgestellt werden [...].\footnote{\cite{book:gi-theopluspraxis3} S. 337}
 \end{quote}
 
+\subsection{GDAL}
+
 \subsection{PostGIS}
 
 \subsection{GeoTools}
@@ -313,26 +315,16 @@ Es wird meist nur als Grundgerüst verwendet und mit Datenbanken wie HBase, Mong
 
 \subsection{Rasdaman}
 
-\url{http://live.osgeo.org/de/overview/rasdaman_overview.html} :\\
-- Array-Datenbanksystem
-- PostgreSQL Aufsatz
-- Multi-Dimensionalität
-- eigene Anfragesprache
-- skalierend
-- unterstützt WCS Core und WCPS
-- Implementierte Standards: OGC WMS 1.3, WCS 2.0, WCS-T 1.4, WCPS 1.0, WPS 1.0
-- Lizenz: Clients und APIs: GNU Lesser General Public License (LGPL) version 3; Server-Engine: GNU General Public License (GPL) version 3
-- Unterstützte Plattformen: Linux, MacOS, Solaris
-- APIs: rasql, C++, Java
+Rasdaman ist ein Array-Datenbanksystem speziell zum speichern und verarbeiten von Rasterdaten.
+Es erweitert eine relationale Datenbank und wird mit  multi-dimensionalität der Daten, einer eigenen SQL ähnlichen Abfragesprache, Parallelisierung und Skalierbarkeit in beliebigen Maßstab sowie OGC konformen Diensten beworben.
+Es ist als Client bzw. API unter der \Gls{lgpl} 3 und als Server unter der \Gls{gpl} 3 für Linux, MacOS und Solaris verfügbar.
+Als OGC konforme Dienste werden WMS 1.3, WCS 2.0, WCS-T 1.4, WCPS 1.0 und WPS 1.0 bereitgestellt.
+Die API kann in Java, C++ und über die eigene Abfragesprache rasql verwendet werden.[vgl. \cite{website:rasdamanogeo}]
 
-
-\url{http://www.rasdaman.org/} :\\
-- open-source
-- "extends standard relational database systems with the ability to store and retrieve multi-dimensional raster data"
-
-
-\url{http://www.rasdaman.de/} :\\
-- "erlaubt die Ablage von unbeschränkt grossen multi-dimensionalen Arrays ("Rasterdaten") in einer konventionellen Datenbank"
+Es besteht die Möglichkeit, Rasdaman zu einer bestehenden PostgreSQL zu installieren und direkten Datenaustausch zwischen den beiden Systemen zu ermöglichen.
+Weiterhin kann Rasdaman in Verbindung mit GDAL verwendet werden.
+Momentan existiert eine Community und eine Enterprise Variante. Dabei verfügt die Enterprise Variante über mehr Features wie beispielsweise Datenkomprimierung, Serververwaltung per Webbrowser, Laufzeitoptimierungen und verschiedene Datenbankschnittstellen.
+Von der verwendeten Datenbank werden BLOB als Datenbankinterner Datentyp verwendet.[vgl. \cite{website:rasdamanowiki}]
 
 
 \subsection{Spacebase}
