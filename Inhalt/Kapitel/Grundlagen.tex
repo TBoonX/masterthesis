@@ -324,23 +324,22 @@ Die API kann in Java, C++ und über die eigene Abfragesprache rasql verwendet we
 Es besteht die Möglichkeit, Rasdaman zu einer bestehenden PostgreSQL zu installieren und direkten Datenaustausch zwischen den beiden Systemen zu ermöglichen.
 Weiterhin kann Rasdaman in Verbindung mit GDAL verwendet werden.
 Momentan existiert eine Community und eine Enterprise Variante. Dabei verfügt die Enterprise Variante über mehr Features wie beispielsweise Datenkomprimierung, Serververwaltung per Webbrowser, Laufzeitoptimierungen und verschiedene Datenbankschnittstellen.
-Von der verwendeten Datenbank werden BLOB als Datenbankinterner Datentyp verwendet.[vgl. \cite{website:rasdamanowiki}]
+Von der verwendeten Datenbank wird BLOB als Datenbankinterner Datentyp verwendet.[vgl. \cite{website:rasdamanowiki}]
 
 
 \subsection{Spacebase}
 
-\url{http://docs.paralleluniverse.co/spacebase/} :\\
-- serverseitig
-- in-memory
-- spatial data store
-- ausgelegt für viele rechner und hohen Durchsatz (real-time)
-- 2D und 3D Objekte mit 3D bbox
-- load balancing enthalten
-- spatial querys möglich
-- benötigt JVM
-- API für Java, Ruby, Python, Node.js, C++, Erlang
-- API stellt nur elementare spatial querys zur verfügung: intersect oder contains
-- eigene spatial querys können definiert werden
+Spacebase ist eine in Java programmierte geografische Datenbank mit Betonung auf Echtzeit und geringe Latenzen.
+Die Datenbank wird ausschließlich im Arbeitsspeicher gehalten und ausgeführt.
+Außerdem ist sie für die verteilte Nutzung auf mehreren Computern konzipiert.
+Räumliche Daten werden in 2D oder 3D mit einem dazugehörigen begrenzenden Rechteck im R-Baum gespeichert.
+SpaceBase ist für eine sehr große Anzahl an Abrufen und Veränderungen der Daten in Echtzeit geeignet.
+Für die räumliche Verarbeitung stehen Bereichsabfragen, Überschneidungsabfragen und allgemeine Join Abfragen zur Verfügung.
+Diese beschränken sich aber auf das begrenzende Rechteck, da die eigentliche Geometrie nur über eine Referenz im Datenobjekt abrufbar ist.
+Ergänzend besteht die Möglichkeit eigene Abfragen zu formulieren und dabei die referenzierte Geometrie zu verwenden.
+Es wird jedoch darauf hingewiesen, dass complexe Operationen auf diese Geometrie die Laufzeit der Berechnungen wesentlich erhöht.
+Zum Erreichen der geringen Latenzen werden räumliche Berechnungen parallelisiert und auf die Instanzen verteilt.
+Es stehen APIs für Java, C++, Erlang, Python, Ruby und Node.js zur Verfügung.[vgl. \cite{website:spacebase}]
 
 \subsection{Geomesa}
 
