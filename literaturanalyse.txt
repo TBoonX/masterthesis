@@ -314,3 +314,35 @@ Zusammenfassung
 
 MapReduce: Simpliﬁed Data Processing on Large Clusters
 
+--------------------------------------------------------------------------------------------------
+
+Basiswissen Softwarearchitektur
+
+S.71
+Einflussfaktoren wirken auf den Entwurf von Softwarearchitekturen ein.
+
+S. 74 ff.
+3 Arten von Einflussfaktoren: organisatorische, technologische und produktfaktoren
+organisatorische: schwer zu ändern; Ursprung in Organisation des Unternehmens; Unterteilung nach Hofmeister: Management, Mitarbeiter, Prozess- und Entwicklungsumgebung, Entwicklungszeitplan und Entwicklungsbudget
+technologische: Hard- und Softwaretechnologien und Standards die zum Einsatz kommen; Hofmeister: Hardware, Softwaretechnologien, Architekturtechnologien und Standards
+produktfaktoren: funktionalen und nicht funktionale Anforderungen and die Software; Liste: funktionale Anforderungen, Benutzerschnittstelle, Leistung, Zuverlässigkeit, Fehlererkennung und Dienste, Änderbarkeit, Testbarkeit
+
+S. 171
+allgemeines Vorgehen der Architekturbewertung:
+"Bewertungskriterien festlegen [wichtigsten Risiken aus der Spezifikation der Einflussfaktoren]
+ Messbarkeit der Kriterien sicherstellen
+ Bewertungsarten und Methoden festlegen
+ Durchführen der Bewertung
+ Zusammensetzen der Ergebnisse und Maßnahmen ergreifen"
+ 
+S. 172
+Bewertungsarten:
+"Umfangreiches, szenariobasiertes Assessment
+ Discovery Review
+ Gezielte Überprüfung
+ Ad-hoc-Bewertung"
+ 
+S. 175
+Qualitative  Techniken: umfassen Fragetechniken wie szenariobasierte  Bewertung, Fragebögen und Checklisten; zur Bewertung jeder Art von Faktoren; Gedankenexperiment zum zukünftigen Verhalten
+Quantitative Techniken: Simulation, Prototypen, Metriken und math. Modelle; Auusagen über spezifische Fragen; adressieren spezielle Qualitätsmerkmale wie Laufzeit
+
