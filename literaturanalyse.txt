@@ -344,5 +344,72 @@ Bewertungsarten:
  
 S. 175
 Qualitative  Techniken: umfassen Fragetechniken wie szenariobasierte  Bewertung, Fragebögen und Checklisten; zur Bewertung jeder Art von Faktoren; Gedankenexperiment zum zukünftigen Verhalten
-Quantitative Techniken: Simulation, Prototypen, Metriken und math. Modelle; Auusagen über spezifische Fragen; adressieren spezielle Qualitätsmerkmale wie Laufzeit
+Quantitative Techniken: Simulation, Prototypen, Metriken und math. Modelle; Aussagen über spezifische Fragen; adressieren spezielle Qualitätsmerkmale wie Laufzeit
+
+
+
+--------------------------------------------------------------------------------------------------
+
+
+Lehrbuch der Software-Technik
+
+S. 258 ff.
+Qualitätsmerkmale: 
+				unterteilung in Kriterien/Teilmerkmale
+				nach DIN 9126 geregelt (wurde durch ISO/IEC 25000 ersetzt, jedoch propriätär)
+					Funktionalität(Richtigkeit, Angemessenheit, Interoperabilität, Ordnungsmäßigkeit, Sicherheit), Zuverlässigkeit(Reife, Fehlertoleranz, Wiederherstellbarkeit), Benutzbarkeit(Verständlichkeit, Erlernbarkeit, Bedienbarkeit), Effizienz(Zeitverhalten, Verbrauchsverhalten), Änderbarkeit(Analysierbarkeit, Modifizierbarkeit, Stabilität, Prüfbarkeit), Übertragbarkeit(Anpaßbarkeit, Installierbarkeit, Konformität, Austauschbarkeit) <- Merkmale aus DIN, kriterien aus Buch
+
+
+--------------------------------------------------------------------------------------------------
+
+Software Engineering
+
+S. 63
+Qualität: DIN 55350-11 1995-08: Geamtheit von Eigenschaften und Merkmalen eines Produktes oder einer Tätigkeit, die sich auf die Eignung zur Erfüllung gegebener Erfordernisse beziehen.
+
+
+S. 446
+"Ein systematischer Test ist ein Test, bei dem
+die Randbedingungen definiert oder präzise erfasst sind,
+die Eingaben systematisch ausgewählt wurden,
+die Ergebnisse dokumentiert und nach Kriterien beurteilt werden, die vor dem Test festgelegt wurden."
+
+S. 455
+Testdefinition nach Grundlage
+"Werden die Testfälle auf Basis der in der Spezifikation geforderten Eigenschaften des Prüflings ausgewählt (z.B. Funktionalität, Antwortzeit), dann spricht man von einem Block-Box-Test oder auch von einem Funktionstest (19.5).
+Berücksichtigt man bei der Wahl der Testfälle die innere Struktur des Prüflings und die (durch spezielle Werkzeuge erstellten) Aufzeichnungen früherer Programmläufe, dann handelt es sich um einen Glass-Box-Test oder Struktur-Test (19.6)."
+
+S. 456
+Testklassifikation nach Aufwand
+
+S. 457
+Testklassifikation nach Komplexität des Prüflings
+f. Testklassifikation nach getesteter Eigenschaft
+
+S.458
+Testklassifikation nach beteiligten Rollen
+
+S. 471
+"Ein umfassender Black-Box-Test sollte
+alle Funktionen des Programms aktivieren (Funktionsüberdeckung),
+alle möglichen Eingaben bearbeiten (Eingabeüberdeckung),
+alle möglichen Ausgabeformen erzeugen (Ausgabeüberdeckung),
+die Leistungsgrenzen ausloten,
+die spezifizierten Mengengrenzen ausschöpfen,
+alle definierten Fehlersituationen herbeiführen."
+
+S. 278 f.
+IEEE Std 610.12: metric - A quantitative measure of the degree to which a system, component, or peocess possesses a given attribute.
+				 quality metric - a) dito
+								  b) A function whose inputs are software data and whose output is a single numerical value that can be interpreted as the degree to which the software possess a giben quality attribute.
+Kostenmetriken, Fehlermetriken,  Volumens- und Umfangsmetriken und Qualitätsmetriken
+
+S.280
+Anforderungen an Metriken: differenziert, vergleichbar, reproduzierbar, verfügbar, relevant, rentabel und plausibel
+
+S.283
+Metrikarten
+objektive Metrik: Messunf, Zählung, evtl. auch Normierung
+subjektive Metrik: Beurteilung durch Begutachter, verbal oder auf vorgegebener Skala
+Pseudometrik: Berechnung (auf Basis von Messungen und/oder Beurteilungen)
 
