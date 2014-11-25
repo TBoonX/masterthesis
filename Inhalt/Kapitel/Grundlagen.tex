@@ -398,10 +398,47 @@ CSV, TSV, Shapefile, GeoJSON, and GML können dagegen exportiert werden.
 - GIS Tools for Hadoop: "This project is intended as a place to include multiple samples that leverage the toolkit. The samples can leverage the low level libraries, or the Geoprocessing tools. A couple of samples are available to help you test the deployment of the spatial libraries with Hadoop and Hive, and make sure everything runs with no issues before you start leveraging the setup from your HQL queries, or from the GP tools. To check your deployment, for Hive and GP tools usage, the sample point-in-polygon-aggregation-hive can be utilized. The sample leverages the data and lib directories on the same path."\cite{website:esri-hadoop2} (Benötigt ArcGIS)\\
 - Apache License, Version 2.0
 
-\section{Leistungstests}
+\section{Tests}
 
 - siehe BA
 - in Absprache mit Prof. Riechert
+
+
+
+Die zu analysierenden Systeme sind mit Hilfe von Tests zu untersuchen und zu vergleichen.
+Diese Tests müssen einerseits vergleichend sein, ergo bei unterschiedlichen Systemen die gleichen Merkmale testen und wiederholbar sein, andererseits die relevanten Merkmale testen.
+
+
+\subsection{Funktionstests}
+Um die Systeme auf Softwarequalität, beschrieben auf Seite \pageref{softwarequalität}, zu testen, sind Funktionstests notwendig.
+\cite{book:softwareengineering} verweist auf Funktionstests auf Seite 455 wie folgt:
+\begin{quote}
+Werden die Testfälle auf Basis der in der Spezifikation geforderten Eigenschaften des Prüflings ausgewählt (z.B. Funktionalität, Antwortzeit), dann spricht man von einem Block-Box-Test oder auch von einem Funktionstest (19.5).
+\end{quote}
+Dazu wird auf Seite 471 der Umfang des Funktionstestes wie folgt umrissen:
+\begin{quote}
+Ein umfassender Black-Box-Test sollte\\
+alle Funktionen des Programms aktivieren (Funktionsüberdeckung),\\
+alle möglichen Eingaben bearbeiten (Eingabeüberdeckung),\\
+alle möglichen Ausgabeformen erzeugen (Ausgabeüberdeckung),\\
+die Leistungsgrenzen ausloten,\\
+die spezifizierten Mengengrenzen ausschöpfen,\\
+alle definierten Fehlersituationen herbeiführen.
+\end{quote}
+Im Rahmen dieser Arbeit soll dieser Umfang wie folgt begrenzt werden:
+\begin{description}
+\item[Funktionsabdeckung] Zur Einschätzung der Eignung eines Systems für den Anwendungsfall sind ausgewählte Funktionen zu testen, Im allgemeinen besitzen die ausgewählten Systeme Funktionen die in diesem Rahmen nicht genutzt werden sollen, jedoch auch Funktionen die von Hand ergänzt werden müssen. Die notwendige Menge an Funktionen soll einzig getestet und somit abgedeckt werden.
+\item[Eingabeüberdeckung] Auch hierbei stehen verschiedene von den Systemen bereitgestellte Schnittstellen und Austauschformate zur Verfügung, aber es sollen nur die relevanten untersucht werden.
+\item[Ausgabeüberdeckung] siehe Eingabeüberdeckung
+\item[Leistungsgrenzen] Dafür werden eigene Tests definiert und verwendet.\footnote{siehe \ref{Leistungstests}}
+\item[Mengengrenzen] 
+\item[Fehlersituationen] Es besteht nicht das Ziel die Fehleranfälligkeit als einzelnes Merkmal zu untersuchen. Einzig die Korrektheit der Berechnungen wird überprüft, indem die Ergebnisse des aktuellen ist-Standes zum Vergleich herangezogen werden.
+\end{description}
+
+%TODO Vorgehen bei den Tests beschreiben; da fehlende Funktionen ergänzt werden eventuell Funktionsabdeckung überarbeiten
+
+\subsection{Leistungstests}
+\label{Leistungstests}
 
 - Laufzeittests von Operationen und Berechnungen in form von Lasttests
 - Leistung=  erfolgreichen Verarbeitungsvorgängen pro Zeiteinheit unter gegebenen Vorrausetzungen (selbe algorithmen, ähnliche Umgebung)
@@ -410,4 +447,8 @@ CSV, TSV, Shapefile, GeoJSON, and GML können dagegen exportiert werden.
 - Überwachung der Systemauslastung ist notwendig
 - Benchmark von TPC sinnvoll
 - Benchmarks für objektorientierte Datenbanken sind nicht geeignet (001, 007, HyperModel, Justitia), da die die allgemeine Leistungsfähigkeit und Effektivität messen, jedoch für diesen Spezialfall ungeeignet sind da sie den Anwendungsfall nicht abbilden
-- 
+
+Leistungstests oder auch Benchmarks sind Laufzeittests von Operationen und Berechnungen.
+Dabei soll die spezielle Leistung eines Systemes gemessen werden,
+Unter Leistung versteht man die erfolgreichen Verarbeitungsvorgänge pro Zeiteinheit unter gegebenen Voraussetzungen.
+Es wird nur die spezielle Leistung gemessen, da ausgewählte Berechnungen durchgeführt werden und somit nicht die Leistung für einen allgemeinen Anwendungsfall.
