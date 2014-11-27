@@ -413,3 +413,30 @@ objektive Metrik: Messunf, Zählung, evtl. auch Normierung
 subjektive Metrik: Beurteilung durch Begutachter, verbal oder auf vorgegebener Skala
 Pseudometrik: Berechnung (auf Basis von Messungen und/oder Beurteilungen)
 
+
+
+--------------------------------------------------------------------------------------------------
+
+Leistungsanalyse paralleler Programme
+
+S. 20
+Quantifizierung einer Eigenschaft eines Systems = Leistungsindex
+Kesselman: Leistung=gewichtete Summation von Leistungsindizes
+McKerrow: Leistung=gewichtete Summation der Leistung bzgl. der einzelnen Leistungsindizes
+
+S. 21
+Speedup=Verhältnis der Ausführungszeiten zwischen der auf N Prozessoren ausgeführten parallelen Version eins Programms und der sequentiellen Version des Programmes
+Effizienz=Verhältnis des Speedups zur Anzahl der verwendeten Prozessoren
+
+S.24
+"Benchmarking ist eine Methode der Analyse des Leistungsverhaltens von Rechensystemen anhand von Referenzprogrammen oder Sätzen von Referenzprogrammen (Benchmarks). Dabei wird das Leistungsverhalten verschiedener Rechensysteme in Relation gesetzt, um so Vergleichskriterien  für Rechensysteme zu erhalten."
+
+S. 28
+"Unter Leistungsmessung versteht man die Beobachtung des Ablaufverhaltens eines Programms bei der Ausführung auf einem realen System. Das Ziel das dabei verfolgt wird, ist die Gewinnung von Erkenntnissen, die zur Optimierung eines Programms genutzt werden können."
+Verzögerungs-, Nutzungs- und Auslastungsindizes
+
+S. 59
+"Software-Monitore arbeiten ohne dedizierten Hardware. Sie teilen sich die Hardware-Ressourcen mit dem beobachteten Programm; dadurch ist eine Beeinflussung des beobachteten Programmablaufs unvermeitlich."
+
+S. 64
+Stichprobenverfahren:  statistisches verfahren; in gleichmäßigen Zeitabständen Befehlszähler  aufzeichnen; Qualität hängt an Frequenz und unabhängigkeit der Messung

@@ -408,6 +408,16 @@ CSV, TSV, Shapefile, GeoJSON, and GML können dagegen exportiert werden.
 Die zu analysierenden Systeme sind mit Hilfe von Tests zu untersuchen und zu vergleichen.
 Diese Tests müssen einerseits vergleichend sein, ergo bei unterschiedlichen Systemen die gleichen Merkmale testen und wiederholbar sein, andererseits die relevanten Merkmale testen.
 
+Es handelt es sich somit um systematische Tests:
+\begin {quote}
+Ein systematischer Test ist ein Test, bei dem\\
+die Randbedingungen definiert oder präzise erfasst sind,\\
+die Eingaben systematisch ausgewählt wurden,\\
+die Ergebnisse dokumentiert und nach Kriterien beurteilt werden, die vor dem Test festgelegt wurden.\footnote{\cite{book:softwareengineering} S. 446}
+\end{quote}
+
+Nachfolgend werden die Randbedingungen definiert und in Kapitel \ref{Anforderungen} die Ein- und Ausgaben dargestellt.
+
 
 \subsection{Funktionstests}
 Um die Systeme auf Softwarequalität, beschrieben auf Seite \pageref{softwarequalität}, zu testen, sind Funktionstests notwendig.
@@ -431,8 +441,8 @@ Im Rahmen dieser Arbeit soll dieser Umfang wie folgt begrenzt werden:
 \item[Eingabeüberdeckung] Auch hierbei stehen verschiedene von den Systemen bereitgestellte Schnittstellen und Austauschformate zur Verfügung, aber es sollen nur die relevanten untersucht werden.
 \item[Ausgabeüberdeckung] siehe Eingabeüberdeckung
 \item[Leistungsgrenzen] Dafür werden eigene Tests definiert und verwendet.\footnote{siehe \ref{Leistungstests}}
-\item[Mengengrenzen] 
-\item[Fehlersituationen] Es besteht nicht das Ziel die Fehleranfälligkeit als einzelnes Merkmal zu untersuchen. Einzig die Korrektheit der Berechnungen wird überprüft, indem die Ergebnisse des aktuellen ist-Standes zum Vergleich herangezogen werden.
+\item[Mengengrenzen] Die zu untersuchenden Systeme eignen sich zum Speichern großer Datenmengen die mehrere Terrabyte bis Petabyte umfassen. Da die vorhandenen Datenmengen diese Größe unterschreitet, müssen die Mengengrenzen nicht wesentlich getestet werden.
+\item[Fehlersituationen] Es besteht nicht das Ziel die Fehleranfälligkeit als einzelnes Merkmal zu untersuchen, weshalb dafür keine Testfälle erstellt oder durchgeführt werden. Einzig die Korrektheit der Berechnungen wird überprüft, indem die Ergebnisse des aktuellen ist-Standes zum Vergleich herangezogen werden. 
 \end{description}
 
 %TODO Vorgehen bei den Tests beschreiben; da fehlende Funktionen ergänzt werden eventuell Funktionsabdeckung überarbeiten
@@ -440,15 +450,25 @@ Im Rahmen dieser Arbeit soll dieser Umfang wie folgt begrenzt werden:
 \subsection{Leistungstests}
 \label{Leistungstests}
 
-- Laufzeittests von Operationen und Berechnungen in form von Lasttests
-- Leistung=  erfolgreichen Verarbeitungsvorgängen pro Zeiteinheit unter gegebenen Vorrausetzungen (selbe algorithmen, ähnliche Umgebung)
 - Lasttests zur Persistierung von Eingangsdaten
 - Lasttests zur Bereitstellung von verarbeiteten und eingabedaten (an UMN[plugin, WMS, Bilder oder über pgsql] oder allgemein)
 - Überwachung der Systemauslastung ist notwendig
-- Benchmark von TPC sinnvoll
-- Benchmarks für objektorientierte Datenbanken sind nicht geeignet (001, 007, HyperModel, Justitia), da die die allgemeine Leistungsfähigkeit und Effektivität messen, jedoch für diesen Spezialfall ungeeignet sind da sie den Anwendungsfall nicht abbilden
 
-Leistungstests oder auch Benchmarks sind Laufzeittests von Operationen und Berechnungen.
-Dabei soll die spezielle Leistung eines Systemes gemessen werden,
-Unter Leistung versteht man die erfolgreichen Verarbeitungsvorgänge pro Zeiteinheit unter gegebenen Voraussetzungen.
-Es wird nur die spezielle Leistung gemessen, da ausgewählte Berechnungen durchgeführt werden und somit nicht die Leistung für einen allgemeinen Anwendungsfall.
+Ein Kriterium der Untersuchung in dieser Arbeit ist die Leistung.
+Nach Kesselman in \cite{book:Leistungsanalyse} S. 20 ist Leistung die gewichtete Summation von Leistungsindizes, wobei ein Leistungsindex die Quantifizierung einer Eigenschaft eines Systems ist.
+Wesentliche Leistungsindizes sind Laufzeiten von einfachen oder komplexen Operationen.
+Es wird hier nur die spezielle Leistung gemessen, da ausgewählte Eigenschaften betrachtet werden und somit nicht die Leistung für einen allgemeinen Anwendungsfall.
+
+Der in diesem Zusammenhang in der Literatur verwendete Begriff Benchmark ist hier jedoch ungeeignet, da die Software und nicht die Hardware untersucht werden soll:
+\begin {quote}
+Benchmarking ist eine Methode der Analyse des Leistungsverhaltens von Rechensystemen anhand von Referenzprogrammen oder Sätzen von Referenzprogrammen (Benchmarks). Dabei wird das Leistungsverhalten verschiedener Rechensysteme in Relation gesetzt, um so Vergleichskriterien  für Rechensysteme zu erhalten.\footnote{\cite{book:Leistungsanalyse} S. 24}
+\end{quote}
+Eine hier betrachtete Leistungs- und Laufzeitmessung ist dabei wie folgt definiert:
+\begin {quote}
+Unter Leistungsmessung versteht man die Beobachtung des Ablaufverhaltens eines Programms bei der Ausführung auf einem realen System. Das Ziel das dabei verfolgt wird, ist die Gewinnung von Erkenntnissen, die zur Optimierung eines Programms genutzt werden können.\footnote{\cite{book:Leistungsanalyse} S. 28}
+\end{quote}
+Die aus der Leistungsmessung gewonnenen Erkenntnisse dienen hierbei als Qualitätsmerkmale und werden nach definierten Metriken gewichtet.
+
+%Leistungsmessungen des \Gls{tpc} werden zum Zwecke der vergleichenden Leistungsfeststellung von Software 
+Es existieren vordefinierte Leistungstests, dabei sind jene des \Gls{tpc} sowie die Benchmarks 001, 007, HyperModel und Justitia zu nennen.
+Diese sind jedoch nicht für die zu untersuchenden GIS geeignet, da sie die allgemeine Leistungsfähigkeit und Effektivität messen und somit nicht die Werte für den untersuchten Anwendungsfall ermitteln.
