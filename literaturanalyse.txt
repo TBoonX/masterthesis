@@ -440,3 +440,7 @@ S. 59
 
 S. 64
 Stichprobenverfahren:  statistisches verfahren; in gleichmäßigen Zeitabständen Befehlszähler  aufzeichnen; Qualität hängt an Frequenz und unabhängigkeit der Messung
+
+--------------------------------------------------------------------------------------------------
+
+
