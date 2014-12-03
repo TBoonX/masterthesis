@@ -43,7 +43,8 @@ parallele Verarbeitung, Gruppierungs-, Filter-, Verschneidungs- und Overlayfunkt
 
 \textbf{Zuverlässigkeit}\\
 \begin{quote}
-Fähigkeit einer Software, ihr Leistungsniveau unter festgelegten Bedingungen über einen festgelegten Zeitraum bewahren.\footnote{\cite{book:lehrbuchsoftware} S. 259}
+Fähigkeit einer Software, ihr Leistungsniveau unter festgelegten Bedingungen über einen festgelegten Zeitraum bewahren.\footnote{\cite{book:lehrbuchsoftware} S. 259}\\
+Dies wird speziell durch zusaätzliche Leistungstests beurteilt.
 \end{quote}
 \begin{description}
 \item[Fehlertoleranz] Das System sollte auftretende Fehler des Tagesgeschäftes abfangen und weiterarbeiten. Besonders Fehler in den Quelldaten können zu Fehlern während der Ausführung von Berechnungen führen, was per s\'{e} abgefangen werden muss.
@@ -63,27 +64,24 @@ Qualität des Zugangs für Benutzer sowie Eignung für eine oder mehrere Benutze
 \textbf{Effizienz}\\
 Das Verhältniss zwischen Auslastung der Hardware und erfolgreich bearbeiteten Aufgaben. Nach \cite{book:Leistungsanalyse} S. 21 ist Leistung paralleler Programme das Verhältnis des Speedups zur Anzahl der verwendeten Prozessoren. Wobei Speedup als Verhältnis der Ausführungszeiten zwischen der auf N Prozessoren ausgeführten parallelen Version eines Programms und der sequentiellen Version des Programmes definiert ist. Diese Definitionen treffen für die zu untersuchenden Systeme zu, da es sich um parallelisierende \Gls{gis} handelt.
 \begin{description}
-\item[Zeitverhalten] Oder auch Laufzeitverhalten und allgemein zur Darstellung des Durchsatzes. Die Skalierung des Systems zählt hier dazu.
+\item[Zeitverhalten] Oder auch Laufzeitverhalten genannt, dient allgemein zur Darstellung des Durchsatzes. Die Skalierung des Systems zählt hier dazu.
 \item[Verbrauchsverhalten] Das Verhältnis aus erbrachter Leistung und dem dafür notwendig gewesenen Aufwand in Form von Hardwarenutzung.
 \end{description}
 
 \textbf{Änderbarkeit}\\
-Aufwand zur Verbesserung oder Anpassung der Umgebung und der Spezifikationen.
+Aufwand zur Verbesserung oder Anpassung der Umgebung und der Spezifikationen, auch Wartungsaufwand genannt.
 \begin{description}
-\item[Analysierbarkeit] 
-\item[Modifizierbarkeit] 
-\item[Stabilität] 
-\item[Prüfbarkeit]
-\item[Wartbarkeit]
+\item[Analysierbarkeit] \glqq Aufwand, um Mängel oder Ursachen von Versagen zu diagnostizieren oder um änderungsbedüftige Teile zu bestimmen.\grqq[\cite{book:lehrbuchsoftware} S. 260]
+\item[Modifizierbarkeit] Notwendiger Aufwand um Änderungen zum Ziele der Verbesserung und Fehlerbehebung.
+\item[Stabilität] Wahrscheinlichkeit vom ungewollten Auswirkungen von Änderungen.
+\item[Prüfbarkeit] Oder Testbarkeit als Merkmal, welches die Möglichkeiten und den Aufwand zum testen der originalen und geänderten Systeme.
 \end{description}
 
 \textbf{Übertragbarkeit}\\
-
+Die Fähigkeit das System auf andere Hard- und Software und andere Vorgehensweisen zu migrieren.
 \begin{description}
-\item[Anpassbarkeit] 
-\item[Installierbarkeit] 
-\item[Konformität] 
-\item[Austauschbarkeit] 
+\item[Anpassbarkeit] Möglichkeiten des unveränderten Systems Änderungen vorzunehmen.
+\item[Installierbarkeit] Systemvoraussetzung und Aufwand zur Installation des Systems.
 \end{description}
 
 \section{Ist-Stand}
