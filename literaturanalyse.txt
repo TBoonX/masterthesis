@@ -443,4 +443,6 @@ Stichprobenverfahren:  statistisches verfahren; in gleichmäßigen Zeitabstände
 
 --------------------------------------------------------------------------------------------------
 
+spatial databases - gis
+
 
