@@ -446,3 +446,25 @@ Stichprobenverfahren:  statistisches verfahren; in gleichmäßigen Zeitabstände
 spatial databases - gis
 
 
+=======
+Objektorientierte Datenbanksysteme
+
+S. 58 ff.
+Leitfaden zur Auswahl eines ODBMS
+Schritte: Vorauswahl(beschränkung auf wenige Systeme; grobe wichtige Kriterien verwenden), Funktionale Evaluierung(Anforderungskatalog; ausführliche evaluierung; ), Benchmarks(bestehender benchmarks geben allgemeine und alte aussage und sind somit nicht geeignet -> eigene Benchmarks; Benchmarks als Prototyp der zukünfitgen Anwendung; nur Ausschnitte aus Anwednungsprogramm; testen umfang und Leistungsfähigkeit; ), Planung und Aufwand
+
+S. 66
+Nichttechnische Kriterien: Marktposition, Preis, Produktplanung, Referenzkunden, Service&SUpport, Standards
+
+Anhang C: Checkliste S. 233 ff.
+Herstellerfirma und Produkt: Marktposition, Preis, Produktplanung, Support, Standards und Zertifizierunng
+Objektmodell und Objektzugriff: vordefinierte Basistypen bzw. Komplexe Objekte, Methoden (im Zusammenhang mit Datentypen), Wertdefinierte Schlüssel(eigene Schlüssel und deren Management)
+Schemaevolution: Schemaänderungen, Migration, Schemaversionierung
+Architektur: Plattformen, Hardware-Andorderungen, Cliemt/Server Konfiguration, Heterogenität, Clustering, Tuning, Verteilung
+Zugriffssynchronisation: ACID, Transaktionsmechanismen, SPerrenverwaltung, Synchronisationsverhalten(optimistisch oder pessimistisch), Recovery
+Workgroup Computing: Versionierung, change notification
+Assoziative Anfragen: funktionalität, Schnittstellen, Anfrageoptimierung
+Sprachschnittstellen: Sprachschnittstellen, Interoperabilität(der Schnittstellen)
+Zugriffsschutz: Zugriffsrechte
+Werkzeuge: allgemeine tools wie query tool, Werkzeuge zur Applikationsentwicklung, Werkzeuge zur Datenbankadministration
+24/7 Betrieb: Werkzeuge im Online Betrieb, AUsfallsicherheit

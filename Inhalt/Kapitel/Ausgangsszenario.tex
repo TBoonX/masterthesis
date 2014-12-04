@@ -28,5 +28,61 @@ Konkret handelt es sich bei den Eingangsdaten um folgende:
 \subsubsection{Softwarequalität}
 \label{softwarequalität}
 
+Qualitätsmerkmale sind nach DIN 9126\footnote{DIN 9126 wurde durch ISO/IEC 25000 ersetzt, jedoch sind beide nur proprietär verfügbar} in \cite{book:lehrbuchsoftware} S. 258 f. Funktionalität, Zuverlässigkeit, Benutzbarkeit, Effizienz, Änderbarkeit und Übertragbarkeit.
+Diese Merkmale werden durch Qualitätskriterien für jeden Anwendungsfall konkretisiert.
+
+\textbf{Funktionalität}\\
+Das System stellt alle geforderten Funktionen mit den definierten Eigenschaften zur Verfügung.
+\begin{description}
+\item[Richtigkeit] Ergebnisse sind korrekt oder ausreichend genau. Die Ergebnisse sollen zu 99\% mit denen des Ist-Standes übereinstimmen.
+\item[Interoperabilität] Es sind Schnittstellen zur Ein- und Ausgabe vorhanden. Dabei soll es sich um PostgreSQL Import sowie PostgreSQL und \Gls{umn} Export handeln.
+\item[Funktionsumfang] Mindestens die benannte und essentielle Menge an Funktionalitäten wird bereitgestellt. Dazu zählt:
+parallele Verarbeitung, Gruppierungs-, Filter-, Verschneidungs- und Overlayfunktionen und Geostatistik.
+\item[Ordnungsmäßigkeit] Die Implementation des Systems und dessen Funktionen erfüllt Normen, Vereinbarungen, gesetzliche Bestimmungen und andere Vorschriften. Hierzu ist zu nennen, dass besonders Berechnungsfunktionen nach mathematischen Gesetzen implementiert sein müssen.
+\end{description}
+
+\textbf{Zuverlässigkeit}\\
+\begin{quote}
+Fähigkeit einer Software, ihr Leistungsniveau unter festgelegten Bedingungen über einen festgelegten Zeitraum bewahren.\footnote{\cite{book:lehrbuchsoftware} S. 259}\\
+Dies wird speziell durch zusaätzliche Leistungstests beurteilt.
+\end{quote}
+\begin{description}
+\item[Fehlertoleranz] Das System sollte auftretende Fehler des Tagesgeschäftes abfangen und weiterarbeiten. Besonders Fehler in den Quelldaten können zu Fehlern während der Ausführung von Berechnungen führen, was per s\'{e} abgefangen werden muss.
+\item[Wiederherstellbarkeit] Auch die Möglichkeit bei einem schwerwiegendem Fehler Daten und Stände der abgebrochenen Operationen wiederherzustellen ist ein zu betrachtendes Qualitätskriterium.
+\item[\Gls{mttf}] Diese statische Kenngröße der erfahrungsgemäßen mittleren Lebensdauer ist für kritische Systeme relevant.
+\end{description}
+
+\textbf{Benutzbarkeit}\\
+Qualität des Zugangs für Benutzer sowie Eignung für eine oder mehrere Benutzergruppen.
+\begin{description}
+\item[Verständlichkeit] 
+\item[Bedienbarkeit] 
+\item[Dokumentation] Eine ausführliche, aktuelle und korrekte Dokumentation ist Voraussetzung zur produktiven Verwendung.
+\item[Eignung] Die angestrebte Benutzergruppe muss mit der aktuellen Beutzergruppe übereinstimmen. Die aktuelle Benutzergruppe ist Programmierer bzw. Administrator.
+\end{description}
+
+\textbf{Effizienz}\\
+Das Verhältniss zwischen Auslastung der Hardware und erfolgreich bearbeiteten Aufgaben. Nach \cite{book:Leistungsanalyse} S. 21 ist Leistung paralleler Programme das Verhältnis des Speedups zur Anzahl der verwendeten Prozessoren. Wobei Speedup als Verhältnis der Ausführungszeiten zwischen der auf N Prozessoren ausgeführten parallelen Version eines Programms und der sequentiellen Version des Programmes definiert ist. Diese Definitionen treffen für die zu untersuchenden Systeme zu, da es sich um parallelisierende \Gls{gis} handelt.
+\begin{description}
+\item[Zeitverhalten] Oder auch Laufzeitverhalten genannt, dient allgemein zur Darstellung des Durchsatzes. Die Skalierung des Systems zählt hier dazu.
+\item[Verbrauchsverhalten] Das Verhältnis aus erbrachter Leistung und dem dafür notwendig gewesenen Aufwand in Form von Hardwarenutzung.
+\end{description}
+
+\textbf{Änderbarkeit}\\
+Aufwand zur Verbesserung oder Anpassung der Umgebung und der Spezifikationen, auch Wartungsaufwand genannt.
+\begin{description}
+\item[Analysierbarkeit] \glqq Aufwand, um Mängel oder Ursachen von Versagen zu diagnostizieren oder um änderungsbedüftige Teile zu bestimmen.\grqq[\cite{book:lehrbuchsoftware} S. 260]
+\item[Modifizierbarkeit] Notwendiger Aufwand um Änderungen zum Ziele der Verbesserung und Fehlerbehebung.
+\item[Stabilität] Wahrscheinlichkeit vom ungewollten Auswirkungen von Änderungen.
+\item[Prüfbarkeit] Oder Testbarkeit als Merkmal, welches die Möglichkeiten und den Aufwand zum testen der originalen und geänderten Systeme.
+\end{description}
+
+\textbf{Übertragbarkeit}\\
+Die Fähigkeit das System auf andere Hard- und Software und andere Vorgehensweisen zu migrieren.
+\begin{description}
+\item[Anpassbarkeit] Möglichkeiten des unveränderten Systems Änderungen vorzunehmen.
+\item[Installierbarkeit] Systemvoraussetzung und Aufwand zur Installation des Systems.
+\end{description}
+
 \section{Ist-Stand}
 
