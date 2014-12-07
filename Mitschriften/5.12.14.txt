@@ -1,0 +1,29 @@
+5.12:
+-----------
+Im Ferbruar eventuelle Verlängerung beantragen
+Immer Montags in ungeraden Wochen am 12.01 Termin und am 26.1
+
+Masterseminar: 
+- Mit Marcel tauschen wenn möglich
+- Aufgabe: 1. Vergleich bestehender Systeme; Auswahl anhand von Metriken -> Analyse
+           2. Auswahl eines Frameworks
+           3. Architekturentwurf
+           4. protoypische Implementierung und bewertung
+- anforderungen an Lösungen: bestmögliche Eignung zum einsatz in Firma (bestehendes System ersetzen)
+- gelernte lösungswege: auch von anderen studenten verwenden und speziell eigene
+- Folie: Methodisches Vorgehen: Vorgehen grafisch; konkrete wissenschaftliche begriffe mit literaturangabe
+- Gantt Diagramm mit 4 phasen mit einschätzung des eigenen Standes - einmal allgemein best practice form - ganz am anfang - mit Meilensteinen(Ergebnissen)
+- fragen ans publikum am ende
+- gliedern nach Site Schwarz
+- letzte Folie nochmal Gantt diagramm
+
+
+Allgemein
+- Auswahl einer Software zum einsatz der datenverarbeitung - das thema suchen
+- domainspezifisches Framework - verwenden und erklären
+- "Rahmenwerk/Framework" definieren - recherche
+- Werkzeugauswahl
+- "best practise": (von 1. und 2.) zur auswahl eines frameworks - entweder finden oder selbst definieren
+ingenieursmäßig
+- zu 1. und 2. Prozessmodelle grafisch/ Komponentenmodelle; zweidimensional eignung der systeme abbilden (z.b. System zu Funktionalität) <- von wirtschaftswissenschaftlichen büchern inspirieren lassen
+- beispielsweise wirt-inf. bücher anschauen
