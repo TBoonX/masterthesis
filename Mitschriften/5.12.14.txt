@@ -20,7 +20,7 @@ Masterseminar:
 
 Allgemein
 - Auswahl einer Software zum einsatz der datenverarbeitung - das thema suchen
-- domainspezifisches Framework - verwenden und erklären
+- domainspezifisches Framework - verwenden und erklären (https://de.wikipedia.org/wiki/Framework)
 - "Rahmenwerk/Framework" definieren - recherche
 - Werkzeugauswahl
 - "best practise": (von 1. und 2.) zur auswahl eines frameworks - entweder finden oder selbst definieren
