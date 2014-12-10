@@ -443,6 +443,10 @@ Stichprobenverfahren:  statistisches verfahren; in gleichmäßigen Zeitabstände
 
 --------------------------------------------------------------------------------------------------
 
+spatial databases - gis
+
+
+=======
 Objektorientierte Datenbanksysteme
 
 S. 58 ff.
