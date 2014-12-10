@@ -468,3 +468,14 @@ Sprachschnittstellen: Sprachschnittstellen, Interoperabilität(der Schnittstelle
 Zugriffsschutz: Zugriffsrechte
 Werkzeuge: allgemeine tools wie query tool, Werkzeuge zur Applikationsentwicklung, Werkzeuge zur Datenbankadministration
 24/7 Betrieb: Werkzeuge im Online Betrieb, AUsfallsicherheit
+
+--------------------------------------------------------
+Software Metrics
+
+S. 28
+"Formally, we define measurement as a mapping from the emirical world to the formal, relational world. Consequently, a measure is the number or symbol assigned to an entity by this mapping in order to characterize an attribute."
+mapping  to a range (mostly numbers) is neccessary
+S. 36
+"In general, a model is an abstraction of reality, allowing us to strip away detail and view an entity or concept from a particular perspective."
+S. 39 ff.
+direct and indirect measurement: direct by involving no other attribute or  entity
