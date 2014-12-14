@@ -479,3 +479,6 @@ S. 36
 "In general, a model is an abstraction of reality, allowing us to strip away detail and view an entity or concept from a particular perspective."
 S. 39 ff.
 direct and indirect measurement: direct by involving no other attribute or  entity
+
+S. 154
+Good data: Correctness(data collect along with metrics definition), accuracy(difference between actual data and measured data), precision(precsion of measurement), consistent(consistency of measurement doing - always the same algorithm/act), time relevant data (save data with their timestamp)
