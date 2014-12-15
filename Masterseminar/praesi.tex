@@ -1,0 +1,228 @@
+% Dieser Text ist urheberrechtlich geschützt
+% Er stellt einen Auszug eines von mir erstellten Referates dar
+% und darf nicht gewerblich genutzt werden
+% die private bzw. Studiums bezogen Nutzung ist frei
+% Januar 2006
+% Autor: Sascha Frank 
+% Universität Freiburg 
+% www.informatik.uni-freiburg.de/~frank/
+% www.namsu.de/
+
+
+\documentclass{beamer}
+%%\usetheme{Warsaw-seahorse}
+%\usepackage{german}
+%\usepackage{ngerman}
+\usepackage[utf8]{inputenc}
+\usepackage[ngerman]{babel}
+\usepackage{hyperref}
+
+\usetheme{Warsaw}
+%\usecolortheme{seahorse}
+%\usefonttheme{serif}
+\useinnertheme{rectangles}
+%\usepackage{bookman}
+\setbeamercovered{transparent}
+
+%\setbeamertemplate{navigation symbols}{}
+%\setbeamertemplate{footline}{}
+%\setbeamertemplate{headline}{}
+
+
+\usepackage{color} % used for comments
+\usepackage{listings}%Quellcode
+
+\definecolor{Navy}{rgb}{0,0,0.5}
+\definecolor{Gray}{gray}{0.5}
+\definecolor{dunkelgrau}{rgb}{0.8,0.8,0.8}
+\definecolor{hellgrau}{rgb}{0.95,0.95,0.95}
+\definecolor{hellgrau2}{rgb}{0.93,0.93,0.93}
+\definecolor{red}{rgb}{1,0, 0.2}
+\definecolor{green}{rgb}{0,1,0.2}
+
+\lstset {
+  language=xml,
+  basicstyle={\footnotesize\ttfamily},
+  numbers=none,
+  aboveskip=5mm,
+  belowskip=5mm,
+  showstringspaces=false,
+  columns=flexible,
+  keywordstyle={\bfseries\color{green}},
+  commentstyle={\color{Red}\textit},
+  stringstyle={\color{red}},
+  frame=single,
+  breaklines=true,
+  breakatwhitespace=true,
+  tabsize=4,
+  morekeywords={xmlns:rdf, xmlns:rdfs, rdf:about, rdf:resource}  % <-- adding custom keywords
+}
+\lstset {
+  language=sparql,
+  basicstyle={\footnotesize\ttfamily},
+  numbers=left,
+  aboveskip=5mm,
+  belowskip=5mm,
+  showstringspaces=false,
+  columns=flexible,
+  keywordstyle={\bfseries\color{green}},
+  commentstyle={\color{hellgrau}\textit},
+  stringstyle={\color{red}},
+  frame=single,
+  breaklines=true,
+  breakatwhitespace=true,
+  tabsize=4,
+  morekeywords={PREFIX, select, SELECT, where, WHERE, Filter, filter, FILTER}  % <-- adding custom keywords
+}
+
+
+\begin{document}
+
+\title{Masterseminar}
+\subtitle{Untersuchung und Optimierung geografischer Informationssysteme zur Verarbeitung agrartechnischer Kennzahlen} 
+\author{Kurt Junghanns, B.Sc.} 
+\date{\today}
+%\logo{\includegraphics[scale=0.08]{logo-SF}}
+
+\begin{frame}
+\titlepage
+\end{frame}
+
+\begin{frame}
+\frametitle{Inhaltsverzeichnis}\tableofcontents
+%Themenfindung
+%Datenquellen
+%Schema (Verlinkung nennen)
+%ETL (Integration; Datentransformation wichtig)
+%Ergbnis (ohne business intelligence)
+%    linguistisches matching möglich (Levenshtein-distanz oder N-Gram Ähnlihckeit)
+\end{frame}
+
+\section{Einleitung}
+\begin{frame}\frametitle{Einleitung}
+\underline{Betreuer:}\\
+M. Sc. Volkmar Herbst\\
+Prof. Dr. rer. nat. Thomas Riechert\\
+\vspace{\baselineskip}
+\underline{Unternehmen:}\\
+Agricon GmbH\\
+\vspace{\baselineskip}
+\underline{Abgabedatum:}\\
+28.3.2015
+\end{frame}
+
+\section{Aufgabenstellung}
+\begin{frame}\frametitle{Aufgabenstellung}
+\textit{Untersuchung und Optimierung geografischer Informationssysteme zur Verarbeitung agrartechnischer Kennzahlen:}\\
+
+\begin{enumerate}
+\item Untersuchung bestehender Systeme anhand von Qualitätsmerkmalen
+\item Auswahl eines Frameworks
+\item Architekturentwurf
+\item prototypische Implementierung %plus Bewertung
+\end{enumerate}
+\end{frame}
+
+\section{Einordnung}
+\begin{frame}\frametitle{Einordnung} 
+\underline{Interesse:}\\
+\begin{itemize}
+\item OpenSource Alternativen unbekannt
+\item NoSQL Eignung
+\item Verringerung der Laufzeit
+\end{itemize}
+
+\underline{Anwendung:}\\
+\begin{itemize}
+\item Entlastung der Datenbank
+\item Persistierung der originalen Daten
+\item Verringerung der Laufzeit
+\end{itemize}
+\end{frame}
+
+\section{Grundlagen}
+\begin{frame}\frametitle{gegebene Grundlagen zur Lösung} 
+\begin{itemize}
+\item Referenzsystem %Ist Stand
+\item Testdaten
+\item Anforderungen
+\item Ausgabemodul (UMN MapServer)
+\end{itemize}
+\end{frame}
+
+\begin{frame}\frametitle{theoretische Grundlagen} 
+\begin{itemize}
+\item Softwarequalität\footnote{[Wall2001]}
+\item Softwaremetriken\footnote{[Fent1997]}
+\item Funktionstests\footnote{[Ludw2007]}
+\item Leistungstests\footnote{[Hans1995]}
+\item Nutzwertanalyse
+%nicht Capability Maturity Model (Reifegradmodell) (kurz CMM), da es um Entwicklung/Verbesserung von Software geht
+%nicht Control Objectives for Information and Related Technology (COBIT), da Unternehmen nicht in die Analyse einfließen soll
+%Analytic Hierarchy Process (AHP) [auch nicht geeignet, da keine Teams und Zeitmanagement] zu detailiert, da maximal 1 System die notwendigen Anforderungen erfüllt und somit keine detailierte Abschätzung/Bewertung der systeme gegeben werden muss
+%
+\item Guidelines der Systeme
+\end{itemize}
+\end{frame}
+
+%\section{Eigentanteil}
+% Vorhandene Systeme in diesem Anwendungsszenario vergleichen
+% erweiterung der Syteme durch eigenen Code und andere Systeme
+% 
+
+\section{Anforderungen}
+\begin{frame}\frametitle{Anforderungen}
+Die prototypische Umsetzung ist Wunschkriterium.\\ %da Eignung der Systeme zu Beginn nicht bekannt
+Ziel ist bei Eignung von Systemen das mit der bestmöglichen Eignung zum Einsatz in der Firma darzustellen.
+\end{frame}
+
+\begin{frame}\frametitle{Qualitätskriterien}
+\begin{itemize}
+\item Funktionsumfang: parallele Verarbeitung, Gruppierungs-, Filter-, Verschneidungs- sowie Overlayfunktionen und Geostatistik
+\item Interoperabilität: Schnittstellen für PostgreSQL und UMN MapServer
+\item Fehlertoleranz: Unabhängigkeit der Verarbeitungsprozesse
+\item Dokumentation: seriöse Dokumentation der Installation, Verwendung und Wartung
+\item Zeitverhalten: Laufzeiten unter denen des Ist-Standes\footnote{Anhängig von Art der Berechnung und Menge der Daten}
+\end{itemize}
+\end{frame}
+
+\section{Lösungsansatz}
+%modellieren der Aufgabe, den Kontext und die Ergebnisse
+
+
+\begin{frame}\frametitle{Ansätze zur Lösung}
+\underline{Softwareauswahl:}\\
+Allgemeines Vorgehen bei Bewertung von Software mit Hilfe von Qualitätsmerkmalen und -kriterien.\\
+
+\underline{Bewertung:}\\
+Softwaremetriken mit Leistungs- und Funktionstests.
+\end{frame}
+%aus Studium:
+% Messung des Speedup aus MessagePassing
+% 
+
+\section{Stand}
+\begin{frame}\frametitle{erreichte Ergebnisse}
+%Gantt
+\begin{figure}[htb]
+  \begin{center}
+    \includegraphics[width=1\hsize]{Plan.png}
+  \end{center}
+  %\caption[a]{}
+\end{figure}
+\end{frame}
+
+
+\section{Ausblick}
+\begin{frame}\frametitle{Ausblick}
+\begin{itemize}
+\item Softwaremetriken spezifizieren
+\item Systeme auswählen
+\item ausgewählte Systeme mit Metriken bewerten
+\item Prototyp entwerfen
+\item Werkzeugauswahl
+\item Prototyp bewerten
+\end{itemize}
+\end{frame}
+
+\end{document}
