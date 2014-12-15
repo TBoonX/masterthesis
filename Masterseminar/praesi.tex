@@ -32,6 +32,8 @@
 \usepackage{color} % used for comments
 \usepackage{listings}%Quellcode
 
+\usepackage{wrapfig}%floating elements
+
 \definecolor{Navy}{rgb}{0,0,0.5}
 \definecolor{Gray}{gray}{0.5}
 \definecolor{dunkelgrau}{rgb}{0.8,0.8,0.8}
@@ -80,10 +82,10 @@
 
 \title{Masterseminar}
 \subtitle{Untersuchung und Optimierung geografischer Informationssysteme zur Verarbeitung agrartechnischer Kennzahlen} 
-\author{Kurt Junghanns, B.Sc.} 
+\author{Kurt Junghanns, B.Sc. \\(kjungha@htwk-leipzig.de)} 
 \date{\today}
 %\logo{\includegraphics[scale=0.08]{logo-SF}}
-
+ 
 \begin{frame}
 \titlepage
 \end{frame}
@@ -104,8 +106,12 @@
 M. Sc. Volkmar Herbst\\
 Prof. Dr. rer. nat. Thomas Riechert\\
 \vspace{\baselineskip}
+\begin{wrapfigure}{r}{0.6\textwidth}\centering
+    \includegraphics[scale=0.2]{Firma.png}
+    %\caption{Image3.png}
+\end{wrapfigure}
 \underline{Unternehmen:}\\
-Agricon GmbH\\
+Agri Con GmbH\\
 \vspace{\baselineskip}
 \underline{Abgabedatum:}\\
 28.3.2015
@@ -115,44 +121,46 @@ Agricon GmbH\\
 \begin{frame}\frametitle{Aufgabenstellung}
 \textit{Untersuchung und Optimierung geografischer Informationssysteme zur Verarbeitung agrartechnischer Kennzahlen:}\\
 
-\begin{enumerate}
-\item Untersuchung bestehender Systeme anhand von Qualitätsmerkmalen
+\begin{enumerate} %GIS erklären
+\item Untersuchung bestehender Frameworks für GIS anhand von Qualitätsmerkmalen
 \item Auswahl eines Frameworks
-\item Architekturentwurf
-\item prototypische Implementierung %plus Bewertung
+\item Entwurf (Architektur, Konfiguration und Erweiterung)
+\item Prototypische Implementierung %plus Bewertung
 \end{enumerate}
 \end{frame}
 
 \section{Einordnung}
-\begin{frame}\frametitle{Einordnung} 
-\underline{Interesse:}\\
+\begin{frame}\frametitle{Ziele für Agri Con} 
+\underline{Interesse von:}\\
 \begin{itemize}
-\item OpenSource Alternativen unbekannt
+\item Existierende OpenSource Alternativen
 \item NoSQL Eignung
-\item Verringerung der Laufzeit
+\item Verringerung der Verarbeitungszeit für Daten
 \end{itemize}
 
-\underline{Anwendung:}\\
+\underline{Zur Anwendung für:}\\
 \begin{itemize}
 \item Entlastung der Datenbank
 \item Persistierung der originalen Daten
-\item Verringerung der Laufzeit
+\item Verringerung der Verarbeitungszeit für Daten
 \end{itemize}
 \end{frame}
 
 \section{Grundlagen}
-\begin{frame}\frametitle{gegebene Grundlagen zur Lösung} 
+\begin{frame}\frametitle{Arbeitsgrundlage} 
 \begin{itemize}
-\item Referenzsystem %Ist Stand
-\item Testdaten
+\item Referenzsystem (PostGIS\footnote{GIS Erweiterung für PostgreSQL: \url{http://postgis.org}}) %Ist Stand
+\item Testdaten \footnote{Punkt-, Vektor- und Rasterdaten}
+%Pflanzenbauliche Daten: Punktdaten; Basisdaten wie Feldgrenze: Vektordaten; Externe Satelliteninformationen und Multispektralanalysen: Rasterdaten
+
 \item Anforderungen
 \item Ausgabemodul (UMN MapServer)
 \end{itemize}
 \end{frame}
 
-\begin{frame}\frametitle{theoretische Grundlagen} 
+\begin{frame}\frametitle{Grundlegende Methoden} 
 \begin{itemize}
-\item Softwarequalität\footnote{[Wall2001]}
+\item Softwarequalität\footnote{[Wall2001]} %ausschreiben
 \item Softwaremetriken\footnote{[Fent1997]}
 \item Funktionstests\footnote{[Ludw2007]}
 \item Leistungstests\footnote{[Hans1995]}
@@ -181,8 +189,8 @@ Ziel ist bei Eignung von Systemen das mit der bestmöglichen Eignung zum Einsatz
 \item Funktionsumfang: parallele Verarbeitung, Gruppierungs-, Filter-, Verschneidungs- sowie Overlayfunktionen und Geostatistik
 \item Interoperabilität: Schnittstellen für PostgreSQL und UMN MapServer
 \item Fehlertoleranz: Unabhängigkeit der Verarbeitungsprozesse
-\item Dokumentation: seriöse Dokumentation der Installation, Verwendung und Wartung
-\item Zeitverhalten: Laufzeiten unter denen des Ist-Standes\footnote{Anhängig von Art der Berechnung und Menge der Daten}
+\item Dokumentation: Vorhandene und aktuelle Dokumentation der Installation, Verwendung und Wartung
+\item Zeitverhalten: Verarbeitungszeiten unter denen des Ist-Standes\footnote{Abhängig von Art der Berechnung und Menge der Daten}
 \end{itemize}
 \end{frame}
 
@@ -193,7 +201,7 @@ Ziel ist bei Eignung von Systemen das mit der bestmöglichen Eignung zum Einsatz
 \begin{frame}\frametitle{Ansätze zur Lösung}
 \underline{Softwareauswahl:}\\
 Allgemeines Vorgehen bei Bewertung von Software mit Hilfe von Qualitätsmerkmalen und -kriterien.\\
-
+\vspace{\baselineskip}
 \underline{Bewertung:}\\
 Softwaremetriken mit Leistungs- und Funktionstests.
 \end{frame}
@@ -201,20 +209,19 @@ Softwaremetriken mit Leistungs- und Funktionstests.
 % Messung des Speedup aus MessagePassing
 % 
 
-\section{Stand}
-\begin{frame}\frametitle{erreichte Ergebnisse}
+\section{Projektstand}
+\begin{frame}\frametitle{Planung}
 %Gantt
 \begin{figure}[htb]
   \begin{center}
-    \includegraphics[width=1\hsize]{Plan.png}
+    \includegraphics[width=1\hsize]{Plan_cropped.pdf}
   \end{center}
   %\caption[a]{}
 \end{figure}
 \end{frame}
 
 
-\section{Ausblick}
-\begin{frame}\frametitle{Ausblick}
+\begin{frame}\frametitle{Offene Arbeiten}
 \begin{itemize}
 \item Softwaremetriken spezifizieren
 \item Systeme auswählen
@@ -223,6 +230,13 @@ Softwaremetriken mit Leistungs- und Funktionstests.
 \item Werkzeugauswahl
 \item Prototyp bewerten
 \end{itemize}
+\end{frame}
+
+\begin{frame}\frametitle{Diskussion}
+%3 Fragen formulieren
+Existiert eine Handlungsempfehlung zur Auswahl von Werkzeugen für Funktions- und Leistungstests?
+\vspace{\baselineskip}
+
 \end{frame}
 
 \end{document}

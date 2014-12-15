@@ -1,0 +1,9 @@
+- Firma: Bilder und wie ich dahin gekommen bin
+         emotionaler
+         
+- gis und agrartechnische kennzahlen erklären (an beispiel) zur einleitung
+- System und Framework - eines davon -> lieber framework für GIS
+- pdf-crop
+- masterseminar als Meilenstein -> fertiges einfärben nach ampel
+-  gantt: abgabe als meilenstein
+- selbe schriftart in tabelle
