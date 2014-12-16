@@ -77,6 +77,15 @@
   morekeywords={PREFIX, select, SELECT, where, WHERE, Filter, filter, FILTER}  % <-- adding custom keywords
 }
 
+% Fußnoten korrigieren:
+\makeatletter
+ \renewcommand\@makefntext[1]{%
+  \setlength{\hangindent}{2em}
+  \noindent
+  \hb@xt@\hangindent{%
+     \hss\@textsuperscript{\normalfont\@thefnmark}\hspace{.1em}}#1}
+\makeatother
+
 
 \begin{document}
 
@@ -92,12 +101,6 @@
 
 \begin{frame}
 \frametitle{Inhaltsverzeichnis}\tableofcontents
-%Themenfindung
-%Datenquellen
-%Schema (Verlinkung nennen)
-%ETL (Integration; Datentransformation wichtig)
-%Ergbnis (ohne business intelligence)
-%    linguistisches matching möglich (Levenshtein-distanz oder N-Gram Ähnlihckeit)
 \end{frame}
 
 \section{Einleitung}
@@ -111,7 +114,7 @@ Prof. Dr. rer. nat. Thomas Riechert\\
     %\caption{Image3.png}
 \end{wrapfigure}
 \underline{Unternehmen:}\\
-Agri Con GmbH \url{http://agricon.de}\\
+Agri Con GmbH\\\url{http://agricon.de}\\
 % Datenerfassung über Sensoren und Probenahmegräte 
 % Technik (Elekktronik) und Erfahrungen
 % Einsatzplanung von Maschinen, Betriebsmitteln und Arbeitszeit
@@ -144,7 +147,7 @@ Agri Con GmbH \url{http://agricon.de}\\
 \begin{block}{Interesse von:}
 %\underline{Interesse von:}\\
 \begin{itemize}
-\item Existierende OpenSource Alternativen
+\item Existierenden OpenSource Alternativen
 \item NoSQL Eignung
 \item Verringerung der Verarbeitungszeit für Daten
 \end{itemize}
@@ -174,10 +177,10 @@ Agri Con GmbH \url{http://agricon.de}\\
 
 \begin{frame}\frametitle{Grundlegende Methoden} 
 \begin{itemize}
-\item Softwarequalität\footnote{[Wall2001]} %ausschreiben
-\item Softwaremetriken\footnote{[Fent1997]}
-\item Funktionstests\footnote{[Ludw2007]}
-\item Leistungstests\footnote{[Hans1995]}
+\item Softwarequalität\footnote{Wallmüller, Ernest: Software-Qualitätsmanagement in der Praxis: Software-Qualität durch Führung und Verbesserung von Software-Prozessen. 2. Auflage. Hanser-Verl., 2001}
+\item Softwaremetriken\footnote{Fenton, Norman E.; Pfleeger, Shari Lawrence: Software metrics: a rigorous and practical approach. PWS Publ. Comp., 1997}
+\item Funktionstests\footnote{Ludewig, Jochen; Lichter, Horst: Software-Engineering: Grundlagen, Menschen, Prozesse, Techniken. dpunkt-Verl., 2007}
+\item Leistungstests\footnote{Hansen, Olav: Leistungsanalyse paralleler Programme. Spektrum, 1995}
 \item Nutzwertanalyse
 %nicht Capability Maturity Model (Reifegradmodell) (kurz CMM), da es um Entwicklung/Verbesserung von Software geht
 %nicht Control Objectives for Information and Related Technology (COBIT), da Unternehmen nicht in die Analyse einfließen soll
@@ -257,13 +260,13 @@ Softwaremetriken mit Leistungs- und Funktionstests.
 \begin{frame}\frametitle{Diskussion}
 %3 Fragen formulieren
 \begin{block}{}
-Existiert eine Handlungsempfehlung zur Auswahl von Werkzeugen für Funktions- und Leistungstests?
+Existiert eine Handlungsempfehlung zur Auswahl von Werkzeugen zur Durchführung von Funktions- und Leistungstests?
 \end{block}
 \vspace{\baselineskip}
 \begin{block}{}
 Existieren wissenschaftliche Dokumente zu Nutzwertanalyse bei der Softwarebeschaffung?
 \end{block}
-\vspace{\baselineskip}
+%\vspace{\baselineskip}
 
 
 \end{frame}
