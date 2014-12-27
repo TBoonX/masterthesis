@@ -80,6 +80,7 @@ Das Verhältniss zwischen Auslastung der Hardware und erfolgreich bearbeiteten A
 \begin{description}
 \item[Zeitverhalten] Oder auch Laufzeitverhalten genannt, dient allgemein zur Darstellung des Durchsatzes. Die Skalierung des Systems zählt hier dazu. Dies wird speziell durch zusätzliche Leistungstests beurteilt.
 \item[Verbrauchsverhalten] Das Verhältnis aus erbrachter Leistung und dem dafür notwendig gewesenen Aufwand in Form von Hardwarenutzung.
+\item[Skalierbarkeit] Anzahl der zu verwendenden Computer um nach dem Speedup eine Effizienzsteigerung im Gegensatz zum Einsatz bei einem Computer zu erreichen.
 \end{description}
 
 
@@ -108,14 +109,73 @@ Die Fähigkeit das System auf andere Hard- und Software und andere Vorgehensweis
 Erweiterte Qualitätskriterien, welche nicht nach der DIN 9126 zugeordnet werden können.
 \begin{description}
 \item[Herstellerfirma und Produkt] Dazu zählt die Marktposition, der Preis, die Produktplanung und Service.
-\item[Installierbarkeit] Systemvoraussetzung und Aufwand zur Installation des Systems.
 \end{description}
 
-Die zu untersuchenden Qualitätskriterien sind Funktionsumfang, Fehlertoleranz, Dokumentation, Zeitverhalten, Analysier- und Modifizierbarkeit.
+Die zu untersuchenden Qualitätskriterien für die Softwareauswahl sind Funktionsumfang, Fehlertoleranz, Dokumentation, Zeitverhalten, Analysier- und Modifizierbarkeit.
 
 
 \subsection{Qualitätsmetriken}
+\label{qualitätsmetriken}
+%TODO: essentielles markieren oder stärker wichten
 
+\textbf{Richtigkeit:}\\
+Berechnungen sind zu 99\% korrekt. Ausnahme ist dabei die Berechnung von Koordinaten. Dabei haben die Ergebnisse bis acht Stellen nach dem Komma korrekt zu sein.
+Die statische Abbildung ist dabei $[korrekt, nicht\ korrekt]\ nach\ [1, 0]$.
+
+\textbf{Interoperabilität:}\\
+Import und Export von räumlichen Daten aus PostgreSQL sowie eine Anbindungsmöglichkeit an den \Gls{umn}.
+Statische Abbildung:\\
+$[Datenschnittstelle\ und\ UMN\ Schnittstelle\ vorhanden,Datenschnittstelle\ vorhanden,$\\$UMN\ Schnittstelle\ vorhanden,keine\ Schnittstelle\ vorhanden]\ nach\ [10,7,2,0]$\\
+Der Bereich bis zehn soll die Wichtigkeit des Vorhandenseins der Schnittstellen verdeutlichen.
+
+\textbf{Funktionsumfang:}\\
+Folgende gibt die Wertung der Existenz der einzelnen Funktionen wieder.
+Existiert die Funktion nicht, ist die Wertung Null.
+\begin{table}[h]
+\centering
+\begin{tabular}{l|l}
+\textbf{Funktion} & \textbf{Wertung} \\ \hline
+parallele Verarbeitung & \psum{2} \\ \hline
+geografische Datentypen & \psum{14} \\ \hline
+Umrechnung zwischen Koordinatensystemen & \psum{10} \\ \hline
+Gruppierungsfunktionen & \psum{10} \\ \hline
+Verschneidungsfunktionen & \psum{4} \\ \hline
+Overlayfunktionen & \psum{4} \\ \hline
+Geostatistik & \psum{6} \\ \hline
+Filterfunktionen & \psum{10} \\ \hline
+Schemaversionierung & \psum{1}
+\end{tabular}
+\caption{Wertungstabelle Funktionsumfang}
+\label{table:funktionsumfang}
+\end{table}
+Maximale Wertung: \FPtrunc\Gesamtsumme\Gesamtsumme{0}\FPprint\Gesamtsumme
+
+\textbf{Fehlertoleranz:}\\
+Es gilt zu messen, ob Fehler bei einer Berechnung andere verschränkt gleichzeitig laufende Berechnungen beeinträchtigt.
+Aus diesem Grund wird Unabhängigkeit auf eins und Abhängigkeit auf null abgebildet.
+
+\textbf{Dokumentation:}\\
+Vorhandene Dokumentation ist nach einzelnen Themen zu bewerten.
+Dabei kann ein maximaler Wert von 13 erreicht werden.
+\begin{table}[h]
+\centering
+\begin{tabular}{l|l}
+\textbf{Dokumentation zu} & \textbf{Wertung je Eintrag} \\ \hline
+Installation, Zeitverhalten & 1 \\ \hline
+Funktionsumfang & 2 \\ \hline
+Interoperabilität, Best practise, Anpassbarkeit & 3 
+\end{tabular}
+\caption{Wertungstabelle Dokumentation}
+\label{table:dokumentation}
+\end{table}
+
+\textbf{Zeitverhalten:}\\
+%TODO: Werte aus Ist-Stand in Bezug auf Lasttests verwenden
+
+
+\textbf{Modifizierbarkeit:}\\
+Anpassungen des Frameworks hinsichtlich der folgenden Punkte erhöhen den Wert um eins:\\
+Verwendung eigener Datentypen, Erstellung eigener Schnittstellen, Erstellung eigener Funktionen, Verwendung der Programmiersprachen Scala oder R, anlegen eigener Berechnungsvorgängen zur späteren Abarbeitung
 
 \subsection{Testfälle}
 
