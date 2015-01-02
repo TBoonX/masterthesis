@@ -186,3 +186,26 @@ Verwendung eigener Datentypen, Erstellung eigener Schnittstellen, Erstellung eig
 \label{IstStand}
 %groben Ablauf textuell und grafisch darstellen
 % geplanten Einsatz des Prototypen ebenso darstellen 
+
+Die Durchführung einer Softwareauswahl zum teilweisen Ersatz eines bestehenden Systems setzt die Analyse des Systems voraus.
+In diesem Unterkapitel wird der Ist-Stand sowie der der angestrebte Zustand nach Einbau des Prototypen dargestellt.
+Firmeninterne Schnittstellen mit dem ist-Stand werden nicht konkretisiert, da sie den Anwendungsfall nicht schneiden.
+In Abbildung \ref{fig:iststand} ist die Übersicht des Aufbaus ersichtlich.
+Das Herzstück bildet die objektrelationale Datenbank PostgreSQL mit der geografischen Erweiterung PostGIS.
+Dieses dient zur Datenhaltung und wesentlich auch zur Datenverarbeitung.
+In den Programmiersprachen Delphi und R werden zusätzlich automatische Verarbeitungsvorgänge durchgeführt.
+Daten werden extern und intern eingespeist.
+
+
+\begin{figure}[h]
+\centering
+\includegraphics[width=\textwidth]{Abbildungen/Ist-Stand.png}
+\caption[Aufbau Ist-Stand]{\"{U}bersicht des Aufbaus des Ist-Standes}
+\label{fig:iststand}
+\end{figure}
+
+
+- quelldaten benennen und auf Anforderungen verweisen
+- Grundschema der DB beschreieben (geografische agratechnische Daten und Daten des Unternehmens, der Organisation)
+- Funktionsumfang hinsichtlich berechnung aufzeigen: was macht postgresql und was R
+- 
