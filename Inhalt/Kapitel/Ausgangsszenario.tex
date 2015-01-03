@@ -194,12 +194,16 @@ In Abbildung \ref{fig:iststand} ist die Übersicht des Aufbaus ersichtlich.
 Das Herzstück bildet die objektrelationale Datenbank PostgreSQL mit der geografischen Erweiterung PostGIS.
 Dieses dient zur Datenhaltung und wesentlich auch zur Datenverarbeitung.
 In den Programmiersprachen Delphi und R werden zusätzlich automatische Verarbeitungsvorgänge durchgeführt.
-Daten werden extern und intern eingespeist.
+
+Daten werden von extern und intern eingespeist.
+Dabei handelt es sich um Punkte, Vektoren und Rasterdaten mit dazugehörigen Metadaten.
+Im Rahmen der Datenverarbeitung werden vorrangig Punktdaten interpoliert und mit Hilfe von Geostatistik Auswertungen erstellt.
+
 
 
 \begin{figure}[h]
 \centering
-\includegraphics[width=\textwidth]{Abbildungen/Ist-Stand.png}
+\includegraphics[width=.8\textwidth]{Abbildungen/Ist-Stand.png}
 \caption[Aufbau Ist-Stand]{\"{U}bersicht des Aufbaus des Ist-Standes}
 \label{fig:iststand}
 \end{figure}
