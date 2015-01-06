@@ -1,0 +1,12 @@
+6.1.2015:
+---------
+methodisches vorgehen:
+	worauf basiert die erstellung der qualitätsmerkmale?
+	-> hauptanforderungen herausheben
+	nicht vergessen: Zukunft der Frameworks: Nutzeranzahl, Entwicklungsstand, Community, Entwickler
+	subjektivität von kriterien wie hintergrund zum framework nennen und mit aufführen
+	auf messbares beschränken, subjektive Einschätzung zum Anwendungsfall daran anschließen
+	Ergbnis werten: ist es zu teuer? ist es möglich? -> ergebnis unternehmenstechnisch werten; kosten und nutzen einschätzen und somit das ergbnis anwendungsspezifisch bewerten
+	
+Hauptziel:
+	schnell viel abrufen - von Produkten (daten oder karte)
