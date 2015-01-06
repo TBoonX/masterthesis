@@ -400,14 +400,14 @@ alle definierten Fehlersituationen herbeiführen."
 
 S. 278 f.
 IEEE Std 610.12: metric - A quantitative measure of the degree to which a system, component, or peocess possesses a given attribute.
-				 quality metric - a) dito
+				 quality metric - a) A quantitative measure of the degree to which a system, component, or process posses a given attribute.
 								  b) A function whose inputs are software data and whose output is a single numerical value that can be interpreted as the degree to which the software possess a giben quality attribute.
 Kostenmetriken, Fehlermetriken,  Volumens- und Umfangsmetriken und Qualitätsmetriken
 
 S.280
 Anforderungen an Metriken: differenziert, vergleichbar, reproduzierbar, verfügbar, relevant, rentabel und plausibel
 
-S.283
+S.287 ff.
 Metrikarten
 objektive Metrik: Messunf, Zählung, evtl. auch Normierung
 subjektive Metrik: Beurteilung durch Begutachter, verbal oder auf vorgegebener Skala

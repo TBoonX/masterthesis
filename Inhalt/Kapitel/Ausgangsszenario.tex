@@ -16,6 +16,8 @@ Daraus ergeben sich verschiedenen Anforderungen an die Technologie, die für die
 \item nutzbare Schnittstelle zur Darstellung mit dem \Gls{umn}
 \end{itemize}
 
+% TODO: ergänzen, dass Anforderungne von Ist-Stand und möglichen Verbesserungen herrühren
+
 % Eventuell technische SIcht extra darstellen, um Eignung der Systeme besser herausarbeiten zu können
 
 Konkret handelt es sich bei den Eingangsdaten um folgende:
@@ -48,6 +50,7 @@ parallele Verarbeitung, Gruppierungs-, Filter-, Verschneidungs- sowie Overlayfun
 \end{description}
 
 
+
 \textbf{Zuverlässigkeit}
 \begin{quote}
 Fähigkeit einer Software, ihr Leistungsniveau unter festgelegten Bedingungen über einen festgelegten Zeitraum bewahren.\footnote{\cite{book:lehrbuchsoftware} S. 259}
@@ -60,6 +63,7 @@ Nutzung von Tools zur Überwachung und Konfiguration immanent.
 \end{description}
 
 
+
 \textbf{Benutzbarkeit}\\
 Qualität des Zugangs für Benutzer sowie Eignung für eine oder mehrere Benutzergruppen.
 \begin{description}
@@ -70,22 +74,26 @@ Qualität des Zugangs für Benutzer sowie Eignung für eine oder mehrere Benutze
 \end{description}
 
 
+
 \textbf{Effizienz}\\
 Das Verhältniss zwischen Auslastung der Hardware und erfolgreich bearbeiteten Aufgaben. Nach \cite{book:Leistungsanalyse} S. 21 ist Leistung paralleler Programme das Verhältnis des Speedups zur Anzahl der verwendeten Prozessoren. Wobei Speedup als Verhältnis der Ausführungszeiten zwischen der auf N Prozessoren ausgeführten parallelen Version eines Programms und der sequentiellen Version des Programmes definiert ist. Diese Definitionen treffen für die zu untersuchenden Systeme zu, da es sich um parallelisierende \Gls{gis} handelt.
 \begin{description}
 \item[Zeitverhalten] Oder auch Laufzeitverhalten genannt, dient allgemein zur Darstellung des Durchsatzes. Die Skalierung des Systems zählt hier dazu. Dies wird speziell durch zusätzliche Leistungstests beurteilt.
 \item[Verbrauchsverhalten] Das Verhältnis aus erbrachter Leistung und dem dafür notwendig gewesenen Aufwand in Form von Hardwarenutzung.
+\item[Skalierbarkeit] Anzahl der zu verwendenden Computer um nach dem Speedup eine Effizienzsteigerung im Gegensatz zum Einsatz bei einem Computer zu erreichen.
 \end{description}
+
 
 
 \textbf{Änderbarkeit}\\
 Aufwand zur Verbesserung oder Anpassung der Umgebung und der Spezifikationen, auch Wartungsaufwand genannt.
 \begin{description}
-\item[Analysierbarkeit] \glqq Aufwand, um Mängel oder Ursachen von Versagen zu diagnostizieren oder um änderungsbedüftige Teile zu bestimmen.\grqq\footnote{\cite{book:lehrbuchsoftware} S. 260}
+\item[Analysierbarkeit] \glqq Aufwand, um Mängel oder Ursachen von Versagen zu diagnostizieren oder um änderungsbedüftige Teile zu bestimmen.\grqq\ [\cite{book:lehrbuchsoftware} S. 260]
 \item[Modifizierbarkeit] Notwendiger Aufwand für Änderungen zum Ziele der Verbesserung und Fehlerbehebung.
 \item[Stabilität] Wahrscheinlichkeit vom ungewollten Auswirkungen von Änderungen.
 \item[Prüfbarkeit] Oder Testbarkeit als Merkmal, welches die Möglichkeiten und den Aufwand zum testen der originalen und geänderten Systeme.
 \end{description}
+
 
 
 \textbf{Übertragbarkeit}\\
@@ -95,18 +103,79 @@ Die Fähigkeit das System auf andere Hard- und Software und andere Vorgehensweis
 \item[Installierbarkeit] Systemvoraussetzung und Aufwand zur Installation des Systems.
 \end{description}
 
+
+
 \textbf{nichttechnische Kriterien}\\
 Erweiterte Qualitätskriterien, welche nicht nach der DIN 9126 zugeordnet werden können.
 \begin{description}
 \item[Herstellerfirma und Produkt] Dazu zählt die Marktposition, der Preis, die Produktplanung und Service.
-\item[Installierbarkeit] Systemvoraussetzung und Aufwand zur Installation des Systems.
 \end{description}
 
-Die zu untersuchenden Qualitätskriterien sind Funktionsumfang, Fehlertoleranz, Dokumentation, Zeitverhalten, Analysier- und Modifizierbarkeit.
+Die zu untersuchenden Qualitätskriterien für die Softwareauswahl sind Funktionsumfang, Fehlertoleranz, Dokumentation, Zeitverhalten, Analysier- und Modifizierbarkeit.
 
 
 \subsection{Qualitätsmetriken}
+\label{qualitätsmetriken}
+%TODO: essentielles markieren oder stärker wichten
 
+\textbf{Richtigkeit:}\\
+Berechnungen sind zu 99\% korrekt. Ausnahme ist dabei die Berechnung von Koordinaten. Dabei haben die Ergebnisse bis acht Stellen nach dem Komma korrekt zu sein.
+Die statische Abbildung ist dabei $[korrekt, nicht\ korrekt]\ nach\ [1, 0]$.
+
+\textbf{Interoperabilität:}\\
+Import und Export von räumlichen Daten aus PostgreSQL sowie eine Anbindungsmöglichkeit an den \Gls{umn}.
+Statische Abbildung:\\
+$[Datenschnittstelle\ und\ UMN\ Schnittstelle\ vorhanden,Datenschnittstelle\ vorhanden,$\\$UMN\ Schnittstelle\ vorhanden,keine\ Schnittstelle\ vorhanden]\ nach\ [10,7,2,0]$\\
+Der Bereich bis zehn soll die Wichtigkeit des Vorhandenseins der Schnittstellen verdeutlichen.
+
+\textbf{Funktionsumfang:}\\
+Folgende gibt die Wertung der Existenz der einzelnen Funktionen wieder.
+Existiert die Funktion nicht, ist die Wertung Null.
+\begin{table}[h]
+\centering
+\begin{tabular}{l|l}
+\textbf{Funktion} & \textbf{Wertung} \\ \hline
+parallele Verarbeitung & \psum{2} \\ \hline
+geografische Datentypen & \psum{14} \\ \hline
+Umrechnung zwischen Koordinatensystemen & \psum{10} \\ \hline
+Gruppierungsfunktionen & \psum{10} \\ \hline
+Verschneidungsfunktionen & \psum{4} \\ \hline
+Overlayfunktionen & \psum{4} \\ \hline
+Geostatistik & \psum{6} \\ \hline
+Filterfunktionen & \psum{10} \\ \hline
+Schemaversionierung & \psum{1}
+\end{tabular}
+\caption{Wertungstabelle Funktionsumfang}
+\label{table:funktionsumfang}
+\end{table}
+Maximale Wertung: \FPtrunc\Gesamtsumme\Gesamtsumme{0}\FPprint\Gesamtsumme
+
+\textbf{Fehlertoleranz:}\\
+Es gilt zu messen, ob Fehler bei einer Berechnung andere verschränkt gleichzeitig laufende Berechnungen beeinträchtigt.
+Aus diesem Grund wird Unabhängigkeit auf eins und Abhängigkeit auf null abgebildet.
+
+\textbf{Dokumentation:}\\
+Vorhandene Dokumentation ist nach einzelnen Themen zu bewerten.
+Dabei kann ein maximaler Wert von 13 erreicht werden.
+\begin{table}[h]
+\centering
+\begin{tabular}{l|l}
+\textbf{Dokumentation zu} & \textbf{Wertung je Eintrag} \\ \hline
+Installation, Zeitverhalten & 1 \\ \hline
+Funktionsumfang & 2 \\ \hline
+Interoperabilität, Best practise, Anpassbarkeit & 3 
+\end{tabular}
+\caption{Wertungstabelle Dokumentation}
+\label{table:dokumentation}
+\end{table}
+
+\textbf{Zeitverhalten:}\\
+%TODO: Werte aus Ist-Stand in Bezug auf Lasttests verwenden
+
+
+\textbf{Modifizierbarkeit:}\\
+Anpassungen des Frameworks hinsichtlich der folgenden Punkte erhöhen den Wert um eins:\\
+Verwendung eigener Datentypen, Erstellung eigener Schnittstellen, Erstellung eigener Funktionen, Verwendung der Programmiersprachen Scala oder R, anlegen eigener Berechnungsvorgängen zur späteren Abarbeitung
 
 \subsection{Testfälle}
 
@@ -114,4 +183,33 @@ Die zu untersuchenden Qualitätskriterien sind Funktionsumfang, Fehlertoleranz, 
 %
 
 \section{Ist-Stand}
+\label{IstStand}
 %groben Ablauf textuell und grafisch darstellen
+% geplanten Einsatz des Prototypen ebenso darstellen 
+
+Die Durchführung einer Softwareauswahl zum teilweisen Ersatz eines bestehenden Systems setzt die Analyse des Systems voraus.
+In diesem Unterkapitel wird der Ist-Stand sowie der der angestrebte Zustand nach Einbau des Prototypen dargestellt.
+Firmeninterne Schnittstellen mit dem ist-Stand werden nicht konkretisiert, da sie den Anwendungsfall nicht schneiden.
+In Abbildung \ref{fig:iststand} ist die Übersicht des Aufbaus ersichtlich.
+Das Herzstück bildet die objektrelationale Datenbank PostgreSQL mit der geografischen Erweiterung PostGIS.
+Dieses dient zur Datenhaltung und wesentlich auch zur Datenverarbeitung.
+In den Programmiersprachen Delphi und R werden zusätzlich automatische Verarbeitungsvorgänge durchgeführt.
+
+Daten werden von extern und intern eingespeist.
+Dabei handelt es sich um Punkte, Vektoren und Rasterdaten mit dazugehörigen Metadaten.
+Im Rahmen der Datenverarbeitung werden vorrangig Punktdaten interpoliert und mit Hilfe von Geostatistik Auswertungen erstellt.
+
+
+
+\begin{figure}[h]
+\centering
+\includegraphics[width=.8\textwidth]{Abbildungen/Ist-Stand.png}
+\caption[Aufbau Ist-Stand]{\"{U}bersicht des Aufbaus des Ist-Standes}
+\label{fig:iststand}
+\end{figure}
+
+
+- quelldaten benennen und auf Anforderungen verweisen
+- Grundschema der DB beschreieben (geografische agratechnische Daten und Daten des Unternehmens, der Organisation)
+- Funktionsumfang hinsichtlich berechnung aufzeigen: was macht postgresql und was R
+- 

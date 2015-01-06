@@ -80,3 +80,15 @@
 
 % Beschriftung der Abbildungen
 \captionsetup[figure]{labelfont={},textfont={}}
+% Beschriftung der Tabelle
+\captionsetup[table]{labelfont={},textfont={}}
+
+
+% Rechnungsvorschriften paket fp
+%Ein Rechenbefehl
+\FPset\Gesamtsumme{0}
+\newcommand{\psum}[1]{%
+% Addition ausführen
+\FPadd\0\Gesamtsumme{#1}\global\let\Gesamtsumme\0%
+#1
+}

@@ -1,7 +1,55 @@
 \chapter{Gegenüberstellung}
-%\section{Kosten}
-%\section{Umfang}
-%\section{Leistung}
 
-% Tabellarische Gegenüberstellung von bis zu drei Systemen nach Qualitätsmetriken
+Anhand der unter \ref{qualitätsmetriken} erstellten Metriken sind die Frameworks GeoMesa, ESRI GIS Tools for Hadoop und  zu vergleichen.
+Der Vergleich findet im Rahmen einer groben Nutzwertanalyse statt.
+Hierbei werden keine Daten von durchgeführten Tests herangezogen, sondern es wird anhand der Spezifikation der einzelnen Frameworks untersucht.
+
+%TODO: Nutzertanalyse: Struktur, Bewertungssystem, erklären
+
+Tabelle \ref{table:Wertungsmassstab} zeigt die für die Nutzwertanalyse notwendige Wertung der einzelnen Metriken.
+\begin{table}[h]
+\centering
+\begin{tabular}{l|l}
+\textbf{Metrik} & \textbf{Gewichtung in \%} \\ \hline
+Richtigkeit & 10 \\ \hline
+Interoperabilität & 22 \\ \hline
+Funktionsumfang & 18 \\ \hline
+Fehlertoleranz & 8 \\ \hline
+Dokumentation & 20 \\ \hline
+Zeitverhalten & 16 \\ \hline
+Modifizierbarkeit & 16
+\end{tabular}
+\caption{Wertungsmaßstab der einzelnen Metriken}
+\label{table:Wertungsmassstab}
+\end{table}
+
+Für jedes Framework wird eine Nutzwertanalyse durchgeführt und die dazugehörigen Tabellen dazu präsentiert.
+
+\section{GeoMesa}
+
+\begin{table}[htp]
+\centering
+\small
+\begin{tabular}{l|l|l|p{3cm}}
+%\begin{longtable}[H]{p{35mm}>{\columncolor[gray]{0.97}}p{35mm}}
+%\rowcolor[gray]{.9}
+\textbf{Metrik} & \textbf{erreichter Wert} & \textbf{Erfüllung in \%} & \textbf{Kommentar} \\ \hline
+Funktionsumfang & 44 & 82 & alle Funktionen enthalten \\ \hline
+Richtigkeit &  &  &  \\ \hline
+Interoperabilität &  &  &  \\ \hline
+Fehlertoleranz &  &  &  \\ \hline
+Dokumentation &  &  &  \\ \hline
+Zeitverhalten &  &  &  \\ \hline
+Modifizierbarkeit &  &  &  \\
+%\hline \hline
+%\textbf{Summe:} &  &  &
+\end{tabular}
+\caption{Nutzwertanalyse GeoMesa}
+\label{table:nutzwertanalyse-geomesa}
+\end{table}
+%\end{longtable}
+
+
+
+\section{ESRI GIS Tools for Hadoop}
 
