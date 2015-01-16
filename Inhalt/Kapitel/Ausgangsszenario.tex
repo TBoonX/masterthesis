@@ -202,15 +202,14 @@ Funktionstests:\\
 Die Durchführung einer Softwareauswahl zum teilweisen Ersatz eines bestehenden Systems setzt die Analyse des Systems voraus.
 In diesem Unterkapitel wird der Ist-Stand sowie der der angestrebte Zustand nach Einbau des Prototypen dargestellt.
 Firmeninterne Schnittstellen mit dem ist-Stand werden nicht konkretisiert, da sie den Anwendungsfall nicht schneiden.
+
 In Abbildung \ref{fig:iststand} ist die Übersicht des Aufbaus ersichtlich.
 Das Herzstück bildet die objektrelationale Datenbank PostgreSQL mit der geografischen Erweiterung PostGIS.
-Dieses dient zur Datenhaltung und wesentlich auch zur Datenverarbeitung.
+Diese dient zur Datenhaltung und wesentlich auch zur Datenverarbeitung.
 In den Programmiersprachen Delphi und R werden zusätzlich automatische Verarbeitungsvorgänge durchgeführt.
-
 Daten werden von extern und intern eingespeist.
 Dabei handelt es sich um Punkte, Vektoren und Raster mit dazugehörigen Metadaten.
 Im Rahmen der Datenverarbeitung werden vorrangig Punktdaten interpoliert und mit Hilfe von Geostatistik Auswertungen erstellt.
-
 Als zentrales Element enthält die Datenbank neben den agrartechnischen Kennzahlen alle weiteren Daten des Unternehmens. In dieser Betrachtung werden einzig die agrartechnischen Kennzahlen berücksichtigt.
 
 \begin{figure}[h]
@@ -221,7 +220,7 @@ Als zentrales Element enthält die Datenbank neben den agrartechnischen Kennzahl
 \end{figure}
 
 
-- quelldaten benennen und auf Anforderungen verweisen
-- Grundschema der DB beschreieben (geografische agratechnische Daten und Daten des Unternehmens, der Organisation)
-- Funktionsumfang hinsichtlich berechnung aufzeigen: was macht postgresql und was R
-- 
+%- quelldaten benennen und auf Anforderungen verweisen
+%- Grundschema der DB beschreieben (geografische agratechnische Daten und Daten des Unternehmens, der Organisation)
+%- Funktionsumfang hinsichtlich berechnung aufzeigen: was macht postgresql und was R
+%- 
