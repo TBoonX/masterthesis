@@ -1,0 +1,21 @@
+kritische zu untersuchende/bewertende elemente:
+
+- tabelle napplications, streukarten -> datenabfrage dauert 2-30 sekunden (layercategory 604), schuld ist datenmenge(geom)
+- speziel kartendarstellung - ist es mit nosql schneller
+- auch punktdaten in großer Zahl vorhanden
+- (filtern geht schnell)
+- ansätze sind vorrendern und andere datenhaltung
+- einmal holen und rendern, anderes schnell filtern&berechnen
+- große tabelle: viewid=3778 n.nsensorlogs
+
+- interpolation/kriging r_... unter schema pp und nutrients     ;  fct createcontourappl2
+
+- bodenproben und docu: große Datenmenge; im qgis wie schnell abzurufen?, allgemeine verwendung ausrichend schnell? <- ist vorher zu untersuchen
+
+
+Ideen:
+- speichern historischer daten in eigender Datenbank
+
+- Zeiten der einzelnen Schriite messen: filter, gruppieren, Umwandeln, Übertragen
+
+- Teildaten vor anzeige aufbereiten ud woanders ablegen (Beispielsweise Spuren aus Punkten für Doku vorhalten)
