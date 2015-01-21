@@ -207,12 +207,49 @@ Thematik (und Dynamik). Das Besondere bei Geoinformationssystemen ist, dass Geoo
 \subsection{GDAL}
 
 \subsection{GeoTools}
+\label{geotools}
+GeoTools ist eine in Java geschriebene Open Source Bibliothek welche Standardkonforme Operationen zur Verarbeitung von geografischen Daten bereitstellt.
+Die Implementation erfolgte nach Anforderungen des \Gls{ogc}, worauf beispielsweise Geometrien des \Gls{jts} unterstützt werden und die OGC Filter Encoding Spezifikation von Attributen und räumlichen Filtern verwendet wird.\footnote{vgl. \cite{website:geotools}}
+\cite{website:geotools} listet die wichtigsten Funktionalitäten wie folgt auf:
+\begin{quote}
+\begin{itemize}
+\item A clean data access API supporting feature access, transaction support and locking between threads
+\begin{itemize}
+\item Access GIS data in many file formats and spatial databases
+\item Coordinate reference system and transformation support
+\item Work with an extensive range of map projections
+\item filter and analyze data in terms of spatial and non-spatial attributes
+\end{itemize}
+\item A stateless, low memory renderer, particularly useful in server-side environments.
+\begin{itemize}
+\item compose and display maps with complex styling
+\item vendor extensions for fine control of text labels and color blending
+\end{itemize}
+\item Powerful schema asisted parsing technology using XML Schema to bind to GML content\\
+The parsing / encoding technology is provided with bindings for many OGC standards including GML, Filter, KML, SLD, and SE.
+\end{itemize}
+\end{quote}
+Unterstützte Formate sind nach der selben Quelle:
+\begin{quote}
+\begin{itemize}
+\item raster formats and data access\\
+arcsde, arcgrid, geotiff, grassraster, gtopo30, image (JPEG, TIFF, GIF, PNG), imageio-ext-gdal, imagemoasaic, imagepyramid, JP2K, matlab
+\item Database “jdbc-ng” support\\
+db2, h2, mysql, oracle, postgis, spatialite, sqlserver
+\item Vector formats and data access\\
+app-schema, arcsde, csv, dxf, edigeo, excel, geojson, org, property, shapefile, wfs
+\item XML Bindings\\
+Java data structures and bindings provided for the following: xsd-core (xml simple types), fes, filter, gml2, gml3, kml, ows, sld, wcs, wfs, wms, wps, vpf.\\
+Additional Geometry, Filter and Style parser/encoders available for DOM and SAX applications.
+\end{itemize}
+\end{quote}
+
 
 \subsection{PostGIS}
 PostGIS ist eine geografische Erweiterung der Objekt-relationalen Datenbank PostgreSQL.
 PostgreSQL wird dabei um geografische Datentypen, geografische Indizes und Funktionen erweitert.
-PostGIS ist Open-Source.
 Somit kann mit SQL direkt mit geografischen Daten gearbeitet werden.
+PostGIS steh unter der \Gls{gpl}v2.
 
 
 
@@ -293,6 +330,7 @@ Auch sind im allgemeinen keine Joins vorgesehen.
 
 
 \subsection{Hadoop}
+\label{hadoop}
 % http://blog.samibadawi.com/2012/03/hive-pig-scalding-scoobi-scrunch-and.html
 
 Hadoop ist ein unter der Apache Lizenz 2.0 stehendes Java-Framework zur Datenhaltung und Verarbeitung von großen Datenmengen auf einem Verbund von mehrerern Computern.
@@ -329,20 +367,40 @@ Hadoop ist per API verwendbar und bietet sich somit zur Stapelverarbeitung an. %
 Es wird meist nur als Grundgerüst verwendet und mit Datenbanken wie HBase, MongoDB oder PostgreSQL sowie mit Frameworks für die Nutzung wie Hive, Pig, Spark oder Scalding erweitert.
 
 
+\subsection{ZooKeeper}
+\label{zookeeper}
+Das Apache Projekt  ermöglicht verteilten Prozessen über ZNodes miteinander zu kommunizieren.
+Es wird häufig gleichzeit mit Hadoop\footnote{siehe\ref{hadoop}} eingesetzt.
+Ziel ist dabei ein hoher Durchsatz, geringe Latenzen, Hochverfügbarkeit und effektiver Zugriff durch die Prozesse.
+Dabei verwaltet ZooKeeper eine geringe Datenmenge von einigen Kilobyte, da einzig Metainformationen von Interesse sind.\footnote{siehe \cite{website:zookeeper}} 
 
+
+
+\subsection{Thrift}
+\label{thrift}
+\begin{quote}
+The Apache Thrift software framework, for scalable cross-language services development, combines a software stack with a code generation engine to build services that work efficiently and seamlessly between C++, Java, Python, PHP, Ruby, Erlang, Perl, Haskell, C\#, Cocoa, JavaScript, Node.js, Smalltalk, OCaml and Delphi and other languages.\footnote{[\cite{website:thrift}]}
+\end{quote}
 
 
 \subsection{Accumulo}
 \label{accumulo}
-\url{https://en.wikipedia.org/wiki/Apache_Accumulo}\\
-Hierbei handelt es sich um ein Level-1-Apache Projekt.%verweis auf apache.org
-Es ist eine Open-Source Implementation des Big-Table Ansatzes.
-
-\subsection{MongoDB}
+%https://en.wikipedia.org/wiki/Apache_Accumulo
+Hierbei handelt es sich um ein Level-1-Apache Projekt, es ist eine Java Open-Source Implementation des BigTable Ansatzes von Google und wird seit 2008 entwickelt.
+Es verwendet Hadoop\footnote{siehe\ref{hadoop}}, ZooKeeper\footnote{siehe \ref{zookeeper}} und Thift\footnote{siehe \ref{thrift}}.
+Der BigTable Ansatz wird um Iteratoren, Zellenbezeichnungen, Constraints, Fragmentierungsmöglichkeiten einer dokumentbasierten Datenbank und die Unterstützung der gleichzeitigen Verwendung mehrerer HDFS namenodes erweitert.
+Weitere Funktionen sind folgende:
+\begin{itemize}
+\item Verwendung mehrerer Master
+\item Verwendung einer eigenen Zeitsynchronisation
+\item Eingebaute temporäre Datenhaltung im Arbeitsspeicher
+\item Bereitstellung von Testimplementierungen per API
+\end {itemize}
+Es existieren weiterhin verschiedene Erweiterungen zum Datenmanagement und Änderung des Ordnungsrahmens zur Verfügung.[\cite{website:accumulo_features}]
 
 \subsection{Neo4J}
 
-\newpage
+
 
 \subsection{Rasdaman}
 
@@ -372,12 +430,13 @@ Es wird jedoch darauf hingewiesen, dass complexe Operationen auf diese Geometrie
 Zum Erreichen der geringen Latenzen werden räumliche Berechnungen parallelisiert und auf die Instanzen verteilt.
 Es stehen APIs für Java, C++, Erlang, Python, Ruby und Node.js zur Verfügung.[vgl. \cite{website:spacebase}]
 
-\subsection{Geomesa}
+\subsection{GeoMesa}
 
-Geomesa ist eine freie\footnote{Apache License Version 2.0} geografische Datenbank der Firma LocationTech mit den Möglichkeiten der verteilten Verarbeitung und Versionierung der Daten.
+GeoMesa ist eine freie\footnote{Apache License Version 2.0} geografische Datenbank der Firma LocationTech mit den Möglichkeiten der verteilten Verarbeitung und Versionierung von geografischen Daten.
 Es erweitert Accumulo\footnote{siehe \ref{accumulo}},  unterstützt die GeoTools API und bietet ein Plugin für den Mapserver \Gls{geoserver} an.
 Die Daten werden nach Geohash\footnote{siehe \ref{geohash}} verwaltet.[vgl. \cite{website:geomesaeclipse}]\\
-Geomesa wird in Verbindung mit stream processing\footnote{bspw. Spark oder Storm} und batch processing\footnote{bspw. Pig oder Cascading} verwendet.
+GeoMesa wird in Verbindung mit stream processing\footnote{bspw. Spark oder Storm} und batch processing\footnote{bspw. Pig oder Cascading} verwendet.
+Vorrangig werden Vektordaten von GeoMesa verarbeitet, durch eine optionale Erweiterung sind auch Rasterdaten verwendbar.
 
 Datenimport wird ingest genannt, erfolgt über die Kommandazeile und unterstützt die Datenformate CSV, TSV und SHP.
 CSV, TSV, Shapefile, GeoJSON, and GML können dagegen exportiert werden.
@@ -406,12 +465,15 @@ CSV, TSV, Shapefile, GeoJSON, and GML können dagegen exportiert werden.
 
 
 \subsection{ESRI GIS Tools for Hadoop}
-- 4 elements\\
-- Esri Geometry API for Java: "This is a generic library that includes geometry objects, spatial operations, and spatial indexing, it can be used to spatially enable Hadoop. By deploying the Esri geometry API library (as a jar) within Hadoop, developers are able to build Map/Reduce applications that are spatially enabled, by leveraging the Esri Geometry API along with the other Hadoop APIs in their application."\cite{website:esri-hadoop2}\\
-- Spatial Framework for Hadoop: "This library includes the user defined objects that extend Hive with the capabilities of the Esri Geometry API. By enabling this library in Hive, users are able to construct queries that are very SQL like using HQL. In this case, users don’t have to write a Map/Reduce application, they can interact with Hive, write their SQL like queries and get answers directly from Hadoop. Queries in this case can include spatial operations and values."\cite{website:esri-hadoop2}\\
-- Geoprocessing Tools for Hadoop: "These tools are specifically used in ArcGIS. Through the tools, users can connect to Hadoop from ArcGIS. Connecting to Hadoop from ArcGIS is really useful to the toolkit users, since they can import their analysis result in ArcGIS for Visualization. They can also do more complex and sophisticated analysis now that they narrowed down their data to a specific subset. Additionally, users can leverage the ArcGIS platform capabilities to publish their maps to web and mobile apps, and can integrate it with BI reports."\cite{website:esri-hadoop2}\\
-- GIS Tools for Hadoop: "This project is intended as a place to include multiple samples that leverage the toolkit. The samples can leverage the low level libraries, or the Geoprocessing tools. A couple of samples are available to help you test the deployment of the spatial libraries with Hadoop and Hive, and make sure everything runs with no issues before you start leveraging the setup from your HQL queries, or from the GP tools. To check your deployment, for Hive and GP tools usage, the sample point-in-polygon-aggregation-hive can be utilized. The sample leverages the data and lib directories on the same path."\cite{website:esri-hadoop2} (Benötigt ArcGIS)\\
-- Apache License, Version 2.0
+Das Unternehmen ESRI stellt eine Umgebung zum verteilten Verarbeiten geografischer Daten auf einem Hadoop Cluster bereit.
+Diese Umgebung nennt sich GIS Tools for Hadoop und besteht aus vier Teilen:
+\begin{description}
+\item[Esri Geometry API for Java] Java API für Entwickler, um mit Hadoop geografische Datenverarbeitung durchzuführen. JSON, WKT und Shapefile sind Importformate. Die Datentypen werden als einfache Geometrien bezeichnet und setzen sich laut Quellcode aus Punkt, Punktsammlung, Linie, Polygon und PolyLine zusammen. Geografische Funktionen sind \glqq union, difference, intersect, clip, cut, and buffer\grqq \ sowie \glqq equals, within, contains, crosses, and touches\grqq . (vgl. \cite{website:esrigishadoopapi})
+\item[Spatial Framework for Hadoop] Erweiternte Bibliothek für Hadoop, um mit HQL geografisch zu arbeiten.
+\item[Geoprocessing Tools for Hadoop] Hadoop Anbindung an ArcGIS.
+\item[GIS Tools for Hadoop] Projekt zum testen der Hadoop Umgebung mit ArcGIS.
+\end{description}
+ArcGIS ist ein proprietäres GIS, die beschriebene Umgebung steht dagegen unter Apache Lizenz Version 2.0 zur Verfügung.(vgl. \cite{website:esri-hadoop2})
 
 \section{Tests}
 
