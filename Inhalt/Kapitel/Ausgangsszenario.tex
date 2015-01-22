@@ -195,7 +195,8 @@ Funktionstests:\\
 - können räumliche Daten geografisch/topologisch gefiltert werden?
 
 Lasttests:\\
-siehe MItschrift 20.1.15
+Die Lasttests wurden anhand \ref{iststand-vorgaenge} erstellt.
+
 
 \section{Ist-Stand}
 \label{IstStand}
@@ -212,16 +213,41 @@ Diese dient zur Datenhaltung und wesentlich auch zur Datenverarbeitung.
 In den Programmiersprachen Delphi und R werden zusätzlich automatische Verarbeitungsvorgänge durchgeführt.
 Daten werden von extern und intern eingespeist.
 Dabei handelt es sich um Punkte, Vektoren und Raster mit dazugehörigen Metadaten.
-Im Rahmen der Datenverarbeitung werden vorrangig Punktdaten interpoliert und mit Hilfe von Geostatistik Auswertungen erstellt.
+Im Rahmen der Datenverarbeitung werden Punktdaten interpoliert und mit Hilfe von Geostatistik Auswertungen aus originalen und verarbeiteten Daten erstellt.
 Als zentrales Element enthält die Datenbank neben den agrartechnischen Kennzahlen alle weiteren Daten des Unternehmens. In dieser Betrachtung werden einzig die agrartechnischen Kennzahlen berücksichtigt.
-
 \begin{figure}[h]
 \centering
-\includegraphics[width=.8\textwidth]{Abbildungen/Ist-Stand.png}
+\input{Abbildungen/Ist-Stand.tex}
 \caption[Aufbau Ist-Stand]{\"{U}bersicht des Aufbaus des Ist-Standes}
 \label{fig:iststand}
 \end{figure}
+%
+\label{iststand-vorgaenge}
+Es existiert eine Vielzahl von Vorgängen, welche zur Erhöhung der Useability in Hinsicht auf ihre Laufzeit verbessert werden können.
+Für die Bewertung der Frameworks und schließlich zum Entwurf des Prototypen, ist es notwendig eine Auswahl der zu untersuchenden Vorgängen zu treffen.
+Die Auswahl erfolgt durch Mitarbeiter der Agri Con und hat Vorgänge mit der längsten Laufzeit als Ergebnis.
+Dazu zählt das Laden von Daten zum Zwecke der Verarbeitung und Anzeige.
+Die größten Datenmengen sind bei Punkten aus dem N-Sensor Bereich zu finden.
+Die Anzeige der Punktdaten für einen Betrieb kann bis zu neun Sekunden dauern.
+Punktdaten aus dem Docu Bereich werden ebenfalls nach mehrere Sekunden ausgegeben.
+Die Punktdaten aus dem N-Sensor Bereich sind jedoch repräsentativ und werden deshalb betrachtet.
+Weiterhin zählt Interpolation zu diesen Vorgängen.
+Punkte und Fahrspuren werden mit einem angepassten Kriging interpoliert und als Vektoren und Raster abgespeichert.
+Dies wird mit einer R Bibliothek realisiert und bei großen Datenmengen Nachts angestoßen.
+Diese zwei charakteristischen Vorgänge sind durch ein Framework zu realisieren.
 
+
+\begin{figure}[h]
+\centering
+\input{Abbildungen/Wunsch-Stand.tex}
+\caption[Aufbau Wunsch-Stand]{\"{U}bersicht des Aufbaus des Wunsch-Standes}
+\label{fig:wunschstand}
+\end{figure}
+Das Ziel ist es, ein Framework zusätzlich in den Ist-Stand zu integrieren.
+Es soll dabei die aufwendigen Vorgänge durchführen, als Permanentspeicher für historische Daten dienen und Daten zur späteren Anzeige aufbereiten und bereitstellen.
+Die aufwendigen Vorgänge werden in den Lasttests untersucht.
+In welcher konkreten Form das Framework als Speicher für historische und aufbereitete Daten dient, ist abhängig vom Framework.
+Auf Grund dessen ist dies nach Auswahl des Frameworks im Entwurf des Prototypen zu konkretisieren.
 
 %- quelldaten benennen und auf Anforderungen verweisen
 %- Grundschema der DB beschreieben (geografische agratechnische Daten und Daten des Unternehmens, der Organisation)

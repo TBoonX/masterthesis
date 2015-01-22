@@ -1,0 +1,7 @@
+select * from n.nsensorlogs where farmid=1038
+~8s
+explain analyze ... zeigt reine bearbeitungsdauer, übertragunszeit ist differenz aus dieser und oberer Zeit (8-2=6s Übertragunszeit) <- scheint nicht zu stimmen, da select schneller sein kann als explain analyse
+
+zu Docu konnte ich nicht finden wie die Daten geholt werden.
+Oder Woher.
+
