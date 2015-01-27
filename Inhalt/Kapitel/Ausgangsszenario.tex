@@ -172,7 +172,10 @@ Die geforderte Mindestbewertung ist 6.
 
 \textbf{Zeitverhalten:}\\
 %TODO: Werte aus Ist-Stand in Bezug auf Lasttests verwenden
-
+Konkret wird eine Beschleunigung aufwendiger Vorgänge angestrebt.
+Die statische Abbildung auf Bezug auf die Laufzeiten des Ist-Standes:\\
+$[Zeit wird überschritten, Zeit ist gleich, Zeit wird unterschritten] nach [0,1,3]$\\
+Der Abruf von Punktdaten dauert neun Sekunden und die Interpolation ...
 
 \textbf{Modifizierbarkeit:}\\
 Anpassungen des Frameworks hinsichtlich der folgenden Punkte erhöhen den Wert um eins:\\
@@ -235,6 +238,7 @@ Die Punktdaten aus dem N-Sensor Bereich sind jedoch repräsentativ und werden de
 Weiterhin zählt Interpolation zu diesen Vorgängen.
 Punkte und Fahrspuren werden mit einem angepassten Kriging interpoliert und als Vektoren und Raster abgespeichert.
 Dies wird mit einer R Bibliothek realisiert und bei großen Datenmengen Nachts angestoßen.
+Das spezielle Kriging im jeweiligen Framework zu implmentieren ist aufwendig, weshalb ein unveränderter Kriging Algorithmus für den Vergleich verwendet werden muss.
 Diese zwei charakteristischen Vorgänge sind durch ein Framework zu realisieren.
 
 

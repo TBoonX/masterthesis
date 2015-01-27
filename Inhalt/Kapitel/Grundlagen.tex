@@ -27,7 +27,7 @@ Transaktionen verschiedener Benutzer beeinflussen sich nicht gegenseitig.
 \item[Dauerhaftigkeit] \hfill \\
 Jede Änderung einer Transaktion ist nach Ende dieser auf die Festplatte geschrieben und nicht mehr im Puffer vorhanden.
 \end{description}
-Die Definition dieses anerkannten Begriffes ist für Kapitel 2.3 notwendig.
+Die Definition dieses anerkannten Begriffes ist für Kapitel \ref{nosql} notwendig.
 
 \subsubsection{MVCC}
 In grundlegenden relationalen Systemen werden Transaktionen verzögert oder sogar gesperrt, um Konsistenz und Isolation zu gewährleisten.
@@ -42,7 +42,8 @@ Dadurch werden die allgemeinen Sperrverfahren (siehe \cite{book:kudrass} S. 266 
 \cite{book:nosql-einfuehrung}
 
 \subsubsection{CAP}
-\Gls{cap}
+\Gls{cap}\\
+TODO
 
 %\subsubsection{Partition Tolerance}
 
@@ -85,7 +86,8 @@ Die Blattknoten sind unidirektional verkettet.
 %Ordnung ist hier (m -> Mindestbelegung für Indexseiten, m* -> Mindestbelegung der Blattseiten) m>m*
 
 \subsubsection{LSM-Baum}
-Log structured merge tree
+Log structured merge tree\\
+TODO
 
 \subsubsection{R-Baum}
 R-Bäume sind balancierte Bäume und \glqq organisieren k-dimensionale Rechtecke mithilfe überlappender Blockregionen\grqq \ (\cite{book:kudrass} S. 523)
@@ -97,6 +99,7 @@ Datenknoten enthalten dagegen nur mur als eigentliches Geoobjekt. (vgl. \cite{bo
 
 \subsubsection{Geohash}
 \label{geohash}
+Bei Bedarf
 
 \subsection{Mehrrechner-Datenbanksystem}
 
@@ -119,11 +122,14 @@ Förderierte Datenbanksysteme (FDBS) sind ebenfalls geografisch verteilte Sgated
 
 \subsection{Replikationsverfahren}
 
-\subsubsection{Synchron}
+\subsubsection{Synchron}\
+Bei Bedarf
 
-\subsubsection{Asynchron}
+\subsubsection{Asynchron}\
+Bei Bedarf
 
-\subsubsection{Kaskadiert}
+\subsubsection{Kaskadiert}\
+Bei Bedarf
 
 \newpage
 
@@ -177,20 +183,26 @@ Ein Punkt wird näherungsweise durch ein einzelnes Pixel dargestellt. Ein Linien
 \end{quote}
 
 
-\subsubsection{Shapefile}
+\subsubsection{Shapefile}\
+Bei Bedarf
 
 \subsection{Operationen}
 % Grundlagenbuch geoinformatik zu rate ziehen
 
 \subsubsection{Aggregation}
+TODO
 
 \subsubsection{Filterung}
+TODO
 
 \subsubsection{Geostatistik}
+TODO
 
 \subsubsection{Interpolation}
+TODO
 
 \subsubsection{Resampling}
+Bei Bedarf
 
 
 \subsection{GIS}
@@ -204,7 +216,7 @@ Im Mittelpunkt  der  Geoinformatik  stehen  mit den  Geoinformationssystemen rau
 Thematik (und Dynamik). Das Besondere bei Geoinformationssystemen ist, dass Geoobjekte darüber hinaus Geometrie und Topologie als implizite und untrennbare Bestandteile aufweisen!  Die Verarbeitung derartiger raumbezogener Informationen erfordert spezielle Werkzeuge bzw. Funktionen, die von den übrigen Informationssystemen nicht bereitgestellt werden [...].\footnote{\cite{book:gi-theopluspraxis3} S. 337}
 \end{quote}
 
-\subsection{GDAL}
+%\subsection{GDAL}
 
 \subsection{GeoTools}
 \label{geotools}
@@ -254,7 +266,7 @@ PostGIS steh unter der \Gls{gpl}v2.
 
 
 \section{NoSQL}
-
+\label{nosql}
 \subsection{Definition}
 
 NoSQL steht für eine Bewegung des letzten Jahrzehnts, in welcher die Abkehr von klassischen relationalen Systemen gefordert oder zumindest ein Umdenken bestehender Strukturen, Vorgehen und Grundsätze angestrebt wird.
