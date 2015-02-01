@@ -1,0 +1,103 @@
+=== Table of free systems especially for spatial data processing ===
+{| class="wikitable sortable"
+! DBS !! License !! Distributed !! Spatial objects !! Spatial functions !! [[PostgreSQL]] interface !! UMN [[MapServer]] interface !! Documentation !! Modifiable !! [[HDFS]]
+|-
+| style="text-align:left" | [http://www.geomesa.org/ GeoMesa]
+| [[Apache License]] 2.0
+| yes
+| yes ([[Simple Feature Access]])
+| yes ([[JTS]])
+| no (manufacturable with [[GeoTools]])
+| no
+| parts of the funcions, a few examples
+| with [[Simple Feature Access]] in [[Java Virtual Machine]] and [https://spark.apache.org/ Spark] are all kinds of tasks solvable
+| yes
+|-
+| style="text-align:left" | [[ESRI]] GIS Tools for [[Hadoop]]
+| [[Apache License]] 2.0
+| yes
+| yes (own specific API)
+| yes (union, difference, intersect, clip, cut, buffer, equals, within, contains, crosses, and touches)
+| no
+| no
+| just briefly
+| forking
+| yes
+|-
+| style="text-align:left" | [[Rasdaman]]
+| server [[GPL]], client [[LGPL]], enterprise proprietary
+| yes
+| just raster
+| raster manipulation with rasql
+| yes
+| with [[Web Coverage Service]] or [[Web Processing Service]]
+| detailed wiki
+| own defined function in enterprise edition
+| no
+|-
+| style="text-align:left" | [[PostgreSQL]] with [[PostGIS]]
+| [[GNU General Public License]]
+| no
+| yes
+| yes
+| yes
+| yes
+| detailed
+| SQL, in connection  with [[R]]
+| no
+|-
+| style="text-align:left" | [https://github.com/neo4j-contrib/spatial Neo4J-spatial]
+| GNU affero general public license
+| no
+| yes ([[Simple Feature Access]])
+| yes (contain, cover, covered by, cross, disjoint, intersect, intersect window, overlap, touch, within and within distance)
+| no
+| no
+| just briefly
+| forking or [[JTS]]
+| no
+|-
+| style="text-align:left" | [http://www.postgres-xl.org/ Postgres-XL] with [[PostGIS]]
+| Mozilla public license and GNU general public license
+| yes
+| yes
+| yes
+| yes
+| yes
+| PostGIS: yes, Postgres-XL: briefly
+| SQL, in conection with [[R]] or [[Tcl]] or [[Python (programming language)]]
+| no
+|-
+| style="text-align:left" | [[AsterixDB]]
+| [[Apache License]] 2.0
+| yes
+| yes (custom)
+| center, radius, distance, area, intersect and cell
+| no
+| no
+| good in Google Code
+| own datatypes, functions and indexes
+| possible
+|-
+| style="text-align:left" | [http://www.h2gis.org/ H2GIS]
+| [[GPL]] 3
+| no
+| yes (custom, no raster)
+| [[Simple Feature Access]] and custom functions for H2Network
+| yes
+| no
+| yes (homepage)
+| SQL
+| no
+|-
+| style="text-align:left" | [[Ingres]]
+| [[GPL]] or proprietary
+| yes (if extension is installed)
+| yes (custom, no raster)
+| [[Geometry Engine Open Source]]
+| no
+| with MapScript
+| just briefly
+| with C and OME
+| no
+|}
