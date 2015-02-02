@@ -504,6 +504,7 @@ Nachfolgend werden die Randbedingungen definiert und in Kapitel \ref{Anforderung
 
 
 \subsection{Funktionstests}
+\label{grundlagen-funktionstests}
 Um die Systeme auf Softwarequalität, beschrieben auf Seite \pageref{softwarequalität}, zu testen, sind Funktionstests notwendig.
 \cite{book:softwareengineering} verweist auf Funktionstests auf Seite 455 wie folgt:
 \begin{quote}
@@ -521,15 +522,13 @@ alle definierten Fehlersituationen herbeiführen.
 \end{quote}
 Im Rahmen dieser Arbeit soll dieser Umfang wie folgt begrenzt werden:
 \begin{description}
-\item[Funktionsabdeckung] Zur Einschätzung der Eignung eines Systems für den Anwendungsfall sind ausgewählte Funktionen zu testen, Im allgemeinen besitzen die ausgewählten Systeme Funktionen die in diesem Rahmen nicht genutzt werden sollen, jedoch auch Funktionen die von Hand ergänzt werden müssen. Die notwendige Menge an Funktionen soll einzig getestet und somit abgedeckt werden.
+\item[Funktionsüberdeckung] Zur Einschätzung der Eignung eines Systems für den Anwendungsfall sind ausgewählte Funktionen zu testen, Im allgemeinen besitzen die ausgewählten Systeme Funktionen die in diesem Rahmen nicht genutzt werden sollen, jedoch auch Funktionen die von Hand ergänzt werden müssen. Die notwendige Menge an Funktionen soll einzig getestet und somit abgedeckt werden.
 \item[Eingabeüberdeckung] Auch hierbei stehen verschiedene von den Systemen bereitgestellte Schnittstellen und Austauschformate zur Verfügung, aber es sollen nur die relevanten untersucht werden.
 \item[Ausgabeüberdeckung] siehe Eingabeüberdeckung
 \item[Leistungsgrenzen] Dafür werden eigene Tests definiert und verwendet.\footnote{siehe \ref{Leistungstests}}
 \item[Mengengrenzen] Die zu untersuchenden Systeme eignen sich zum Speichern großer Datenmengen die mehrere Terrabyte bis Petabyte umfassen. Da die vorhandenen Datenmengen diese Größe unterschreitet, müssen die Mengengrenzen nicht wesentlich getestet werden.
 \item[Fehlersituationen] Es besteht nicht das Ziel die Fehleranfälligkeit als einzelnes Merkmal zu untersuchen, weshalb dafür keine Testfälle erstellt oder durchgeführt werden. Einzig die Korrektheit der Berechnungen wird überprüft, indem die Ergebnisse des aktuellen ist-Standes zum Vergleich herangezogen werden. 
 \end{description}
-
-%TODO Vorgehen bei den Tests beschreiben; da fehlende Funktionen ergänzt werden eventuell Funktionsabdeckung überarbeiten
 
 \subsection{Leistungstests}
 \label{Leistungstests}
@@ -555,4 +554,4 @@ Die aus der Leistungsmessung gewonnenen Erkenntnisse dienen hierbei als Qualitä
 
 %Leistungsmessungen des \Gls{tpc} werden zum Zwecke der vergleichenden Leistungsfeststellung von Software 
 Es existieren vordefinierte Leistungstests, dabei sind jene des \Gls{tpc} sowie die Benchmarks 001, 007, HyperModel und Justitia zu nennen.
-Diese sind jedoch nicht für die zu untersuchenden \Gls{gis} geeignet, da sie die allgemeine Leistungsfähigkeit und Effektivität messen und somit nicht die Werte für den untersuchten Anwendungsfall ermitteln.
+Diese sind jedoch nicht für den zu untersuchenden Anwendungsfall geeignet, da sie die allgemeine Leistungsfähigkeit und Effektivität messen und somit nicht die gesuchten Werte der \Gls{gis} ermitteln.

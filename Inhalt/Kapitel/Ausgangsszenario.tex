@@ -184,22 +184,59 @@ Die geforderte Mindestbewertung ist abhängig vom Funktionsumfang und der Intero
 Jedoch sollten fehlende Funktionen und Schnittstellen erstellt werden können.
 
 \subsection{Testfälle}
+\subsubsection{Funktionstests}
+Nach der Definition in \ref{grundlagen-funktionstests} werden hiermit spezielle Funktionalitäten auf Vorhandensein und die Menge der Schnittstellen sowie der Austauschformate getestet.
+Diese Funktionstest sind nicht automatisiert für unterschiedliche Frameworks durchführbar.
+Deshalb werden sie manuell anhand der Spezifikation und des Quellcodes durchgeführt und die Ergebnisse tabellarisch festgehalten.
 
-%Funktionstests bzw. Testfälle definieren
-%
-Funktionstests:\\
-- ist als Datenquelle/Import PostgreSQL angebbar und Daten sind importierbar? Welche nicht?
-- existieren räumliche Datentypen? eventuell unter anderem namen, mit anderen attributen/funktionen. Unterschied aufzeigen
-- Welche Koordinatenreferenzsysteme können verwendet werden? Kann man verschiedene importieren/exportieren?
-- gibt es group funktionen? bei welchen Datentypen geht das?
-- Gibt es Funktionen zum Verschneiden von bsw. Polygonen mit anderen?
-- Können Daten übereinander gelegt und ausgewertet werden?
-- Gibt es funktionen zur geostatistik? Sind die Grundfunktionen für Kriging vorhanden?
-- können räumliche Daten geografisch/topologisch gefiltert werden?
+Folgende Schnittstellen sind zu testen:
+\begin{itemize}
+\item PostgreSQL
+\item PostGIS
+\item \Gls{umn}
+\end{itemize}
 
-Lasttests:\\
+Als Austauschformate ist mindestens eines der folgenden Datentypen zum Datenaustausch notwendig:
+\begin{itemize}
+\item Simple Feature Access
+\item Objekte der JTS
+\item PostGIS geometry
+\end{itemize}
+
+Speziell in GIS gilt es die Koordinatenreferenzsysteme zu analysieren.
+Die EPSG Codes 3578 und 4326 werden im Anwendungsfall verwendet.
+
+Für folgende Aufgaben sind die Funktionen zu analysieren:
+\begin{itemize}
+\item Umwandlung zwischen Koordinatensystemen
+\item Verschneidung von räumlichen Daten
+\item Geostatistik
+\item Interpolation
+\item Kriging
+\item topologische Filterung
+\item räumliche Filterung
+\end{itemize}
+Dabei ist stets zu berücksichtigen mit welchen Datentypen die Funktionen verwendet werden können.
+
+%- ist als Datenquelle/Import PostgreSQL angebbar und Daten sind importierbar? Welche nicht?
+%- existieren räumliche Datentypen? eventuell unter anderem namen, mit anderen attributen/funktionen. Unterschied aufzeigen
+%- Welche Koordinatenreferenzsysteme können verwendet werden? Kann man verschiedene importieren/exportieren?
+%- gibt es group funktionen? bei welchen Datentypen geht das?
+%- Gibt es Funktionen zum Verschneiden von bsw. Polygonen mit anderen?
+%- Können Daten übereinander gelegt und ausgewertet werden?
+%- Gibt es funktionen zur geostatistik? Sind die Grundfunktionen für Kriging vorhanden?
+%- können räumliche Daten geografisch/topologisch gefiltert werden?
+
+\subsubsection{Lasttests}
 Die Lasttests wurden anhand \ref{iststand-vorgaenge} erstellt.
 
+Ein Lasttest misst die Laufzeit zur Aggregation von Punktdaten.
+Dies ist auf dem System der Datenbank bzw. des Masters über den gängigen Weg, vorrangig SQL, durchzuführen.
+Die Laufzeitmessung der Anfragen erfolgt über diese mit Parametern der Anfrage.
+% select * from n.nsensorlogs where farmid=1038
+
+Analog ist ein weiterer Lasttest zur Interpolation bzw. Kriging durchzuführen.
+%funktion ist noch zu erstellen
 
 \section{Ist-Stand}
 \label{IstStand}
