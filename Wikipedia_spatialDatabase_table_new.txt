@@ -5,12 +5,12 @@
 | style="text-align:left" | [http://www.geomesa.org/ GeoMesa]
 | [[Apache License]] 2.0
 | yes
-| yes ([[Simple Feature Access]])
-| yes ([[JTS]])
+| yes ([[Simple Features]])
+| yes ([[JTS Topology Suite|JTS]])
 | no (manufacturable with [[GeoTools]])
 | no
 | parts of the funcions, a few examples
-| with [[Simple Feature Access]] in [[Java Virtual Machine]] and [https://spark.apache.org/ Spark] are all kinds of tasks solvable
+| with [[Simple Feature Access]] in [[Java Virtual Machine]] and [[Apache Spark]] are all kinds of tasks solvable
 | yes
 |-
 | style="text-align:left" | [[ESRI]] GIS Tools for [[Hadoop]]
@@ -38,34 +38,34 @@
 | style="text-align:left" | [[PostgreSQL]] with [[PostGIS]]
 | [[GNU General Public License]]
 | no
-| yes
-| yes
+| yes ([[Simple Features]] and raster)
+| yes ([[Simple Feature Access]] and raster functions)
 | yes
 | yes
 | detailed
-| SQL, in connection  with [[R]]
+| SQL, in connection  with [[R_(programming_language)|R]]
 | no
 |-
 | style="text-align:left" | [https://github.com/neo4j-contrib/spatial Neo4J-spatial]
 | GNU affero general public license
 | no
-| yes ([[Simple Feature Access]])
+| yes ([[Simple Features]])
 | yes (contain, cover, covered by, cross, disjoint, intersect, intersect window, overlap, touch, within and within distance)
 | no
 | no
 | just briefly
-| forking or [[JTS]]
+| fork or [[JTS Topology Suite|JTS]]
 | no
 |-
 | style="text-align:left" | [http://www.postgres-xl.org/ Postgres-XL] with [[PostGIS]]
 | Mozilla public license and GNU general public license
 | yes
-| yes
-| yes
+| yes ([[Simple Features]] and raster)
+| yes ([[Simple Feature Access]] and raster functions)
 | yes
 | yes
 | PostGIS: yes, Postgres-XL: briefly
-| SQL, in conection with [[R]] or [[Tcl]] or [[Python (programming language)]]
+| SQL, in connection with [[R_(programming_language)|R]] or [[Tcl]] or [[Python (programming language)|Python]]
 | no
 |-
 | style="text-align:left" | [[AsterixDB]]
@@ -94,7 +94,7 @@
 | [[GPL]] or proprietary
 | yes (if extension is installed)
 | yes (custom, no raster)
-| [[Geometry Engine Open Source]]
+| [http://trac.osgeo.org/geos/ Geometry Engine, Open Source]
 | no
 | with MapScript
 | just briefly

@@ -1,6 +1,6 @@
 \chapter{Gegenüberstellung}
 
-Anhand der unter \ref{qualitätsmetriken} erstellten Metriken sind die Frameworks GeoMesa, Postgres-XL und H2GIS zu vergleichen.
+Anhand der unter \ref{qualitätsmetriken} erstellten Metriken sind die Frameworks GeoMesa, Postgres-XL und Rasdaman zu vergleichen.
 Der Vergleich findet im Rahmen einer groben Nutzwertanalyse statt.
 Hierbei werden keine Daten von durchgeführten Tests herangezogen, sondern es wird anhand der Spezifikation der einzelnen Frameworks untersucht.
 
@@ -21,17 +21,18 @@ Tabelle \ref{table:Wertungsmassstab} zeigt die für die Nutzwertanalyse notwendi
 \centering
 \begin{tabular}{l|l}
 \textbf{Metrik} & \textbf{Gewichtung in \%} \\ \hline
-Richtigkeit & 10 \\ \hline
-Interoperabilität & 22 \\ \hline
-Funktionsumfang & 18 \\ \hline
-Fehlertoleranz & 8 \\ \hline
-Dokumentation & 20 \\ \hline
-Zeitverhalten & 16 \\ \hline
-Modifizierbarkeit & 16
+%Richtigkeit & 10 \\ \hline
+Interoperabilität & 30 \\ \hline
+Funktionsumfang & 20 \\ \hline
+%Fehlertoleranz & 8 \\ \hline
+Dokumentation & 35 \\ \hline
+%Zeitverhalten & 16 \\ \hline
+Modifizierbarkeit & 15
 \end{tabular}
 \caption{Wertungsmaßstab der einzelnen Metriken}
 \label{table:Wertungsmassstab}
 \end{table}
+Die Metriken Richtigkeit, Fehlertoleranz und Zeitverhalten werden nicht in die Analyse aufgenommen, da sie über die Spezifikation nicht belegbar sind.
 
 Für jedes Framework wird eine Nutzwertanalyse durchgeführt und die dazugehörigen Tabellen dazu präsentiert.
 
@@ -39,32 +40,129 @@ Zu jeder Metrik wird der erreichte Wert, die ungewichtete Erfüllung, die gewich
 Die ungewichtete Erfüllung bezieht sich auf den maximal zu erreichenden Wert der Metrik, die gewichtete Erfüllung dagegen auf die Erfüllung der Metrik in Bezug auf \ref{table:Wertungsmassstab}.
 Die Kommentarspalte dient der Darstellung des Erreichens der Mindestanforderungen.
 Der schlussendliche Nutzwert ergibt sich nach Zangemeister in \cite{website:nutzwertanalyse} aus der Summe der Produkte des Teilnutzens des jeweiligen Kriteriums mit der Gewichtung des Kriteriums.
+Der Teilnutzen ist hier der Prozentuale Anteil der erreichten Punktzahl an der maximalen Punktzahl des Kriteriums.
+Diese Prozentangabe wird als Wert mit der Gewichtung des Kriteriums multipliziert, woraus sich der Nutzwert für das Kriterium ergibt.
+Die Summe aller dieser Teilnutzwerte ergibt den Nutzwert des Frameworks für den Anwendungsfall.
 
 \section{GeoMesa}
+
+% Funktionsumfang: 48
+%parallele Verarbeitung 2 Accumulo with HDFS distributed + Apache Spark ideal for distribution http://www.eclipse.org/community/eclipse_newsletter/2014/march/article3.php
+%geografische Datentypen: 12 Simpel Features http://www.eclipse.org/community/eclipse_newsletter/2014/march/article3.php
+%umrechnung: 10 JTS
+%gruppierung: 7 Scala
+%verschneidung: 3 JTS difference, union, symmetric difference https://en.wikipedia.org/wiki/JTS_Topology_Suite
+%overlay: 2 JTS relate und overlay http://www.vividsolutions.com/jts/JTSHome.htm
+%geostatistik: 2 nicht vorhanden, eventuell über JTS möglich , möglich über R
+%Filter: 10 spatial filter with GeoTools https://en.wikipedia.org/wiki/GeoTools
+%versionierung: 0 dynamisches Schema, weshalb versionierung unnötig (eigene Features können festgehalten werden)
+
+% Interoperabilität 7
+%pgsql per JDBC/ODBC
+%umn: nein
+
+% Dokumentation 3
+%install: knappe hinsweise http://www.geomesa.org/2014/05/28/geomesa-quickstart/
+%zeit: 0
+%funktionsumfang: 1 nennung von ein paar möglichkeiten http://www.geomesa.org/tutorials/
+%interoparabilität: 1 indirekt über Scala
+%best practise: 0
+%anpassbarkeit: 1 ein beispiel http://www.geomesa.org/2014/10/09/geomesa-tools-features/
+
+% Modifizierbarkeit 4
+%eigene Schemas, keine Datentypen
+%Schnittstellen: indirekt: JDBC/ODBC
+%eigene Funktionen mit Scala/Spark
+%Programmiersprachen: Scala(https://en.wikipedia.org/wiki/Apache_Spark), R über tool https://amplab-extras.github.io/SparkR-pkg/
+%Batch-Vorgänge Skala https://en.wikipedia.org/wiki/Apache_Spark
 
 \begin{table}[htp]
 \centering
 \small
-\begin{tabular}{l|c|c|p{3cm}}
-%\begin{longtable}[H]{p{35mm}>{\columncolor[gray]{0.97}}p{35mm}}
-%\rowcolor[gray]{.9}
-\textbf{Metrik} & \textbf{erreichter Wert} & \textbf{Erfüllung in \%} & \textbf{Kommentar} \\ \hline
-Funktionsumfang & 44 & 82 & alle Funktionen enthalten \\ \hline
-Richtigkeit &  &  &  \\ \hline
-Interoperabilität &  &  &  \\ \hline
-Fehlertoleranz &  &  &  \\ \hline
-Dokumentation &  &  &  \\ \hline
-Zeitverhalten &  &  &  \\ \hline
-Modifizierbarkeit &  &  &  \\
-%\hline \hline
-%\textbf{Summe:} &  &  &
+\begin{tabular}{l|p{1.8cm}|c|p{3cm}|p{1.8cm}}
+\textbf{Metrik} & \textbf{erreichter Wert} & \textbf{Erfüllung in \%} & \textbf{Kommentar} & \textbf{gewichteter Teilnutzen} \\ \hline
+Interoperabilität & 7 & 58 & Implementationen notwendig & 17 \\ \hline
+Funktionsumfang & 48 & 79 & meisten Funktionen nur mit Scala verfügbar & 16 \\ \hline
+Dokumentation & 3 & 23 & zumeist ist auf Community zurückzugreifen & 8 \\ \hline
+Modifizierbarkeit & 4 & 67 & mit Simple Features und Spark mächtige Problemlösungen erstellbar & 10 \\
 \end{tabular}
 \caption{Nutzwertanalyse GeoMesa}
 \label{table:nutzwertanalyse-geomesa}
 \end{table}
-%\end{longtable}
+Aus Tabelle \ref{table:nutzwertanalyse-geomesa} ergibt sich ein Nutzwert von 51.
+
+%\begin{table}[htp]
+%\centering
+%\small
+%\begin{tabular}{l|c|c|p{3cm}}
+%%\begin{longtable}[H]{p{35mm}>{\columncolor[gray]{0.97}}p{35mm}}
+%%\rowcolor[gray]{.9}
+%\textbf{Metrik} & \textbf{erreichter Wert} & \textbf{Erfüllung in \%} & \textbf{Kommentar} \\ \hline
+%%Richtigkeit &  &  &  \\ \hline
+%Interoperabilität &  &  &  \\ \hline
+%Funktionsumfang & 44 & 82 & alle Funktionen enthalten \\ \hline
+%%Fehlertoleranz &  &  &  \\ \hline
+%Dokumentation &  &  &  \\ \hline
+%%Zeitverhalten &  &  &  \\ \hline
+%Modifizierbarkeit &  &  &  \\
+%%\hline \hline
+%%\textbf{Summe:} &  &  &
+%\end{tabular}
+%\caption{Nutzwertanalyse GeoMesa}
+%\label{table:nutzwertanalyse-geomesa}
+%\end{table}
+%%\end{longtable}
 
 
 
-\section{ESRI GIS Tools for Hadoop}
+\section{Postgres-XL}
+% Funktionsumfang 57
+%parallele verarbeitung: 2 partitioning over nodes and MPP http://www.postgres-xl.org/overview/
+%geografische Datentypen: 14 OGC Simple feature and raster http://postgis.net/docs/manual-2.1/using_postgis_dbmanagement.html#idp6871632
+%umrechnung: 10 einfacher Funktionsaufruf http://postgis.net/docs/manual-2.1/UpdateGeometrySRID.html
+%gruppierung: 10 in SQL eingebaut (OGC) http://postgis.net/docs/manual-2.1/using_postgis_dbmanagement.html
+%verschneidung: 3 fct für intersetction, difference and symmetric difference http://postgis.net/docs/manual-2.1/reference.html
+%overlay: 2 fct for relation, intersects http://postgis.net/docs/manual-2.1/reference.html
+%geostatistic: 0 just simple interpolation to a point, possible with R or C++ and GDAL http://postgis.net/docs/manual-2.1/PostGIS_Special_Functions_Index.html
+%filter: 10 much functions http://postgis.net/docs/manual-2.1/reference.html
+%versioning: not build in, possible with tools
+
+% Interoperabilität 12
+%pgsql ja
+%umn: als Datenquelle angebbar http://mapserver.org/mapfile/layer.html
+
+% Dokumentation 9
+%PostGIS: http://postgis.net/documentation
+%postgres-xl: http://files.postgres-xl.org/documentation/
+%installation: 1 briefly http://files.postgres-xl.org/documentation/installation.html
+%Zeitverhalten: 0
+%funktionsumfang: 2 Übersicht managing, allgemeine postgreSQL und PostGIS Doku http://files.postgres-xl.org/documentation/
+%Interoperabilität: 2 verweis auf postgresql doku, API http://files.postgres-xl.org/documentation/client-interfaces.html
+%best practise: 1 some hints http://files.postgres-xl.org/documentation/
+%anpassbarkeit: 3 sql, tcl, perl, python http://files.postgres-xl.org/documentation/server-programming.html
+
+% Modifizierbarkeit 5
+%eigene Datentypen mit SQL
+%Schnittstellen: indirekt: JDBC, 
+%eigene Funktionen mit SQL
+%Programmiersprachen: R definitiv, Scala indirekt über JDBC
+%Batch-Vorgänge über Trigger oder über JDBC/ODBC funktionsuafrufe
+
+\begin{table}[htp]
+\centering
+\small
+\begin{tabular}{l|p{1.8cm}|c|p{3cm}|p{1.8cm}}
+\textbf{Metrik} & \textbf{erreichter Wert} & \textbf{Erfüllung in \%} & \textbf{Kommentar} & \textbf{gewichteter Teilnutzen} \\ \hline
+Interoperabilität & 12 & 100 & analog Ist-Stand & 30 \\ \hline
+Funktionsumfang & 57 & 93 & Geostatistik und Versionierung nicht vorhanden & 19 \\ \hline
+Dokumentation & 9 & 69 & Dokumentation zu PostGIS sehr gut, zu Postgres-XL grob & 24 \\ \hline
+Modifizierbarkeit & 5 & 83 & meist eigenständige Programme notwendig & 13 \\
+\end{tabular}
+\caption{Nutzwertanalyse Postgres-XL}
+\label{table:nutzwertanalyse-postgresxl}
+\end{table}
+Aus Tabelle \ref{table:nutzwertanalyse-postgresxl} ergibt sich ein Nutzwert von 86.
+
+\section{Rasdaman}
+
 
