@@ -179,6 +179,32 @@ Modifizierbarkeit &  &  &  &  \\
 \end{table}
 Aus Tabelle \ref{table:nutzwertanalyse-rasdaman} ergibt sich ein Nutzwert von .
 
-% Funktionsumfang 
-%parallele Verarbeitung: 
-%geografische Datentypen: nur raster
+% Funktionsumfang 10
+%parallele Verarbeitung: 1 ja auf einer maschine http://www.rasdaman.org/wiki/Features
+%geografische Datentypen: 2 nur raster (als array DBMS sind arrays mit beliebig vielen Dimensionen verwendbar) http://www.rasdaman.org/wiki/Introduction
+%umrechnung: 0 nur mit GDAL möglich und 2D arrays http://earthserver.eu/trac/wiki/DocumentationGDALrasdaman
+%gruppierung: 0 http://rasdaman.org/browser/manuals_and_examples/manuals/doc-guides/ql-guide.pdf
+%verschneidung: 1 einfache Array-Operationen http://rasdaman.org/browser/manuals_and_examples/manuals/doc-guides/ql-guide.pdf
+%overlay: 1 einfache Array-Operationen http://rasdaman.org/browser/manuals_and_examples/manuals/doc-guides/ql-guide.pdf
+%geostatistik: 0
+%filter: 5 einfache Operationen (auch für array) http://rasdaman.org/browser/manuals_and_examples/manuals/doc-guides/ql-guide.pdf
+%schemaversionierung: 0
+
+%% Interoperabilität 7
+%pgsql ja http://www.rasdaman.org/wiki/Features
+%umn: per WCS, WPF
+
+% Dokumentation 8
+%installation: 1 eigene pdf's http://www.rasdaman.org/wiki/Documentation
+%Zeitverhalten: 0
+%funktionsumfang: 2 grob http://www.rasdaman.org/wiki/Features , ausführlicher in speziellen pdf wie http://rasdaman.org/browser/manuals_and_examples/manuals/doc-guides/ql-guide.pdf
+%Interoperabilität: 3 für postgres und API http://rasdaman.org/browser/manuals_and_examples/manuals/doc-guides/ql-guide.pdf
+%best practise: 1 hints file:///C:/Users/KJunghanns/Downloads/inst-guide.pdf
+%anpassbarkeit: 1 aus context der pdfs
+
+% Modifizierbarkeit 3
+% keine eigenen datentypen 0
+%Schnittstellen: mit Java und C++
+%eigene Funktionen: über API, rasql nicht
+%Programmiersprachen: Java, somit Scala, R NICHT
+%keine batchvorgägnge
