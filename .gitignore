@@ -98,3 +98,6 @@ sympy-plots-for-*.tex/
 
 # Skripte
 clean.sh
+
+#Dolphin
+.directory
