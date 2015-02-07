@@ -48,7 +48,7 @@ Die Summe aller dieser Teilnutzwerte ergibt den Nutzwert des Frameworks für den
 \begin{table}[htp]
 \centering
 \small
-\begin{tabular}{l|p{1.8cm}|c|p{3cm}|p{1.8cm}}
+\begin{tabular}{l|p{1.8cm}|c|p{3.1cm}|p{1.8cm}}
 \textbf{Metrik} & \textbf{erreichter Wert} & \textbf{Erfüllung in \%} & \textbf{Kommentar} & \textbf{gewichteter Teilnutzen} \\ \hline
 Interoperabilität & 7 & 58 & Implementationen notwendig & 17 \\ \hline
 Funktionsumfang & 48 & 79 & meisten Funktionen nur mit Scala verfügbar & 16 \\ \hline
@@ -119,7 +119,7 @@ Aus Tabelle \ref{table:nutzwertanalyse-geomesa} ergibt sich ein Nutzwert von 54.
 \begin{table}[htp]
 \centering
 \small
-\begin{tabular}{l|p{1.8cm}|c|p{3cm}|p{1.8cm}}
+\begin{tabular}{l|p{1.8cm}|c|p{3.1cm}|p{1.8cm}}
 \textbf{Metrik} & \textbf{erreichter Wert} & \textbf{Erfüllung in \%} & \textbf{Kommentar} & \textbf{gewichteter Teilnutzen} \\ \hline
 Interoperabilität & 12 & 100 & analog Ist-Stand & 30 \\ \hline
 Funktionsumfang & 59 & 97 & Geostatistik und Versionierung nicht vorhanden & 19 \\ \hline
@@ -167,21 +167,21 @@ Aus Tabelle \ref{table:nutzwertanalyse-postgresxl} ergibt sich ein Nutzwert von 
 \begin{table}[htp]
 \centering
 \small
-\begin{tabular}{l|p{1.8cm}|c|p{3cm}|p{1.8cm}}
+\begin{tabular}{l|p{1.8cm}|c|p{3.1cm}|p{1.8cm}}
 \textbf{Metrik} & \textbf{erreichter Wert} & \textbf{Erfüllung in \%} & \textbf{Kommentar} & \textbf{gewichteter Teilnutzen} \\ \hline
-Interoperabilität &  &  &  &  \\ \hline
-Funktionsumfang &  &  &  &  \\ \hline
-Dokumentation &  &  &  &  \\ \hline
-Modifizierbarkeit &  &  &  &  \\
+Interoperabilität & 12 & 100 & UMN MapServer Schnittstelle nur indirekt vorhanden & 30 \\ \hline
+Funktionsumfang & 12 & 20 & umfangreiche Rasterverarbeitung möglich & 4 \\ \hline
+Dokumentation & 8 & 62 & mehrere Dokumente vorhanden & 22 \\ \hline
+Modifizierbarkeit & 3 & 60 & einfache Java und C++ API & 9 \\
 \end{tabular}
 \caption{Nutzwertanalyse Rasdaman}
 \label{table:nutzwertanalyse-rasdaman}
 \end{table}
-Aus Tabelle \ref{table:nutzwertanalyse-rasdaman} ergibt sich ein Nutzwert von .
+Aus Tabelle \ref{table:nutzwertanalyse-rasdaman} ergibt sich ein Nutzwert von 65.
 
-% Funktionsumfang 10
+% Funktionsumfang 12
 %parallele Verarbeitung: 1 ja auf einer maschine http://www.rasdaman.org/wiki/Features
-%geografische Datentypen: 2 nur raster (als array DBMS sind arrays mit beliebig vielen Dimensionen verwendbar) http://www.rasdaman.org/wiki/Introduction
+%geografische Datentypen: 4 nur raster und Punkte (als array DBMS sind arrays mit beliebig vielen Dimensionen verwendbar) http://www.rasdaman.org/wiki/Introduction
 %umrechnung: 0 nur mit GDAL möglich und 2D arrays http://earthserver.eu/trac/wiki/DocumentationGDALrasdaman
 %gruppierung: 0 http://rasdaman.org/browser/manuals_and_examples/manuals/doc-guides/ql-guide.pdf
 %verschneidung: 1 einfache Array-Operationen http://rasdaman.org/browser/manuals_and_examples/manuals/doc-guides/ql-guide.pdf
@@ -190,7 +190,7 @@ Aus Tabelle \ref{table:nutzwertanalyse-rasdaman} ergibt sich ein Nutzwert von .
 %filter: 5 einfache Operationen (auch für array) http://rasdaman.org/browser/manuals_and_examples/manuals/doc-guides/ql-guide.pdf
 %schemaversionierung: 0
 
-%% Interoperabilität 7
+%% Interoperabilität 12
 %pgsql ja http://www.rasdaman.org/wiki/Features
 %umn: per WCS, WPF
 
