@@ -260,6 +260,7 @@ Additional Geometry, Filter and Style parser/encoders available for DOM and SAX 
 \subsection{PostGIS}
 PostGIS ist eine geografische Erweiterung der Objekt-relationalen Datenbank PostgreSQL.
 PostgreSQL wird dabei um geografische Datentypen, geografische Indizes und Funktionen erweitert.
+Konkret wird der Simple Feature Access Standard verwendet und um den Datentyp raster und weitere Funktionen zur Datenverarbeitung erweitert. (siehe \cite{website:postgisdocu-opengis})
 Somit kann mit SQL direkt mit geografischen Daten gearbeitet werden.
 PostGIS steh unter der \Gls{gpl}v2.
 
@@ -410,38 +411,6 @@ Weitere Funktionen sind folgende:
 \end {itemize}
 Es existieren weiterhin verschiedene Erweiterungen zum Datenmanagement und Änderung des Ordnungsrahmens zur Verfügung.[\cite{website:accumulo_features}]
 
-\subsection{Neo4J}
-
-
-
-\subsection{Rasdaman}
-
-Rasdaman ist ein Array-Datenbanksystem speziell zum speichern und verarbeiten von Rasterdaten.
-Es erweitert eine relationale Datenbank und wird mit  multi-dimensionalität der Daten, einer eigenen SQL ähnlichen Abfragesprache, Parallelisierung und Skalierbarkeit in beliebigen Maßstab sowie OGC konformen Diensten beworben.
-Es ist als Client bzw. API unter der \Gls{lgpl} 3 und als Server unter der \Gls{gpl} 3 für Linux, MacOS und Solaris verfügbar.
-Als OGC konforme Dienste werden WMS 1.3, WCS 2.0, WCS-T 1.4, WCPS 1.0 und WPS 1.0 bereitgestellt.
-Die API kann in Java, C++ und über die eigene Abfragesprache rasql verwendet werden.[vgl. \cite{website:rasdamanogeo}]
-
-Es besteht die Möglichkeit, Rasdaman zu einer bestehenden PostgreSQL zu installieren und direkten Datenaustausch zwischen den beiden Systemen zu ermöglichen.
-Weiterhin kann Rasdaman in Verbindung mit GDAL verwendet werden.
-Momentan existiert eine Community und eine Enterprise Variante. Dabei verfügt die Enterprise Variante über mehr Features wie beispielsweise Datenkomprimierung, Serververwaltung per Webbrowser, Laufzeitoptimierungen und verschiedene Datenbankschnittstellen.
-Von der verwendeten Datenbank wird BLOB als Datenbankinterner Datentyp verwendet.[vgl. \cite{website:rasdamanowiki}]
-
-
-\subsection{Spacebase}
-
-Spacebase ist eine in Java programmierte geografische Datenbank mit Betonung auf Echtzeit und geringe Latenzen des Unternehmens Parallel Universe.
-Die Datenbank wird ausschließlich im Arbeitsspeicher gehalten und ausgeführt.
-Außerdem ist sie für die verteilte Nutzung auf mehreren Computern konzipiert.
-Räumliche Daten werden in 2D oder 3D mit einem dazugehörigen begrenzenden Rechteck im R-Baum gespeichert.
-SpaceBase ist für eine sehr große Anzahl an Abrufen und Veränderungen der Daten in Echtzeit geeignet.
-Für die räumliche Verarbeitung stehen Bereichsabfragen, Überschneidungsabfragen und allgemeine Join Abfragen zur Verfügung.
-Diese beschränken sich aber auf das begrenzende Rechteck, da die eigentliche Geometrie nur über eine Referenz im Datenobjekt abrufbar ist.
-Ergänzend besteht die Möglichkeit eigene Abfragen zu formulieren und dabei die referenzierte Geometrie zu verwenden.
-Es wird jedoch darauf hingewiesen, dass complexe Operationen auf diese Geometrie die Laufzeit der Berechnungen wesentlich erhöht.
-Zum Erreichen der geringen Latenzen werden räumliche Berechnungen parallelisiert und auf die Instanzen verteilt.
-Es stehen APIs für Java, C++, Erlang, Python, Ruby und Node.js zur Verfügung.[vgl. \cite{website:spacebase}]
-
 \subsection{GeoMesa}
 
 GeoMesa ist eine freie\footnote{Apache License Version 2.0} geografische Datenbank der Firma LocationTech mit den Möglichkeiten der verteilten Verarbeitung und Versionierung von geografischen Daten.
@@ -474,6 +443,60 @@ CSV, TSV, Shapefile, GeoJSON, and GML können dagegen exportiert werden.
 
 
 %https://github.com/locationtech/geomesa
+
+%\subsection{Neo4J}
+
+\subsection{Postgres-XL}
+Postgres-XL ist ein frei verfügbares Clustersystem für PostgreSQL unter der Mozilla Public License.
+XL steht dabei für eXtensible Lattice, erweiterbarer Verbund.
+Damit soll es ermöglicht werden, mit PostgreSQL verteilt Schreiboperationen zu skalieren sowie parallele Datenverarbeitung auf mehreren physischen und virtuellen Systemen gleichzeitig zu betreiben.
+Dafür wird zur verteilten Datenhaltung \Gls{acid} mit \Gls{mvcc} und zur parallelen Verarbeitung ein \Gls{mpp} Mechanismus eingesetzt. (siehe \cite{website:postgresxl-about})
+Die Postgres-XL Umgebung nutzt mehrere PostgreSQL Instanzen oder Partitionen und bietet eine Schnittstelle für alle Instanzen an.\\
+Abbildung \ref{fig:postgresxl} verbildlicht den Aufbau.
+Laut Abbildung wird als erstes ein Load-Balancer angesprochen.
+Dies wird in der Dokumentation nicht belegt.
+Die anderen Elemente sind nach \cite{website:postgresxl-about} wie folgt beschrieben:
+\begin{description}
+\item[Global Transaction Manager] Dient als Verwaltungselement der Transaktionen und realisiert \Gls{mvcc} über das System. Laut Dokumentation existiert für jedes PostgreSQL Element ein GTM, um \Gls{mvcc}  mit je einem globalen Kontext realisieren zu können.
+\item[Coordinator] \glqq The Coordinator manages the user sessions and interacts with GTM and the data nodes. The Coordinator parses and plans queries, and sends down a serialized global plan to each of the components involved in a statement.\grqq\ (\cite{website:postgresxl-overview})
+\item[Data Node] Diese Elemente enthalten PostgreSQL. Diese müssen sich nicht eine Datenbank replizieren, sondern können auch eine Datenbank über partitioning teilen. Anfragen können von verschiedenen Coordinators gleichzeitig in unterschiedlichen Sitzungen erfolgen. Auf Grund der Kapselung besitzt jeder Data Node seinen eigenen Kontext zur Transaktion.
+\end{description}
+\begin{figure}[h]
+\centering
+\includegraphics[width=.7\textwidth]{Abbildungen/postgresxl-structure.jpg}
+\caption[Aufbau Postgres-XL]{Aufbau Postgres-XL, Quelle: \url{http://www.postgres-xl.org/wp-content/uploads/2014/04/xl_cluster_architecture1.jpg}}
+\label{fig:postgresxl}
+\end{figure}
+Das System wird analog einer PostgreSQL Instanz angesprochen.
+Ebenso ist PostGIS verwendbar.
+
+\subsection{Rasdaman}
+
+Rasdaman ist ein Array-Datenbanksystem speziell zum speichern und verarbeiten von Rasterdaten.
+Es erweitert eine relationale Datenbank und wird mit  multi-dimensionalität der Daten, einer eigenen SQL ähnlichen Abfragesprache, Parallelisierung und Skalierbarkeit in beliebigen Maßstab sowie OGC konformen Diensten beworben.
+Es ist als Client bzw. API unter der \Gls{lgpl} 3 und als Server unter der \Gls{gpl} 3 für Linux, MacOS und Solaris verfügbar.
+Als OGC konforme Dienste werden WMS 1.3, WCS 2.0, WCS-T 1.4, WCPS 1.0 und WPS 1.0 bereitgestellt.
+Die API kann in Java, C++ und über die eigene Abfragesprache rasql verwendet werden.[vgl. \cite{website:rasdamanogeo}]
+
+Es besteht die Möglichkeit, Rasdaman zu einer bestehenden PostgreSQL zu installieren und direkten Datenaustausch zwischen den beiden Systemen zu ermöglichen.
+Weiterhin kann Rasdaman in Verbindung mit GDAL verwendet werden.
+Momentan existiert eine Community und eine Enterprise Variante. Dabei verfügt die Enterprise Variante über mehr Features wie beispielsweise Datenkomprimierung, Serververwaltung per Webbrowser, Laufzeitoptimierungen und verschiedene Datenbankschnittstellen.
+Von der verwendeten Datenbank wird BLOB als Datenbankinterner Datentyp verwendet.[vgl. \cite{website:rasdamanowiki}]
+
+
+\subsection{Spacebase}
+
+Spacebase ist eine in Java programmierte geografische Datenbank mit Betonung auf Echtzeit und geringe Latenzen des Unternehmens Parallel Universe.
+Die Datenbank wird ausschließlich im Arbeitsspeicher gehalten und ausgeführt.
+Außerdem ist sie für die verteilte Nutzung auf mehreren Computern konzipiert.
+Räumliche Daten werden in 2D oder 3D mit einem dazugehörigen begrenzenden Rechteck im R-Baum gespeichert.
+SpaceBase ist für eine sehr große Anzahl an Abrufen und Veränderungen der Daten in Echtzeit geeignet.
+Für die räumliche Verarbeitung stehen Bereichsabfragen, Überschneidungsabfragen und allgemeine Join Abfragen zur Verfügung.
+Diese beschränken sich aber auf das begrenzende Rechteck, da die eigentliche Geometrie nur über eine Referenz im Datenobjekt abrufbar ist.
+Ergänzend besteht die Möglichkeit eigene Abfragen zu formulieren und dabei die referenzierte Geometrie zu verwenden.
+Es wird jedoch darauf hingewiesen, dass complexe Operationen auf diese Geometrie die Laufzeit der Berechnungen wesentlich erhöht.
+Zum Erreichen der geringen Latenzen werden räumliche Berechnungen parallelisiert und auf die Instanzen verteilt.
+Es stehen APIs für Java, C++, Erlang, Python, Ruby und Node.js zur Verfügung.[vgl. \cite{website:spacebase}]
 
 
 \subsection{ESRI GIS Tools for Hadoop}
