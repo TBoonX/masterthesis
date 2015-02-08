@@ -477,12 +477,18 @@ Es erweitert eine relationale Datenbank und wird mit  multi-dimensionalität der
 Es ist als Client bzw. API unter der \Gls{lgpl} 3 und als Server unter der \Gls{gpl} 3 für Linux, MacOS und Solaris verfügbar.
 Als OGC konforme Dienste werden WMS 1.3, WCS 2.0, WCS-T 1.4, WCPS 1.0 und WPS 1.0 bereitgestellt.
 Die API kann in Java, C++ und über die eigene Abfragesprache rasql verwendet werden.[vgl. \cite{website:rasdamanogeo}]
+Der beschriebene Aufbau ist unter Abbildung \ref{fig:rasdaman} dargestellt.
 
 Es besteht die Möglichkeit, Rasdaman zu einer bestehenden PostgreSQL zu installieren und direkten Datenaustausch zwischen den beiden Systemen zu ermöglichen.
 Weiterhin kann Rasdaman in Verbindung mit GDAL verwendet werden.
 Momentan existiert eine Community und eine Enterprise Variante. Dabei verfügt die Enterprise Variante über mehr Features wie beispielsweise Datenkomprimierung, Serververwaltung per Webbrowser, Laufzeitoptimierungen und verschiedene Datenbankschnittstellen.
 Von der verwendeten Datenbank wird BLOB als Datenbankinterner Datentyp verwendet.[vgl. \cite{website:rasdamanowiki}]
-
+\begin{figure}[h]
+\centering
+\includegraphics[width=.4\textwidth]{Abbildungen/rasdaman-aufbau.png}
+\caption[Aufbau Rasdaman]{Aufbau Rasdaman, Quelle: \url{http://www.rasdaman.org/raw-attachment/wiki/Technology/wcps-stack.png}}
+\label{fig:rasdaman}
+\end{figure}
 
 \subsection{Spacebase}
 
