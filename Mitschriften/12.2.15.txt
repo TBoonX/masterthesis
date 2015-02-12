@@ -1,0 +1,22 @@
+DIN Norm in Bibi verfügbar
+Absätze in 4. weglassen (ein Block)
+Kurzzitate umformulieren wie bei Zuverlässigkeit \cite[S.234]{sadf:sdf}
+AgriCon nicht trennen -> untrennbares Leerzeichen?
+
+Qualitätsmerkmale:
+  Richtigkeit: im toleranzbereich der Sensoren arbeiten/speichern -> genauigeit der sensoren abbildbar
+  itemize(mit Punkt) bei Qualitätsmerkmalen mit Doppelpunkt oder mit section arbeiten
+  Ordungsmäßigkeit: wichtigsten DIn Normen für DBMS und geostatistik nennen
+  Zuverlässigkeit: Zitat selbst formulieren - "Bos98 definiert die ..."
+  
+Qualitätskriterien:
+  auf merkmale verweisen
+  "hier werden Metriken definiert"
+  
+Testfälle:
+  Überschrift erzeugen
+  bei großen Gliederungen abstand veringern
+  
+5. Kapitel:
+  Abbildung 5.1 genauer beschreiben: grundauswahl -> recherche -> wiki eintrag wird beobachtet wegens neuer -> deswegen relevanten systeme; tabelle ist von mir
+  Tabelle zur validierung kollegen vorlegen
