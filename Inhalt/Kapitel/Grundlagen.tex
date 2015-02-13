@@ -414,36 +414,32 @@ Es existieren weiterhin verschiedene Erweiterungen zum Datenmanagement und Ände
 \subsection{GeoMesa}
 
 GeoMesa ist eine freie\footnote{Apache License Version 2.0} geografische Datenbank der Firma LocationTech mit den Möglichkeiten der verteilten Verarbeitung und Versionierung von geografischen Daten.
-Es erweitert Accumulo\footnote{siehe \ref{accumulo}},  unterstützt die GeoTools API und bietet ein Plugin für den Mapserver \Gls{geoserver} an.
+Dieses Framework ist in Scala geschrieben.
+Es erweitert Accumulo\footnote{siehe \ref{accumulo}}, unterstützt die GeoTools API und bietet ein Plugin für den Mapserver \Gls{geoserver} an.
 Die Daten werden nach Geohash\footnote{siehe \ref{geohash}} verwaltet. (vgl. \cite{website:geomesaeclipse})\\
 GeoMesa wird in Verbindung mit stream processing\footnote{bspw. Spark oder Storm} und batch processing\footnote{bspw. Pig oder Cascading} verwendet.
+Zur räumlichen Datenverarbeitung werden Scala Bibliotheken wie \Gls{jts} und GeoTools eingesetzt.
 Vorrangig werden Vektordaten von GeoMesa verarbeitet, durch eine optionale Erweiterung sind auch Rasterdaten verwendbar.
-Dieses Framework ist in Scala geschrieben-
-
 Datenimport wird ingest genannt, erfolgt über die Kommandazeile und unterstützt die Datenformate CSV, TSV und SHP.
-CSV, TSV, Shapefile, GeoJSON, and GML können dagegen exportiert werden.
+CSV, TSV, Shapefile, GeoJSON, and GML können dagegen über den selben Weg exportiert werden.
+Weiterhin erfolgt der Datenexport und -import über Scala.
+GeoMesa ist gedacht, um initial große Datenmengen per Ingest zu laden und anschließend diese mit Spark und dafür vorgesehenen Frameworks sowie Bibliotheken zu verarbeiten.
 
 
-- Anderer Dateiimport mit GeoTools
-- Verarbeitung nur über externe Tools (Spark, geotools)
-
-
-\url{https://www.locationtech.org/proposals/geomesa} :\\
-- outperforming postgis with geoserver
-
-
-\url{http://de.slideshare.net/CCRinc/location-techdc-talk2-28465214}
-- Verwendung fraktaler Kurven
-- mit Spark und Scalding wesentlich schneller als PostGIS
-
-
-\url{https://docs.google.com/presentation/d/1NO0ppk8MfDs8Q-QcUidZCSZK7YYwd9RjJoHV1V4Yq_w/edit?pli=1#slide=id.p} :\\
-- 
+%\url{https://www.locationtech.org/proposals/geomesa} :\\
+%- outperforming postgis with geoserver
+%
+%
+%\url{http://de.slideshare.net/CCRinc/location-techdc-talk2-28465214}
+%- Verwendung fraktaler Kurven
+%- mit Spark und Scalding wesentlich schneller als PostGIS
+%
+%
+%\url{https://docs.google.com/presentation/d/1NO0ppk8MfDs8Q-QcUidZCSZK7YYwd9RjJoHV1V4Yq_w/edit?pli=1#slide=id.p} :\\
 
 %storm vs spark: http://xinhstechblog.blogspot.de/2014/06/storm-vs-spark-streaming-side-by-side.html https://stackoverflow.com/questions/24119897/apache-spark-vs-apache-storm http://www.zdatainc.com/2014/09/apache-storm-apache-spark/
 
 
-%https://github.com/locationtech/geomesa
 
 %\subsection{Neo4J}
 
