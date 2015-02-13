@@ -377,7 +377,7 @@ Auch hier werden keine besonderen Anforderungen an die Hardware gestellt.(vgl. \
 
 Hadoop besitzt eine Master-Slave Architektur, wobei der Name-Node\footnote{damit ist der Master-Knoten gemeint, auch Jobtracker genannt} ankommende Anfragen bearbeitet und die Slave-Knoten organisiert.
 Hadoop ist per API verwendbar und bietet sich somit zur Stapelverarbeitung an. %Todo: belegen
-Es wird meist nur als Grundgerüst verwendet und mit Datenbanken wie HBase, MongoDB oder PostgreSQL sowie mit Frameworks für die Nutzung wie Hive, Pig, Spark oder Scalding erweitert.
+Es wird meist nur als Grundgerüst verwendet und mit Datenbanken wie HBase, MongoDB oder PostgreSQL sowie mit Frameworks für die Nutzung wie Hive, \Gls{pig}, \Gls{spark} oder Scalding erweitert.
 
 
 \subsection{ZooKeeper}
@@ -414,7 +414,7 @@ Es existieren weiterhin verschiedene Erweiterungen zum Datenmanagement und Ände
 \subsection{GeoMesa}
 
 GeoMesa ist eine freie\footnote{Apache License Version 2.0} geografische Datenbank der Firma LocationTech mit den Möglichkeiten der verteilten Verarbeitung und Versionierung von geografischen Daten.
-Dieses Framework ist in Scala geschrieben.
+Dieses Framework ist in \Gls{scala} geschrieben.
 Es erweitert Accumulo\footnote{siehe \ref{accumulo}}, unterstützt die GeoTools API und bietet ein Plugin für den Mapserver \Gls{geoserver} an.
 Die Daten werden nach Geohash\footnote{siehe \ref{geohash}} verwaltet. (vgl. \cite{website:geomesaeclipse})\\
 GeoMesa wird in Verbindung mit stream processing\footnote{bspw. Spark oder Storm} und batch processing\footnote{bspw. Pig oder Cascading} verwendet.
