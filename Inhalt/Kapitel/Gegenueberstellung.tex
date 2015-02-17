@@ -91,6 +91,7 @@ Das Qualitätskriterium Dokumentation wird für GeoMesa mit dem Wert 4, bzw. der
 \end{description}
 Hier ist die Wertung 4 von 6 Punkten und damit 67\%.
 
+\subsection{Zusammenfassung}
 \begin{table}[h!]
 \centering
 \small
@@ -104,8 +105,22 @@ Modifizierbarkeit & 4 & 67 & mit Simple Features und Spark mächtige Problemlös
 \caption{Nutzwertanalyse GeoMesa}
 \label{table:nutzwertanalyse-geomesa}
 \end{table}
-Der Nutzwert von GeoMesa ist nach Tabelle \ref{table:nutzwertanalyse-geomesa} 54.
-
+Der Nutzwert von GeoMesa ist nach Tabelle \ref{table:nutzwertanalyse-geomesa} 54.\\
+Neben dem messbaren Nutzwert sind die nichttechnischen Kriterien zu nennen, welche auf die Auswahl eines Frameworks Einfluss haben,
+Dazu zählt die Herstellerfirma mit Marktposition, Produktplanung und Service sowie das Produkt in Hinsicht auf Preis, Lebendigkeit in Form von Entwickleraktivität und Größe der Benutzer.\\
+\url{https://github.com/locationtech/geomesa} zählt am 17.2.2015 271 commits, 20 contributors und 186 branches.
+\begin{figure}
+\centering
+\includegraphics[width=\textwidth]{Abbildungen/geomesa_timeline_contributors.png}
+\caption[Zeitleiste der contributor von GeoMesa]{Zeitleiste der contributor von GeoMesa vom 17.2.2015 nach \url{https://github.com/locationtech/geomesa/graphs/contributors}}
+\label{fig:timeline_contr_geomesa}
+\end{figure}
+\begin{figure}
+\centering
+\includegraphics[width=\textwidth]{Abbildungen/geomesa_timeline_commits.png}
+\caption[Zeitleiste der commits von GeoMesa]{Zeitleiste der commits von GeoMesa vom 17.2.2015 nach \url{https://github.com/locationtech/geomesa/graphs/commit-activity}}
+\label{fig:timeline_commits_geomesa}
+\end{figure}
 
 
 \section{Postgres-XL}
@@ -152,21 +167,41 @@ Das Qualitätskriterium Dokumentation wird für Postgres-XL mit dem Wert 9, bzw.
 \end{description}
 Hier ist die Wertung 5 von 6 Punkten und damit 83\%.
 
+\subsection{Zusammenfassung}
 \begin{table}[htp]
 \centering
 \small
 \begin{tabular}{l|p{1.8cm}|c|p{3.1cm}|p{1.8cm}}
 \textbf{Metrik} & \textbf{erreichter Wert} & \textbf{Erfüllung in \%} & \textbf{Kommentar} & \textbf{gewichteter Teilnutzen} \\ \hline
 Interoperabilität & 12 & 100 & analog Ist-Stand & 30 \\ \hline
-Funktionsumfang & 53 & 87 & Geostatistik und Versionierung nicht vorhanden & 19 \\ \hline
+Funktionsumfang & 53 & 87 & Geostatistik und Versionierung nicht vorhanden & 17 \\ \hline
 Dokumentation & 9 & 69 & Dokumentation zu PostGIS sehr gut, zu Postgres-XL grob & 24 \\ \hline
-Modifizierbarkeit & 5 & 83 & meist eigenständige Programme notwendig & 13 \\
+Modifizierbarkeit & 5 & 83 & Bereits in SQL gegeben. & 13 \\
 \end{tabular}
 \caption{Nutzwertanalyse Postgres-XL}
 \label{table:nutzwertanalyse-postgresxl}
 \end{table}
-Aus Tabelle \ref{table:nutzwertanalyse-postgresxl} ergibt sich ein Nutzwert von .
-
+Aus Tabelle \ref{table:nutzwertanalyse-postgresxl} ergibt sich ein Nutzwert von 84.\\
+Neben dem messbaren Nutzwert sind die nichttechnischen Kriterien zu nennen, welche auf die Auswahl eines Frameworks Einfluss haben,
+Dazu zählt die Herstellerfirma mit Marktposition, Produktplanung und Service sowie das Produkt in Hinsicht auf Preis, Lebendigkeit in Form von Entwickleraktivität und Größe der Benutzer.\\
+\url{https://github.com/snaga/postgres-xl} zählt am 17.2.2015 35.266 commits, 23 contributors und drei branches.
+\begin{figure}
+\centering
+\includegraphics[width=\textwidth]{Abbildungen/postgresxl_timeline_contributors.png}
+\caption[Zeitleiste der contributor von Postgres-XL]{Zeitleiste der contributor von Postgres-XL vom 17.2.2015 nach \url{https://github.com/snaga/postgres-xl/graphs/contributors}}
+\label{fig:timeline_contr_postgresxl}
+\end{figure}
+\begin{figure}
+\centering
+\includegraphics[width=\textwidth]{Abbildungen/postgresxl_timeline_commits.png}
+\caption[Zeitleiste der commits von Postgres-XL]{Zeitleiste der commits von Postgres-XL vom 17.2.2015 nach \url{https://github.com/snaga/postgres-xl/graphs/commit-activity}}
+\label{fig:timeline_commits_postgresxl}
+\end{figure}
+Abbildung \ref{fig:timeline_contr_postgresxl} zeigt einerseits, dass dieses Projekt seit 1998 besteht, andererseits das die Zahl der aktiven contributors im Gegensatz der Jahre 1998 bis 2012 zu 2014/2015 in etwa ein viertel beträgt.
+Diese starke Abnahme der aktiven Programmierer spricht allein genommen gegen eine Empfehlung.
+Die commits des vergangenen Jahres sind in Abbildung \ref{fig:timeline_commits_postgresxl} dargestellt.
+Danach wurden im ersten Halbjahr 2014 nur insgesamt 6 commits und im zweiten Halbjahr 2014 etwa täglich ein commit durchgeführt.
+Auch diese Stagnation spricht allein genommen gegen eine Empfehlung.
 
 \section{Rasdaman}
 \begin{table}[htp]
