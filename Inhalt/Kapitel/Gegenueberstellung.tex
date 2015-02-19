@@ -106,22 +106,36 @@ Modifizierbarkeit & 4 & 67 & mit Simple Features und Spark mächtige Problemlös
 \label{table:nutzwertanalyse-geomesa}
 \end{table}
 Der Nutzwert von GeoMesa ist nach Tabelle \ref{table:nutzwertanalyse-geomesa} 54.\\
-Neben dem messbaren Nutzwert sind die nichttechnischen Kriterien zu nennen, welche auf die Auswahl eines Frameworks Einfluss haben,
+Neben dem messbaren Nutzwert sind die nichttechnischen Kriterien zu nennen, welche auf die Auswahl eines Frameworks Einfluss haben.
 Dazu zählt die Herstellerfirma mit Marktposition, Produktplanung und Service sowie das Produkt in Hinsicht auf Preis, Lebendigkeit in Form von Entwickleraktivität und Größe der Benutzer.\\
 \url{https://github.com/locationtech/geomesa} zählt am 17.2.2015 271 commits, 20 contributors und 186 branches.
-\begin{figure}
+Eine solche hohe Anzahl an branches spricht normalerweise für eine hohe Nutzung und Lebendigkeit des Projektes.
+Jedoch wurde die Mehrzahl der branches nicht in den master Zweig übernommen.
+\begin{figure}[h!]
 \centering
 \includegraphics[width=\textwidth]{Abbildungen/geomesa_timeline_contributors.png}
 \caption[Zeitleiste der contributor von GeoMesa]{Zeitleiste der contributor von GeoMesa vom 17.2.2015 nach \url{https://github.com/locationtech/geomesa/graphs/contributors}}
 \label{fig:timeline_contr_geomesa}
 \end{figure}
-\begin{figure}
+\begin{figure}[h!]
 \centering
 \includegraphics[width=\textwidth]{Abbildungen/geomesa_timeline_commits.png}
 \caption[Zeitleiste der commits von GeoMesa]{Zeitleiste der commits von GeoMesa vom 17.2.2015 nach \url{https://github.com/locationtech/geomesa/graphs/commit-activity}}
 \label{fig:timeline_commits_geomesa}
 \end{figure}
+Das GeoMesa Projekt auf GitHub hat nach Abbildung \ref{fig:timeline_contr_geomesa} eins bis vier Stammprogrammierer und ist im zweiten und dritten Quartal gegenüber mit der doppelten Anzahl an contributors gegenüber den anderen Quartalen fragmentiert.
+Die drei contributors mit dem größten Anteil an Änderungen sind vorwiegend in Projekten von LocationTech aktiv was darauf schließen lässt, dass sie für das Unternehmen arbeiten.
+Daraus folgt das zum wesentlichen Teil das Unternehmen LocationTech das Projekt wartet.
+Die Anzahl der commits geht mit dem Verlauf der aktiven Programmierer einher.
+Abbildung \ref{fig:timeline_commits_geomesa} zeigt die selbe Quartalsweise Verteilung wie Abbildung \ref{fig:timeline_contr_geomesa}.
+Dabei ist der Unterschied zwei zu neun commits pro Woche.
 
+LocationTech ist eine Arbeitsgruppe der non-for-profit Stiftung Eclipse.
+In diesem Rahmen erhält diese Arbeitsgruppe 20 Mitglieder für Projektplanung und Projektumsetzung.
+Weiterhin findet die Finanzierung im Rahmen von Mitgliedschaft an der Arbeitsgruppe statt.
+Darin können Mitglieder je nach Beitrag Teile der Entscheidungsorgane der Arbeitsgruppe werden und Zugang zu Ergebnissen dieser erhalten. \cite{website:locationtech-about}
+LocationTech ist mit GeoMesa mitten in der Entwicklung und hat keine permanenten aktive Unterstützer.
+Dieser Stand spricht gegen eine Auswahl von GeoMesa zum produktiven Einsatz.
 
 \section{Postgres-XL}
 
@@ -168,7 +182,7 @@ Das Qualitätskriterium Dokumentation wird für Postgres-XL mit dem Wert 9, bzw.
 Hier ist die Wertung 5 von 6 Punkten und damit 83\%.
 
 \subsection{Zusammenfassung}
-\begin{table}[htp]
+\begin{table}[h!]
 \centering
 \small
 \begin{tabular}{l|p{1.8cm}|c|p{3.1cm}|p{1.8cm}}
@@ -182,26 +196,33 @@ Modifizierbarkeit & 5 & 83 & Bereits in SQL gegeben. & 13 \\
 \label{table:nutzwertanalyse-postgresxl}
 \end{table}
 Aus Tabelle \ref{table:nutzwertanalyse-postgresxl} ergibt sich ein Nutzwert von 84.\\
-Neben dem messbaren Nutzwert sind die nichttechnischen Kriterien zu nennen, welche auf die Auswahl eines Frameworks Einfluss haben,
-Dazu zählt die Herstellerfirma mit Marktposition, Produktplanung und Service sowie das Produkt in Hinsicht auf Preis, Lebendigkeit in Form von Entwickleraktivität und Größe der Benutzer.\\
+Dazu sind ebenso nichttechnische Faktoren zu berücksichtigen.\\
 \url{https://github.com/snaga/postgres-xl} zählt am 17.2.2015 35.266 commits, 23 contributors und drei branches.
-\begin{figure}
+\begin{figure}[h!]
 \centering
 \includegraphics[width=\textwidth]{Abbildungen/postgresxl_timeline_contributors.png}
 \caption[Zeitleiste der contributor von Postgres-XL]{Zeitleiste der contributor von Postgres-XL vom 17.2.2015 nach \url{https://github.com/snaga/postgres-xl/graphs/contributors}}
 \label{fig:timeline_contr_postgresxl}
 \end{figure}
-\begin{figure}
+\begin{figure}[h!]
 \centering
 \includegraphics[width=\textwidth]{Abbildungen/postgresxl_timeline_commits.png}
 \caption[Zeitleiste der commits von Postgres-XL]{Zeitleiste der commits von Postgres-XL vom 17.2.2015 nach \url{https://github.com/snaga/postgres-xl/graphs/commit-activity}}
 \label{fig:timeline_commits_postgresxl}
 \end{figure}
 Abbildung \ref{fig:timeline_contr_postgresxl} zeigt einerseits, dass dieses Projekt seit 1998 besteht, andererseits das die Zahl der aktiven contributors im Gegensatz der Jahre 1998 bis 2012 zu 2014/2015 in etwa ein viertel beträgt.
-Diese starke Abnahme der aktiven Programmierer spricht allein genommen gegen eine Empfehlung.
+Diese starke abrupte Abnahme der aktiven Programmierer deutet eine Veränderung im Projekt oder den Projektverantwortlichen an.
 Die commits des vergangenen Jahres sind in Abbildung \ref{fig:timeline_commits_postgresxl} dargestellt.
 Danach wurden im ersten Halbjahr 2014 nur insgesamt 6 commits und im zweiten Halbjahr 2014 etwa täglich ein commit durchgeführt.
-Auch diese Stagnation spricht allein genommen gegen eine Empfehlung.
+
+Das Unternehmen TransLattice übernahm im Mai 2014 das Unternehmen StormDB.
+Die Übernahme schloss das Projekt Postgres bzw. Postgres-XC ein. (siehe \cite{website:translattice-stormdb})
+Dieses wurde darauf in Postgres-XL umbenannt und erweitert.
+Diese Änderung rief die Verringerung der contributors seit Anfang 2014 hervor.
+TransLattice verwaltet seitdem das Projekt und stellt technischen sowie theoretischen Support.
+Postgres-XL ist durch die langjährige Entwicklung empfehlenswert für den produktiven Einsatz.
+Jedoch ist die Aktivität der TransLattice Entwickler zu beobachten, da die Gefahr besteht das dieses Projekt vom Unternehmen nicht mehr gefördert wird und somit Fehler und Verbesserungen nicht eingepflegt werden und neue PostgreSQL Versionen nicht unterstützt werden.
+
 
 \section{Rasdaman}
 \begin{table}[htp]
