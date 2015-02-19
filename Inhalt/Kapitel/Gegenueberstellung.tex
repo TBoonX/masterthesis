@@ -89,7 +89,7 @@ Das Qualitätskriterium Dokumentation wird für GeoMesa mit dem Wert 4, bzw. der
 \item[Verwendung der Programmiersprachen Scala oder R - 1] GeoMesa ist in Scala geschrieben und kann mit dieser verwendet werden. R kann über das Tool SparkR verwendet werden.
 \item[Anlegen eigener Berechnungsvorgängen zur späteren Abarbeitung - 1] Mit einer Vielzahl von Tools möglich, bspw. Spark, \Gls{storm}, Pig und \Gls{cascading}.
 \end{description}
-Hier ist die Wertung 4 von 6 Punkten und damit 67\%.
+Hier ist die Wertung 4 von 5 Punkten und damit 80\%.
 
 \subsection{Zusammenfassung}
 \begin{table}[h!]
@@ -100,12 +100,12 @@ Hier ist die Wertung 4 von 6 Punkten und damit 67\%.
 Interoperabilität & 7 & 58 & Implementationen notwendig & 17 \\ \hline
 Funktionsumfang & 48 & 79 & meisten Funktionen nur mit Scala verfügbar & 16 \\ \hline
 Dokumentation & 4 & 31 & zumeist ist auf Community zurückzugreifen & 11 \\ \hline
-Modifizierbarkeit & 4 & 67 & mit Simple Features und Spark mächtige Problemlösungen erstellbar & 10 \\
+Modifizierbarkeit & 4 & 80 & mit Simple Features und Spark mächtige Problemlösungen erstellbar & 12 \\
 \end{tabular}
 \caption{Nutzwertanalyse GeoMesa}
 \label{table:nutzwertanalyse-geomesa}
 \end{table}
-Der Nutzwert von GeoMesa ist nach Tabelle \ref{table:nutzwertanalyse-geomesa} 54.\\
+Der Nutzwert von GeoMesa ist nach Tabelle \ref{table:nutzwertanalyse-geomesa} 56.\\
 Neben dem messbaren Nutzwert sind die nichttechnischen Kriterien zu nennen, welche auf die Auswahl eines Frameworks Einfluss haben.
 Dazu zählt die Herstellerfirma mit Marktposition, Produktplanung und Service sowie das Produkt in Hinsicht auf Preis, Lebendigkeit in Form von Entwickleraktivität und Größe der Benutzer.\\
 \url{https://github.com/locationtech/geomesa} zählt am 17.2.2015 271 commits, 20 contributors und 186 branches.
@@ -179,7 +179,7 @@ Das Qualitätskriterium Dokumentation wird für Postgres-XL mit dem Wert 9, bzw.
 \item[Verwendung der Programmiersprachen Scala oder R - 1] R kann direkt in SQL Funktionen eingebettet werden. Scala ist mit JDBC verwendbar.
 \item[Anlegen eigener Berechnungsvorgängen zur späteren Abarbeitung - 1] Hier sind Trigger und selbstständige Programme mit JDBC Nutzung zu nennen.
 \end{description}
-Hier ist die Wertung 5 von 6 Punkten und damit 83\%.
+Hier ist die Wertung 5 von 5 Punkten und damit 100\%.
 
 \subsection{Zusammenfassung}
 \begin{table}[h!]
@@ -190,12 +190,12 @@ Hier ist die Wertung 5 von 6 Punkten und damit 83\%.
 Interoperabilität & 12 & 100 & analog Ist-Stand & 30 \\ \hline
 Funktionsumfang & 53 & 87 & Geostatistik und Versionierung nicht vorhanden & 17 \\ \hline
 Dokumentation & 9 & 69 & Dokumentation zu PostGIS sehr gut, zu Postgres-XL grob & 24 \\ \hline
-Modifizierbarkeit & 5 & 83 & Bereits in SQL gegeben. & 13 \\
+Modifizierbarkeit & 5 & 100 & Bereits in SQL gegeben. & 15 \\
 \end{tabular}
 \caption{Nutzwertanalyse Postgres-XL}
 \label{table:nutzwertanalyse-postgresxl}
 \end{table}
-Aus Tabelle \ref{table:nutzwertanalyse-postgresxl} ergibt sich ein Nutzwert von 84.\\
+Aus Tabelle \ref{table:nutzwertanalyse-postgresxl} ergibt sich ein Nutzwert von 86.\\
 Dazu sind ebenso nichttechnische Faktoren zu berücksichtigen.\\
 \url{https://github.com/snaga/postgres-xl} zählt am 17.2.2015 35.266 commits, 23 contributors und drei branches.
 \begin{figure}[h!]
@@ -225,14 +225,58 @@ Jedoch ist die Aktivität der TransLattice Entwickler zu beobachten, da die Gefa
 
 
 \section{Rasdaman}
-\begin{table}[htp]
+
+\subsection{Interoperabilität}
+\begin{description}
+\item[PostgreSQL - 7] PostgreSQL wird nach \cite{website:rasdaman-features} unterstützt.
+\item[\Gls{umn} - 5] Als Datenquelle ist Rasdaman als \Gls{wcs_glos} und \Gls{wps_glos} Dienst in \Gls{umn} verwendbar.
+\end{description}
+Die Wertung für Interoperabilität ist somit 12 mit einer Erfüllung von 100\%.
+
+\subsection{Funktionsumfang}
+\begin{description}
+\item[Parallele Verarbeitung - 1] Parallele Server Instanzen verwendbar. In der kostenlosen Version keine Query Optimierung für mehrere Kerne und Instanzen vorhanden. \cite{website:rasdaman-features}
+\item[Geografische Datentypen - 4] Raster und Punkte sind für die räumliche Datenverarbeitung vorhanden. Dazu sind Arrays mit beliebig vielen Dimensionen verwendbar. \cite{website:rasdaman-introduction}
+\item[Umrechnungsfunktionen - 0] Nur mit externer Bibliothek \Gls{gdal} für zwei-dimensionale Arrays möglich. \cite{website:rasdaman-gdal}
+\item[Gruppierungsfunktionen - 0] Laut Dokumentation der Funktionen keine Gruppierung möglich. \cite{website:rasdaman-querymanual}
+\item[Verschneidungsfunktionen - 1] Dagegen sind einfache Array Operationen vorhanden.
+\item[Overlayfunktionen - 1] Ditto.
+\item[Geostatistik - 0] Keine eingebaute Funktionalität.
+\item[Filterfunktionen - 5] Operationen für Array-Verarbeitung vorhanden.
+\item[Schemaversionierung - 0] Keine eingebaute Funktionalität.
+\end{description}
+Daraus ergibt sich ein Wert von 12, was 20\% des maximal zu erreichenden Wertes ist.
+
+\subsection{Dokumentation}
+\begin{description}
+\item[Installation - 1] \cite{website:rasdaman-dokumentation} ist eigenes Installationsdokument.
+\item[Zeitverhalten - 0] Keine Dokumentation vorhanden.
+\item[Funktionsumfang - 2] Ist grob unter \cite{website:rasdaman-features} beschrieben und detailiert in \cite{website:rasdaman-querymanual} aufgeführt.
+\item[Interoperabilität - 3] Interoperabilität mit PostgreSQL und API unter \cite{website:rasdaman-querymanual} verfügbar.
+\item[Best Practise - 1] Einzig Hinweise verfügbar. \cite{website:rasdaman-installationguide}
+\item[Anpassbarkeit - 1] Kein eigenständiges Dokument vorhanden, erschließt sich aber aus genannten Quellen.
+\end{description}
+Das Qualitätskriterium Dokumentation wird für Postgres-XL mit dem Wert 8, bzw. der Erfüllung von 62\%, belegt.
+
+\subsection{Modifizierbarkeit}
+\begin{description}
+\item[Verwendung eigener Datentypen - 0] Keine eigenen Datentypen erstellbar. Einzig die Verwendung von selbst definierten Arrays ist verfügbar.
+\item[Erstellung eigener Schnittstellen - 1] Über \Gls{jdbc}/\Gls{odbc} in Java und C++ möglich.
+\item[Erstellung eigener Funktionen - 1] In der Abfragesprache rasql nicht möglich, dagegen mit API.
+\item[Verwendung der Programmiersprachen Scala oder R - 1] Scala mit API verwendbar.
+\item[Anlegen eigener Berechnungsvorgängen zur späteren Abarbeitung - 0] Nicht vorgesehen.
+\end{description}
+Hier ist die Wertung 3 von 5 Punkten und damit 60\%.
+
+\subsection{Zusammenfassung}
+\begin{table}[h!]
 \centering
 \small
 \begin{tabular}{l|p{1.8cm}|c|p{3.1cm}|p{1.8cm}}
 \textbf{Metrik} & \textbf{erreichter Wert} & \textbf{Erfüllung in \%} & \textbf{Kommentar} & \textbf{gewichteter Teilnutzen} \\ \hline
 Interoperabilität & 12 & 100 & UMN MapServer Schnittstelle nur indirekt vorhanden & 30 \\ \hline
-Funktionsumfang & 12 & 20 & umfangreiche Rasterverarbeitung möglich & 4 \\ \hline
-Dokumentation & 8 & 62 & mehrere Dokumente vorhanden & 22 \\ \hline
+Funktionsumfang & 12 & 20 & Umfangreiche Rasterverarbeitung möglich. Kostenlose Version enthält keine Optimierungen. & 4 \\ \hline
+Dokumentation & 8 & 62 & Mehrere Dokumente vorhanden & 22 \\ \hline
 Modifizierbarkeit & 3 & 60 & einfache Java und C++ API & 9 \\
 \end{tabular}
 \caption{Nutzwertanalyse Rasdaman}
@@ -240,32 +284,5 @@ Modifizierbarkeit & 3 & 60 & einfache Java und C++ API & 9 \\
 \end{table}
 Aus Tabelle \ref{table:nutzwertanalyse-rasdaman} ergibt sich ein Nutzwert von 65.
 
-% Funktionsumfang 12
-%parallele Verarbeitung: 1 ja auf einer maschine http://www.rasdaman.org/wiki/Features
-%geografische Datentypen: 4 nur raster und Punkte (als array DBMS sind arrays mit beliebig vielen Dimensionen verwendbar) http://www.rasdaman.org/wiki/Introduction
-%umrechnung: 0 nur mit GDAL möglich und 2D arrays http://earthserver.eu/trac/wiki/DocumentationGDALrasdaman
-%gruppierung: 0 http://rasdaman.org/browser/manuals_and_examples/manuals/doc-guides/ql-guide.pdf
-%verschneidung: 1 einfache Array-Operationen http://rasdaman.org/browser/manuals_and_examples/manuals/doc-guides/ql-guide.pdf
-%overlay: 1 einfache Array-Operationen http://rasdaman.org/browser/manuals_and_examples/manuals/doc-guides/ql-guide.pdf
-%geostatistik: 0
-%filter: 5 einfache Operationen (auch für array) http://rasdaman.org/browser/manuals_and_examples/manuals/doc-guides/ql-guide.pdf
-%schemaversionierung: 0
 
-%% Interoperabilität 12
-%pgsql ja http://www.rasdaman.org/wiki/Features
-%umn: per WCS, WPF
 
-% Dokumentation 8
-%installation: 1 eigene pdf's http://www.rasdaman.org/wiki/Documentation
-%Zeitverhalten: 0
-%funktionsumfang: 2 grob http://www.rasdaman.org/wiki/Features , ausführlicher in speziellen pdf wie http://rasdaman.org/browser/manuals_and_examples/manuals/doc-guides/ql-guide.pdf
-%Interoperabilität: 3 für postgres und API http://rasdaman.org/browser/manuals_and_examples/manuals/doc-guides/ql-guide.pdf
-%best practise: 1 hints file:///C:/Users/KJunghanns/Downloads/inst-guide.pdf
-%anpassbarkeit: 1 aus context der pdfs
-
-% Modifizierbarkeit 3
-% keine eigenen datentypen 0
-%Schnittstellen: mit Java und C++
-%eigene Funktionen: über API, rasql nicht
-%Programmiersprachen: Java, somit Scala, R NICHT
-%keine batchvorgägnge
