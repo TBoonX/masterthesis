@@ -284,5 +284,18 @@ Modifizierbarkeit & 3 & 60 & einfache Java und C++ API & 9 \\
 \end{table}
 Aus Tabelle \ref{table:nutzwertanalyse-rasdaman} ergibt sich ein Nutzwert von 65.
 
+Die Statistiken der Entwicklung des Repository müssen händisch gewonnen werden, da es auf einem Trac Verwaltungssystem mit Git basiert.
+Das Repository ist unter\\\url{kahlua.eecs.jacobs-university.de/rasdaman.git} verfügbar.
+Es kann mit der Konsolenanwendung Git heruntergeladen und ausgewertet werden.
+So erhält man mit \textit{git log --pretty=format:\grqq \%h - \%an, \%ad : \%s\grqq\ | tail -2} das der erste commit 2009 erstellt wurde:
+\begin{quote}
+aade634 - Sorin Stancu-Mara, Tue Apr 14 16:30:12 2009 +0200 : Updated the tests to the published WCPS schema v1.0
+\end{quote}
+Somit sind auch die commits des vergangenen Jahres ermittelbar.
+So wurden vom 19.2.2014 bis zum 19.2.2015 1949 commits durchgeführt.
+\textit{git shortlog -sne} liefert dagegen alle Autoren der vorhandenen commits.
+Die Autoren der meisten commits sind Dimitar Misev mit 456, Piero Campalani mit 301 und Andrei Aiordachioaie mit 74 commits, Stand 19.2.2015 14:00 Uhr.
 
-
+Rasdaman ist laut der Meldung \glqq Führender Rasterserver kostenfrei zum Download\grqq\ in \cite{website:rasdaman-newsarchive} seit September 2008 in einer freien Version verfügbar.
+Außerdem ist es aus Forschungsarbeiten der TU Darmstadt, der TU München und der Jacobs University Bremen entstanden.
+Förderer dabei war dabei das Community Research and Development Information Service der EU. \cite{website:rasdaman-cordis}
