@@ -6,7 +6,7 @@ Ralph E. Johnson in \cite{website:wiki-framework} definiert ein Framework wie fo
 \begin{quote}
 Ein Framework ist eine semi-vollständige Applikation. Es stellt für Applikationen eine wiederverwendbare, gemeinsame Struktur zur Verfügung. Die Entwickler bauen das Framework in ihre eigene Applikation ein, und erweitern es derart, dass es ihren spezifischen Anforderungen entspricht. Frameworks unterscheiden sich von Toolkits dahingehend, dass sie eine kohärente Struktur zur Verfügung stellen, anstatt einer einfachen Menge von Hilfsklassen.
 \end{quote}
-In dieser Arbeit dienen Frameworks oder auch Ordnungsrahmen zur Lösung spezieller Aufgaben und sind somit domänenspezifische Frameworks.
+In dieser Arbeit dienen Frameworks, oder auch Ordnungsrahmen genannt, zur Lösung spezieller Aufgaben und sind somit domänenspezifische Frameworks.
 Das heißt, dass notwendige Funktionen und Strukturen zur Lösung von speziellen Aufgaben bereits vorhanden sind, die konkreten Lösungen müssen jedoch mit Hilfe des Frameworks erstellt werden.
 
 
@@ -27,7 +27,7 @@ Transaktionen verschiedener Benutzer beeinflussen sich nicht gegenseitig.
 \item[Dauerhaftigkeit] \hfill \\
 Jede Änderung einer Transaktion ist nach Ende dieser auf die Festplatte geschrieben und nicht mehr im Puffer vorhanden.
 \end{description}
-Die Definition dieses anerkannten Begriffes ist für Kapitel \ref{nosql} notwendig.
+Die Definition dieses Begriffes ist für Kapitel \ref{nosql} notwendig.
 
 \subsubsection{MVCC}
 In grundlegenden relationalen Systemen werden Transaktionen verzögert oder sogar gesperrt, um Konsistenz und Isolation zu gewährleisten.
@@ -37,13 +37,14 @@ Neue Versionen entstehen durch Änderungen einer anderen.
 Eine Transaktion verwendet die zu Transaktionsbeginn aktuelle Version.
 Dadurch werden die allgemeinen Sperrverfahren (siehe \cite[S.266 ff.]{book:kudrass}) verbessert, indem lesende Transaktionen sich nicht gegenseitig blockieren und schreibende- gegen lesende Transaktionen nicht mehr synchronisiert werden müssen. (vgl. \cite[S.270]{book:kudrass})
 
-\subsubsection{BASE}
-\Gls{base} ist ein optimistischer und sperrenfreier Ansatz mit fließender Konsistenz.
-\cite{book:nosql-einfuehrung}
+%\subsubsection{BASE}
+%\Gls{base} ist ein optimistischer und sperrenfreier Ansatz mit fließender Konsistenz.
+%\cite{book:nosql-einfuehrung}
+%TODO: Attribute einzeln definieren
 
-\subsubsection{CAP}
-\Gls{cap}\\
-TODO
+%\subsubsection{CAP}
+%\Gls{cap}\\
+%TODO
 
 %\subsubsection{Partition Tolerance}
 
@@ -55,13 +56,13 @@ TODO
 %weitere Begriffsdefinitionen
 
 \subsection{Indexstrukturen}
-
-Indexstrukturen oder allgemein Zugriffsstrukturen dienen dem effizienten Zugriff auf Dateneinträge.
+%wiederverwenden!
+Indexstrukturen oder Zugriffsstrukturen dienen dem effizienten Zugriff auf Dateneinträge.
 Ein Index ist nach \cite[S.284]{book:kudrass} wie folgt definiert:
 \begin{quote}
 Ein Index ist ein Verzeichnis von Dateneinträgen der Form (k, k*), das den effizienten Zugriff auf allen Einträgen mit einem Suchschlüsselwert k erlaubt. Dabei bezeichnet k den Wert eines Suchschlüssels (auch Zugriffsattribut) und k* den Verweis auf den Datensatz in der Datei, der k als Wert des Suchschlüssels enthält.
 \end{quote}
-Zugriffsstrukturen haben je nach Art und Umfang der Daten sowie entsprechend den Anforderungen an das \Gls{dbs} unterschiedliche Strukturen.
+Zugriffsstrukturen haben je nach Art und Umfang der Daten sowie entsprechend den Anforderungen an das \Gls{dbs} einen unterschiedlichen Aufbau.
 In der einfachsten Struktur unterscheidet man nach Indexen die direkt die Daten beinhalten, auf die Daten zeigen oder eine Menge von Adressen beinhalten. (siehe \cite[S.284]{book:kudrass})
 
 Im folgenden werden spezielle Indexstrukturen vorgestellt, da dieses Wissen zur Bewertung von \Gls{dbs} herangezogen werden müssen.
@@ -76,27 +77,27 @@ Der Baum besitzt die Höhe h und die Ordnung m sowie die folgenden Eigenschaften
 \end{quote}
 Diese Struktur garantiert eine Belegung von 50\%.
 Weiterhin beschreibt h die Anzahl der Seitenzugriffe als relevantes Maß für die Zugriffskosten und Datensätze n bedingen den Zugriff in maximal logm(n) Seitenzugriffen. (vgl. \cite[S.288]{book:kudrass})
-
 Eine Spezialisierung stellt der B+-Baum dar.
 Hierbei befinden sich die Dateneinträge ausschließlich in den Blattknoten.
 Die Blattknoten sind unidirektional verkettet.
 %Ordnung ist hier (m -> Mindestbelegung für Indexseiten, m* -> Mindestbelegung der Blattseiten) m>m*
 
-\subsubsection{LSM-Baum}
-Log structured merge tree\\
-TODO
+%\subsubsection{LSM-Baum}
+%Log structured merge tree\\
+%TODO
 
 \subsubsection{R-Baum}
-R-Bäume sind balancierte Bäume und \glqq organisieren k-dimensionale Rechtecke mithilfe überlappender Blockregionen\grqq \ \cite[S. 523]{book:kudrass}
+R-Bäume sind balancierte Bäume und nach \cite[S. 523]{book:kudrass} organisieren sie k-dimensionale Rechtecke mithilfe überlappender Blockregionen.
 Diese Struktur wird folglich zur räumlichen Datenhaltung eingesetzt, da die Indexierung anhand räumlicher Informationen der Daten erfolgt.
 Ein Verzeichnisknoten besteht aus einem Tupel (ref, mur).
 ref steht für den Verweis auf den direkten Nachfahren und mur für das minimal umgebende Rechteck der Kindknoten.
 Datenknoten enthalten dagegen nur mur als eigentliches Geoobjekt. (vgl. \cite[S.523 ff.]{book:kudrass})
 % TODO: Bewertung!
 
-\subsubsection{Geohash}
-\label{geohash}
-Bei Bedarf
+%\subsubsection{Geohash}
+%\label{geohash}
+%mit eliptischen kurven und GeoMEsa verbinden
+%Bei Bedarf
 
 \subsection{Mehrrechner-Datenbanksystem}
 Nach \cite[S.394]{book:kudrass} wird bei einem Mehrrechner-Datenbanksystem (MDBS) die Datenbankverwaltungsfunktionen auf mehreren Prozessoren bzw. Rechnern ausgeführt.
@@ -111,21 +112,33 @@ Kudraß ergänzt dies durch folgende Unterscheidungen:
 
 \begin{quote}
 Verteilte Datenbanksysteme (VDBS) sind geografisch verteilte Shared-Nothing Systeme mit homogenen lokalen DBMS, die gemeinsam ein globales konzeptionelles DB-Schema unterstützen.
-Förderierte Datenbanksysteme (FDBS) sind ebenfalls geografisch verteilte Sgated nothing systeme, wobei die beteiligten lokalen DBMS eine höhere Autonomie aufweisen, d.h. dass jeweils eine eigene lokale Datenbank mit lokalem DB-schema vorliegt.\footnote{\cite[S.398]{book:kudrass}}
+Förderierte Datenbanksysteme (FDBS) sind ebenfalls geografisch verteilte Shated nothing systeme, wobei die beteiligten lokalen DBMS eine höhere Autonomie aufweisen, d.h. dass jeweils eine eigene lokale Datenbank mit lokalem DB-schema vorliegt.\footnote{\cite[S.398]{book:kudrass}}
 \end{quote}
+Die Unterscheidung zwischen VDBS und FDBS muss dabei speziell erfolgen.
 
-\subsection{Replikationsverfahren}
+%\subsection{Replikationsverfahren}
+%
+%\subsubsection{Synchron}\
+%Bei Bedarf
+%
+%\subsubsection{Asynchron}\
+%Bei Bedarf
+%
+%\subsubsection{Kaskadiert}\
+%Bei Bedarf
 
-\subsubsection{Synchron}\
-Bei Bedarf
+\subsection{Sharding}
 
-\subsubsection{Asynchron}\
-Bei Bedarf
-
-\subsubsection{Kaskadiert}\
-Bei Bedarf
-
-\newpage
+Nach \cite[S.296]{book:kudrass} wird bei Sharding von Datenbanken eine Relation in disjunkte Partitionen aufgeteilt, die auf verschiedenen Platten gespeichert werden.
+Auf der darauf folgenden Seite nennt Kudraß folgende Vorteile:
+\begin{itemize}
+\item Anfrageoptimierung durch Auslastung der Partitionen.
+\item Vereinfachung der Administration der Partitionen.
+\item Paralelle Verarbeitung.
+\end{itemize}
+Dies setzt einen auf dieser Weise angepassten Query-Planer des \Gls{dbms} voraus.
+Nach Kudraß wird ebenfalls nach drei Arten unterschieden.
+Konkret sind das Bereichspartitionierung, Round-Robin-Partitionierung und Hash-Partitionierung.
 
 \section{geografische Datenverarbeitung}
 
@@ -134,13 +147,10 @@ Bei Bedarf
 \begin{quote}
 Räumliche Bezugssysteme (spatial reference systems) erlauben die Interpretation der gespeicherten Koordinaten als Beschreibung von Lage- und Ausdehnungsinformationen in einem (realen) Datenraum. Ein räumliches Bezugssystem besteht aus einem Koordinatensystem (coordinate system), einem Geltungsbereich und Angaben, die es erlauben, Daten aus unterschiedlichen Koordinatensystemen auf ein globales System abzubilden.\footnote{\cite[S.506]{book:kudrass}}
 \end{quote}
-
 Kudraß allgemeine Definition wird durch \cite[S.141 ff.]{book:gi-theopluspraxis3} mit folgendem ergänzt:\\
 Man unterscheidet Koordinatensysteme nach kartesisch, homogen, Kugeltransformation und Ellipsoidentransformation, wobei den kartesischen einer hoher Stellenwert zugegordnet wird.
-
 Allen Bezugssystemen wird zur Identifikation ein weltweit eindeutiger Code zugeordnet.
-Dieser ist ein von der European Petroleum Survey Group Geodesy vergebener so genannter EPSG Code.
-
+Dieser ist ein von der \Gls{epsg} vergebener so genannter \Gls{epsg-code}.
 Das auf einem Ellipsoiden basierende Bezugssystem World Geodetic System von 1984\footnote{EPSG:4326} wird von der Agri~Con GmbH verwendet.
 
 
@@ -153,7 +163,7 @@ Geoobjekte sind räumliche Elemente, die zusätzlich zu Sachinformationen geomet
 De Lange definiert räumliche Objekte bzw. Geoobjekte ausreichend.
 Ein Geoobjekt enthält als Geometrie eine oder mehrere zwei- oder dreidimensionale Koordinaten, was die Lage, den Umfang und die Ausdehnung beschreibt.
 Zur Topologie zählt de Lange Umgebungen, Nachbarschaften, Teilmengen und Überlagerungen.
-Weiterhin werden Geoobjekte mit Sachinformationen gespeichert und je nach Anwendungsfall versioniert.[vgl. \cite[S.133]{book:gi-theopluspraxis3}]
+Weiterhin werden Geoobjekte mit Sachinformationen gespeichert und je nach Anwendungsfall versioniert.(vgl. \cite[S.133]{book:gi-theopluspraxis3})
 
 
 \subsubsection{einfache Geoobjekte}
@@ -161,17 +171,20 @@ Weiterhin werden Geoobjekte mit Sachinformationen gespeichert und je nach Anwend
 Ein Punkt besteht aus einer zwei- oder dreidimensionalen Koordinate und beliebigen Sach-, Topologie- und Dynamikinformationen.
 Mehrere Punkte bilden Linien.
 Bildet eine Linie eine geschlossene Fläche, handelt es sich um ein Polygon.
+Außerdem können Gruppen von Linien und Polygonen gebildet werden und Multilines und Multipolygone bilden.
+Multipolygone werden oft verwendet um Löcher in Polygonen abzubilden oder komplexe Polygone zu vereinfachen.
 
 \subsubsection{Vektorenmodell}
 
 Es besteht die Möglichkeit eine Menge von Punkten als Vektoren aufzufassen und daraus topologische Objekte entstehen zu lassen.
-Um damit geografisch zu modellieren, ist eine Diskretisierung d.h. eine Zuordnung der Vektoren notwendig. 
+Um damit geografisch zu modellieren, ist eine Diskretisierung d.h. eine Zuordnung der Vektoren untereinander notwendig. 
 
 \subsubsection{Rastermodell}
 
 Ein Raster löst einen rechteckigen Bereich mit in einem Koordinatensystem gleichmäßig angeordneten quadratischen Bildelementen bzw. Pixeln fester Größe auf.
 Geodaten werden ergo mit einer indizierten Matrix abgebildet.
 Ein dreidimensionales Raster heißt Voxel.
+Lange setzt fort:
 \begin{quote}
 Ein Punkt wird näherungsweise durch ein einzelnes Pixel dargestellt. Ein Linienzug wird durch entsprechende Anordnungen zusammenhängender Pixel angenähert erfasst. Linienzüge können dann z.B. durch Folgen von Indexpaaren (Zeile, Spalte) der zugehörigen Pixel beschrieben werden. Eine Fläche ist ebenfalls durch zusammenhängende Pixel darstellbar. Somit sind keine weiteren Zusatzinformationen zur Modellierung von Flächen wie im Vektormodell notwendig [...].\footnote{\cite[S.136]{book:gi-theopluspraxis3}}
 \end{quote}
@@ -184,15 +197,10 @@ Bei Bedarf
 % Grundlagenbuch geoinformatik zu rate ziehen
 
 \subsubsection{Aggregation}
-TODO
-
-\subsubsection{Filterung}
+%vereinigung mit Filterung
 TODO
 
 \subsubsection{Geostatistik}
-TODO
-
-\subsubsection{Interpolation}
 TODO
 
 \subsubsection{Resampling}
@@ -264,20 +272,20 @@ PostGIS steh unter der \Gls{gpl}v2.
 \label{nosql}
 \subsection{Definition}
 
-NoSQL steht für eine Bewegung des letzten Jahrzehnts, in welcher die Abkehr von klassischen relationalen Systemen gefordert oder zumindest ein Umdenken bestehender Strukturen, Vorgehen und Grundsätze angestrebt wird.
+NoSQL steht für eine Bewegung des vergangenen Jahrzehnts, in welcher die Abkehr von klassischen relationalen Systemen gefordert oder zumindest ein Umdenken bestehender Strukturen, Vorgehen und Grundsätze angestrebt wird.
 Dies wird durch andere Abfragesprachen, nicht relationale Datenbanksysteme oder Neudefinitionen von Begriffen wie der Konsistenz zum Ausdruck gebracht.
 Der Ursprung wird in der Literatur verschieden hergeleitet, jedoch wird immer zu den ersten Vertretern der NoSQL Bewegung Systeme mit einer anderen Abfragesprache und einfache Schlüssel-Hash Datenbanken gezählt.
 Auf einer Messe zu aktuellen Trends im Datenbankbereich wurde der Begriff NoSQL zuerst öffentlich für Lösungen dieser Bewegung verwendet (vgl. \cite{website:originnosql}) und ist seitdem ein Sammelbegriff für eine hohe Anzahl an Systemen.
+Einen Überblick der bestehenden Systeme stellt Herr Edlich unter \url{http://nosql-database.org/} bereit.
 
 \subsubsection{NoSQL GIS}
 
 In Bezug auf NoSQL kann \Gls{gis} wie in \ref{grundlagen:gis} definiert werden, jedoch muss das zugrunde liegende System nicht relational sein.
-Im Rahmen dieser Arbeit ist mit \Gls{gis} ein System oder die Teilsysteme zur räumlichen Datenhaltung, Datenverarbeitung und Bereitstellung gemeint.
+Im Rahmen dieser Arbeit ist mit \Gls{gis} ein System oder die Teilsysteme zur räumlichen Datenhaltung, Datenverarbeitung und Bereitstellung gemeint, unabhängig des Konsistenzbegriffes und der Abfragesprache.
 
 \subsection{Kategorisierung}
-Edlich unterscheidet, wie andere Autoren, NoSQL Datenbanken nach vier Kategorien.
+Edlich unterscheidet NoSQL Datenbanken nach vier Kategorien.
 Jedoch kann eine eindeutige Zuteilung nicht für jedes System erfolgen, da Prinzipien verschiedener Kategorien auf eines zutreffen können.
-Unter \url{http://nosql-database.org/} ist eine persönliche Übersicht der NoSQL Datenbanken von Herrn Edlich dargestellt.
 Für dieses Kapitel diente wesentlich \cite{beamer:nosql} als Quelle.
 
 
@@ -287,10 +295,8 @@ Key Value Datenbanken speichern Daten in Tupeln aus Schlüssel und Wert.
 Der Key ist eine Zeichenkette oder ein Hashwert und der Datentyp von Value ist beliebig im Rahmen der Datentypen der Datenbank.
 Datenzugriff erfolgt über Key.
 Es existiert keine einheitliche Abfragesprache.
-
 Erste Datenbanken die zu NoSQL zugeordnet werden sind Key Value Datenbanken. Konkret DBM und BerkleyDB.
 Aktuelle Vertreter sind Amazon Dynamo, Riak, Voldemort und Redis.
-
 Diese Datenbanken eignen sich für heterogene Daten, horizontale Skalierung und Schemafreiheit, da diese einfach strukturierten Daten sich in keiner Relation zueinander befinden.
 
 \subsubsection{Dokumentenbasierende Datenbank}
@@ -298,16 +304,13 @@ Diese Datenbanken eignen sich für heterogene Daten, horizontale Skalierung und 
 Hierbei werden strukturierte Daten, hier Dokumente, unter einem Hash abgelegt und sind über diesen abrufbar.
 Diese Dokumente sind im großteil der dokumentenbasierten Datenbanken versioniert.
 Häufige Formate sind \Gls{json}, \Gls{bson} und YAML.
-
 Ziel ist hier schemafreie Daten zu speichern und den Zugriff zu skalieren.
 Dabei können zumeist keine Joins verwendbar.
-
 Bekannte Vertreter sind MongoDB, CouchDB und Terrastore.
 
 \subsubsection{Spaltenorientierte Datenbank}
 
 Im Gegensatz zu zeilenorientierten Datenbanken legen spalteniorientierte Datenbanken ihre Werte, hier Attribute einer Tabelle, spaltenweise ab.
-
 Dies eignet sich für OLAP und Data Warehouse, da Spalteneinfügungen kostengünstig und Garbage Collection effektiv ist.
 Dagegen besteht ein hoher Aufwand beim Lesen und Schreiben von zusammengehörigen Spaltendaten.
 
@@ -318,9 +321,8 @@ A  Bigtable  is  a  sparse,  distributed,  persistent  multi-dimensional sorted 
 Die mehrdimensionalen Tabellen oder Maps sind vom Format:\\
 $n*[Domain / Keyspace]\ x\ [item / Column\ Family]\ x\ [Key\ x]*n*[key+Value]$
 %Dans zeug dazu anschauen
-
 Googles Ansatz wurde OpenSource in HBase und Cassandra umgesetzt. Die konkrete Implementierung von Google wurde jedoch nicht veröffentlicht.
-HBase verwendet folgendes Format: Pro Table Zugriff auf Zeilen per Rowkey, diese enthalten Column Familys oder Spalten welche wiederum eine Map namens Column Qualifier mit Tupeln aus der Version als Schlüssel und ein Byte-Array als Wert besitzt.(vgl. \cite[S.13]{ba:dan})
+HBase verwendet folgendes Format: Pro Table Zugriff auf Zeilen per Rowkey, diese enthalten Column Familys oder Spalten welche wiederum eine Map namens Column Qualifier mit Tupeln aus der Version als Schlüssel und ein Byte-Array als Wert besitzen.(vgl. \cite[S.13]{ba:dan})
 
 \subsubsection{Graphenbasierte Datenbank}
 
@@ -341,22 +343,21 @@ Auch sind im allgemeinen keine Joins vorgesehen.
 % http://blog.samibadawi.com/2012/03/hive-pig-scalding-scoobi-scrunch-and.html
 
 Hadoop ist ein unter der Apache Lizenz 2.0 stehendes Java-Framework zur Datenhaltung und Verarbeitung von großen Datenmengen auf einem Verbund von mehrerern Computern.
-Es basiert auf MapReduce und dem Dateisystem HDFS.
-
-Das \Gls{hdfs} ist ein verteiltes Dateisystem, welches keine besonderen Anforderungen an die Hardware stellt und für die Verwendung von mehreren hundert bis tausend Computern\footnote{die in einem verteilten System teilnehmenden Computer heißen Knoten} ausgelegt ist.
+Es basiert auf MapReduce und dem Dateisystem HDFS.\\
+Das \Gls{hdfs} ist ein verteiltes Dateisystem, welches keine besonderen Anforderungen an die Hardware stellt und für die Verwendung von mehreren hundert bis tausend Computern ausgelegt ist.
+Die in einem verteilten System teilnehmenden Computer heißen Knoten.
 Es besitzt eine hohe Fehlertoleranz und ist für den Einsatz auf kostengünstiger Hardware ausgelegt.
 Hoher Datendurchsatz und die Verwendung großer Dateien\footnote{eine Datei kann mehrere Gigabyte bis mehrere Terrabyte groß sein und wird in Blöcke gleicher Länge aufgeteilt} sind wesentliche Merkmale.(vgl. \cite[S.3]{paper:hadoop})
-Die Datei-Blöcke werden redundant auf die Knoten verteilt und sind mit Hilfe des Name-Node abrufbar.(vgl. \cite[S.7]{ba:dan})
-
+Die Datei-Blöcke werden redundant auf die Knoten verteilt und sind mit Hilfe des Name-Node abrufbar.(vgl. \cite[S.7]{ba:dan})\\
 Die verteilte Verarbeitung übernimmt MapReduce.
 Entsprechend dem Namen entspringt der Name MapReduce aus der funktionalen Programmierung, in welcher die Funktionen \glqq map\grqq \ und \glqq reduce\grqq \ zum Einsatz kommen.
-So werden hier die Daten mit einer map-Funktion verändert und mit reduce-Funktion aggregiert.
-Ein Master weist die Daten und Funktionen den Slaves\footnote{In diesem Zusammenhang auch Worker genannt} zu.
+So werden hier die Daten mit einer map-Funktion modifiziert gesammelt und mit reduce-Funktion aggregiert.
+Ein Master weist die Daten und Funktionen den Slaves zu, in diesem Zusammenhang werden die Slaves Worker genannt.
 Die Slaves führen die Funktionen mit den ihnen zugewiesenen Daten aus und speichern ihre Ergebnisse auf deren Festplatte ab.
 MapReduce wurde von Google definiert.
-In Abbildung \ref{fig:mapreduce} ist der beschriebe Ablauf dargestellt.
+In Abbildung \ref{fig:mapreduce} ist der beschriebene Ablauf dargestellt.
 Auch hier werden keine besonderen Anforderungen an die Hardware gestellt.(vgl. \cite[S.3]{paper:mapreduce})
-
+%
 \begin{figure}[h]
 \centering
 \includegraphics[width=\textwidth]{Abbildungen/mapreduce.png}
@@ -368,15 +369,17 @@ Auch hier werden keine besonderen Anforderungen an die Hardware gestellt.(vgl. \
 %\includegraphics[width=12cm]{Abbildungen/Testumgebung.png}%
 %\captionof{figure}[Testumgebung]{Testumgebung}%
 %\end{center}
-
+%
 Hadoop besitzt eine Master-Slave Architektur, wobei der Name-Node\footnote{damit ist der Master-Knoten gemeint, auch Jobtracker genannt} ankommende Anfragen bearbeitet und die Slave-Knoten organisiert.
 Hadoop ist per API verwendbar und bietet sich somit zur Stapelverarbeitung an. %Todo: belegen
-Es wird meist nur als Grundgerüst verwendet und mit Datenbanken wie HBase, MongoDB oder PostgreSQL sowie mit Frameworks für die Nutzung wie Hive, \Gls{pig}, \Gls{spark} oder Scalding erweitert.
-
+Es wird meist nur als Grundgerüst verwendet und mit Datenbanken wie HBase, MongoDB oder PostgreSQL sowie mit Frameworks für die Nutzung wie Hive, \Gls{pig}, \Gls{spark} oder Scalding erweitert.\\
+%
+Gegenüber der Möglichkeit auf unterschiedlicher Hardware direkt und gleichzeitig mit Terrabyte großen Daten zu arbeiten, steht die Kritik das MapReduce eine hohe IO auf Festplatten der einzelnen Systeme erzeugt, da alle Zwischenergebnisse auf den Festplatten abgelegt und anschließend gelesen werden.
 
 \subsection{ZooKeeper}
 \label{zookeeper}
-Das Apache Projekt  ermöglicht verteilten Prozessen über ZNodes miteinander zu kommunizieren.
+Das Apache Projekt ermöglicht verteilten Prozessen über ZNodes miteinander zu kommunizieren.
+ZNodes sind Datenhalter, welche ihre Daten in einem Namensraum versionieren.
 Es wird häufig gleichzeit mit Hadoop\footnote{siehe \ref{hadoop}} eingesetzt.
 Ziel ist dabei ein hoher Durchsatz, geringe Latenzen, Hochverfügbarkeit und effektiver Zugriff durch die Prozesse.
 Dabei verwaltet ZooKeeper eine geringe Datenmenge von einigen Kilobyte, da einzig Metainformationen von Interesse sind.\footnote{siehe \cite{website:zookeeper}} 
