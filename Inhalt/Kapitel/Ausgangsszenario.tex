@@ -11,9 +11,9 @@ Daraus ergeben sich verschiedenen Anforderungen an die Technologie, die für die
 \begin{itemize}
 \item PostgreSQL mit PostGIS zum Datenimport und -export nutzbar
 \item Gruppieren und Filtern mit geringer Laufzeit
-\item parallele Berechnung\footnote{hier Statistik bzw. Geostatistik sowie Interpolation} über große Datenmengen mit geringer Laufzeit
-\item Räumliche Berechnungen wie Verschneiden, Berechnen von Overlays
-\item  Unterschiedliche Prinzipien der Kartengenerierung, hier dynamisches rendern aus dem Datenbestand zur Laufzeit oder dynamisches rendern bei Dateneingang wodurch vorgerenderte Karten bereitstehen % caches wirklich mit untersuchen? wenn ja in Schnittstellen aufnehmen
+\item parallele Berechnung\footnote{hier Geostatistik} über große Datenmengen mit geringer Laufzeit
+\item Räumliche Berechnungen wie Verschneiden und Overlays
+%\item  Unterschiedliche Prinzipien der Kartengenerierung, hier dynamisches rendern aus dem Datenbestand zur Laufzeit oder dynamisches rendern bei Dateneingang wodurch vorgerenderte Karten bereitstehen % caches wirklich mit untersuchen? wenn ja in Schnittstellen aufnehmen
 \item nutzbare Schnittstelle zur Darstellung mit dem \Gls{umn}
 \end{itemize}
 
@@ -33,7 +33,7 @@ Konkret handelt es sich bei den Eingangsdaten um folgende:
 %TODO: warum hier die qualitätsmerkmale
 Qualitätsmerkmale sind nach DIN 9126\footnote{DIN 9126 wurde durch ISO/IEC 25000 ersetzt, jedoch sind beide nur proprietär verfügbar} in \cite[S.258 f.]{book:lehrbuchsoftware} Funktionalität, Zuverlässigkeit, Benutzbarkeit, Effizienz, Änderbarkeit und Übertragbarkeit.
 Diese Merkmale werden durch Qualitätskriterien für jeden Anwendungsfall konkretisiert.
-Nachfolgend werden die Qualitätsmerkmale für diesen Anwendungsfall konkretisiert und darauf die zu untersuchenden aufgelistet.
+Nachfolgend werden die Qualitätsmerkmale für diesen Anwendungsfall dargestellt und darauf die zu untersuchenden aufgelistet.
 Da die zu analysierenden Systeme eine Datenbank beinhalten, welche mit räumlichen Datentypen arbeitet, wurde die im Anhang C von \cite{book:objdbs} enthaltene Checkliste zur Auswahl eines \Gls{odbms} berücksichtigt.
 
 \textbf{Funktionalität}\\
@@ -44,16 +44,16 @@ Die originalen räumlichen Daten werden von Sensoren erfasst, in wessen Toleranz
 \item \textbf{Interoperabilität:} Es sind Schnittstellen zur Ein- und Ausgabe vorhanden. Dabei soll es sich um PostgreSQL Import sowie PostgreSQL und \Gls{umn} Export handeln.
 \item \textbf{Funktionsumfang:} Mindestens die benannte und essentielle Menge an Funktionalitäten wird bereitgestellt. Dazu zählt:
 parallele Verarbeitung, Gruppierungs-, Filter-, Verschneidungs- sowie Overlayfunktionen, Geostatistik und Umrechnung zwischen Koordinatensystemen und -formaten. Außerdem sind vorhandene Datentypen und Schemaversionierung von Interesse.
-\item \textbf{Ordnungsmäßigkeit:} Die Implementation des Systems und dessen Funktionen erfüllt Normen, Vereinbarungen, gesetzliche Bestimmungen und andere Vorschriften. Hierzu ist zu nennen, dass besonders Berechnungsfunktionen nach mathematischen Gesetzen implementiert sein müssen. Konkret sind Berechnungen der räumlichen Verarbeitung nach anerkannten definierten Algorithmen durchzuführen.
+\item \textbf{Ordnungsmäßigkeit:} Die Implementation des Systems und dessen Funktionen erfüllt Normen, Vereinbarungen, gesetzliche Bestimmungen und andere Vorschriften. Hierzu ist zu nennen, dass besonders Berechnungsfunktionen nach mathematischen Gesetzen implementiert sein müssen. Konkret sind Berechnungen der räumlichen Verarbeitung nach anerkannten definierten Algorithmen durchzuführen. Weiterhin sind Definitionen der Koordinatenreferenzsysteme\footnote{siehe \Glspl{epsg-code}}, die mathematisch korrekte deterministische sowie stochastische Interpolation und Interpolation nach Krige einzuhalten. Auch Allgemeine Anforderungen an \Gls{dbms} wie Integritätssicherung, Datensicherheit, Mehrbenutzerbetrieb, Datenunabhängigkeit und Zugangssicherung müssen erfüllt werden.
 \end{itemize}
 \ \\
 %
 \textbf{Zuverlässigkeit}\\
-Nach \cite[S.259]{book:lehrbuchsoftware} wird Zuverlässigkeit als die Fähigkeit einer Software ihr Leistungsniveau unter festgelegten Bedingungen über einen festgelegten Zeitraum bewahren, definiert.
-Nutzung von Tools zur Überwachung und Konfiguration immanent.
+Nach \cite[S.259]{book:lehrbuchsoftware} wird Zuverlässigkeit als die Fähigkeit einer Software ihr Leistungsniveau unter festgelegten Bedingungen über einen festgelegten Zeitraum bewahren definiert.
+%Nutzung von Tools zur Überwachung und Konfiguration immanent.
 \begin{itemize}
 \item \textbf{Fehlertoleranz:} Das System sollte auftretende Fehler des Tagesgeschäftes abfangen und weiterarbeiten. Besonders Fehler in den Quelldaten können zu Fehlern während der Ausführung von Berechnungen führen, was per s\'{e} abgefangen werden muss.
-\item \textbf{Wiederherstellbarkeit:} Auch die Möglichkeit bei einem schwerwiegendem Fehler Daten und Stände der abgebrochenen Operationen wiederherzustellen ist ein zu betrachtendes Qualitätskriterium.
+\item \textbf{Wiederherstellbarkeit:} Auch die Möglichkeit bei einem schwerwiegendem den Zustand der abgebrochenen Operationen wiederherzustellen ist ein zu betrachtendes Qualitätskriterium.
 \item \textbf{\Gls{mttf}:} Diese statische Kenngröße der erfahrungsgemäßen mittleren Lebensdauer ist für kritische Systeme relevant.
 \end{itemize}
 \ \\
@@ -69,7 +69,7 @@ Qualität des Zugangs für Benutzer sowie Eignung für eine oder mehrere Benutze
 \ \\
 %
 \textbf{Effizienz}\\
-Das Verhältnis zwischen Auslastung der Hardware und erfolgreich bearbeiteten Aufgaben. Nach \cite[S.21]{book:Leistungsanalyse} ist Leistung paralleler Programme das Verhältnis des Speedups zur Anzahl der verwendeten Prozessoren. Wobei Speedup als Verhältnis der Ausführungszeiten zwischen der auf N Prozessoren ausgeführten parallelen Version eines Programms und der sequentiellen Version des Programmes definiert ist. Diese Definitionen treffen für die zu untersuchenden Systeme zu, da es sich um parallelisierende \Gls{gis} handelt.
+Effizienz ist das Verhältnis zwischen Auslastung der Hardware und erfolgreich bearbeiteten Aufgaben. Nach \cite[S.21]{book:Leistungsanalyse} ist Leistung paralleler Programme das Verhältnis des Speedups zur Anzahl der verwendeten Prozessoren. Wobei Speedup als Verhältnis der Ausführungszeiten zwischen der auf N Prozessoren ausgeführten parallelen Version eines Programms und der sequentiellen Version des Programmes definiert ist. Diese Definitionen treffen für die zu untersuchenden Systeme zu, da es sich um parallelisierende \Gls{gis} handelt.
 \begin{itemize}
 \item \textbf{Zeitverhalten:} Oder auch Laufzeitverhalten genannt, dient allgemein zur Darstellung des Durchsatzes. Die Skalierung des Systems zählt hier dazu. Dies wird speziell durch zusätzliche Leistungstests beurteilt.
 \item \textbf{Verbrauchsverhalten:} Das Verhältnis aus erbrachter Leistung und dem dafür notwendig gewesenen Aufwand in Form von Hardwarenutzung.
@@ -82,13 +82,13 @@ Aufwand zur Verbesserung oder Anpassung der Umgebung und der Spezifikationen, au
 \begin{itemize}
 \item \textbf{Analysierbarkeit:} \glqq Aufwand, um Mängel oder Ursachen von Versagen zu diagnostizieren oder um änderungsbedüftige Teile zu bestimmen.\grqq\ \cite[S. 260]{book:lehrbuchsoftware}
 \item \textbf{Modifizierbarkeit:} Notwendiger Aufwand für Änderungen zum Ziele der Verbesserung und Fehlerbehebung.
-\item \textbf{Stabilität:} Wahrscheinlichkeit vom ungewollten Auswirkungen von Änderungen.
-\item \textbf{Prüfbarkeit:} Oder Testbarkeit als Merkmal, welches die Möglichkeiten und den Aufwand zum testen der originalen und geänderten Systeme.
+\item \textbf{Stabilität:} Wahrscheinlichkeit von ungewollten Auswirkungen durch Änderungen.
+\item \textbf{Prüfbarkeit:} Oder Testbarkeit als Merkmal, welches die Möglichkeiten und den Aufwand zum testen der originalen und geänderten Systeme darstellt.
 \end{itemize}
 \ \\
 %
 \textbf{Übertragbarkeit}\\
-Die Fähigkeit das System auf andere Hard- und Software und andere Vorgehensweisen zu migrieren.
+Die Fähigkeit das System auf andere Hard- und Software sowie andere Vorgehensweisen zu migrieren.
 \begin{itemize}
 \item \textbf{Anpassbarkeit:} Möglichkeiten des unveränderten Systems Änderungen vorzunehmen.
 \item \textbf{Installierbarkeit:} Systemvoraussetzung und Aufwand zur Installation des Systems.
@@ -98,7 +98,7 @@ Die Fähigkeit das System auf andere Hard- und Software und andere Vorgehensweis
 \textbf{Nichttechnische Kriterien}\\
 Erweiterte Qualitätskriterien, welche nicht nach der DIN 9126 zugeordnet werden können.
 \begin{itemize}
-\item \textbf{Herstellerfirma und Produkt:} Dazu zählt die Marktposition, der Preis, die Produktplanung und Service.
+\item \textbf{Herstellerfirma und Produkt:} Dazu zählt die Marktposition, der Preis, die Produktplanung und der Service.
 \end{itemize}
 \ \\
 %
@@ -111,11 +111,11 @@ Die zu untersuchenden Qualitätskriterien für die Softwareauswahl sind Funktion
 Zu den wichtigen Qualitätsmerkmalen aus Kapitel \ref{softwarequalität} sind folgend Kriterien definiert, sowie je eine Bewertungsvorschrift und die geforderte Mindestbewertung für den Anwendungsfall angegeben.
 
 \textbf{Richtigkeit:}\\
-Berechnungen sind zu 99\% korrekt. Ausnahme ist dabei die Berechnung von Koordinaten. Dabei haben die Ergebnisse bis acht Stellen nach dem Komma korrekt zu sein.
+Berechnungen sind zu 100\% korrekt. Ausnahme ist dabei die Berechnung von Koordinaten. Dabei haben die Ergebnisse bis acht Stellen nach dem Komma korrekt zu sein.
 Die statische Abbildung ist dabei $[korrekt, nicht\ korrekt]\ nach\ [1, 0]$ und die geforderte Mindestbewertung 1.
 
 \textbf{Interoperabilität:}\\
-Import und Export von räumlichen Daten aus PostgreSQL sowie eine Anbindungsmöglichkeit an den \Gls{umn}.
+Ist der Import und Export von räumlichen Daten aus PostgreSQL sowie eine Anbindungsmöglichkeit an den \Gls{umn}.
 Statische Abbildung:\\
 $[Datenschnittstelle\ und\ UMN\ Schnittstelle\ vorhanden,Datenschnittstelle\ vorhanden,$\\$UMN\ Schnittstelle\ vorhanden,keine\ Schnittstelle\ vorhanden]\ nach\ [12,7,5,0]$\\
 Der Bereich bis 12 soll die Wichtigkeit des Vorhandenseins der Schnittstellen verdeutlichen.
@@ -125,8 +125,8 @@ Die geforderte Mindestbewertung ist 7.
 Tabelle \ref{table:funktionsumfang} gibt die Wertung bei Existenz der einzelnen Funktionen wieder.
 Existiert die Funktion nicht, ist die Wertung Null.
 Ein Zwischenwert bei eingeschränkter Funktionalität ist möglich.
-Maximale Wertung: \FPtrunc\Gesamtsumme\Gesamtsumme{0}\FPprint\Gesamtsumme\\
-Es müssen mindestens geografische Datentypen und Filterfunktionen vorhanden sein.
+Maximale Wertung: 61 %\FPtrunc\Gesamtsumme\Gesamtsumme{0}\FPprint\Gesamtsumme\\
+Es müssen mindestens geografische Datentypen, Filterfunktionen und parallele Verarbeitung vorhanden sein.
 \begin{table}[h]
 \centering
 \begin{tabular}{l|c}
@@ -146,7 +146,7 @@ Schemaversionierung & \psum{1}
 \end{table}
 
 \textbf{Fehlertoleranz:}\\
-Es gilt zu messen, ob Fehler bei einer Berechnung andere verschränkt gleichzeitig laufende Berechnungen beeinträchtigt.
+Es gilt zu messen, ob Fehler bei einer Berechnung andere verschränkt gleichzeitig laufende Berechnungen beeinträchtigen.
 Aus diesem Grund wird Unabhängigkeit auf eins und Abhängigkeit auf null abgebildet.
 Die geforderte Mindestbewertung ist 1.
 
@@ -172,6 +172,7 @@ Konkret wird eine Beschleunigung aufwendiger Vorgänge angestrebt.
 Die statische Abbildung auf Bezug auf die Laufzeiten des Ist-Standes:\\
 $[Zeit\ wird\ überschritten,\ Zeit\ ist\ gleich,\ Zeit\ wird\ unterschritten]\ nach\ [0,1,3]$\\
 Der Abruf von Punktdaten dauert neun Sekunden und die Interpolation ...
+%Verweis auf Anhang
 
 \textbf{Modifizierbarkeit:}\\
 Anpassungen des Frameworks hinsichtlich der folgenden Punkte erhöhen den Wert um eins:\\
