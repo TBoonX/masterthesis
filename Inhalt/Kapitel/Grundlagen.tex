@@ -215,7 +215,7 @@ Ein \Gls{gis} ist wie folgt definiert:
 Ein System,  das  auf einen Datenbestand zurückgreift und Auswertungen dieser Daten zulässt,  so dass Informationen abgeleitet und wiedergegeben werden können,  kann  allgemein  als  ein  Informationssystem  bezeichnet  werden. [...]
 
 Im Mittelpunkt  der  Geoinformatik  stehen  mit den  Geoinformationssystemen raumbezogene Informationssysteme, die im Gegensatz zu den übrigen Informationssystemen Geoobjekte  der realen Welt modellieren und diese in ein digitales Informationssystem abbilden [...]. Die Gegenstände eines Geoinformationssystems  besitzen  wie  auch  bei  allen  anderen  Informationssystemen  eine 
-Thematik (und Dynamik). Das Besondere bei Geoinformationssystemen ist, dass Geoobjekte darüber hinaus Geometrie und Topologie als implizite und untrennbare Bestandteile aufweisen!  Die Verarbeitung derartiger raumbezogener Informationen erfordert spezielle Werkzeuge bzw. Funktionen, die von den übrigen Informationssystemen nicht bereitgestellt werden [...].\footnote{\cite[S. 337]{book:gi-theopluspraxis3}}
+Thematik (und Dynamik). Das Besondere bei Geoinformationssystemen ist, dass Geoobjekte darüber hinaus Geometrie und Topologie als implizite und untrennbare Bestandteile aufweisen!  Die Verarbeitung derartiger raumbezogener Informationen erfordert spezielle Werkzeuge bzw. Funktionen, die von den übrigen Informationssystemen nicht bereitgestellt werden [...].\footnote{\cite[S.337]{book:gi-theopluspraxis3}}
 \end{quote}
 
 %\subsection{GDAL}
@@ -364,12 +364,6 @@ Auch hier werden keine besonderen Anforderungen an die Hardware gestellt.(vgl. \
 \caption[Übersicht der Ausführung von Googles MapReduce]{Übersicht der Ausführung von Googles MapReduce, Quelle: \cite{paper:mapreduce} S. 3}
 \label{fig:mapreduce}
 \end{figure}
-%\begin{center}
-%\centering
-%\includegraphics[width=12cm]{Abbildungen/Testumgebung.png}%
-%\captionof{figure}[Testumgebung]{Testumgebung}%
-%\end{center}
-%
 Hadoop besitzt eine Master-Slave Architektur, wobei der Name-Node\footnote{damit ist der Master-Knoten gemeint, auch Jobtracker genannt} ankommende Anfragen bearbeitet und die Slave-Knoten organisiert.
 Hadoop ist per API verwendbar und bietet sich somit zur Stapelverarbeitung an. %Todo: belegen
 Es wird meist nur als Grundgerüst verwendet und mit Datenbanken wie HBase, MongoDB oder PostgreSQL sowie mit Frameworks für die Nutzung wie Hive, \Gls{pig}, \Gls{spark} oder Scalding erweitert.\\
@@ -391,14 +385,17 @@ Dabei verwaltet ZooKeeper eine geringe Datenmenge von einigen Kilobyte, da einzi
 \begin{quote}
 The Apache Thrift software framework, for scalable cross-language services development, combines a software stack with a code generation engine to build services that work efficiently and seamlessly between C++, Java, Python, PHP, Ruby, Erlang, Perl, Haskell, C\#, Cocoa, JavaScript, Node.js, Smalltalk, OCaml and Delphi and other languages.\footnote{\cite{website:thrift}}
 \end{quote}
+Dabei muss sich der Entwickler nicht mit den einzelnen Schichten des OSI Modells beschäftigen und auch keine Eigenheiten der Programmiersprachen berücksichtigen.
+Es werden Datentypen, der Transport mit Thrift eigenen Protokollen, die Datenversionierung und Gegenstellen der Dienste durch das Thrift Framework bereitgestellt.
+Thrift wurde 2007 von Facebook freigegeben. \cite[S.1]{paper:thrift}
 
 
 \subsection{Accumulo}
 \label{accumulo}
 %https://en.wikipedia.org/wiki/Apache_Accumulo
-Hierbei handelt es sich um ein Level-1-Apache Projekt, es ist eine Java Open-Source Implementation des BigTable Ansatzes von Google und wird seit 2008 entwickelt.
+Hierbei handelt es sich um ein Apache Projekt, es ist eine Java Open-Source Implementation des BigTable Ansatzes von Google und wird seit 2008 entwickelt.
 Es verwendet Hadoop\footnote{siehe\ref{hadoop}}, ZooKeeper\footnote{siehe \ref{zookeeper}} und Thift\footnote{siehe \ref{thrift}}.
-Der BigTable Ansatz wird um Iteratoren, Zellenbezeichnungen, Constraints, Fragmentierungsmöglichkeiten einer dokumentbasierten Datenbank und die Unterstützung der gleichzeitigen Verwendung mehrerer HDFS namenodes erweitert.
+Der BigTable Ansatz wird um Iteratoren, Zellenbezeichnungen, Constraints, physische Verteilungsmöglichkeiten einer dokumentbasierten Datenbank und die Unterstützung der gleichzeitigen Verwendung mehrerer HDFS namenodes erweitert.
 Weitere Funktionen sind folgende:
 \begin{itemize}
 \item Verwendung mehrerer Master
@@ -410,19 +407,18 @@ Es existieren weiterhin verschiedene Erweiterungen zum Datenmanagement und Ände
 
 \subsection{GeoMesa}
 
-GeoMesa ist eine freie\footnote{Apache License Version 2.0} geografische Datenbank der Firma LocationTech mit den Möglichkeiten der verteilten Verarbeitung und Versionierung von geografischen Daten.
+GeoMesa ist eine unter Apache License Version 2.0 stehende geografische Datenbank der Firma LocationTech mit den Möglichkeiten der verteilten Verarbeitung und Versionierung von geografischen Daten.
 Dieses Framework ist in \Gls{scala} geschrieben.
 Es erweitert Accumulo\footnote{siehe \ref{accumulo}}, unterstützt die GeoTools API und bietet ein Plugin für den Mapserver \Gls{geoserver} an.
-Die Daten werden nach Geohash\footnote{siehe \ref{geohash}} verwaltet. (vgl. \cite{website:geomesaeclipse})\\
+Die Daten werden nach Geohash %\footnote{siehe \ref{geohash}}
+verwaltet. (vgl. \cite{website:geomesaeclipse})\\
 GeoMesa wird in Verbindung mit stream processing\footnote{bspw. Spark oder Storm} und batch processing\footnote{bspw. Pig oder Cascading} verwendet.
 Zur räumlichen Datenverarbeitung werden Scala Bibliotheken wie \Gls{jts} und GeoTools eingesetzt.
 Vorrangig werden Vektordaten von GeoMesa verarbeitet, durch eine optionale Erweiterung sind auch Rasterdaten verwendbar.
 Datenimport wird ingest genannt, erfolgt über die Kommandazeile und unterstützt die Datenformate CSV, TSV und SHP.
 CSV, TSV, Shapefile, GeoJSON, and GML können dagegen über den selben Weg exportiert werden.
 Weiterhin erfolgt der Datenexport und -import über Scala.
-GeoMesa ist gedacht, um initial große Datenmengen per Ingest zu laden und anschließend diese mit Spark und dafür vorgesehenen Frameworks sowie Bibliotheken zu verarbeiten.
-
-
+GeoMesa ist gedacht, um initial große Datenmengen per Ingest zu laden und diese anschließend mit Frameworks zur verteilten Datenverarbeitung wie Spark und dafür vorgesehenen Bibliotheken zu verarbeiten.
 %\url{https://www.locationtech.org/proposals/geomesa} :\\
 %- outperforming postgis with geoserver
 %
@@ -484,31 +480,6 @@ Von der verwendeten Datenbank wird BLOB als Datenbankinterner Datentyp verwendet
 \label{fig:rasdaman}
 \end{figure}
 
-\subsection{Spacebase}
-
-Spacebase ist eine in Java programmierte geografische Datenbank mit Betonung auf Echtzeit und geringe Latenzen des Unternehmens Parallel Universe.
-Die Datenbank wird ausschließlich im Arbeitsspeicher gehalten und ausgeführt.
-Außerdem ist sie für die verteilte Nutzung auf mehreren Computern konzipiert.
-Räumliche Daten werden in 2D oder 3D mit einem dazugehörigen begrenzenden Rechteck im R-Baum gespeichert.
-SpaceBase ist für eine sehr große Anzahl an Abrufen und Veränderungen der Daten in Echtzeit geeignet.
-Für die räumliche Verarbeitung stehen Bereichsabfragen, Überschneidungsabfragen und allgemeine Join Abfragen zur Verfügung.
-Diese beschränken sich aber auf das begrenzende Rechteck, da die eigentliche Geometrie nur über eine Referenz im Datenobjekt abrufbar ist.
-Ergänzend besteht die Möglichkeit eigene Abfragen zu formulieren und dabei die referenzierte Geometrie zu verwenden.
-Es wird jedoch darauf hingewiesen, dass complexe Operationen auf diese Geometrie die Laufzeit der Berechnungen wesentlich erhöht.
-Zum Erreichen der geringen Latenzen werden räumliche Berechnungen parallelisiert und auf die Instanzen verteilt.
-Es stehen APIs für Java, C++, Erlang, Python, Ruby und Node.js zur Verfügung. (vgl. \cite{website:spacebase})
-
-
-\subsection{ESRI GIS Tools for Hadoop}
-Das Unternehmen ESRI stellt eine Umgebung zum verteilten Verarbeiten geografischer Daten auf einem Hadoop Cluster bereit.
-Diese Umgebung nennt sich GIS Tools for Hadoop und besteht aus vier Teilen:
-\begin{description}
-\item[Esri Geometry API for Java] Java API für Entwickler, um mit Hadoop geografische Datenverarbeitung durchzuführen. JSON, WKT und Shapefile sind Importformate. Die Datentypen werden als einfache Geometrien bezeichnet und setzen sich laut Quellcode aus Punkt, Punktsammlung, Linie, Polygon und PolyLine zusammen. Geografische Funktionen sind \glqq union, difference, intersect, clip, cut, and buffer\grqq \ sowie \glqq equals, within, contains, crosses, and touches\grqq . (vgl. \cite{website:esrigishadoopapi})
-\item[Spatial Framework for Hadoop] Erweiternte Bibliothek für Hadoop, um mit HQL geografisch zu arbeiten.
-\item[Geoprocessing Tools for Hadoop] Hadoop Anbindung an ArcGIS.
-\item[GIS Tools for Hadoop] Projekt zum testen der Hadoop Umgebung mit ArcGIS.
-\end{description}
-ArcGIS ist ein proprietäres GIS, die beschriebene Umgebung steht dagegen unter Apache Lizenz Version 2.0 zur Verfügung. (vgl. \cite{website:esri-hadoop2})
 
 \section{Tests}
 
@@ -529,6 +500,7 @@ Nachfolgend werden die Randbedingungen definiert und in Kapitel \ref{Anforderung
 \subsection{Funktionstests}
 \label{grundlagen-funktionstests}
 Um die Systeme auf Softwarequalität, beschrieben auf Seite \pageref{softwarequalität}, zu testen, sind Funktionstests notwendig.
+Im folgenden bezieht sich \glqq Systeme\grqq\ auf auf die untersuchten Frameworks.
 \cite{book:softwareengineering} verweist auf Funktionstests auf Seite 455 wie folgt:
 \begin{quote}
 Werden die Testfälle auf Basis der in der Spezifikation geforderten Eigenschaften des Prüflings ausgewählt (z.B. Funktionalität, Antwortzeit), dann spricht man von einem Block-Box-Test oder auch von einem Funktionstest (19.5).
@@ -555,15 +527,12 @@ Im Rahmen dieser Arbeit soll dieser Umfang wie folgt begrenzt werden:
 
 \subsection{Leistungstests}
 \label{Leistungstests}
-
-- Lasttests zur Persistierung von Eingangsdaten
-- Lasttests zur Bereitstellung von verarbeiteten und eingabedaten (an UMN[plugin, WMS, Bilder oder über pgsql] oder allgemein)
-- Überwachung der Systemauslastung ist notwendig
-
 Ein Kriterium der Untersuchung in dieser Arbeit ist die Leistung.
 Nach Kesselman in \cite[S.20]{book:Leistungsanalyse} ist Leistung die gewichtete Summation von Leistungsindizes, wobei ein Leistungsindex die Quantifizierung einer Eigenschaft eines Systems ist.
 Wesentliche Leistungsindizes sind Laufzeiten von einfachen oder komplexen Operationen.
 Es wird hier nur die spezielle Leistung gemessen, da ausgewählte Eigenschaften betrachtet werden und somit nicht die Leistung für einen allgemeinen Anwendungsfall.
+Es existieren vordefinierte Leistungstests, dabei sind jene des \Gls{tpc} sowie die Benchmarks 001, 007, HyperModel und Justitia zu nennen.
+Diese sind jedoch nicht für den zu untersuchenden Anwendungsfall geeignet, da sie die allgemeine Leistungsfähigkeit und Effektivität messen und somit nicht die gesuchten Werte der \Gls{gis} ermitteln.
 
 Der in diesem Zusammenhang in der Literatur verwendete Begriff Benchmark ist hier jedoch ungeeignet, da die Software und nicht die Hardware untersucht werden soll:
 \begin {quote}
@@ -575,6 +544,9 @@ Unter Leistungsmessung versteht man die Beobachtung des Ablaufverhaltens eines P
 \end{quote}
 Die aus der Leistungsmessung gewonnenen Erkenntnisse dienen hierbei als Qualitätsmerkmale und werden nach definierten Metriken gewichtet.
 
-%Leistungsmessungen des \Gls{tpc} werden zum Zwecke der vergleichenden Leistungsfeststellung von Software 
-Es existieren vordefinierte Leistungstests, dabei sind jene des \Gls{tpc} sowie die Benchmarks 001, 007, HyperModel und Justitia zu nennen.
-Diese sind jedoch nicht für den zu untersuchenden Anwendungsfall geeignet, da sie die allgemeine Leistungsfähigkeit und Effektivität messen und somit nicht die gesuchten Werte der \Gls{gis} ermitteln.
+Gleichzeitig zur Durchführung der Leistungstests ist die Auslastung des Systems zu überwachen und zu protokollieren.
+Im Allgemeinen wird die Auslastung der CPU, der Anteil des reservierten Arbeitsspeichers und die Anzahl an Operationen auf der Festplatte überwacht.
+Die Durchführung unterscheidet sich je nach Betriebssystem und Art des logischen Systems.
+Jedoch ist darauf zu achten die eigentlichen Messungen nicht nennenswert zu beeinflussen.
+Ziel ist ein Kompromiss aus hochfrequenter Auflösung der Daten der Systemauslastung und dem dafür notwendigen Aufwand in Form von Rechenzeit.
+Außerdem ist die Auslastung des Systems vor dem Start der Leistungstests festzuhalten, um den Grundwert zu erhalten.
