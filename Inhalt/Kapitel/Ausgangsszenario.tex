@@ -171,11 +171,10 @@ Die geforderte Mindestbewertung ist 6.
 Konkret wird eine Beschleunigung aufwendiger Vorgänge angestrebt.
 Die statische Abbildung auf Bezug auf die Laufzeiten des Ist-Standes:\\
 $[Zeit\ wird\ überschritten,\ Zeit\ ist\ gleich,\ Zeit\ wird\ unterschritten]\ nach\ [0,1,3]$\\
-Der Abruf von Punktdaten dauert neun Sekunden und die Interpolation ...
-%Verweis auf Anhang
+Die Laufzeiten sind in Anhang \ref{appendix-A} zu finden.
 
 \textbf{Modifizierbarkeit:}\\
-Anpassungen des Frameworks hinsichtlich der folgenden Punkte erhöhen den Wert um eins:\\
+Mögliche Anpassungen des Frameworks hinsichtlich der folgenden Punkte erhöhen den Wert um eins:\\
 Verwendung eigener Datentypen, Erstellung eigener Schnittstellen, Erstellung eigener Funktionen, Verwendung der Programmiersprachen Scala oder R, Anlegen eigener Berechnungsvorgängen zur späteren Abarbeitung\\
 Die geforderte Mindestbewertung ist abhängig vom Funktionsumfang und der Interoperabilität.
 Jedoch sollten fehlende Funktionen und Schnittstellen erstellt werden können.
@@ -233,7 +232,6 @@ Die Basis für die Erstellung von Lasttests ist Kapitel \ref{iststand-vorgaenge}
 Ein Lasttest misst die Laufzeit zur Aggregation von Punktdaten.
 Dies ist auf dem System der Datenbank bzw. des Masters über den gängigen Weg, vorrangig SQL, durchzuführen.
 Die Laufzeitmessung der Anfragen erfolgt über diese mit Parametern der Anfrage.
-% select * from n.nsensorlogs where farmid=1038
 Analog ist ein weiterer Lasttest zur Interpolation bzw. Kriging durchzuführen.
 %funktion ist noch zu erstellen
 
@@ -276,14 +274,14 @@ Die Punktdaten aus dem N-Sensor Bereich sind jedoch repräsentativ und werden de
 Weiterhin zählt Interpolation zu diesen Vorgängen.
 Punkte und Fahrspuren werden mit einem angepassten Kriging interpoliert und als Vektoren und Raster abgespeichert.
 Dies wird mit einer R Bibliothek realisiert und bei großen Datenmengen Nachts angestoßen.
-Das spezielle Kriging im jeweiligen Framework zu implmentieren ist aufwendig, weshalb ein unveränderter Kriging Algorithmus für den Vergleich verwendet werden muss.
+Das spezielle Kriging im jeweiligen Framework zu implmentieren ist aufwendig, weshalb ein unveränderter Kriging Algorithmus für den Vergleich verwendet werden muss.\footnote{siehe Anhang \ref{appendix-A}}
 Diese zwei charakteristischen Vorgänge sind durch ein Framework zu realisieren.
 
 
 \begin{figure}[h]
 \centering
 \input{Abbildungen/Wunsch-Stand.tex}
-\caption[Aufbau Wunsch-Stand]{\"{U}bersicht des Aufbaus des Wunsch-Standes}
+\caption[Aufbau Wunsch-Stand]{\"{U}bersicht des Aufbaus des Wunsch-Standes bei Agri Con}
 \label{fig:wunschstand}
 \end{figure}
 Das Ziel ist es, ein Framework zusätzlich in den Ist-Stand zu integrieren.

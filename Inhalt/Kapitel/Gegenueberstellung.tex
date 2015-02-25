@@ -1,6 +1,5 @@
 \chapter{Gegenüberstellung}
-
-Anhand der unter \ref{qualitätsmetriken} erstellten Metriken sind die Frameworks GeoMesa, Postgres-XL und Rasdaman zu vergleichen.
+Mit den unter \ref{qualitätsmetriken} erstellten Metriken sind die Frameworks GeoMesa, Postgres-XL und Rasdaman zu vergleichen.
 Der Vergleich findet im Rahmen einer Nutzwertanalyse statt.
 Hierbei werden keine Daten von durchgeführten Tests herangezogen, sondern es wird anhand der Spezifikation der einzelnen Frameworks untersucht.\\
 %
@@ -8,12 +7,12 @@ Die drei Frameworks wurden aus der Tabelle der Abbildung \ref{fig:spatialdatabas
 \begin{figure}
 \centering
 \includegraphics[width=\textwidth]{Abbildungen/table_spatialdatabases_13_2_15.pdf}
-\caption[Übersicht relevanter GIS Frameworks]{Übersicht relevanter GIS Frameworks nach \cite{website:wiki-spatialdatabase} vom 2.2.2015}
+\caption[Übersicht relevanter GIS Frameworks]{Übersicht relevanter GIS Frameworks nach \cite{website:wiki-spatialdatabase} vom 13.2.2015}
 \label{fig:spatialdatabases}
 \end{figure}
-Darin sind GIS zur räumlichen Datenverarbeitung mit wesentlichen Eigenschaften wie PostgreSQL Schnittstelle und räumliche Datentypen aufgelistet.
+Darin sind GIS zur räumlichen Datenverarbeitung mit wesentlichen Eigenschaften wie \mbox{PostgreSQL} Schnittstelle und räumliche Datentypen aufgelistet.
 Entsprechend den Anforderungen wurden daraus drei Frameworks für die Nutzwertanalyse ausgewählt.\\
-Abbildung \ref{fig:spatialdatabases} stammt von der Wikipedia Seite \url{https://en.wikipedia.org/wiki/Spatial_database} und ist wie unter \ref{aufrufe-spatialdatabases} beschrieben für Unternehmen interessant.
+Abbildung \ref{fig:spatialdatabases} stammt von der Wikipedia Seite \url{https://en.wikipedia.org/wiki/Spatial_database} und ist wie unter Kapitel \ref{aufrufe-spatialdatabases} beschrieben für Unternehmen interessant.
 Der Autor erschuf die abgebildete Tabelle durch Recherche und stellte sie am 1.2.2015 in den Artikel.
 In der Annahme, dass unternehmensbezogene Besucher der Seite fehlendes ergänzen oder falsches korrigieren würden, dient diese zur Auswahl geeigneter Frameworks.
 
@@ -38,9 +37,8 @@ Modifizierbarkeit & 15
 Die Metriken Richtigkeit, Fehlertoleranz und Zeitverhalten werden nicht in die Analyse aufgenommen, da sie über die Spezifikation nicht belegbar sind.
 
 Für jedes Framework wird eine Nutzwertanalyse durchgeführt und die dazugehörigen Tabellen dazu präsentiert.
-
-Zu jeder Metrik wird der erreichte Wert, die ungewichtete Erfüllung, die gewichtete Erfüllung ein ein Kommentar angegeben.
-Die ungewichtete Erfüllung bezieht sich auf den maximal zu erreichenden Wert der Metrik, die gewichtete Erfüllung dagegen auf die Erfüllung der Metrik in Bezug auf \ref{table:Wertungsmassstab}.
+Zu jeder Metrik wird der erreichte Wert, die ungewichtete Erfüllung, die gewichtete Erfüllung und ein Kommentar angegeben.
+Die ungewichtete Erfüllung bezieht sich auf den maximal zu erreichenden Wert der Metrik, die gewichtete Erfüllung dagegen auf die Erfüllung der Metrik in Bezug auf Tabelle \ref{table:Wertungsmassstab}.
 Die Kommentarspalte dient der Darstellung des Erreichens der Mindestanforderungen.
 Der schlussendliche Nutzwert ergibt sich nach Zangemeister in \cite{website:nutzwertanalyse} aus der Summe der Produkte des Teilnutzens des jeweiligen Kriteriums mit der Gewichtung des Kriteriums.
 Der Teilnutzen ist hier der Prozentuale Anteil der erreichten Punktzahl an der maximalen Punktzahl des Kriteriums.
@@ -52,16 +50,16 @@ Die Summe aller dieser Teilnutzwerte ergibt den Nutzwert des Frameworks für den
 \subsection{Interoperabilität}
 \begin{description}
 \item[PostgreSQL - 7] Scala  kann mit JDBC auf PostgreSQL zugreifen.
-\item[\Gls{umn} - 0] \Gls{umn} bietet Accumulo nicht als Quelle an und GeoMesa keine \Gls{ogc} konformen Dienste wie WMS.
+\item[\Gls{umn} - 0] \Gls{umn} bietet Accumulo nicht als Quelle an und GeoMesa besitzt keine \Gls{ogc} konformen Dienste wie beispielsweise WMS.
 \end{description}
 Die Wertung für Interoperabilität ist somit 7 mit einer Erfüllung von 58\%.
 
 \subsection{Funktionsumfang}
 \begin{description}
-\item[Parallele Verarbeitung - 2] Verteilte Datenhaltung durch Accumulo auf \Gls{hdfs} und verteiltes sowie paralleles Rechnen mit beispielsweise Spark \cite{website:geomesaeclipse}
-\item[Geografische Datentypen - 12] Vollständige Datentypen aus Simple Feature Access. \cite{website:geomesaeclipse}
+\item[Parallele Verarbeitung - 2] Verteilte Datenhaltung durch Accumulo auf \Gls{hdfs} und verteiltes sowie paralleles Rechnen mit beispielsweise Spark möglich. \cite{website:geomesaeclipse}
+\item[Geografische Datentypen - 12] Vollständige Datentypen aus Simple Feature Access vorhanden. \cite{website:geomesaeclipse}
 \item[Umrechnungsfunktionen - 10] Datenverarbeitung direkt in Spark mit GeoTools möglich. \cite{website:geotools-crs}
-\item[Gruppierungsfunktionen - 7] Funktionale Verarbeitung mit Scala.
+\item[Gruppierungsfunktionen - 7] Funktionale Verarbeitung mit Scala immanent.
 \item[Verschneidungsfunktionen - 3] \Gls{jts} stellt difference, union und symmetric difference zur Verfügung. \cite{website:jts-wikipedia}
 \item[Overlayfunktionen - 2] \Gls{jts} stellt relate und overlay zur Verfügung.
 \item[Geostatistik - 0] Keine eingebaute Funktionalität.
@@ -72,7 +70,7 @@ Daraus ergibt sich ein Wert von 48, was 79\% des maximal zu erreichenden Wertes 
 
 \subsection{Dokumentation}
 \begin{description}
-\item[Installation - 1] Knappe Hinweise für GeoMesa auf \cite{website:geomesa-quickstart}, dagegen ausführliche Anleitungen für Accumulo auf \cite{website:accumulo-manual}.
+\item[Installation - 1] Knappe Hinweise für GeoMesa auf \cite{website:geomesa-quickstart} vorhanden, dagegen ausführliche Anleitungen für Accumulo auf \cite{website:accumulo-manual}.
 \item[Zeitverhalten - 0] Keine Dokumentation vorhanden. %eventuell auf Postgis versus GeoMesa hinweisen
 \item[Funktionsumfang - 1] Konkrete Funktionalität von GeoMesa nur grob auf \cite{website:geomesa-tutorials} angedeutet. MapReduce mit Accumulo ist ausführlich beschrieben. \cite{website:accumulo-manual}
 \item[Interoperabilität - 1] Nicht explizit bei GeoMesa angegeben, aber Anbindungsmöglichkeiten mit Scala bzw. Java sind im allgemeinen ausführlich dokumentiert.
@@ -97,10 +95,10 @@ Hier ist die Wertung 4 von 5 Punkten und damit 80\%.
 \small
 \begin{tabular}{l|p{1.8cm}|c|p{3.1cm}|p{1.8cm}}
 \textbf{Metrik} & \textbf{erreichter Wert} & \textbf{Erfüllung in \%} & \textbf{Kommentar} & \textbf{gewichteter Teilnutzen} \\ \hline
-Interoperabilität & 7 & 58 & Implementationen notwendig & 17 \\ \hline
-Funktionsumfang & 48 & 79 & meisten Funktionen nur mit Scala verfügbar & 16 \\ \hline
-Dokumentation & 4 & 31 & zumeist ist auf Community zurückzugreifen & 11 \\ \hline
-Modifizierbarkeit & 4 & 80 & mit Simple Features und Spark mächtige Problemlösungen erstellbar & 12 \\
+Interoperabilität & 7 & 58 & Implementationen für beide Schnittstellen notwendig. & 17 \\ \hline
+Funktionsumfang & 48 & 79 & Die meisten Funktionen sind nur mit Scala verfügbar, Mindestabdeckung jedoch gegeben. & 16 \\ \hline
+Dokumentation & 4 & 31 & Mindestabdeckung nicht erfüllt. & 11 \\ \hline
+Modifizierbarkeit & 4 & 80 & Mit Simple Features und Spark umfangreiche Problemlösungen erstellbar. Fehlende Funktionen können nachgerüstet werden. & 12 \\
 \end{tabular}
 \caption{Nutzwertanalyse GeoMesa}
 \label{table:nutzwertanalyse-geomesa}
@@ -142,21 +140,21 @@ Dieser Stand spricht gegen eine Auswahl von GeoMesa zum produktiven Einsatz.
 \subsection{Interoperabilität}
 \begin{description}
 \item[PostgreSQL - 7] PostgreSQL ist Bestandteil von Postgres-XL wobei die Datentypen vollständig verfügbar sind.
-\item[\Gls{umn} - 5] Mit der Erweiterung Postgis direkt als Quelle für \Gls{umn} angebbar. \cite{website:umn-layer}
+\item[\Gls{umn} - 5] Mit der Erweiterung PostGIS direkt als Quelle für \Gls{umn} angebbar. \cite{website:umn-layer}
 \end{description}
 Die Wertung für Interoperabilität ist somit 12 mit einer Erfüllung von 100\%.
 
 \subsection{Funktionsumfang}
 \begin{description}
 \item[Parallele Verarbeitung - 2] Verteilte Datenhaltung mit partitioning der Daten und verschränkte parallele Datenverarbeitung mit \Gls{mpp} möglich. \cite{website:postgresxl-overview}
-\item[Geografische Datentypen - 14] Vollständige Datentypen aus Simple Feature Access sowie PostGIS raster. \cite{website:postgisdocu-opengis}
+\item[Geografische Datentypen - 14] Vollständige Datentypen aus Simple Feature Access sowie PostGIS raster vorhanden. \cite{website:postgisdocu-opengis}
 \item[Umrechnungsfunktionen - 10] Direkter Funktionsaufruf zur Umrechnung von und in beliebige EPSG Codes. \cite{website:postgis-updatesrid} %TODO: EPSG erklären
 \item[Gruppierungsfunktionen - 10] SQL in PostgreSQL mit der Erweiterung PostGIS erlaubt beliebige Querys mit geografischen Daten. \cite{website:postgisdocu-opengis}
 \item[Verschneidungsfunktionen - 3] Funktionsübersicht zeigt intersection, difference und symmetric difference. \cite{website:postgisdocu-functions}
 \item[Overlayfunktionen - 2] Funktionsübersicht zeigt relation und intersects. \cite{website:postgisdocu-functions}
 \item[Geostatistik - 2] Interpolation nur von Linie zu Punkt mit PostGIS möglich. Jedoch kann mit R oder C++ beliebige Geostatistik mit vorhandenen und eigenen Funktionen durchgeführt werden.
-\item[Filterfunktionen - 10] In SQL mit mehreren Funktionen. \cite{website:postgisdocu-functions}
-\item[Schemaversionierung - 0] Nicht eingebaut. Mit eigenen Skripten möglich.
+\item[Filterfunktionen - 10] In SQL mit mehreren Funktionen möglich. \cite{website:postgisdocu-functions}
+\item[Schemaversionierung - 0] Nicht eingebaut. Mit eigenen Skripten nachrüstbar.
 \end{description}
 Daraus ergibt sich ein Wert von 53, was 87\% des maximal zu erreichenden Wertes ist.
 
@@ -165,7 +163,7 @@ Daraus ergibt sich ein Wert von 53, was 87\% des maximal zu erreichenden Wertes 
 \item[Installation - 1] Knapp auf \cite{website:postgresxl-install} beschrieben.
 \item[Zeitverhalten - 0] Keine Angaben.
 \item[Funktionsumfang - 2] Es existiert eine Übersicht zur Verwaltung eines Postgres-XL Clusters. Dazu ist die allgemeine Dokumentation zu PostgreSQL und PostGIS verfügbar. \cite{website:postgresxl-manual}
-\item[Interoperabilität - 2] Verweis auf Dokumentation von PostgreSQL und PostGIS sowie API auf \cite{website:postgresxl-api}.
+\item[Interoperabilität - 2] Verweis auf Dokumentation von PostgreSQL und PostGIS sowie API auf \cite{website:postgresxl-api} vorhanden.
 \item[Best Practise - 1] Einige Hinweise auf \cite{website:postgresxl-manual} vorhanden.
 \item[Anpassbarkeit - 3] \cite{website:postgresxl-extend} dokumentiert Erweiterung mit SQL, tcl, Perl und Python.
 \end{description}
@@ -187,10 +185,10 @@ Hier ist die Wertung 5 von 5 Punkten und damit 100\%.
 \small
 \begin{tabular}{l|p{1.8cm}|c|p{3.1cm}|p{1.8cm}}
 \textbf{Metrik} & \textbf{erreichter Wert} & \textbf{Erfüllung in \%} & \textbf{Kommentar} & \textbf{gewichteter Teilnutzen} \\ \hline
-Interoperabilität & 12 & 100 & analog Ist-Stand & 30 \\ \hline
-Funktionsumfang & 53 & 87 & Geostatistik und Versionierung nicht vorhanden & 17 \\ \hline
-Dokumentation & 9 & 69 & Dokumentation zu PostGIS sehr gut, zu Postgres-XL grob & 24 \\ \hline
-Modifizierbarkeit & 5 & 100 & Bereits in SQL gegeben. & 15 \\
+Interoperabilität & 12 & 100 & Analog des Ist-Standes. & 30 \\ \hline
+Funktionsumfang & 53 & 87 & Mindestabdeckung erfüllt, jedoch sind Geostatistik und Versionierung nicht vorhanden. & 17 \\ \hline
+Dokumentation & 9 & 69 & Dokumentation zu PostGIS ist sehr gut, zu Postgres-XL grob. Mindestabdeckung ist erfüllt. & 24 \\ \hline
+Modifizierbarkeit & 5 & 100 & Vollständige Abdeckung vorhanden. Möglichkeiten sind in SQL gegeben. & 15 \\
 \end{tabular}
 \caption{Nutzwertanalyse Postgres-XL}
 \label{table:nutzwertanalyse-postgresxl}
@@ -211,7 +209,7 @@ Dazu sind ebenso nichttechnische Faktoren zu berücksichtigen.\\
 \label{fig:timeline_commits_postgresxl}
 \end{figure}
 Abbildung \ref{fig:timeline_contr_postgresxl} zeigt einerseits, dass dieses Projekt seit 1998 besteht, andererseits das die Zahl der aktiven contributors im Gegensatz der Jahre 1998 bis 2012 zu 2014/2015 in etwa ein viertel beträgt.
-Diese starke abrupte Abnahme der aktiven Programmierer deutet eine Veränderung im Projekt oder den Projektverantwortlichen an.
+Diese deutliche abrupte Abnahme der aktiven Programmierer deutet eine Veränderung im Projekt oder den Projektverantwortlichen an.
 Die commits des vergangenen Jahres sind in Abbildung \ref{fig:timeline_commits_postgresxl} dargestellt.
 Danach wurden im ersten Halbjahr 2014 nur insgesamt 6 commits und im zweiten Halbjahr 2014 etwa täglich ein commit durchgeführt.
 
@@ -274,10 +272,10 @@ Hier ist die Wertung 3 von 5 Punkten und damit 60\%.
 \small
 \begin{tabular}{l|p{1.8cm}|c|p{3.1cm}|p{1.8cm}}
 \textbf{Metrik} & \textbf{erreichter Wert} & \textbf{Erfüllung in \%} & \textbf{Kommentar} & \textbf{gewichteter Teilnutzen} \\ \hline
-Interoperabilität & 12 & 100 & UMN MapServer Schnittstelle nur indirekt vorhanden & 30 \\ \hline
-Funktionsumfang & 12 & 20 & Umfangreiche Rasterverarbeitung möglich. Kostenlose Version enthält keine Optimierungen. & 4 \\ \hline
-Dokumentation & 8 & 62 & Mehrere Dokumente vorhanden & 22 \\ \hline
-Modifizierbarkeit & 3 & 60 & einfache Java und C++ API & 9 \\
+Interoperabilität & 12 & 100 & UMN MapServer Schnittstelle nur indirekt verwendbar trotz erfüllter Mindestabdeckung. & 30 \\ \hline
+Funktionsumfang & 12 & 20 & Umfangreiche Rasterverarbeitung möglich. Kostenlose Version enthält keine Optimierungen. Abbildung von Simple Features auf Arrays mit Aufwand verbunden und nur bedingt sinnvoll. Mindestabdeckung wird nicht erfüllt. & 4 \\ \hline
+Dokumentation & 8 & 62 & Mindestabdeckung erfüllt. & 22 \\ \hline
+Modifizierbarkeit & 3 & 60 & Einfache Java und C++ API bietet zwar Erweiterungsmöglichkeiten, aber die Mindestabdeckung ist durch fehlende Datentypen nicht gegeben. & 9 \\
 \end{tabular}
 \caption{Nutzwertanalyse Rasdaman}
 \label{table:nutzwertanalyse-rasdaman}
@@ -287,9 +285,9 @@ Aus Tabelle \ref{table:nutzwertanalyse-rasdaman} ergibt sich ein Nutzwert von 65
 Die Statistiken der Entwicklung des Repository müssen händisch gewonnen werden, da es auf einem Trac Verwaltungssystem mit Git basiert.
 Das Repository ist unter\\\url{kahlua.eecs.jacobs-university.de/rasdaman.git} verfügbar.
 Es kann mit der Konsolenanwendung Git heruntergeladen und ausgewertet werden.
-So erhält man mit \textit{git log --pretty=format:\grqq \%h - \%an, \%ad : \%s\grqq\ | tail -2} das der erste commit 2009 erstellt wurde:
+So erhält man mit \textit{git log --pretty=format:\grqq \%h - \%an, \%ad : \%s\grqq\ | tail -1} das der erste commit 2009 erstellt wurde:
 \begin{quote}
-aade634 - Sorin Stancu-Mara, Tue Apr 14 16:30:12 2009 +0200 : Updated the tests to the published WCPS schema v1.0
+0f1055b - Constantin Jucovschi, Tue Mar 31 06:18:54 2009 -0400 : Initial commit
 \end{quote}
 Somit sind auch die commits des vergangenen Jahres ermittelbar.
 So wurden vom 19.2.2014 bis zum 19.2.2015 1949 commits durchgeführt.
