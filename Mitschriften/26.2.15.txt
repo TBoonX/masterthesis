@@ -1,0 +1,43 @@
+bei Einleitung und Grundlagen einführenden Absatz zu Beginn (was kommt, wie ist die struktur)
+Framework Definition: wenn dann direkt zitieren, definition muss nicht so sein
+Grundlagen:
+  Zwischenüberschriften. 
+  "weniger Lehrbuchmäßig" -> mehr Textform und begründen warum begriffe wichtig sind. 
+  indirekt zitieren. 
+  Indexstrukturen - Unterüberschriften weglassen. 
+  verteiltes mehrrechnersystem in mehrrechnersystem integrieren. 
+  Sharding - auch integrieren in textform.
+  Bei 2.2 Sätze was kommt und warum wichtig, danach definieren. 
+  2.4 ausschreiben. 
+  GIs Definition selbst definieren und danach auf andere definition verweisen. 
+  2.2.5 JavaScript Bibliothek GeoTools. 
+  PostgreSQL, Erweiterung PostGIS. 
+  2.3.1 ohne Überschrift. 
+  NoSQL - auf massenhafte unstrukturierte Daten und Zweck von NoSQL verweisen. 
+  noSQL ist Begriff keine Bewegung. NoSQL GIS nicht als Überschrift. 
+  2.3.2 direkte Quellen verwenden nicht mich selbst. 
+  Seite mit Accumulo fußzeilen in (vgl. ...) nehmen. 
+  Titel Geomesa -> GIS GeoMesa. Rasdaman -> Array-DBMS Rasdaman. 
+  Abbildung zu PostgresXL höher nehmen.
+  Tests in methodisches vorgehen mit hinein nehmen ->Auswahl von Frameworks,  Bewertung des Prototypen
+  
+5.:
+  heißt Systemauswahl
+  Zusammenfassung am Ende
+  Kriterien der Auswahl der 3 systeme konkret nennen
+  Alle Unterpunkte nicht als section sondern alles in Textform mit Tabelle der Bewertung der einzelnen Kriterien - was meint Volkmar?
+  
+6:
+  (Aufbau und sintallatio zusammenfassen)
+  (Schnittstelle und import zusammenfassen)
+  Aufbau und architektur mit install, schnittstelle
+  prottyp. impl.
+  tests                     -> 3 unterpunkte
+  
+Kapitel Postgres-XL wird zu Realisierung mit Postgres-XL
+Überschriften immer mit Großbuchstaben (2.2)
+Herr bei Namen weglassen
+URLs lieber als Fußnote
+auf sehr nahe verweise verzichten
+Firmen mit Fußnote verlinken
+Wik15b nicht verwenden
