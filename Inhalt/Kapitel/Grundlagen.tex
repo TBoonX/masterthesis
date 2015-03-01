@@ -1,33 +1,27 @@
 \chapter{Grundlagen}
 \label{Grundlagen}
 
+Dieses Kapitel stellt die für die weiteren Ausführungen notwendigen Begriffe und Systeme vor.
+Entsprechend dem Titel dieser Arbeit werden Informationssysteme, geografische Datenverarbeitung und konkrete Systeme vorgestellt.
+Zu Informationssystemen wird über Datenbanken hingeführt.
+Die am Ende dieses Kapitels vorgestellten Systeme haben Bezug zu NoSQL, weshalb dieser und dazugehörigen Begriffe ebenso definiert werden.
+
+
 \subsubsection{Framework}
-Ralph E. Johnson in \cite{website:wiki-framework} definiert ein Framework wie folgt:
-\begin{quote}
-Ein Framework ist eine semi-vollständige Applikation. Es stellt für Applikationen eine wiederverwendbare, gemeinsame Struktur zur Verfügung. Die Entwickler bauen das Framework in ihre eigene Applikation ein, und erweitern es derart, dass es ihren spezifischen Anforderungen entspricht. Frameworks unterscheiden sich von Toolkits dahingehend, dass sie eine kohärente Struktur zur Verfügung stellen, anstatt einer einfachen Menge von Hilfsklassen.
-\end{quote}
+Ein Framework ist eine Softwareumgebung zur wiederverwendbaren Herstellung einer Struktur oder Anwendung.
+Entweder werden Anwendung mit Frameworks vervollständigt oder aus daraus erstellt.
 In dieser Arbeit dienen Frameworks, oder auch Ordnungsrahmen genannt, zur Lösung spezieller Aufgaben und sind somit domänenspezifische Frameworks.
 Das heißt, dass notwendige Funktionen und Strukturen zur Lösung von speziellen Aufgaben bereits vorhanden sind, die konkreten Lösungen müssen jedoch mit Hilfe des Frameworks erstellt werden.
-%->Eisenecker!
 
 \section{Datenbank}
 
-\subsection{Begriffsdefinitionen}%grundlege Datenankbegriffe
+Grundlegende Kenntnisse zu Datenbanken und deren Mechanismen sind Voraussetzung für das Verständnis von Informationssystemen.
+
+\subsection{Grundlegende Datenbankbegriffe}
 
 \subsubsection{ACID}
 Die bekanntesten Vertreter von relationalen Datenbanksystemen wie Oracle, MySQL und PostgreSQL arbeiten transaktional nach \Gls{acid}.
-\Gls{acid} kann nach \cite[S.262]{book:kudrass} wie folgt definiert werden:
-\begin{description}
-\item[Atomarität] \hfill \\
-Transaktionen sind atomar, wodurch ein Abbruch einer Transaktion deren enthaltenen Operationen rückgängig macht.
-\item[Konsistenz] \hfill \\
-Das Ende oder der Abbruch einer Transaktion geht immer mit Nachbedingung aller Intergritätsbedingungen einher.
-\item[Isolation] \hfill \\
-Transaktionen verschiedener Benutzer beeinflussen sich nicht gegenseitig.
-\item[Dauerhaftigkeit] \hfill \\
-Jede Änderung einer Transaktion ist nach Ende dieser auf die Festplatte geschrieben und nicht mehr im Puffer vorhanden.
-\end{description}
-Die Definition dieses Begriffes ist für Kapitel \ref{nosql} notwendig.
+Dieser Begriff ist für Kapitel \ref{nosql} notwendig.
 
 \subsubsection{MVCC}
 In grundlegenden relationalen Systemen werden Transaktionen verzögert oder sogar gesperrt, um Konsistenz und Isolation zu gewährleisten.
@@ -58,22 +52,18 @@ Dadurch werden die allgemeinen Sperrverfahren (siehe \cite[S.266 ff.]{book:kudra
 \subsection{Indexstrukturen}
 %wiederverwenden!
 Indexstrukturen oder Zugriffsstrukturen dienen dem effizienten Zugriff auf Dateneinträge.
-Ein Index ist nach \cite[S.284]{book:kudrass} wie folgt definiert:
-\begin{quote}
-Ein Index ist ein Verzeichnis von Dateneinträgen der Form (k, k*), das den effizienten Zugriff auf allen Einträgen mit einem Suchschlüsselwert k erlaubt. Dabei bezeichnet k den Wert eines Suchschlüssels (auch Zugriffsattribut) und k* den Verweis auf den Datensatz in der Datei, der k als Wert des Suchschlüssels enthält.
-\end{quote}
+Ein Index ist nach \cite[S.284]{book:kudrass} ein Verzeichnis von Dateneinträgen der Form (k, k*), das den effizienten Zugriff auf allen Einträgen mit einem Suchschlüsselwert k erlaubt. Dabei bezeichnet k den Wert eines Suchschlüssels (auch Zugriffsattribut) und k* den Verweis auf den Datensatz in der Datei, der k als Wert des Suchschlüssels enthält.
 Zugriffsstrukturen haben je nach Art und Umfang der Daten sowie entsprechend den Anforderungen an das \Gls{dbs} einen unterschiedlichen Aufbau.
 In der einfachsten Struktur unterscheidet man nach Indexen die direkt die Daten beinhalten, auf die Daten zeigen oder eine Menge von Adressen beinhalten. (siehe \cite[S.284]{book:kudrass})
 
-Im folgenden werden spezielle Indexstrukturen vorgestellt, da dieses Wissen zur Bewertung von \Gls{dbs} herangezogen werden müssen.
+Die konkreten Indexstrukturen sind für die spätere Bewertung zu differenzieren.
 
-\subsubsection{B-Baum}
 Nach \cite[S.288]{book:kudrass} ist ein B-Baum ein dynamisch balancierter Indexbaum, bei dem jeder Indexeintrag auf eine Seite der Hauptdatei zeigt.
 Der Baum besitzt die Höhe h und die Ordnung m sowie die folgenden Eigenschaften:
 \begin{quote}
 1. Jeder Weg von der Wurzel zum Blatt hat die Länge h (balanciert)\\
 2. Jeder Knoten enthält mindestens m Elemente (außer der Wurzel) und  höchstens 2m Elemente (mindestens halbvolle Belegung)\\
-3. Jeder Knoten ist entweder eine Blattseite oder hat höchstens 2m + 1 Kinder (maximale Belegung)\footnote{ebenda}
+3. Jeder Knoten ist entweder eine Blattseite oder hat höchstens 2m + 1 Kinder (maximale Belegung)\footnote{\cite[S.284]{book:kudrass}}
 \end{quote}
 Diese Struktur garantiert eine Belegung von 50\%.
 Weiterhin beschreibt h die Anzahl der Seitenzugriffe als relevantes Maß für die Zugriffskosten und Datensätze n bedingen den Zugriff in maximal logm(n) Seitenzugriffen. (vgl. \cite[S.288]{book:kudrass})
@@ -81,13 +71,12 @@ Eine Spezialisierung stellt der B+-Baum dar.
 Hierbei befinden sich die Dateneinträge ausschließlich in den Blattknoten.
 Die Blattknoten sind unidirektional verkettet.
 %Ordnung ist hier (m -> Mindestbelegung für Indexseiten, m* -> Mindestbelegung der Blattseiten) m>m*
-
+%
 %\subsubsection{LSM-Baum}
 %Log structured merge tree\\
 %TODO
 
-\subsubsection{R-Baum}
-R-Bäume sind balancierte Bäume und nach \cite[S. 523]{book:kudrass} organisieren sie k-dimensionale Rechtecke mithilfe überlappender Blockregionen.
+R-Bäume dagegen sind balancierte Bäume und nach \cite[S. 523]{book:kudrass} organisieren sie k-dimensionale Rechtecke mithilfe überlappender Blockregionen.
 Diese Struktur wird folglich zur räumlichen Datenhaltung eingesetzt, da die Indexierung anhand räumlicher Informationen der Daten erfolgt.
 Ein Verzeichnisknoten besteht aus einem Tupel (ref, mur).
 ref steht für den Verweis auf den direkten Nachfahren und mur für das minimal umgebende Rechteck der Kindknoten.
@@ -101,19 +90,14 @@ Datenknoten enthalten dagegen nur mur als eigentliches Geoobjekt. (vgl. \cite[S.
 
 \subsection{Mehrrechner-Datenbanksystem}
 Nach \cite[S.394]{book:kudrass} wird bei einem Mehrrechner-Datenbanksystem (MDBS) die Datenbankverwaltungsfunktionen auf mehreren Prozessoren bzw. Rechnern ausgeführt.
-Kudraß ergänzt dies durch folgende Unterscheidungen:
-\begin{description}
-\item[shared everything] \Gls{dbms} befindet sich auf eng gekoppelter Multiprozessor-Umgebung.
-\item[shared nothing] Die Verarbeitung erfolgt durch mehrere Rechner mit jeweils einem \Gls{dbms}, dabei ist der Externspeicher unter den beteiligten Rechnern partitioniert.
-\item[shared disk] Hierbei handelt es sich um mehrere lokal angeordnete, lose oder nah gekoppelte Rechner mit je einem \Gls{dbms} und einer gemeinsamen Speicherzuordnung. Lokal verteilte Systeme werden als parallele Datenbanksysteme bezeichnet.
-\end{description}
+Kudraß ergänzt dies durch folgende Unterscheidungen:\\
+Ein \Gls{dbms} befindet sich auf eng gekoppelter Multiprozessor-Umgebung, was als shared everything bezeichnet wird.
+Die Verarbeitung erfolgt durch mehrere Rechner mit jeweils einem \Gls{dbms}, dabei ist der Externspeicher unter den beteiligten Rechnern partitioniert, shared nothing genannt.
+Und bei shared disk handelt es sich um mehrere lokal angeordnete, lose oder nah gekoppelte Rechner mit je einem \Gls{dbms} und einer gemeinsamen Speicherzuordnung. Lokal verteilte Systeme werden als parallele Datenbanksysteme bezeichnet.
 
-\subsection{Verteiltes Datenbanksystem}
-
-\begin{quote}
-Verteilte Datenbanksysteme (VDBS) sind geografisch verteilte Shared-Nothing Systeme mit homogenen lokalen DBMS, die gemeinsam ein globales konzeptionelles DB-Schema unterstützen.
-Förderierte Datenbanksysteme (FDBS) sind ebenfalls geografisch verteilte Shated nothing systeme, wobei die beteiligten lokalen DBMS eine höhere Autonomie aufweisen, d.h. dass jeweils eine eigene lokale Datenbank mit lokalem DB-schema vorliegt.\footnote{\cite[S.398]{book:kudrass}}
-\end{quote}
+Ein Spezialfall stellen verteilte Datenbanksysteme dar.
+\cite[S.398]{book:kudrass} beschreibt Verteilte Datenbanksysteme (VDBS) als geografisch verteilte Shared-Nothing Systeme mit homogenen lokalen DBMS, die gemeinsam ein globales konzeptionelles DB-Schema unterstützen.
+Dagegen sind förderierte Datenbanksysteme (FDBS) ebenfalls geografisch verteilte Shated nothing systeme, wobei die beteiligten lokalen DBMS eine höhere Autonomie aufweisen, d.h. dass jeweils eine eigene lokale Datenbank mit lokalem DB-schema vorliegt.
 Die Unterscheidung zwischen VDBS und FDBS muss dabei speziell erfolgen.
 
 %\subsection{Replikationsverfahren}
@@ -129,24 +113,19 @@ Die Unterscheidung zwischen VDBS und FDBS muss dabei speziell erfolgen.
 
 \subsection{Sharding}
 
-Nach \cite[S.296]{book:kudrass} wird bei Sharding von Datenbanken eine Relation in disjunkte Partitionen aufgeteilt, die auf verschiedenen Platten gespeichert werden.
-Auf der darauf folgenden Seite nennt Kudraß folgende Vorteile:
-\begin{itemize}
-\item Anfrageoptimierung durch Auslastung der Partitionen.
-\item Vereinfachung der Administration der Partitionen.
-\item Paralelle Verarbeitung.
-\end{itemize}
+Bei Sharding von Datenbanken eine Relation in disjunkte Partitionen aufgeteilt, die auf verschiedenen Platten gespeichert werden.
+Vorteile dieser Methode sind Anfrageoptimierung durch Auslastung der Partitionen, Vereinfachung der Administration der Partitionen und paralelle Verarbeitung. (vgl. \cite[S.296]{book:kudrass})
 Dies setzt einen auf dieser Weise angepassten Query-Planer des \Gls{dbms} voraus.
 Nach Kudraß wird ebenfalls nach drei Arten unterschieden.
 Konkret sind das Bereichspartitionierung, Round-Robin-Partitionierung und Hash-Partitionierung.
 
-\section{geografische Datenverarbeitung}
+\section{Geografische Datenverarbeitung}
+
+Diese spezielle Form der Datenverarbeitung berücksichtigt geografische und topologische Eigenschaften.
+Diese sind nach der Art und deren Bezug zueinander zu unterscheiden.
 
 \subsection{Bezugssysteme}
-
-\begin{quote}
-Räumliche Bezugssysteme (spatial reference systems) erlauben die Interpretation der gespeicherten Koordinaten als Beschreibung von Lage- und Ausdehnungsinformationen in einem (realen) Datenraum. Ein räumliches Bezugssystem besteht aus einem Koordinatensystem (coordinate system), einem Geltungsbereich und Angaben, die es erlauben, Daten aus unterschiedlichen Koordinatensystemen auf ein globales System abzubilden.\footnote{\cite[S.506]{book:kudrass}}
-\end{quote}
+Entsprechend \cite[S.506]{book:kudrass} erlauben Räumliche Bezugssysteme die Interpretation der gespeicherten Koordinaten als Beschreibung von Lage- und Ausdehnungsinformationen in einem Datenraum. Ein räumliches Bezugssystem besteht aus einem Koordinatensystem, einem Geltungsbereich und Angaben, die es erlauben, Daten aus unterschiedlichen Koordinatensystemen auf ein globales System abzubilden.
 Kudraß allgemeine Definition wird durch \cite[S.141 ff.]{book:gi-theopluspraxis3} mit folgendem ergänzt:\\
 Man unterscheidet Koordinatensysteme nach kartesisch, homogen, Kugeltransformation und Ellipsoidentransformation, wobei den kartesischen einer hoher Stellenwert zugegordnet wird.
 Allen Bezugssystemen wird zur Identifikation ein weltweit eindeutiger Code zugeordnet.
@@ -155,19 +134,13 @@ Das auf einem Ellipsoiden basierende Bezugssystem World Geodetic System von 1984
 
 
 \subsection{Datenformate}
-
-
-\begin{quote}
-Geoobjekte sind räumliche Elemente, die zusätzlich zu Sachinformationen geometrische und topologische Eigenschaften besitzen und zeitlichen Veränderungen unterliegen können. Kennzeichnend für Geoobjekte sind somit Geometrie, Topologie, Thematik und Dynamik.\footnote{\cite[S.133]{book:gi-theopluspraxis3}}
-\end{quote}
-De Lange definiert räumliche Objekte bzw. Geoobjekte ausreichend.
+\cite[S.133]{book:gi-theopluspraxis3} definiert räumliche Objekte bzw. Geoobjekte als Elemente die zusätzlich zu ihrer Sachinformationen geometrische und topologische Eigenschaften besitzen und zeitlichen Veränderungen unterliegen können. Dabei sind Geometrie, Topologie, Thematik und Dynamik kennzeichnend.
 Ein Geoobjekt enthält als Geometrie eine oder mehrere zwei- oder dreidimensionale Koordinaten, was die Lage, den Umfang und die Ausdehnung beschreibt.
 Zur Topologie zählt de Lange Umgebungen, Nachbarschaften, Teilmengen und Überlagerungen.
 Weiterhin werden Geoobjekte mit Sachinformationen gespeichert und je nach Anwendungsfall versioniert.(vgl. \cite[S.133]{book:gi-theopluspraxis3})
 
 
 \subsubsection{einfache Geoobjekte}
-
 Ein Punkt besteht aus einer zwei- oder dreidimensionalen Koordinate und beliebigen Sach-, Topologie- und Dynamikinformationen.
 Mehrere Punkte bilden Linien.
 Bildet eine Linie eine geschlossene Fläche, handelt es sich um ein Polygon.
@@ -180,14 +153,14 @@ Es besteht die Möglichkeit eine Menge von Punkten als Vektoren aufzufassen und 
 Um damit geografisch zu modellieren, ist eine Diskretisierung d.h. eine Zuordnung der Vektoren untereinander notwendig. 
 
 \subsubsection{Rastermodell}
-
 Ein Raster löst einen rechteckigen Bereich mit in einem Koordinatensystem gleichmäßig angeordneten quadratischen Bildelementen bzw. Pixeln fester Größe auf.
 Geodaten werden ergo mit einer indizierten Matrix abgebildet.
+Ein geografischer Punkt wird näherungsweise durch ein einzelnes Pixel dargestellt.
+Linienzüge werden durch entsprechende Anordnungen zusammenhängender Pixel angenähert erfasst.
+Diese können dann z.B. durch Folgen von Indexpaaren (Zeile, Spalte) der zugehörigen Pixel beschrieben werden.
+Eine Fläche ist ebenfalls durch zusammenhängende Pixel darstellbar.
+Somit sind keine weiteren Zusatzinformationen zur Modellierung von Flächen wie im Vektormodell notwendig. (vgl. \cite[S.136]{book:gi-theopluspraxis3})
 Ein dreidimensionales Raster heißt Voxel.
-Lange setzt fort:
-\begin{quote}
-Ein Punkt wird näherungsweise durch ein einzelnes Pixel dargestellt. Ein Linienzug wird durch entsprechende Anordnungen zusammenhängender Pixel angenähert erfasst. Linienzüge können dann z.B. durch Folgen von Indexpaaren (Zeile, Spalte) der zugehörigen Pixel beschrieben werden. Eine Fläche ist ebenfalls durch zusammenhängende Pixel darstellbar. Somit sind keine weiteren Zusatzinformationen zur Modellierung von Flächen wie im Vektormodell notwendig [...].\footnote{\cite[S.136]{book:gi-theopluspraxis3}}
-\end{quote}
 
 
 \subsubsection{Shapefile}\
@@ -207,59 +180,33 @@ TODO
 Bei Bedarf
 
 
-\subsection{GIS}
+\subsection{Geografisches Informationssystem}
 \label{grundlagen:gis}
 
-Ein \Gls{gis} ist wie folgt definiert:
-\begin{quote}
-Ein System,  das  auf einen Datenbestand zurückgreift und Auswertungen dieser Daten zulässt,  so dass Informationen abgeleitet und wiedergegeben werden können,  kann  allgemein  als  ein  Informationssystem  bezeichnet  werden. [...]
+Ein \Gls{is} ist eine Softwareumgebung zur umfassenden Verwendung von Daten.
+Es stellt Möglichkeiten der Erfassung, Speicherung und Verarbeitung zur Verfügung.
+Außerdem können die Daten analysiert, übertragen, angezeigt und gepflegt werden.
+Alle Daten und Ergebnisse daraus sind Gegenstand der Verwendung von Informationssystemen.
 
+Wird ein \Gls{is} im geografischen Kontext benötigt, wird ein dafür explizit programmiertes benötigt.
+Die geometrischen und topologischen Informationen der Geodaten müssen sich im \Gls{is} widerspiegeln.
+So hat das System die topologischen Zusammenhänge zu berücksichtigen und die Daten bevorzugt optisch  darzustellen.
+
+Lange definiert \Gls{gis} ähnlich:
+\begin{quote}
 Im Mittelpunkt  der  Geoinformatik  stehen  mit den  Geoinformationssystemen raumbezogene Informationssysteme, die im Gegensatz zu den übrigen Informationssystemen Geoobjekte  der realen Welt modellieren und diese in ein digitales Informationssystem abbilden [...]. Die Gegenstände eines Geoinformationssystems  besitzen  wie  auch  bei  allen  anderen  Informationssystemen  eine 
 Thematik (und Dynamik). Das Besondere bei Geoinformationssystemen ist, dass Geoobjekte darüber hinaus Geometrie und Topologie als implizite und untrennbare Bestandteile aufweisen!  Die Verarbeitung derartiger raumbezogener Informationen erfordert spezielle Werkzeuge bzw. Funktionen, die von den übrigen Informationssystemen nicht bereitgestellt werden [...].\footnote{\cite[S.337]{book:gi-theopluspraxis3}}
 \end{quote}
 
 %\subsection{GDAL}
 
-\subsection{GeoTools}
+\subsection{Java Bibliothek GeoTools}
 \label{geotools}
 GeoTools ist eine in Java geschriebene Open Source Bibliothek welche Standardkonforme Operationen zur Verarbeitung von geografischen Daten bereitstellt.
 Die Implementation erfolgte nach Anforderungen des \Gls{ogc}, worauf beispielsweise Geometrien des \Gls{jts} unterstützt werden und die OGC Filter Encoding Spezifikation von Attributen und räumlichen Filtern verwendet wird.(vgl. \cite{website:geotools})
-\cite{website:geotools} listet die wichtigsten Funktionalitäten wie folgt auf:
-\begin{quote}
-\begin{itemize}
-\item A clean data access API supporting feature access, transaction support and locking between threads
-\begin{itemize}
-\item Access GIS data in many file formats and spatial databases
-\item Coordinate reference system and transformation support
-\item Work with an extensive range of map projections
-\item filter and analyze data in terms of spatial and non-spatial attributes
-\end{itemize}
-\item A stateless, low memory renderer, particularly useful in server-side environments.
-\begin{itemize}
-\item compose and display maps with complex styling
-\item vendor extensions for fine control of text labels and color blending
-\end{itemize}
-\item Powerful schema asisted parsing technology using XML Schema to bind to GML content\\
-The parsing / encoding technology is provided with bindings for many OGC standards including GML, Filter, KML, SLD, and SE.
-\end{itemize}
-\end{quote}
-Unterstützte Formate sind nach der selben Quelle:
-\begin{quote}
-\begin{itemize}
-\item raster formats and data access\\
-arcsde, arcgrid, geotiff, grassraster, gtopo30, image (JPEG, TIFF, GIF, PNG), imageio-ext-gdal, imagemoasaic, imagepyramid, JP2K, matlab
-\item Database “jdbc-ng” support\\
-db2, h2, mysql, oracle, postgis, spatialite, sqlserver
-\item Vector formats and data access\\
-app-schema, arcsde, csv, dxf, edigeo, excel, geojson, org, property, shapefile, wfs
-\item XML Bindings\\
-Java data structures and bindings provided for the following: xsd-core (xml simple types), fes, filter, gml2, gml3, kml, ows, sld, wcs, wfs, wms, wps, vpf.\\
-Additional Geometry, Filter and Style parser/encoders available for DOM and SAX applications.
-\end{itemize}
-\end{quote}
+Eine detaillierte Auflistung der Funktionalitäten ist im Anhang \ref{appendix-B} zu finden.
 
-
-\subsection{PostGIS}
+\subsection{PostgreSQL mit Erweiterung PostGIS}
 PostGIS ist eine geografische Erweiterung der Objekt-relationalen Datenbank PostgreSQL.
 PostgreSQL wird dabei um geografische Datentypen, geografische Indizes und Funktionen erweitert.
 Konkret wird der Simple Feature Access Standard verwendet und um den Datentyp raster und weitere Funktionen zur Datenverarbeitung erweitert. (siehe \cite{website:postgisdocu-opengis})
@@ -267,16 +214,17 @@ Somit kann mit SQL direkt mit geografischen Daten gearbeitet werden.
 PostGIS steh unter der \Gls{gpl}v2.
 
 
-
 \section{NoSQL}
 \label{nosql}
-\subsection{Definition}
 
-NoSQL steht für eine Bewegung des vergangenen Jahrzehnts, in welcher die Abkehr von klassischen relationalen Systemen gefordert oder zumindest ein Umdenken bestehender Strukturen, Vorgehen und Grundsätze angestrebt wird.
+NoSQL ist ein Begriff, dessen Kontext die Abkehr von klassischen relationalen Systemen fordert oder zumindest ein Umdenken bestehender Strukturen, Vorgehen und Grundsätze anstrebt.
 Dies wird durch andere Abfragesprachen, nicht relationale Datenbanksysteme oder Neudefinitionen von Begriffen wie der Konsistenz zum Ausdruck gebracht.
+Zu den Gründen des Umdenkens zählen die im Web 2.0 anfallenden unstrukturierten Daten, welche kostenarm persistiert und Zugänglich gemacht werden müssen.
+Dafür wurden herkömmliche relationale Systeme nicht konzipiert.
+Die Menge an Daten und die geografische Verteilung dieser erzwang die Einführung neuer Methoden und Prinzipien.
 Der Ursprung wird in der Literatur verschieden hergeleitet, jedoch wird immer zu den ersten Vertretern der NoSQL Bewegung Systeme mit einer anderen Abfragesprache und einfache Schlüssel-Hash Datenbanken gezählt.
 Auf einer Messe zu aktuellen Trends im Datenbankbereich wurde der Begriff NoSQL zuerst öffentlich für Lösungen dieser Bewegung verwendet (vgl. \cite{website:originnosql}) und ist seitdem ein Sammelbegriff für eine hohe Anzahl an Systemen.
-Einen Überblick der bestehenden Systeme stellt Herr Edlich unter \url{http://nosql-database.org/} bereit.
+Einen Überblick der bestehenden Systeme stellt Edlich auf einer eigenen Homepage bereit.\footnote{\url{http://nosql-database.org/}}
 
 \subsubsection{NoSQL GIS}
 
@@ -286,7 +234,7 @@ Im Rahmen dieser Arbeit ist mit \Gls{gis} ein System oder die Teilsysteme zur r�
 \subsection{Kategorisierung}
 Edlich unterscheidet NoSQL Datenbanken nach vier Kategorien.
 Jedoch kann eine eindeutige Zuteilung nicht für jedes System erfolgen, da Prinzipien verschiedener Kategorien auf eines zutreffen können.
-Für dieses Kapitel diente wesentlich \cite{beamer:nosql} als Quelle.
+Für dieses Kapitel diente wesentlich \cite{book:nosql-einfuehrung} als Quelle.
 
 
 \subsubsection{Key Value Datenbank}
@@ -382,9 +330,9 @@ Dabei verwaltet ZooKeeper eine geringe Datenmenge von einigen Kilobyte, da einzi
 
 \subsection{Thrift}
 \label{thrift}
-\begin{quote}
-The Apache Thrift software framework, for scalable cross-language services development, combines a software stack with a code generation engine to build services that work efficiently and seamlessly between C++, Java, Python, PHP, Ruby, Erlang, Perl, Haskell, C\#, Cocoa, JavaScript, Node.js, Smalltalk, OCaml and Delphi and other languages.\footnote{\cite{website:thrift}}
-\end{quote}
+Thrift ist nach \cite{website:thrift} ein Framework zur Entwicklung skalierender Programmiersprachen übergreifender Dienste.
+Es verbindet einen Softwarestapel mit einer generativen Engine.
+Unterstützte Programmiersprachen sind C++, Java, Python, PHP, Ruby, Erlang, Perl, Haskell, C\#, Cocoa, JavaScript, Node.js, Smalltalk, OCaml, Delphi und andere.
 Dabei muss sich der Entwickler nicht mit den einzelnen Schichten des OSI Modells beschäftigen und auch keine Eigenheiten der Programmiersprachen berücksichtigen.
 Es werden Datentypen, der Transport mit Thrift eigenen Protokollen, die Datenversionierung und Gegenstellen der Dienste durch das Thrift Framework bereitgestellt.
 Thrift wurde 2007 von Facebook freigegeben. \cite[S.1]{paper:thrift}
@@ -394,7 +342,7 @@ Thrift wurde 2007 von Facebook freigegeben. \cite[S.1]{paper:thrift}
 \label{accumulo}
 %https://en.wikipedia.org/wiki/Apache_Accumulo
 Hierbei handelt es sich um ein Apache Projekt, es ist eine Java Open-Source Implementation des BigTable Ansatzes von Google und wird seit 2008 entwickelt.
-Es verwendet Hadoop\footnote{siehe\ref{hadoop}}, ZooKeeper\footnote{siehe \ref{zookeeper}} und Thift\footnote{siehe \ref{thrift}}.
+Es verwendet Hadoop, ZooKeeper und Thift.
 Der BigTable Ansatz wird um Iteratoren, Zellenbezeichnungen, Constraints, physische Verteilungsmöglichkeiten einer dokumentbasierten Datenbank und die Unterstützung der gleichzeitigen Verwendung mehrerer HDFS namenodes erweitert.
 Weitere Funktionen sind folgende:
 \begin{itemize}
@@ -405,9 +353,9 @@ Weitere Funktionen sind folgende:
 \end {itemize}
 Es existieren weiterhin verschiedene Erweiterungen zum Datenmanagement und Änderung des Ordnungsrahmens zur Verfügung. \cite{website:accumulo_features}
 
-\subsection{GeoMesa}
+\subsection{GIS GeoMesa}
 
-GeoMesa ist eine unter Apache License Version 2.0 stehende geografische Datenbank der Firma LocationTech mit den Möglichkeiten der verteilten Verarbeitung und Versionierung von geografischen Daten.
+GeoMesa ist eine unter Apache License Version 2.0 stehende geografische Datenbank der Firma LocationTech\footnote{\url{https://www.locationtech.org/}} mit den Möglichkeiten der verteilten Verarbeitung und Versionierung von geografischen Daten.
 Dieses Framework ist in \Gls{scala} geschrieben.
 Es erweitert Accumulo\footnote{siehe \ref{accumulo}}, unterstützt die GeoTools API und bietet ein Plugin für den Mapserver \Gls{geoserver} an.
 Die Daten werden nach Geohash %\footnote{siehe \ref{geohash}}
@@ -451,7 +399,7 @@ Die anderen Elemente sind nach \cite{website:postgresxl-about} wie folgt beschri
 \item[Coordinator] \glqq The Coordinator manages the user sessions and interacts with GTM and the data nodes. The Coordinator parses and plans queries, and sends down a serialized global plan to each of the components involved in a statement.\grqq\ (\cite{website:postgresxl-overview})
 \item[Data Node] Diese Elemente enthalten PostgreSQL. Diese müssen sich nicht eine Datenbank replizieren, sondern können auch eine Datenbank über partitioning teilen. Anfragen können von verschiedenen Coordinators gleichzeitig in unterschiedlichen Sitzungen erfolgen. Auf Grund der Kapselung besitzt jeder Data Node seinen eigenen Kontext zur Transaktion.
 \end{description}
-\begin{figure}[h]
+\begin{figure}[h!]
 \centering
 \includegraphics[width=.7\textwidth]{Abbildungen/postgresxl-structure.jpg}
 \caption[Aufbau Postgres-XL]{Aufbau Postgres-XL, Quelle: \url{http://www.postgres-xl.org/wp-content/uploads/2014/04/xl_cluster_architecture1.jpg}}
@@ -460,7 +408,7 @@ Die anderen Elemente sind nach \cite{website:postgresxl-about} wie folgt beschri
 Das System wird analog einer PostgreSQL Instanz angesprochen.
 Ebenso ist PostGIS verwendbar.
 
-\subsection{Rasdaman}
+\subsection{Array DBMS Rasdaman}
 
 Rasdaman ist ein Array-Datenbanksystem speziell zum speichern und verarbeiten von Rasterdaten.
 Es erweitert eine relationale Datenbank und wird mit  multi-dimensionalität der Daten, einer eigenen SQL ähnlichen Abfragesprache, Parallelisierung und Skalierbarkeit in beliebigen Maßstab sowie OGC konformen Diensten beworben.
@@ -479,74 +427,3 @@ Von der verwendeten Datenbank wird BLOB als Datenbankinterner Datentyp verwendet
 \caption[Aufbau Rasdaman]{Aufbau Rasdaman, Quelle: \url{http://www.rasdaman.org/raw-attachment/wiki/Technology/wcps-stack.png}}
 \label{fig:rasdaman}
 \end{figure}
-
-
-\section{Tests}
-
-Die zu analysierenden Systeme sind mit Hilfe von Tests zu untersuchen und zu vergleichen.
-Diese Tests müssen einerseits vergleichend sein, ergo bei unterschiedlichen Systemen die gleichen Merkmale testen und wiederholbar sein, andererseits die relevanten Merkmale testen.
-
-Es handelt es sich somit um systematische Tests:
-\begin {quote}
-Ein systematischer Test ist ein Test, bei dem\\
-die Randbedingungen definiert oder präzise erfasst sind,\\
-die Eingaben systematisch ausgewählt wurden,\\
-die Ergebnisse dokumentiert und nach Kriterien beurteilt werden, die vor dem Test festgelegt wurden.\footnote{\cite[S.446]{book:softwareengineering}}
-\end{quote}
-
-Nachfolgend werden die Randbedingungen definiert und in Kapitel \ref{Anforderungen} die Ein- und Ausgaben dargestellt.
-
-
-\subsection{Funktionstests}
-\label{grundlagen-funktionstests}
-Um die Systeme auf Softwarequalität, beschrieben auf Seite \pageref{softwarequalität}, zu testen, sind Funktionstests notwendig.
-Im folgenden bezieht sich \glqq Systeme\grqq\ auf auf die untersuchten Frameworks.
-\cite{book:softwareengineering} verweist auf Funktionstests auf Seite 455 wie folgt:
-\begin{quote}
-Werden die Testfälle auf Basis der in der Spezifikation geforderten Eigenschaften des Prüflings ausgewählt (z.B. Funktionalität, Antwortzeit), dann spricht man von einem Block-Box-Test oder auch von einem Funktionstest (19.5).
-\end{quote}
-Dazu wird auf Seite 471 der Umfang des Funktionstestes wie folgt umrissen:
-\begin{quote}
-Ein umfassender Black-Box-Test sollte\\
-alle Funktionen des Programms aktivieren (Funktionsüberdeckung),\\
-alle möglichen Eingaben bearbeiten (Eingabeüberdeckung),\\
-alle möglichen Ausgabeformen erzeugen (Ausgabeüberdeckung),\\
-die Leistungsgrenzen ausloten,\\
-die spezifizierten Mengengrenzen ausschöpfen,\\
-alle definierten Fehlersituationen herbeiführen.
-\end{quote}
-Im Rahmen dieser Arbeit soll dieser Umfang wie folgt begrenzt werden:
-\begin{description}
-\item[Funktionsüberdeckung] Zur Einschätzung der Eignung eines Systems für den Anwendungsfall sind ausgewählte Funktionen zu testen, Im allgemeinen besitzen die ausgewählten Systeme Funktionen die in diesem Rahmen nicht genutzt werden sollen, jedoch auch Funktionen die von Hand ergänzt werden müssen. Die notwendige Menge an Funktionen soll einzig getestet und somit abgedeckt werden.
-\item[Eingabeüberdeckung] Auch hierbei stehen verschiedene von den Systemen bereitgestellte Schnittstellen und Austauschformate zur Verfügung, aber es sollen nur die relevanten untersucht werden.
-\item[Ausgabeüberdeckung] siehe Eingabeüberdeckung
-\item[Leistungsgrenzen] Dafür werden eigene Tests definiert und verwendet.\footnote{siehe \ref{Leistungstests}}
-\item[Mengengrenzen] Die zu untersuchenden Systeme eignen sich zum Speichern großer Datenmengen die mehrere Terrabyte bis Petabyte umfassen. Da die vorhandenen Datenmengen diese Größe unterschreitet, müssen die Mengengrenzen nicht wesentlich getestet werden.
-\item[Fehlersituationen] Es besteht nicht das Ziel die Fehleranfälligkeit als einzelnes Merkmal zu untersuchen, weshalb dafür keine Testfälle erstellt oder durchgeführt werden. Einzig die Korrektheit der Berechnungen wird überprüft, indem die Ergebnisse des aktuellen ist-Standes zum Vergleich herangezogen werden. 
-\end{description}
-
-\subsection{Leistungstests}
-\label{Leistungstests}
-Ein Kriterium der Untersuchung in dieser Arbeit ist die Leistung.
-Nach Kesselman in \cite[S.20]{book:Leistungsanalyse} ist Leistung die gewichtete Summation von Leistungsindizes, wobei ein Leistungsindex die Quantifizierung einer Eigenschaft eines Systems ist.
-Wesentliche Leistungsindizes sind Laufzeiten von einfachen oder komplexen Operationen.
-Es wird hier nur die spezielle Leistung gemessen, da ausgewählte Eigenschaften betrachtet werden und somit nicht die Leistung für einen allgemeinen Anwendungsfall.
-Es existieren vordefinierte Leistungstests, dabei sind jene des \Gls{tpc} sowie die Benchmarks 001, 007, HyperModel und Justitia zu nennen.
-Diese sind jedoch nicht für den zu untersuchenden Anwendungsfall geeignet, da sie die allgemeine Leistungsfähigkeit und Effektivität messen und somit nicht die gesuchten Werte der \Gls{gis} ermitteln.
-
-Der in diesem Zusammenhang in der Literatur verwendete Begriff Benchmark ist hier jedoch ungeeignet, da die Software und nicht die Hardware untersucht werden soll:
-\begin {quote}
-Benchmarking ist eine Methode der Analyse des Leistungsverhaltens von Rechensystemen anhand von Referenzprogrammen oder Sätzen von Referenzprogrammen (Benchmarks). Dabei wird das Leistungsverhalten verschiedener Rechensysteme in Relation gesetzt, um so Vergleichskriterien  für Rechensysteme zu erhalten.\footnote{\cite[S.24]{book:Leistungsanalyse}}
-\end{quote}
-Eine hier betrachtete Leistungs- und Laufzeitmessung ist dabei wie folgt definiert:
-\begin {quote}
-Unter Leistungsmessung versteht man die Beobachtung des Ablaufverhaltens eines Programms bei der Ausführung auf einem realen System. Das Ziel das dabei verfolgt wird, ist die Gewinnung von Erkenntnissen, die zur Optimierung eines Programms genutzt werden können.\footnote{\cite[S.28]{book:Leistungsanalyse}}
-\end{quote}
-Die aus der Leistungsmessung gewonnenen Erkenntnisse dienen hierbei als Qualitätsmerkmale und werden nach definierten Metriken gewichtet.
-
-Gleichzeitig zur Durchführung der Leistungstests ist die Auslastung des Systems zu überwachen und zu protokollieren.
-Im Allgemeinen wird die Auslastung der CPU, der Anteil des reservierten Arbeitsspeichers und die Anzahl an Operationen auf der Festplatte überwacht.
-Die Durchführung unterscheidet sich je nach Betriebssystem und Art des logischen Systems.
-Jedoch ist darauf zu achten die eigentlichen Messungen nicht nennenswert zu beeinflussen.
-Ziel ist ein Kompromiss aus hochfrequenter Auflösung der Daten der Systemauslastung und dem dafür notwendigen Aufwand in Form von Rechenzeit.
-Außerdem ist die Auslastung des Systems vor dem Start der Leistungstests festzuhalten, um den Grundwert zu erhalten.

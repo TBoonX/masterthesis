@@ -86,3 +86,68 @@ Diese Ergänzung ist notwendig, um weiterhin den Aufwand zur Einbindung des Fram
 
 Für die grobe Nutzwertanalyse zur Auswahl eines Framworks ist im nachfolgenden Kapitel die Darstellung des Ist-Standes sowie die Anforderungen an das Framework zu finden.
 Die Definition der Testfälle zur Datenerhebung für die detaillierte Nutzwertanalyse des Prototypen schließt sich daran an.
+
+Es folgt die Definition der Tests abhängig des Anwendungsfalles.
+Die Tests müssen einerseits vergleichend sein, ergo bei unterschiedlichen Systemen die gleichen Merkmale testen und wiederholbar sein, andererseits die relevanten Merkmale testen.
+
+Es handelt es sich somit um systematische Tests:
+\begin {quote}
+Ein systematischer Test ist ein Test, bei dem\\
+die Randbedingungen definiert oder präzise erfasst sind,\\
+die Eingaben systematisch ausgewählt wurden,\\
+die Ergebnisse dokumentiert und nach Kriterien beurteilt werden, die vor dem Test festgelegt wurden.\footnote{\cite[S.446]{book:softwareengineering}}
+\end{quote}
+
+Nachfolgend werden die Randbedingungen definiert und in Kapitel \ref{Anforderungen} die Ein- und Ausgaben dargestellt.
+
+\label{grundlagen-funktionstests}
+Um die Systeme auf Softwarequalität, beschrieben auf Seite \pageref{softwarequalität}, zu testen, sind Funktionstests notwendig.
+Im folgenden bezieht sich \glqq Systeme\grqq\ auf auf die untersuchten Frameworks.
+\cite{book:softwareengineering} verweist auf Funktionstests auf Seite 455 wie folgt:
+\begin{quote}
+Werden die Testfälle auf Basis der in der Spezifikation geforderten Eigenschaften des Prüflings ausgewählt (z.B. Funktionalität, Antwortzeit), dann spricht man von einem Block-Box-Test oder auch von einem Funktionstest (19.5).
+\end{quote}
+Dazu wird auf Seite 471 der Umfang des Funktionstestes wie folgt umrissen:
+\begin{quote}
+Ein umfassender Black-Box-Test sollte\\
+alle Funktionen des Programms aktivieren (Funktionsüberdeckung),\\
+alle möglichen Eingaben bearbeiten (Eingabeüberdeckung),\\
+alle möglichen Ausgabeformen erzeugen (Ausgabeüberdeckung),\\
+die Leistungsgrenzen ausloten,\\
+die spezifizierten Mengengrenzen ausschöpfen,\\
+alle definierten Fehlersituationen herbeiführen.
+\end{quote}
+Im Rahmen dieser Arbeit soll dieser Umfang wie folgt begrenzt werden:
+\begin{description}
+\item[Funktionsüberdeckung] Zur Einschätzung der Eignung eines Systems für den Anwendungsfall sind ausgewählte Funktionen zu testen, Im allgemeinen besitzen die ausgewählten Systeme Funktionen die in diesem Rahmen nicht genutzt werden sollen, jedoch auch Funktionen die von Hand ergänzt werden müssen. Die notwendige Menge an Funktionen soll einzig getestet und somit abgedeckt werden.
+\item[Eingabeüberdeckung] Auch hierbei stehen verschiedene von den Systemen bereitgestellte Schnittstellen und Austauschformate zur Verfügung, aber es sollen nur die relevanten untersucht werden.
+\item[Ausgabeüberdeckung] siehe Eingabeüberdeckung
+\item[Leistungsgrenzen] Dafür werden eigene Tests definiert und verwendet.\footnote{siehe \ref{Leistungstests}}
+\item[Mengengrenzen] Die zu untersuchenden Systeme eignen sich zum Speichern großer Datenmengen die mehrere Terrabyte bis Petabyte umfassen. Da die vorhandenen Datenmengen diese Größe unterschreitet, müssen die Mengengrenzen nicht wesentlich getestet werden.
+\item[Fehlersituationen] Es besteht nicht das Ziel die Fehleranfälligkeit als einzelnes Merkmal zu untersuchen, weshalb dafür keine Testfälle erstellt oder durchgeführt werden. Einzig die Korrektheit der Berechnungen wird überprüft, indem die Ergebnisse des aktuellen ist-Standes zum Vergleich herangezogen werden. 
+\end{description}
+
+\label{Leistungstests}
+Ein Kriterium der Untersuchung in dieser Arbeit ist die Leistung.
+Nach Kesselman in \cite[S.20]{book:Leistungsanalyse} ist Leistung die gewichtete Summation von Leistungsindizes, wobei ein Leistungsindex die Quantifizierung einer Eigenschaft eines Systems ist.
+Wesentliche Leistungsindizes sind Laufzeiten von einfachen oder komplexen Operationen.
+Es wird hier nur die spezielle Leistung gemessen, da ausgewählte Eigenschaften betrachtet werden und somit nicht die Leistung für einen allgemeinen Anwendungsfall.
+Es existieren vordefinierte Leistungstests, dabei sind jene des \Gls{tpc} sowie die Benchmarks 001, 007, HyperModel und Justitia zu nennen.
+Diese sind jedoch nicht für den zu untersuchenden Anwendungsfall geeignet, da sie die allgemeine Leistungsfähigkeit und Effektivität messen und somit nicht die gesuchten Werte der \Gls{gis} ermitteln.
+
+Der in diesem Zusammenhang in der Literatur verwendete Begriff Benchmark ist hier jedoch ungeeignet, da die Software und nicht die Hardware untersucht werden soll:
+\begin {quote}
+Benchmarking ist eine Methode der Analyse des Leistungsverhaltens von Rechensystemen anhand von Referenzprogrammen oder Sätzen von Referenzprogrammen (Benchmarks). Dabei wird das Leistungsverhalten verschiedener Rechensysteme in Relation gesetzt, um so Vergleichskriterien  für Rechensysteme zu erhalten.\footnote{\cite[S.24]{book:Leistungsanalyse}}
+\end{quote}
+Eine hier betrachtete Leistungs- und Laufzeitmessung ist dabei wie folgt definiert:
+\begin {quote}
+Unter Leistungsmessung versteht man die Beobachtung des Ablaufverhaltens eines Programms bei der Ausführung auf einem realen System. Das Ziel das dabei verfolgt wird, ist die Gewinnung von Erkenntnissen, die zur Optimierung eines Programms genutzt werden können.\footnote{\cite[S.28]{book:Leistungsanalyse}}
+\end{quote}
+Die aus der Leistungsmessung gewonnenen Erkenntnisse dienen hierbei als Qualitätsmerkmale und werden nach definierten Metriken gewichtet.
+
+Gleichzeitig zur Durchführung der Leistungstests ist die Auslastung des Systems zu überwachen und zu protokollieren.
+Im Allgemeinen wird die Auslastung der CPU, der Anteil des reservierten Arbeitsspeichers und die Anzahl an Operationen auf der Festplatte überwacht.
+Die Durchführung unterscheidet sich je nach Betriebssystem und Art des logischen Systems.
+Jedoch ist darauf zu achten die eigentlichen Messungen nicht nennenswert zu beeinflussen.
+Ziel ist ein Kompromiss aus hochfrequenter Auflösung der Daten der Systemauslastung und dem dafür notwendigen Aufwand in Form von Rechenzeit.
+Außerdem ist die Auslastung des Systems vor dem Start der Leistungstests festzuhalten, um den Grundwert zu erhalten.
