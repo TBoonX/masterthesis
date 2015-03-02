@@ -11,8 +11,9 @@ Die drei Frameworks wurden aus der Tabelle der Abbildung \ref{fig:spatialdatabas
 \label{fig:spatialdatabases}
 \end{figure}
 Darin sind GIS zur räumlichen Datenverarbeitung mit wesentlichen Eigenschaften wie \mbox{PostgreSQL} Schnittstelle und räumliche Datentypen aufgelistet.
-Entsprechend den Anforderungen wurden daraus drei Frameworks für die Nutzwertanalyse ausgewählt.\\
-Abbildung \ref{fig:spatialdatabases} stammt von der Wikipedia Seite \url{https://en.wikipedia.org/wiki/Spatial_database} und ist wie unter Kapitel \ref{aufrufe-spatialdatabases} beschrieben für Unternehmen interessant.
+Entsprechend den Anforderungen wurden daraus drei Frameworks für die Nutzwertanalyse ausgewählt.
+Anforderung war dabei, dass Schnittstellen zu PostgreSQL und \Gls{umn} gegeben sind.\\
+Abbildung \ref{fig:spatialdatabases} stammt von der Wikipedia Seite \url{https://en.wikipedia.org/wiki/Spatial_database} und ist für Unternehmen relevant, wie unter Kapitel \ref{aufrufe-spatialdatabases} beschrieben.
 Der Autor erschuf die abgebildete Tabelle durch Recherche und stellte sie am 1.2.2015 in den Artikel.
 In der Annahme, dass unternehmensbezogene Besucher der Seite fehlendes ergänzen oder falsches korrigieren würden, dient diese zur Auswahl geeigneter Frameworks.
 
@@ -213,7 +214,7 @@ Diese deutliche abrupte Abnahme der aktiven Programmierer deutet eine Veränderu
 Die commits des vergangenen Jahres sind in Abbildung \ref{fig:timeline_commits_postgresxl} dargestellt.
 Danach wurden im ersten Halbjahr 2014 nur insgesamt 6 commits und im zweiten Halbjahr 2014 etwa täglich ein commit durchgeführt.
 
-Das Unternehmen TransLattice übernahm im Mai 2014 das Unternehmen StormDB.
+Das Unternehmen TransLattice\footnote{\url{http://www.translattice.com/}} übernahm im Mai 2014 das Unternehmen StormDB.
 Die Übernahme schloss das Projekt Postgres bzw. Postgres-XC ein. (siehe \cite{website:translattice-stormdb})
 Dieses wurde darauf in Postgres-XL umbenannt und erweitert.
 Diese Änderung rief die Verringerung der contributors seit Anfang 2014 hervor.
@@ -301,3 +302,15 @@ Außerdem ist es aus Forschungsarbeiten der TU Darmstadt, der TU München und de
 Förderer war dabei das Community Research and Development Information Service der EU. \cite{website:rasdaman-cordis}
 
 \section{Zusammenfassung}
+Auf Grund der Ähnlichkeit von Postres-XL zum Ist-Stand erfüllt es nicht nur alle Mindestanforderungen, sondern erzielt auch den höchsten Nutzwert der untersuchten Frameworks.
+Der Nutzwert von 86 ist auf 86\% Erfüllung der untersuchten Qualitätsmetriken abbildbar.
+Weiterhin spricht die Existenz seit 1996 für Postgres-XL.
+Einzig die Übernahme der Firma TransLattice und der damit einhergegangene Einbruch der Anzahl an commits und contributors ist zu beobachten.
+
+GeoMesa und Rasdaman sind für andere spezielle Anwendungsfälle geeignet.
+So ist Rasdaman in der kommerziellen Version bei verteilter Rasterdatenverarbeitung zu empfehlen.
+GeoMesa eignet sich auf Grund des BigTable Ansatzes für enorm große Datenmengen die im Peta Bereich liegen.
+So können diese Daten nicht nur gespeichert, sondern auch mit Scala und dazugehörigen Frameworks und Bibliotheken verteilt und parallel nach selbst erstellten Algorithmen und Vorgängen verarbeitet werden.
+
+Die Systemauswahl hat nicht nur ein geeignetes Framework als Ergebnis, sondern auch ein Grundgerüst zur Beurteilung anderer Frameworks und Anwendungsfälle anhand von Nutzwertanalysen.
+So ist Postgres-XL detailliert zu untersuchen und ein geeigneter Prototyp zu erstellen.
