@@ -61,10 +61,10 @@ Die Wertung für Interoperabilität ist somit 7 mit einer Erfüllung von 58\%.
 \item[Geografische Datentypen - 12] Vollständige Datentypen aus Simple Feature Access vorhanden. \cite{website:geomesaeclipse}
 \item[Umrechnungsfunktionen - 10] Datenverarbeitung direkt in Spark mit GeoTools möglich. \cite{website:geotools-crs}
 \item[Gruppierungsfunktionen - 7] Funktionale Verarbeitung mit Scala immanent.
-\item[Verschneidungsfunktionen - 3] \Gls{jts} stellt difference, union und symmetric difference zur Verfügung. \cite{website:jts-wikipedia}
+\item[Verschneidungsfunktionen - 3] \Gls{jts} stellt difference, union und symmetric difference zur Verfügung. \cite[S.29 ff.]{website:jts-vivid}
 \item[Overlayfunktionen - 2] \Gls{jts} stellt relate und overlay zur Verfügung.
 \item[Geostatistik - 0] Keine eingebaute Funktionalität.
-\item[Filterfunktionen - 10] Räumliche Filterung ist  mit GeoTools möglich \cite{website:geotools-wiki}
+\item[Filterfunktionen - 10] Räumliche Filterung ist mit GeoTools möglich \cite{website:geotools}
 \item[Schemaversionierung - 0] Accumulo erlaubt entsprechend des BigTable Ansatzes ein dynamisches Datenbankschema, jedoch ohne Versionierung. Einzig erzeugte Datentypen, bestehend aus Simple Features, können in GeoMesa als Konstrukt persistiert werden.
 \end{description}
 Daraus ergibt sich ein Wert von 48, was 79\% des maximal zu erreichenden Wertes ist.
@@ -85,7 +85,7 @@ Das Qualitätskriterium Dokumentation wird für GeoMesa mit dem Wert 4, bzw. der
 \item[Verwendung eigener Datentypen - 0] Es sind eigene Schemas aber keine Datentypen erstellbar. \cite{website:geomesa-simplefeatures}
 \item[Erstellung eigener Schnittstellen - 1] Indirekt über JDBC und ODBC möglich.
 \item[Erstellung eigener Funktionen - 1] Durch verschiedenste Frameworks zur Datenverarbeitung wie Spark beliebige Funktionen erstellbar.
-\item[Verwendung der Programmiersprachen Scala oder R - 1] GeoMesa ist in Scala geschrieben und kann mit dieser verwendet werden. R kann über das Tool SparkR verwendet werden.
+\item[Verwendung der Programmiersprachen Scala oder R - 1] GeoMesa ist in Scala geschrieben und kann mit dieser verwendet werden. R kann über das Tool SparkR und beim Einsatz von Hadoop über RHadoop verwendet werden.
 \item[Anlegen eigener Berechnungsvorgängen zur späteren Abarbeitung - 1] Mit einer Vielzahl von Tools möglich, bspw. Spark, \Gls{storm}, Pig und \Gls{cascading}.
 \end{description}
 Hier ist die Wertung 4 von 5 Punkten und damit 80\%.
@@ -228,14 +228,14 @@ Jedoch ist die Aktivität der TransLattice Entwickler zu beobachten, da die Gefa
 \subsection{Interoperabilität}
 \begin{description}
 \item[PostgreSQL - 7] PostgreSQL wird nach \cite{website:rasdaman-features} unterstützt.
-\item[\Gls{umn} - 5] Als Datenquelle ist Rasdaman als \Gls{wcs_glos} und \Gls{wps_glos} Dienst in \Gls{umn} verwendbar.
+\item[\Gls{umn} - 0] Rasdaman bietet einzig \Gls{wcs_glos} und \Gls{wps_glos} Dienste an, diese können jedoch vom \Gls{umn} der aktuellen Version 6.4 nicht verwendet werden.
 \end{description}
-Die Wertung für Interoperabilität ist somit 12 mit einer Erfüllung von 100\%.
+Die Wertung für Interoperabilität ist somit 7 mit einer Erfüllung von 58\%.
 
 \subsection{Funktionsumfang}
 \begin{description}
 \item[Parallele Verarbeitung - 1] Parallele Server Instanzen verwendbar. In der kostenlosen Version keine Query Optimierung für mehrere Kerne und Instanzen vorhanden. \cite{website:rasdaman-features}
-\item[Geografische Datentypen - 4] Raster und Punkte sind für die räumliche Datenverarbeitung vorhanden. Dazu sind Arrays mit beliebig vielen Dimensionen verwendbar. \cite{website:rasdaman-introduction}
+\item[Geografische Datentypen - 2] Raster und Punkte sind für die räumliche Datenverarbeitung vorhanden. Dazu sind Arrays mit beliebig vielen Dimensionen verwendbar. \cite{website:rasdaman-introduction}
 \item[Umrechnungsfunktionen - 0] Nur mit externer Bibliothek \Gls{gdal} für zwei-dimensionale Arrays möglich. \cite{website:rasdaman-gdal}
 \item[Gruppierungsfunktionen - 0] Laut Dokumentation der Funktionen keine Gruppierung möglich. \cite{website:rasdaman-querymanual}
 \item[Verschneidungsfunktionen - 1] Dagegen sind einfache Array Operationen vorhanden.
@@ -244,7 +244,7 @@ Die Wertung für Interoperabilität ist somit 12 mit einer Erfüllung von 100\%.
 \item[Filterfunktionen - 5] Operationen für Array-Verarbeitung vorhanden.
 \item[Schemaversionierung - 0] Keine eingebaute Funktionalität.
 \end{description}
-Daraus ergibt sich ein Wert von 12, was 20\% des maximal zu erreichenden Wertes ist.
+Daraus ergibt sich ein Wert von 10, was 16\% des maximal zu erreichenden Wertes ist.
 
 \subsection{Dokumentation}
 \begin{description}
@@ -273,15 +273,15 @@ Hier ist die Wertung 3 von 5 Punkten und damit 60\%.
 \small
 \begin{tabular}{l|p{1.8cm}|c|p{3.1cm}|p{1.8cm}}
 \textbf{Metrik} & \textbf{erreichter Wert} & \textbf{Erfüllung in \%} & \textbf{Kommentar} & \textbf{gewichteter Teilnutzen} \\ \hline
-Interoperabilität & 12 & 100 & UMN MapServer Schnittstelle nur indirekt verwendbar trotz erfüllter Mindestabdeckung. & 30 \\ \hline
-Funktionsumfang & 12 & 20 & Umfangreiche Rasterverarbeitung möglich. Kostenlose Version enthält keine Optimierungen. Abbildung von Simple Features auf Arrays mit Aufwand verbunden und nur bedingt sinnvoll. Mindestabdeckung wird nicht erfüllt. & 4 \\ \hline
+Interoperabilität & 7 & 58 & \Gls{umn} Schnittstelle ist nicht vorhanden. & 17 \\ \hline
+Funktionsumfang & 10 & 16 & Umfangreiche Rasterverarbeitung möglich. Kostenlose Version enthält keine Optimierungen. Abbildung von Simple Features auf Arrays mit Aufwand verbunden und nur bedingt sinnvoll. Mindestabdeckung wird nicht erfüllt. & 3 \\ \hline
 Dokumentation & 8 & 62 & Mindestabdeckung erfüllt. & 22 \\ \hline
 Modifizierbarkeit & 3 & 60 & Einfache Java und C++ API bietet zwar Erweiterungsmöglichkeiten, aber die Mindestabdeckung ist durch fehlende Datentypen nicht gegeben. & 9 \\
 \end{tabular}
 \caption{Nutzwertanalyse Rasdaman}
 \label{table:nutzwertanalyse-rasdaman}
 \end{table}
-Aus Tabelle \ref{table:nutzwertanalyse-rasdaman} ergibt sich ein Nutzwert von 65.
+Aus Tabelle \ref{table:nutzwertanalyse-rasdaman} ergibt sich ein Nutzwert von 51.
 
 Die Statistiken der Entwicklung des Repository müssen händisch gewonnen werden, da es auf einem Trac Verwaltungssystem mit Git basiert.
 Das Repository ist unter\\\url{kahlua.eecs.jacobs-university.de/rasdaman.git} verfügbar.
