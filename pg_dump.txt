@@ -1,1 +1,3 @@
-pg_dump --host 192.168.99.228 --port 5432 --username "dboperator" --role "postgres" --no-password  --format custom --blobs --encoding UTF8 --inserts --verbose --file "/root/backup/alpha.backup" --table "n.nsensorlogs" "agrodb_482"
+pg_dump --host 192.168.99.228 --port 5432 --username "dboperator" --role "postgres"  --format custom --blobs --encoding UTF8 --inserts --verbose --file "/root/backup/alpha.backup" --table "n.nsensorlogs" "agrodb_482"
+
+pg_dump --host 192.168.99.228 --port 5432 --username "dboperator" --role "dboperator"  --encoding UTF8 --inserts --verbose --format plain --file "/root/backup/alpha.backup" --table "farm.fields" --table "n.nsensorlogs" --table "nutrients.samples" "agrodb_482"
