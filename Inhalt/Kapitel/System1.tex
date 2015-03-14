@@ -9,18 +9,32 @@
 \subsection{Installation}
 %mit Systemvoraussetzungen
 \subsubsection{Systemvoraussetzungen}
-Die Dokumentation verwendet hierbei unter\\
-\url{http://files.postgres-xl.org/documentation/install-requirements.html} deckungsgleich die offizielle Dokumentation zu den Systemanforderungen von PostgreSQL in \url{http://www.postgresql.org/docs/9.2/static/install-requirements.html}.
-Dabei wird ein Linux Betriebssystem, 155MB freien Festplattenspeicher für die Übersetzung, Installation und Erstellung eines leeren Datenbankclusters sowie eine Menge von benötigten und optionalen Paketen genannt.
+Die Dokumentation\footnote{\url{http://files.postgres-xl.org/documentation/install-requirements.html}} verwendet hierbei deckungsgleich die offizielle Dokumentation zu den Systemanforderungen von PostgreSQL\footnote{\url{http://www.postgresql.org/docs/9.2/static/install-requirements.html}}.
+Dabei wird ein Linux Betriebssystem, 155MB freien Festplattenspeicher für die Übersetzung, Installation und Erstellung eines leeren Datenbankclusters sowie eine Menge von Paketen genannt.
+Diese ist: GNU make, gcc, tar und zlib als benötigte sowie libperl oder libpython als optionale Pakete.
+Zusätzlich werden für die Erzeugung der Dokumentation oder über Übersetzung des Quellcodes weitere Pakete benötigt.
+Diese Anforderungen setzen eine Standard Installation voraus.
 Neben Linux Derivaten wird auch FreeBSD und Max OS X unterstützt.
 Die Prozessorarchitektur von Intel wird unterstützt, andere sind laut Dokumentation ebenso verwendbar.
 Im Rahmen dieser Arbeit konnte Postgres-XL auch auf einem Raspberry Pi 1 Model B, basierend auf einem ARMv6 Prozessor und dem Linux Derivat Raspbian, installiert und verwendet werden.
 
+\subsubsection{Ablauf}
+Postgres-XL steht als RPM und direkt als Quellcode bereit.
+Davon verfügbare RPM Pakete sind jedoch von Mai 2014 und somit veraltet.
+Im Rahmen dieser Arbeit wurde der aktuelle Quellcode von github verwendet.
+Die Übersetzung des Quellcodes erfolgt mit einer im Linux Umfeld oft verwendeten configure, make und make install Routine.
+Der aktuelle Quellcode wird mit dem Kommandozeilen- und Versionsverwaltungstool git auf den Computer geladen und die darin enthaltene Datei configure mit zusätzlichen Parametern zum Zwecke der Einrichtung der anschließenden Installation ausgeführt.
+Die Ausführung von make übersetzt den Quellcode und der Parameter install kopiert die Übersetzungen in die mit configure festgelegten Ordner.
+Im Anhang \ref{appendix:install} ist das Skript zur Installation von Postgres-XL auf dem Testsystem zu sehen.
+Das Installationsskript muss für andere Systemumgebungen angepasst werden, da Pfade und notwendige Pakete unterschiedlich sein können.
+Weiterhin ist zu erwähnen, dass Änderungen an der Kernel-Konfiguration vorzunehmen  sind, jedoch ebenso abhängig von der Systemumgebung.
+Im Testsystem musste der Wert des für jede Anwendung nutzbaren geteilten Speichers erhöht werden, um PostgreSQL starten zu können.\\
+Um das Kommandozeilentool pgxc\_ctl nutzen zu können, muss im Quellcode Ordner in ./contrib/pgxc_ctl gewechselt und dort make sowie make install ausgeführt werden. damit wird das Tool übersetzt und in den in der vorangegangenen Installation festgelegten Ordner kopiert.
 
 \subsection{Schnittstelle}
 %Datenimport gehört dazu
 Der Zugriff auf Daten eines Postgres-XL Clusters erfolgt über die Coordinators.
-Dazu sind unveränderte Programme und Tools aus dem PostgreSQL Umfeld zu verwenden.
+Dazu sind Programme und Tools aus dem PostgreSQL Umfeld zu verwenden.
 Dazu zählen \Gls{jdbc}, das Kommandozeilentool psql und das grafische Programm zur Datenbankverwaltung pgAdminIII.
 Ebenso sind die SQL Befehle bis auf ein paar Ausnahmen deckungsgleich.
 Diese Ausnahmen beziehen sich auf die Verteilung der Daten und Verwaltung des Clusters.
@@ -28,10 +42,17 @@ Beispielsweise das SQL Statement \textit{Create Table tblname (serial id, text d
 Jede Tabelle wird in jeder PostgreSQL Instanz erzeugt.
 Dabei werden die Daten entweder nach einem Attribut verteilt oder zwischen den Datenbankinstanzen gespiegelt.
 Das Schlüsselwort \textit{Distributed} veranlasst eine Verteilung der Daten, \textit{Replicate} dagegen eine Replikation der Tabelle über alle Nodes.
+Weiterhin zu erwähnen ist der Befehl \textit{Create Node nodename With (TYPE=, HOST=, PORT=)}, welcher direkt als SQL Statement verwendet werden kann und dem Cluster einen Knoten hinzufügt.
+Analog dazu existiert der Befehl \textit{Drop Node nodename} zum entfernen eines Knotens.
+Wurde das Cluster verändert, ist dies mit \textit{Select * From pgxc\_ pool\_ reload();} für alle Knoten zu propagieren.
 
+%DBLink
 
 \subsection{Verarbeitung}
-
+%SQL
+%PL/R
+%R
+%PostGIS
 
 \section{Prototyp}
 
