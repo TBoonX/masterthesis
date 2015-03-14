@@ -1,16 +1,34 @@
 \chapter{Realisierung mit Postgres-XL}
 \label{chapter:postgresxl}
 
-\section{Aufbau und Architektur}
+\section{Verwendung}
 %Indexstrukturen nicht vergessen!
 %Mehrrechner-Datenbanksystem?
 %replikationsverfahren wichtig?
 
 \subsection{Installation}
 %mit Systemvoraussetzungen
+\subsubsection{Systemvoraussetzungen}
+Die Dokumentation verwendet hierbei unter\\
+\url{http://files.postgres-xl.org/documentation/install-requirements.html} deckungsgleich die offizielle Dokumentation zu den Systemanforderungen von PostgreSQL in \url{http://www.postgresql.org/docs/9.2/static/install-requirements.html}.
+Dabei wird ein Linux Betriebssystem, 155MB freien Festplattenspeicher für die Übersetzung, Installation und Erstellung eines leeren Datenbankclusters sowie eine Menge von benötigten und optionalen Paketen genannt.
+Neben Linux Derivaten wird auch FreeBSD und Max OS X unterstützt.
+Die Prozessorarchitektur von Intel wird unterstützt, andere sind laut Dokumentation ebenso verwendbar.
+Im Rahmen dieser Arbeit konnte Postgres-XL auch auf einem Raspberry Pi 1 Model B, basierend auf einem ARMv6 Prozessor und dem Linux Derivat Raspbian, installiert und verwendet werden.
+
 
 \subsection{Schnittstelle}
 %Datenimport gehört dazu
+Der Zugriff auf Daten eines Postgres-XL Clusters erfolgt über die Coordinators.
+Dazu sind unveränderte Programme und Tools aus dem PostgreSQL Umfeld zu verwenden.
+Dazu zählen \Gls{jdbc}, das Kommandozeilentool psql und das grafische Programm zur Datenbankverwaltung pgAdminIII.
+Ebenso sind die SQL Befehle bis auf ein paar Ausnahmen deckungsgleich.
+Diese Ausnahmen beziehen sich auf die Verteilung der Daten und Verwaltung des Clusters.
+Beispielsweise das SQL Statement \textit{Create Table tblname (serial id, text data) Distributed by Hash(id);} weicht durch die Ergänzung \textit{Distributed by} vom PostgreSQL SQL Syntax ab.
+Jede Tabelle wird in jeder PostgreSQL Instanz erzeugt.
+Dabei werden die Daten entweder nach einem Attribut verteilt oder zwischen den Datenbankinstanzen gespiegelt.
+Das Schlüsselwort \textit{Distributed} veranlasst eine Verteilung der Daten, \textit{Replicate} dagegen eine Replikation der Tabelle über alle Nodes.
+
 
 \subsection{Verarbeitung}
 

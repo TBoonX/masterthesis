@@ -389,24 +389,30 @@ Postgres-XL ist ein frei verfügbares Clustersystem für PostgreSQL unter der Mo
 XL steht dabei für eXtensible Lattice, erweiterbarer Verbund.
 Damit soll es ermöglicht werden, mit PostgreSQL verteilt Schreiboperationen zu skalieren sowie parallele Datenverarbeitung auf mehreren physischen und virtuellen Systemen gleichzeitig zu betreiben.
 Dafür wird zur verteilten Datenhaltung \Gls{acid} mit \Gls{mvcc} und zur parallelen Verarbeitung ein \Gls{mpp} Mechanismus eingesetzt. (siehe \cite{website:postgresxl-about})
-Die Postgres-XL Umgebung nutzt mehrere PostgreSQL Instanzen oder Partitionen und bietet eine Schnittstelle für alle Instanzen an.\\
+Die Postgres-XL Umgebung nutzt mehrere PostgreSQL Instanzen und bietet Schnittstellen für alle Instanzen an.\\
 Abbildung \ref{fig:postgresxl} verbildlicht den Aufbau.
-Laut Abbildung wird als erstes ein Load-Balancer angesprochen.
+Laut Abbildung wird als erstes ein Load-Balancer angesprochen und es existieren mehrere GTM Instanzen.
 Dies wird in der Dokumentation nicht belegt.
-Die anderen Elemente sind nach \cite{website:postgresxl-about} wie folgt beschrieben:
+Die Elemente sind nach \cite{website:postgresxl-about} wie folgt beschrieben:
 \begin{description}
-\item[Global Transaction Manager] Dient als Verwaltungselement der Transaktionen und realisiert \Gls{mvcc} über das System. Laut Dokumentation existiert für jedes PostgreSQL Element ein GTM, um \Gls{mvcc}  mit je einem globalen Kontext realisieren zu können.
-\item[Coordinator] \glqq The Coordinator manages the user sessions and interacts with GTM and the data nodes. The Coordinator parses and plans queries, and sends down a serialized global plan to each of the components involved in a statement.\grqq\ (\cite{website:postgresxl-overview})
-\item[Data Node] Diese Elemente enthalten PostgreSQL. Diese müssen sich nicht eine Datenbank replizieren, sondern können auch eine Datenbank über partitioning teilen. Anfragen können von verschiedenen Coordinators gleichzeitig in unterschiedlichen Sitzungen erfolgen. Auf Grund der Kapselung besitzt jeder Data Node seinen eigenen Kontext zur Transaktion.
+\item[Global Transaction Manager] Dient als Verwaltungselement der Transaktionen und realisiert \Gls{mvcc} über das System. Laut Dokumentation existiert genau ein GTM pro Cluster, um \Gls{mvcc}  mit einem globalen Kontext realisieren zu können. Der GTM wird von jeder Coordinator Instanz angesprochen. Es wird jedoch zusätzlich pro physischem Knoten des Clusters ein GTM-Proxy empfohlen, welcher die Anfragen an den GTM bündelt.
+\item[Coordinator] Jeder Coordinator dient als Eintrittspunkt in den Cluster, ruft von der GTM Instanz pro SQL Statement eindeutige Transaktionsnummern und globale Informationen ab sowie formuliert Subquerys für die relevanten DataNodes entsprechend seines Query-Planers.
+\item[Data Node] Diese Elemente sind PostgreSQL Instanzen, welche die konkreten Daten vorhalten und das Transaktionsmanagement an den GTM abgegeben haben. Die Datenbanken und Tabellen der DataNodes werden entweder per partition verteilt oder repliziert. Anfragen können von verschiedenen Coordinators gleichzeitig in unterschiedlichen Sitzungen erfolgen. Auf Grund der Kapselung besitzt jeder Data Node seinen eigenen Kontext zur Transaktion.
 \end{description}
+Dabei besitzt jeder Coordinator und jeder DataNode einen ConnectionPool, welcher die Verbindungen verwaltet.
+Zur Erhöhung der Ausfallsicherheit, besteht die Möglichkeit, für jedes Element im Cluster eine dazugehörige schlafende Instanz zu erzeugen, welche bei Ausfall der eigentlichen Instanz für diese einspringt.
+Jedes Element im Cluster ist einzeln zu konfigurieren, was zu $ n*3+1 $ verschiedenen Konfigurationen bei $n$ DataNodes führt.
+Zur Vereinfachung der Erstellung und Verwaltung eines Clusters sind neben den von PostgreSQL gelieferten Kommandozeilentools weitere durch Postgres-XL gegeben.
+Zur Erstellung und Verwaltung eines Clusters kann pgxc-ctl eingesetzt werden.
+Damit kann mit einer Konfigurationsdatei ein Cluster definiert sowie erstellt werden oder das Cluster mit einem Befehl um Knoten ergänzt werden.
 \begin{figure}[h!]
 \centering
 \includegraphics[width=.7\textwidth]{Abbildungen/postgresxl-structure.jpg}
 \caption[Aufbau Postgres-XL]{Aufbau Postgres-XL, Quelle: \url{http://www.postgres-xl.org/wp-content/uploads/2014/04/xl_cluster_architecture1.jpg}}
 \label{fig:postgresxl}
 \end{figure}
-Das System wird analog einer PostgreSQL Instanz angesprochen.
-Ebenso ist PostGIS verwendbar.
+%Das System wird somit analog einer PostgreSQL Instanz angesprochen.
+Ebenso sind Erweiterungen wie PostGIS, DBLink oder PL/R installierbar.
 
 \subsection{Array DBMS Rasdaman}
 
