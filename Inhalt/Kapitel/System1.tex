@@ -29,7 +29,7 @@ Im Anhang \ref{appendix:install} ist das Skript zur Installation von Postgres-XL
 Das Installationsskript muss für andere Systemumgebungen angepasst werden, da Pfade und notwendige Pakete unterschiedlich sein können.
 Weiterhin ist zu erwähnen, dass Änderungen an der Kernel-Konfiguration vorzunehmen  sind, jedoch ebenso abhängig von der Systemumgebung.
 Im Testsystem musste der Wert des für jede Anwendung nutzbaren geteilten Speichers erhöht werden, um PostgreSQL starten zu können.\\
-Um das Kommandozeilentool pgxc\_ctl nutzen zu können, muss im Quellcode Ordner in ./contrib/pgxc_ctl gewechselt und dort make sowie make install ausgeführt werden. damit wird das Tool übersetzt und in den in der vorangegangenen Installation festgelegten Ordner kopiert.
+Um das Kommandozeilentool pgxc\_ ctl nutzen zu können, muss im Quellcode Ordner in ./contrib/pgxc\_ ctl gewechselt und dort make sowie make install ausgeführt werden. damit wird das Tool übersetzt und in den in der vorangegangenen Installation festgelegten Ordner kopiert.
 
 \subsection{Schnittstelle}
 %Datenimport gehört dazu
@@ -45,21 +45,38 @@ Das Schlüsselwort \textit{Distributed} veranlasst eine Verteilung der Daten, \t
 Weiterhin zu erwähnen ist der Befehl \textit{Create Node nodename With (TYPE=, HOST=, PORT=)}, welcher direkt als SQL Statement verwendet werden kann und dem Cluster einen Knoten hinzufügt.
 Analog dazu existiert der Befehl \textit{Drop Node nodename} zum entfernen eines Knotens.
 Wurde das Cluster verändert, ist dies mit \textit{Select * From pgxc\_ pool\_ reload();} für alle Knoten zu propagieren.
+Weitere Abweichungen sind der Dokumentation zu entnehmen.\footnote{siehe \url{http://files.postgres-xl.org/documentation/sql-commands.html}}
 
-%DBLink
+Daten wurden mit dem Kommandozeilentool pg\_ dump aus dem Ist-Stand in das Testsystem überführt.
+Der Ist-Zustand verwendet PostgreSQL Version 9.3.
+Um Daten zwischen verschiedenen Versionen auszutauschen, muss der Zwischenstand der Datenbank im Textformat erstellt und dieser angepasst als SQL Anweisungen in das andere System eingespielt werden.
+
+%DBLink -> Kombatibiltätsprobleme? nicht festgestellt
+%Übertragung im Prototyp???
+
+%psql -c "copy (select list of column  from table_name ) to stdin " dbanme | psql -c "table_name(specify the column ) from stdout " targetDB
+%https://stackoverflow.com/questions/14797327/copy-data-between-two-tables-in-postgresql-using-dblink-sql
 
 \subsection{Verarbeitung}
 %SQL
 %PL/R
-%R
+%R -> auf welchen Knoten wird das ausgeführt? Coordinator?
 %PostGIS
+Die Datenverarbeitung erfolgt analog des Ist-Standes bei Agri~Con.
+So können die vorhandenen SQL Funktionen übernommen werden, ebenso die R Bibliotheken des speziellen Krigings.
+Dafür ist neben R als Programmiersprache auf den Systemen, Pl/R als Erweiterung in Postgres-XL, zu installieren.
+Die Installation von Pl/R mit dem Quellcode als Grundlage ist in Anhang \ref{appendix:plr} zu finden.
+Auch PostGIS ist als Erweiterung installierbar.\footnote{Skript siehe \ref{appendix:postgis}}
 
 \section{Prototyp}
 
 \subsection{Entwurf}
+%Übernahme des Schemas
+%spezielle Daten werden übernommen -> vllt. replikation möglich?
+%
 
 \subsection{Implementierung}
-
+%SQL mit dblnk skizzieren
 
 \section{Tests}
 %pgbench http://www.postgresql.org/docs/devel/static/pgbench.html
