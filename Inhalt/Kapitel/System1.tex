@@ -5,6 +5,7 @@
 %Indexstrukturen nicht vergessen!
 %Mehrrechner-Datenbanksystem?
 %replikationsverfahren wichtig?
+%auf Fehlen von Triggern eingehen
 
 \subsection{Installation}
 %mit Systemvoraussetzungen
@@ -63,17 +64,27 @@ Um Daten zwischen verschiedenen Versionen auszutauschen, muss der Zwischenstand 
 %R -> auf welchen Knoten wird das ausgeführt? Coordinator?
 %PostGIS
 Die Datenverarbeitung erfolgt analog des Ist-Standes bei Agri~Con.
-So können die vorhandenen SQL Funktionen übernommen werden, ebenso die R Bibliotheken des speziellen Krigings.
+Mit der Installation\footnote{Skript siehe \ref{appendix:postgis}} von PostGIS als Erweiterung, können die vorhandenen SQL Funktionen übernommen werden, ebenso die R Bibliotheken des speziellen Krigings.
 Dafür ist neben R als Programmiersprache auf den Systemen, Pl/R als Erweiterung in Postgres-XL, zu installieren.
 Die Installation von Pl/R mit dem Quellcode als Grundlage ist in Anhang \ref{appendix:plr} zu finden.
-Auch PostGIS ist als Erweiterung installierbar.\footnote{Skript siehe \ref{appendix:postgis}}
 
 \section{Prototyp}
+%ERM festhalten
 
 \subsection{Entwurf}
 %Übernahme des Schemas
 %spezielle Daten werden übernommen -> vllt. replikation möglich?
-%
+%eine Idee: quelldaten (punkte) in pgxc schreiben, dort Verarbeitung starten und Ergebnis auf pg kopieren
+%zwei Datenquellen in Programmen ist kompliziert, server in pg nimmt performanz?
+%vollständige Umstellung auf pgxc kann zu kombatibilitätsproblemen führen (Funktionen) und replikation zu hetzner wird schwierig
+
+%Überlegen, ob konkreter Prototyp nicht zu kompliziert ist, und man stattdessen eine allgemeine Aussage zur Leistungsfähigkeit gegenüber PostgreSQL  trift
+
+%welche Funktionen benötigen Daten aus beiden DBs?
+%Gibt es Quelldaten die nur verarbeitet und nicht direkt gelesen werden?
+%Die Replikation zu Hetzner mit berücksichtigen?
+%Mail Service  -> existiert eine Übersicht?
+%Maßnahmen Service?
 
 \subsection{Implementierung}
 %SQL mit dblnk skizzieren
@@ -82,6 +93,15 @@ Auch PostGIS ist als Erweiterung installierbar.\footnote{Skript siehe \ref{appen
 %pgbench http://www.postgresql.org/docs/devel/static/pgbench.html
 
 \subsection{Funktionstests}
+%Schnittstellen: PostgreSQL mit dblink demonstrieren; PostGIS: Tabelle mit geometry erzeugen, füllen und Funktionen darauf anwenden; UMN: simples Mapfile für nsensorlogs erstellen
+%Austauschformate: Übertragung der vorhandenen Daten ist beleg
+%EPSG Codes 4326 und 3857 testen (Zwischen ihnen Umwandeln)
+%weitere Funktionen: Schläge miteinander verschneiden (typische Fälle verwenden, mit UMN darstellen?); Geostatistik mit R Bibo zeigen; topologische Filterung?; räumliche Filterung anhand von Fields demonstrieren   <- Immer auf Funktionsdefinition mit Parametern verweisen
 
 \subsection{Leistungstests}
 %historische Daten?
+%Wie schnell werden nsensorlogs gespeichert?
+%Wie schnell werden nsensorlogs abgerufen?
+%Laufzeit Kriging: abhängig nach Distribution - entweder nach geom oder farmid oder fileid
+
+%mit SQL Bordmitteln - pg_bench eventuell zusätzlich um ein paar Aussagen zum cluster overhead zu treffen
