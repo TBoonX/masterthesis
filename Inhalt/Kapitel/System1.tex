@@ -19,7 +19,7 @@ Neben Linux Derivaten wird auch FreeBSD und Max OS X unterstützt.
 Die Prozessorarchitektur von Intel wird unterstützt, andere sind laut Dokumentation ebenso verwendbar.
 Im Rahmen dieser Arbeit konnte Postgres-XL auch auf einem Raspberry Pi 1 Model B, basierend auf einem ARMv6 Prozessor und dem Linux Derivat Raspbian, installiert und verwendet werden.
 
-\subsubsection{Ablauf}
+\subsubsection{Installation}
 Postgres-XL steht als RPM und direkt als Quellcode bereit.
 Davon verfügbare RPM Pakete sind jedoch von Mai 2014 und somit veraltet.
 Im Rahmen dieser Arbeit wurde der aktuelle Quellcode von github verwendet.
@@ -30,7 +30,24 @@ Im Anhang \ref{appendix:install} ist das Skript zur Installation von Postgres-XL
 Das Installationsskript muss für andere Systemumgebungen angepasst werden, da Pfade und notwendige Pakete unterschiedlich sein können.
 Weiterhin ist zu erwähnen, dass Änderungen an der Kernel-Konfiguration vorzunehmen  sind, jedoch ebenso abhängig von der Systemumgebung.
 Im Testsystem musste der Wert des für jede Anwendung nutzbaren geteilten Speichers erhöht werden, um PostgreSQL starten zu können.\\
-Um das Kommandozeilentool pgxc\_ ctl nutzen zu können, muss im Quellcode Ordner in ./contrib/pgxc\_ ctl gewechselt und dort make sowie make install ausgeführt werden. damit wird das Tool übersetzt und in den in der vorangegangenen Installation festgelegten Ordner kopiert.
+Um das Kommandozeilentool pgxc\_{}ctl nutzen zu können, muss im Quellcode Ordner in ./contrib/pgxc\_{}ctl gewechselt und dort make sowie make install ausgeführt werden. damit wird das Tool übersetzt und in den in der vorangegangenen Installation festgelegten Ordner kopiert.
+
+\subsubsection{Einrichtung}
+Postgres-Xl ist für den Einsatz in einem Cluster konzipiert.
+So muss die Installation für jeden Knoten vorgenommen werden.
+Die Einrichtung der einzelnen Knoten variiert je nach Art des Knotens, wobei ein Knoten entweder eine GTM Instanz oder mehrere Coordinator sowie DataNodes Instanzen mit einer GTM-Proxy Instanz enthält.
+Jede Instanz kann automatisiert mit pgxc\_{}ctl oder manuell erstellt und konfiguriert werden.
+Das Testsystem wurde mit pgxc\_{}ctl eingerichtet.
+Voraussetzung der Nutzung von pgxc\_{}ctl ist der Zugang zu allen Knoten per SSH ohne Passwortabfrage für den selben Benutzer und die Vergabe eindeutiger Hostnames an die Knoten.
+Ist dies gegeben, kann pgxc\_{}ctl in der Kommandozeile gestartet werden.
+Mit dem Kommando \textit{prepare config} erzeugt pgxc\_{}ctl eine Konfigurationsdatei unter dem in der Umgebungsvariable PGXC\_{}CTL\_{}HOME festgelegten Ordner.
+In dieser Datei werden alle Elemente des Clusters definiert.
+Dazu zählt: GTM, GTM-Proxys, Coordinators und DataNodes.
+Außerdem können zu allen vier Typen Slaves definiert werden, welche bei Ausfall des Elementes dessen Aufgaben übernehmen.
+So wird pro Element das Arbeitsverzeichnis, der Name, der Host, der Port, optionale Konfigurationsparameter, pg\_{}hba Einträge, pgPool Port und der Ordner der Logdateien festgelegt.
+Eine detaillierte Beschreibung befindet sich in der Dokumentation.\footnote{\url{http://files.postgres-xl.org/documentation/pgxc-ctl.html}}
+Anhang \ref{appendix:pgxcctlconfig} enthält eine beispielhafte Konfigurationsdatei.
+%schlussendliche Konfigurationdatei mit aufführen
 
 \subsection{Schnittstelle}
 %Datenimport gehört dazu
@@ -45,10 +62,10 @@ Dabei werden die Daten entweder nach einem Attribut verteilt oder zwischen den D
 Das Schlüsselwort \textit{Distributed} veranlasst eine Verteilung der Daten, \textit{Replicate} dagegen eine Replikation der Tabelle über alle Nodes.
 Weiterhin zu erwähnen ist der Befehl \textit{Create Node nodename With (TYPE=, HOST=, PORT=)}, welcher direkt als SQL Statement verwendet werden kann und dem Cluster einen Knoten hinzufügt.
 Analog dazu existiert der Befehl \textit{Drop Node nodename} zum entfernen eines Knotens.
-Wurde das Cluster verändert, ist dies mit \textit{Select * From pgxc\_ pool\_ reload();} für alle Knoten zu propagieren.
+Wurde das Cluster verändert, ist dies mit \textit{Select * From pgxc\_{}pool\_{}reload();} für alle Knoten zu propagieren.
 Weitere Abweichungen sind der Dokumentation zu entnehmen.\footnote{siehe \url{http://files.postgres-xl.org/documentation/sql-commands.html}}
 
-Daten wurden mit dem Kommandozeilentool pg\_ dump aus dem Ist-Stand in das Testsystem überführt.
+Daten wurden mit dem Kommandozeilentool pg\_{}dump aus dem Ist-Stand in das Testsystem überführt.
 Der Ist-Zustand verwendet PostgreSQL Version 9.3.
 Um Daten zwischen verschiedenen Versionen auszutauschen, muss der Zwischenstand der Datenbank im Textformat erstellt und dieser angepasst als SQL Anweisungen in das andere System eingespielt werden.
 
@@ -68,10 +85,10 @@ Mit der Installation\footnote{Skript siehe \ref{appendix:postgis}} von PostGIS a
 Dafür ist neben R als Programmiersprache auf den Systemen, Pl/R als Erweiterung in Postgres-XL, zu installieren.
 Die Installation von Pl/R mit dem Quellcode als Grundlage ist in Anhang \ref{appendix:plr} zu finden.
 
-\section{Prototyp}
+%\section{Prototyp}
 %ERM festhalten
 
-\subsection{Entwurf}
+\section{Entwurf}
 %Übernahme des Schemas
 %spezielle Daten werden übernommen -> vllt. replikation möglich?
 %eine Idee: quelldaten (punkte) in pgxc schreiben, dort Verarbeitung starten und Ergebnis auf pg kopieren
@@ -86,11 +103,32 @@ Die Installation von Pl/R mit dem Quellcode als Grundlage ist in Anhang \ref{app
 %Mail Service  -> existiert eine Übersicht?
 %Maßnahmen Service?
 
-\subsection{Implementierung}
+\section{Implementierung}
 %SQL mit dblnk skizzieren
 
 \section{Tests}
 %pgbench http://www.postgresql.org/docs/devel/static/pgbench.html
+
+\subsection{Testumgebung}
+Der Cluster wird mit Virtualisierung erstellt.
+Dafür steht ein IBM Rack Server x3850 M2 zur Verfügung, mit folgender Ausstattung:
+vier Xeon E7330 Quad-Core mit 2,4 GHz, 32GB DDR2 RAM, vier 500GB 2,5 Zoll SATA Festplatten von Western Digital mit 7.200 U/min und einem MR10k Raid-Controller.
+Als Virtualisierungssoftware kommt \Gls{esxi} in der kostenlosen Version 5.5 mit \Gls{vsphere} als Testversion 6 zum Einsatz.
+Mit dieser Virtualisierungslösung ist es möglich, Ressourcen explizit und ausschließlich einer VM zuzuordnen.
+Ziel dieser unter Abbildung \ref{fig:physAufb} dargestellten Testumgebung ist es Postgres-XL mit PostgreSQL des Ist Standes zu vergleichen, einen homogenen Cluster zu erzeugen und Aussagen über die Skalierbarkeit von Postgres-XL zu treffen.
+Die VMs sind in Abbildung \ref{fig:VMAufb} dargestellt.
+\begin{figure}[h!]
+\centering
+\input{Abbildungen/Testsystem_physischerAufbau.tex}
+\caption[Aufbau Geräte des Testsystems]{Aufbau Geräte des Testsystems}
+\label{fig:physAufb}
+\end{figure}
+\begin{figure}[h!]
+\centering
+\input{Abbildungen/Testsystem_VMsdia.tex}
+\caption[Aufbau VMs des Testsystems]{Aufbau VMs des Testsystems}
+\label{fig:VMAufb}
+\end{figure}
 
 \subsection{Funktionstests}
 %Schnittstellen: PostgreSQL mit dblink demonstrieren; PostGIS: Tabelle mit geometry erzeugen, füllen und Funktionen darauf anwenden; UMN: simples Mapfile für nsensorlogs erstellen
@@ -99,6 +137,8 @@ Die Installation von Pl/R mit dem Quellcode als Grundlage ist in Anhang \ref{app
 %weitere Funktionen: Schläge miteinander verschneiden (typische Fälle verwenden, mit UMN darstellen?); Geostatistik mit R Bibo zeigen; topologische Filterung?; räumliche Filterung anhand von Fields demonstrieren   <- Immer auf Funktionsdefinition mit Parametern verweisen
 
 \subsection{Leistungstests}
+%Ziel ist Vergleich und Aussage über Skalierbarkeit(T(1)/T(p))/Effizienz(S(p)/p)
+
 %historische Daten?
 %Wie schnell werden nsensorlogs gespeichert?
 %Wie schnell werden nsensorlogs abgerufen?
