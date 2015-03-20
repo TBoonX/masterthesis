@@ -1,4 +1,14 @@
-﻿-- Function: nutrients.getfieldlabelpoints(text, integer)
+﻿-- Type: nutrients.contourpolygon
+
+-- DROP TYPE nutrients.contourpolygon;
+
+CREATE TYPE nutrients.contourpolygon AS
+   ();
+ALTER TYPE nutrients.contourpolygon
+  OWNER TO dboperator;
+
+
+-- Function: nutrients.getfieldlabelpoints(text, integer)
 
 -- DROP FUNCTION nutrients.getfieldlabelpoints(text, integer);
 
