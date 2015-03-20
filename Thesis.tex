@@ -14,13 +14,13 @@
 \include{Inhalt/Danksagung}					% Danksagung
 %\include{Inhalt/Vorwort}						% Vorwort
 
+\tableofcontents										% Inhaltsverzeichnis
 
 \printglossary[title=Glossar] 			% Glossar Einträge in Header/Glossar.tex vornehmen
 \printglossary[type=\acronymtype,title=Abk\"urzungsverzeichnis]	% Abkürzungsverzeichnis Einträge in Header/Abkuerzungen vornehmen
 
 \listoffigures											% Abbildungsverzeichnis
 \listoftables												% Tabellenverzeichnis
-\tableofcontents										% Inhaltsverzeichnis
 
 \mainmatter													% Seitenzählerstart Haupttext
 
@@ -33,6 +33,12 @@
 \input{Inhalt/Anhang/1.tex}	
 \section{GeoTools Funktionalitäten}
 \input{Inhalt/Anhang/2.tex}	
+\section{Postgres-XL Installationsskript}
+\input{Inhalt/Anhang/3.tex}	
+\section{Pl/R Installationsskript}
+\input{Inhalt/Anhang/4.tex}
+\section{PostGIS Installationsskript}
+\input{Inhalt/Anhang/5.tex}
 												
 \bibliography{Literatur/Literatur} 	% Literaturverzeichnis
 

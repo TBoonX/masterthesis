@@ -1,0 +1,16 @@
+\label{appendix:plr} 
+\begin{lstlisting}[language=bash,caption={Pl/R installation}]
+#install R:
+#add source: deb http://ftp5.gwdg.de/pub/misc/cran/bin/linux/ubuntu \
+   trusty/
+sudo apt-get update
+sudo apt-get install r-base
+
+#install Pl/R:
+#copy plr src to postgres-xl/src/contrib
+#cd there
+make
+sudo make install
+psql -h localhost template1
+create extension plr;
+\end{lstlisting} 

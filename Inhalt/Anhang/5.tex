@@ -1,0 +1,12 @@
+\label{appendix:postgis} 
+\begin{lstlisting}[language=bash,caption={PostGIS installation}]
+tar -xvzf postgis-2.1.5.tar.gz
+cd postgis-2.1.5/
+sudo apt-get install libproj0 libproj-dev libgeos-dev libxml2 \
+   libxml2-dev libgdal-dev
+./configure --with-pgconfig=/usr/local/pgsql/bin/pg_config
+make
+sudo make install
+psql -h localhost --port=6661 -d agrodb -f \
+   /usr/local/pgsql/share/extension/postgis--2.1.5.sql
+\end{lstlisting} 
