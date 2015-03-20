@@ -1,3 +1,5 @@
-pg_dump --host 192.168.99.228 --port 5432 --username "dboperator" --role "postgres"  --format custom --blobs --encoding UTF8 --inserts --verbose --file "/root/backup/alpha.backup" --table "n.nsensorlogs" "agrodb_482"
+pg_dump --host 192.168.99.228 --port 5432 --username "dboperator" --role "dboperator"  --encoding UTF8 --inserts --verbose --file "/root/backup/alpha.backup" --table "farm.fields" --table "n.nsensorlogs" --format plain --table "nutrients.samples" "agrodb_482"
 
-pg_dump --host 192.168.99.228 --port 5432 --username "dboperator" --role "dboperator"  --encoding UTF8 --inserts --verbose --format plain --file "/root/backup/alpha.backup" --table "farm.fields" --table "n.nsensorlogs" --table "nutrients.samples" "agrodb_482"
+
+# Schema
+pg_dump --host 192.168.99.228 --port 5432 --username "dboperator" --role "dboperator"  --encoding UTF8 -s --verbose --file "/root/backup/alpha.schema.backup" -n "common" --format plain -N "farm[0-9]{1,4}" -T "farm.fields_[0-9]{1,4}" -n "farm" -n "n" -n "nutrients" "agrodb_482"
