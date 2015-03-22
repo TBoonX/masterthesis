@@ -17,7 +17,7 @@ Zusätzlich werden für die Erzeugung der Dokumentation oder über Übersetzung 
 Diese Anforderungen setzen eine Standard Installation voraus.
 Neben Linux Derivaten wird auch FreeBSD und Max OS X unterstützt.
 Die Prozessorarchitektur von Intel wird unterstützt, andere sind laut Dokumentation ebenso verwendbar.
-Im Rahmen dieser Arbeit konnte Postgres-XL auch auf einem Raspberry Pi 1 Model B, basierend auf einem ARMv6 Prozessor und dem Linux Derivat Raspbian, installiert und verwendet werden.
+Im Rahmen dieser Arbeit konnte Postgres-XL auch auf einem Raspberry Pi 1 Model B, basierend auf einem ARMv6 Prozessor und dem Linux Derivat Raspbian, übersetzt und verwendet werden.
 
 \subsubsection{Installation}
 Postgres-XL steht als RPM und direkt als Quellcode bereit.
@@ -29,7 +29,7 @@ Die Ausführung von make übersetzt den Quellcode und der Parameter install kopi
 Im Anhang \ref{appendix:install} ist das Skript zur Installation von Postgres-XL auf dem Testsystem zu sehen.
 Das Installationsskript muss für andere Systemumgebungen angepasst werden, da Pfade und notwendige Pakete unterschiedlich sein können.
 Weiterhin ist zu erwähnen, dass Änderungen an der Kernel-Konfiguration vorzunehmen  sind, jedoch ebenso abhängig von der Systemumgebung.
-Im Testsystem musste der Wert des für jede Anwendung nutzbaren geteilten Speichers erhöht werden, um PostgreSQL starten zu können.\\
+Im Testsystem musste der Wert des für jede Anwendung nutzbaren geteilten Speichers erhöht werden, um Postgres-XL starten zu können.\\
 Um das Kommandozeilentool pgxc\_{}ctl nutzen zu können, muss im Quellcode Ordner in ./contrib/pgxc\_{}ctl gewechselt und dort make sowie make install ausgeführt werden. damit wird das Tool übersetzt und in den in der vorangegangenen Installation festgelegten Ordner kopiert.
 
 \subsubsection{Einrichtung}
@@ -50,6 +50,7 @@ Anhang \ref{appendix:pgxcctlconfig} enthält eine beispielhafte Konfigurationsda
 %schlussendliche Konfigurationdatei mit aufführen
 
 \subsection{Schnittstelle}
+\label{subsection:interface}
 %Datenimport gehört dazu
 Der Zugriff auf Daten eines Postgres-XL Clusters erfolgt über die Coordinators.
 Dazu sind Programme und Tools aus dem PostgreSQL Umfeld zu verwenden.
@@ -68,6 +69,8 @@ Weitere Abweichungen sind der Dokumentation zu entnehmen.\footnote{siehe \url{ht
 Daten wurden mit dem Kommandozeilentool pg\_{}dump aus dem Ist-Stand in das Testsystem überführt.
 Der Ist-Zustand verwendet PostgreSQL Version 9.3.
 Um Daten zwischen verschiedenen Versionen auszutauschen, muss der Zwischenstand der Datenbank im Textformat erstellt und dieser angepasst als SQL Anweisungen in das andere System eingespielt werden.
+%zu langsam
+Ein Datenaustausch mit der SQL Anweisung \textit{Copy} oder der Erweiterung DBLink ist ebenso möglich.
 
 %DBLink -> Kombatibiltätsprobleme? nicht festgestellt
 %Übertragung im Prototyp???
@@ -82,7 +85,7 @@ Um Daten zwischen verschiedenen Versionen auszutauschen, muss der Zwischenstand 
 %PostGIS
 Die Datenverarbeitung erfolgt analog des Ist-Standes bei Agri~Con.
 Mit der Installation\footnote{Skript siehe \ref{appendix:postgis}} von PostGIS als Erweiterung, können die vorhandenen SQL Funktionen übernommen werden, ebenso die R Bibliotheken des speziellen Krigings.
-Dafür ist neben R als Programmiersprache auf den Systemen, Pl/R als Erweiterung in Postgres-XL, zu installieren.
+Dafür ist neben R als Programmiersprache mit notwendigen Paketen auf den Systemen, Pl/R als Erweiterung in Postgres-XL, zu installieren.
 Die Installation von Pl/R mit dem Quellcode als Grundlage ist in Anhang \ref{appendix:plr} zu finden.
 
 %\section{Prototyp}
@@ -108,32 +111,55 @@ Die Installation von Pl/R mit dem Quellcode als Grundlage ist in Anhang \ref{app
 
 \section{Tests}
 %pgbench http://www.postgresql.org/docs/devel/static/pgbench.html
+Die systematischen Tests werden in diesem Kapitel vorgestellt.
+Die Kriterien wurden in Kapitel \ref{qualitätsmetriken} definiert, somit werden hier die Randbedingungen, Eingaben und Ergebnisse dargelegt.
 
 \subsection{Testumgebung}
+Die wesentliche Randbedingung Testumgebung wurde nach der Softwareauswahl und vor der Durchführung der Tests erstellt.
+Da es sich bei dieser Umgebung nicht um aktuelle Hardware handelt, sind einzig relative Aussagen der Leistung treffbar.
 Der Cluster wird mit Virtualisierung erstellt.
 Dafür steht ein IBM Rack Server x3850 M2 zur Verfügung, mit folgender Ausstattung:
 vier Xeon E7330 Quad-Core mit 2,4 GHz, 32GB DDR2 RAM, vier 500GB 2,5 Zoll SATA Festplatten von Western Digital mit 7.200 U/min und einem MR10k Raid-Controller.
-Als Virtualisierungssoftware kommt \Gls{esxi} in der kostenlosen Version 5.5 mit \Gls{vsphere} als Testversion 6 zum Einsatz.
+Als Virtualisierungssoftware kommt \Gls{esxi} in der kostenlosen Version 5.5 mit \Gls{vsphere} 6 als Testversion zum Einsatz.
 Mit dieser Virtualisierungslösung ist es möglich, Ressourcen explizit und ausschließlich einer VM zuzuordnen.
 Ziel dieser unter Abbildung \ref{fig:physAufb} dargestellten Testumgebung ist es Postgres-XL mit PostgreSQL des Ist Standes zu vergleichen, einen homogenen Cluster zu erzeugen und Aussagen über die Skalierbarkeit von Postgres-XL zu treffen.
-Die VMs sind in Abbildung \ref{fig:VMAufb} dargestellt.
+Die Ausstattung des Computers zur Verwaltung der Virtualisierung wird nicht definiert, da dies keinen Einfluss auf Messungen hat.
+Die Definition der VMs ist in Abbildung \ref{fig:VMAufb} dargestellt.
+Jede VM besitzt als Betriebssystem Ubuntu 14.04 LTS und alle für die Installation und Ausführung des Prototypen notwendigen Pakete.
 \begin{figure}[h!]
 \centering
 \input{Abbildungen/Testsystem_physischerAufbau.tex}
-\caption[Aufbau Geräte des Testsystems]{Aufbau Geräte des Testsystems}
+\caption[Aufbau der Geräte des Testsystems]{Aufbau der Geräte des Testsystems}
 \label{fig:physAufb}
 \end{figure}
 \begin{figure}[h!]
 \centering
 \input{Abbildungen/Testsystem_VMsdia.tex}
-\caption[Aufbau VMs des Testsystems]{Aufbau VMs des Testsystems}
+\caption[Aufbau der VMs des Testsystems]{Aufbau der VMs des Testsystems}
 \label{fig:VMAufb}
 \end{figure}
 
+Als Referenzsystem wird PostgreSQL mit PostGIS und R auch auf einer VM mit 2 Prozessorkernen, 3GB RAM und 100GB Festplattenspeicherplatz eingesetzt.
+Dabei kommt PostgreSQL 9.3 und PostGIS 2.1.5 zum Einsatz.
+Mit der exakten Übereinstimmung der Ausstattung der VMs ist eine Vergleichbarkeit von PostgreSQL und Postgres-XL gegeben.
+Außerdem kann durch Verkleinerung und Vergrößerung des Clusters die Skalierbarkeit von Postgres-XL bewertet werden.
+
+%Überwachung der Systemauslastung?
+%Überwachung der logs?
+
 \subsection{Funktionstests}
+Die Schnittstellen sind nicht mehr zu testen, da Postgres-XL und PostgreSQL wie in Abschnitt \ref{subsection:interface} demonstriert direkt Daten austauschen können.
 %Schnittstellen: PostgreSQL mit dblink demonstrieren; PostGIS: Tabelle mit geometry erzeugen, füllen und Funktionen darauf anwenden; UMN: simples Mapfile für nsensorlogs erstellen
+
+Da beide Systeme PostGIS 2.1.5 verwenden, sind die Austauschformate für geografische Daten identisch.
 %Austauschformate: Übertragung der vorhandenen Daten ist beleg
+
+Mit PostGIS kann direkt zwischen den Koordinatenreferenzsystemen umgerechnet werden:\\
+\textit{select id, st\_{}astext(st\_{}transform(geom, 3857)) as transformed, st\_{}srid(st\_{}transform(geom, 3857)) as newsrid, st\_{}astext(st\_{}transform(st\_{}transform(geom, 3857), 4326)) as original, st\_{}srid(st\_{}transform(st\_{}transform(geom, 3857), 4326)) as srid from nutrients.samples limit 10;}\\
+So werden die Punkte der Tabelle samples im Schema nutrients mit dem EPSG Code 4326 zum EPSG Code 3857 sowie wieder zurück umgerechnet.
 %EPSG Codes 4326 und 3857 testen (Zwischen ihnen Umwandeln)
+
+
 %weitere Funktionen: Schläge miteinander verschneiden (typische Fälle verwenden, mit UMN darstellen?); Geostatistik mit R Bibo zeigen; topologische Filterung?; räumliche Filterung anhand von Fields demonstrieren   <- Immer auf Funktionsdefinition mit Parametern verweisen
 
 \subsection{Leistungstests}

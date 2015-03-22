@@ -1,13 +1,7 @@
-CREATE TYPE nutrients.contourtextpolygon AS
-   (level double precision,
-    textpolygon text);
-ALTER TYPE nutrients.contourtextpolygon
-  OWNER TO dboperator;
-  
-  -- Function: nutrients.createcontourappl(text, text, text, text)
+-- Function: nutrients.createcontourappl(text, text, text, text)
 
 -- DROP FUNCTION nutrients.createcontourappl(text, text, text, text);
-
+-- select * from nutrients.createcontourappl('107546', '10363', 'mg', 'AUTO');
 CREATE OR REPLACE FUNCTION nutrients.createcontourappl(fieldid text, periodid text, el text, method text)
   RETURNS SETOF nutrients.contourtextpolygon AS
 $BODY$
@@ -55,9 +49,9 @@ on m.sampleid = p.id)x", el, el, periodid)))
 
 pg.thrownotice("createcontourappl -> elevels found")
 
-#save (samplesf, file=("C:/Temp/R/appsamplesf.RData"))
-#save (samples, file=("C:/Temp/R/appsamples.RData"))
-#save (elevels, file=("C:/Temp/R/appelevels.RData"))
+#save (samplesf, file=("/tmp/appsamplesf.RData"))
+#save (samples, file=("/tmp/appsamples.RData"))
+#save (elevels, file=("/tmp/appelevels.RData"))
 
 library(gstat)
 library(maptools)
@@ -149,12 +143,12 @@ curline = paste(substr(curline, 1, nchar(curline)-1),")")
 pglabelpoints <<- pg.spi.exec(sprintf (
 "Select (i).polygon, (i).cx, (i).cy from 
   (Select nutrients.getfieldlabelpoints('%s', %s) as i) x",curline,fieldid))
-#save (pglabelpoints, file=("C:/Temp/R/labelpoints.RData"))
+#save (pglabelpoints, file=("/tmp/labelpoints.RData"))
 
 S <- SpatialPoints(cbind(pglabelpoints[[2]],pglabelpoints[[3]]))
 pglabelpoints[[4]] <- over(S, krig)[1]
 
-#save (pglabelpoints, file=("C:/Temp/R/labelpoints2.RData"))
+#save (pglabelpoints, file=("/tmp/labelpoints2.RData"))
 #return pglabelpoints[[1]][1]
 return (data.frame(pglabelpoints[[4]], pglabelpoints[[1]]))
  
