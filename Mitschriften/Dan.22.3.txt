@@ -1,0 +1,7 @@
+- Grundlagen: Warum was aufgeführt wird nennen
+	      Datenbank ->DBMS
+
+- Verweise zu vorgehenden dazugehörigen Kapitels erstellen (speziell bei Tests)
+- 5.1-5.3 Unterkapitel verkürzen und Aufzählungen in Anhang
+- Funktionstest: bereits angefallene Ergebnisse bei anfallen dieser als Funktionstest werten.
+- Abbildungen: nicht überladen, bei Testumgebung weniger Text verwenden

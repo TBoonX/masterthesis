@@ -71,6 +71,7 @@ Der Ist-Zustand verwendet PostgreSQL Version 9.3.
 Um Daten zwischen verschiedenen Versionen auszutauschen, muss der Zwischenstand der Datenbank im Textformat erstellt und dieser angepasst als SQL Anweisungen in das andere System eingespielt werden.
 %zu langsam
 Ein Datenaustausch mit der SQL Anweisung \textit{Copy} oder der Erweiterung DBLink ist ebenso möglich.
+Diese Kompatibilität wird als erfüllter Funktionstest des Datenaustausches gewertet.
 
 %DBLink -> Kombatibiltätsprobleme? nicht festgestellt
 %Übertragung im Prototyp???
@@ -122,10 +123,15 @@ Dafür steht ein IBM Rack Server x3850 M2 zur Verfügung, mit folgender Ausstatt
 vier Xeon E7330 Quad-Core mit 2,4 GHz, 32GB DDR2 RAM, vier 500GB 2,5 Zoll SATA Festplatten von Western Digital mit 7.200 U/min und einem MR10k Raid-Controller.
 Als Virtualisierungssoftware kommt \Gls{esxi} in der kostenlosen Version 5.5 mit \Gls{vsphere} 6 als Testversion zum Einsatz.
 Mit dieser Virtualisierungslösung ist es möglich, Ressourcen explizit und ausschließlich einer VM zuzuordnen.
-Ziel dieser unter Abbildung \ref{fig:physAufb} dargestellten Testumgebung ist es Postgres-XL mit PostgreSQL des Ist Standes zu vergleichen, einen homogenen Cluster zu erzeugen und Aussagen über die Skalierbarkeit von Postgres-XL zu treffen.
+Ziel dieser unter Abbildung \ref{fig:physAufb} skizzierten Testumgebung ist es Postgres-XL mit PostgreSQL des Ist Standes zu vergleichen, einen homogenen Cluster zu erzeugen und Aussagen über die Skalierbarkeit von Postgres-XL zu treffen.
 Die Ausstattung des Computers zur Verwaltung der Virtualisierung wird nicht definiert, da dies keinen Einfluss auf Messungen hat.
-Die Definition der VMs ist in Abbildung \ref{fig:VMAufb} dargestellt.
+Die VMs ist in Abbildung \ref{fig:VMAufb} dargestellt.
+Typ I enthält eine GTM Instanz und Typ II eine GTM-Proxy, eine Coordinator und zwei DataNode Instanzen.
+Dabei stehen sechs Typ II VMs zur Verfügung, wobei zur Beurteilung der Skalierbarkeit zwei bis sieben genutzt werden.
 Jede VM besitzt als Betriebssystem Ubuntu 14.04 LTS und alle für die Installation und Ausführung des Prototypen notwendigen Pakete.
+Weiterhin erhalten die Typ II VMs folgende Hardware Zuordnung:
+zwei Prozessorkerne, drei GB RAM und 100 GB Festplattenspeicherplatz.
+Typ I erhält dagegen zwei Prozessorkerne, drei GB RAM und 20 GB Festplattenspeicherplatz.
 \begin{figure}[h!]
 \centering
 \input{Abbildungen/Testsystem_physischerAufbau.tex}
@@ -134,21 +140,25 @@ Jede VM besitzt als Betriebssystem Ubuntu 14.04 LTS und alle für die Installati
 \end{figure}
 \begin{figure}[h!]
 \centering
-\input{Abbildungen/Testsystem_VMsdia.tex}
+\input{Abbildungen/Testsystem_VMs.tex}
 \caption[Aufbau der VMs des Testsystems]{Aufbau der VMs des Testsystems}
 \label{fig:VMAufb}
 \end{figure}
 
-Als Referenzsystem wird PostgreSQL mit PostGIS und R auch auf einer VM mit 2 Prozessorkernen, 3GB RAM und 100GB Festplattenspeicherplatz eingesetzt.
+Als Referenzsystem wird ein Ubuntu System mit PostgreSQL, PostGIS und R sowie der Hardwareausstattung einer Typ II VM verwendet.
 Dabei kommt PostgreSQL 9.3 und PostGIS 2.1.5 zum Einsatz.
 Mit der exakten Übereinstimmung der Ausstattung der VMs ist eine Vergleichbarkeit von PostgreSQL und Postgres-XL gegeben.
 Außerdem kann durch Verkleinerung und Vergrößerung des Clusters die Skalierbarkeit von Postgres-XL bewertet werden.
+
+Die physischen Festspeicher des Testservers stehen den VMs nicht exklusiv zur Verfügung.
+Die Anzahl an Operationen pro Zeiteinheit auf diesem Medium soll für alle VMs annähernd gleich sein, deswegen wird der feste Speicherbereich der VMs gleichmäßig auf die vier physischen Festplatten verteilt.\footnote{Statische Verteilung, sodass jede physische Festplatte die gleiche Anzahl an virtuellen Festplatten beinhaltet.}
+Um die Vergleichbarkeit der zeitlich abhängigen Messwerte zu gewährleisten, wird ESXi als Zeitgeber für alle VMs eingerichtet.
 
 %Überwachung der Systemauslastung?
 %Überwachung der logs?
 
 \subsection{Funktionstests}
-Die Schnittstellen sind nicht mehr zu testen, da Postgres-XL und PostgreSQL wie in Abschnitt \ref{subsection:interface} demonstriert direkt Daten austauschen können.
+Die Schnittstellen sind nicht explizit zu testen, da Postgres-XL und PostgreSQL wie in Abschnitt \ref{subsection:interface} demonstriert direkt Daten austauschen können.
 %Schnittstellen: PostgreSQL mit dblink demonstrieren; PostGIS: Tabelle mit geometry erzeugen, füllen und Funktionen darauf anwenden; UMN: simples Mapfile für nsensorlogs erstellen
 
 Da beide Systeme PostGIS 2.1.5 verwenden, sind die Austauschformate für geografische Daten identisch.
@@ -171,3 +181,10 @@ So werden die Punkte der Tabelle samples im Schema nutrients mit dem EPSG Code 4
 %Laufzeit Kriging: abhängig nach Distribution - entweder nach geom oder farmid oder fileid
 
 %mit SQL Bordmitteln - pg_bench eventuell zusätzlich um ein paar Aussagen zum cluster overhead zu treffen
+
+%Aggregation
+%Query vorbereiten
+%Laufzeitmessung testen
+%Auslastung messen/testen
+%mehrere Durchgänge
+%gegenüber stellen
