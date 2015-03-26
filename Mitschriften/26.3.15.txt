@@ -1,0 +1,28 @@
+Vorbereitung:
+
+1. Idee:
+Übernahme des Schemas und Ersetzung des Ist Standes.
+-> Nicht möglich da alte PostgreSQL Version und keine Trigger   (auch Replikation wird schwierig)
+
+2. Idee:
+Postgres-XL als zusätzliches System - es erhält die Quelldaten, verarbeitet sie und stellt die PostgreSQL zur Verfügung
+Bereitstellung mit dblink oder als postgres Server
+-> Daten und Funktionen doppelt, da Ausgliederung aufwendig
+
+-> Überlegen, ob konkreter Prototyp nicht zu kompliziert ist, und man stattdessen eine allgemeine Aussage zur Leistungsfähigkeit/Funktionalität gegenüber PostgreSQL trift
+
+-> Bedenken: MailService und MaßnahmenService von Interesse?
+
+
+Fragen: 
+	Einstellung zur Leistungssteigerung von PostgreSQL vorgenommen?
+
+Gespräch:
+
+Triggerersetzung möglich (80% mit Funktionen)
+viel Funktionalität in DB
+Transaktionsmanagement bedenken bei großen funktionen (Transaktion blockiert durch  größe/Aufwand andere)
+cost bei funktionen beeinflussen query planning bei nodes - bei Tests costs anpassen damit Query Planer korrekt verteilt
+erhöhe puffergrößen und checkpointsegments erhöht in postgres.conf
+
+Entwurf: Schema und Daten aus agrodb_l verwenden (ohne Trigger). Aggregation mit explain analyze und UMN von verschiedenen Tabellen durchführen. Berechnungen wie Kriging auch testen.
