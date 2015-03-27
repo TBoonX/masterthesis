@@ -1,0 +1,8 @@
+
+Usage				Approximate shared memory bytes required (as of 8.3)				my					all
+Connections			(1800 + 270 * max_locks_per_transaction) * max_connections			(1800+270*64)*100			1 908 000
+Autovacuum workers		(1800 + 270 * max_locks_per_transaction) * autovacuum_max_workers		(1800+270*64)*3				57 240
+Prepared transactions		(770 + 270 * max_locks_per_transaction) * max_prepared_transactions		(1800+270*64)*100			1 908 000
+Shared disk buffers		(block_size + 208) * shared_buffers						(128+208)*1000MB			336 000
+WAL buffers			(wal_block_size + 8) * wal_buffers						(8192+8)*1000MB				8 200 000
+Fixed space requirements	770 kB										770Kb					770 000

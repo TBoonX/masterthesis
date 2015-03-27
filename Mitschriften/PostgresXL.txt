@@ -1,0 +1,103 @@
+----------------
+Konfiguration aller Elemente wird mit pgxc_ctl erleichtert: http://files.postgres-xl.org/documentation/pgxc-ctl.html
+
+eigen kompilieren
+
+~/pgxc-ctl ist Ordner mit confs
+Hauptconfig /etc/pgxc_ctl
+
+----------------
+Create the cluster!
+
+http://files.postgres-xl.org/documentation/creating-cluster.html
+Erster Schritt ist erzeugung eines db clusters, mit den DBs postgres und template1
+su postgrees && initdb -D /usr/local/pgsql/data --nodename pgxl
+oder: su postgrees && pg_ctl -D /usr/local/pgsql/data -o '--nodename pgxl' initdb
+
+DataNode, Coordinator und GTM Proxy auf einer Maschine ist Empfehlung
+GTM soll auf anderem Server laufen
+
+GTM
+
+GTM benötigt folgende Daten: directory, Address, port, ID (beginnend mit 1)
+Erzeugen: initgtm -Z gtm -D /usr/local/pgsql/data_gtm
+Konfig in /usr/local/pgsql/data_gtm/gtm.conf 
+Start mit gtm_ctl -Z gtm start -D /usr/local/pgsql/data_gtm
+
+GTM Proxy
+
+address, port, working directory and GTM-Proxy ID
+initgtm -Z gtm_proxy -D /usr/local/pgsql/data_gtm_proxy
+gtm_ctl start -Z gtm_proxy -D /usr/local/pgsql/data_gtm_proxy
+
+DataNodes
+
+Konfiguration ist vor start Notwendig -> weicht etwas von Standard pgsql konfiguration ab: Parameter für Verbindungshandling und Daten zu GTM max_connections, max_prepared_transactions, pgxc_node_name, port, gtm_port, gtm_host, shared_queues, shared_queue_size
+postgres --datanode -D /usr/local/pgsql/data
+
+Coordinators
+
+Konfiguration ist vor start Notwendig -> weicht etwas von Standard pgsql konfiguration ab. Interessant sind dabei die EInstellungen für die Nutzer und die informationen zu maximalen anzahlen der nodes und coordinators
+postgres --coordinator -D /usr/local/pgsql/data_coordinator
+----------------
+Internals - http://files.postgres-xl.org/documentation/xc-overview.html
+
+GTM bündelt globale werte wie sequences and timestamps
+GTM können mit GTM Proxys angesprochen werden, um sklaierbarbeit zu erreichen
+Coordinators sind eintrittspunkte für die DB
+Datanode enthält die Daten mit replizierenden oder distributed tabellen
+globale Transaktionsnummern
+Zur Verwaltung der Transaktionen werden Snapshots eingesetzt (siehe MVCC)
+
+GTM
+
+eine globale Instanz (Ausnahme ist zweite GTM Instanz für backup)
+ordnet transaktion ID (oder GXID) zu
+stellt globale Snapshots bereit
+sorgt für consitenz MVCC
+GBit Anbindung an Coordinators und DataNodes empfehlen
+Coordinator verbinden sich mit dem GTM, welcher je einen Prozess erzeugt
+GTM Proxy schaltet sich dazwischen und es werden keine eigenen Threads im GTM gespawnt, danach werden Anfragen vom Coordinator an den GTM gebündelt (beispielsweise werden snapshots vorgehalten und eine Instanz mehrmals ausgeliefert - ohne proxy mehrere Instanzen die ausgeliefert werden)
+
+Coordinator
+
+verwalten die Querys
+entscheiden welche datanodes involviert sind und formulieren unterquerys
+bei replication gibt es primary datanodes
+
+DataNode
+
+PostgreSQL Instanzen, welche Transaktionsmanagement an den GTM abgegeben haben
+Vor Datanode steht connection pool
+----------------
+Kernel Konfiguration http://files.postgres-xl.org/documentation/kernel-resources.html
+
+Für manche Szenarien ist der sharedMemory Wert zu ändern
+Berechnungsvorschrift für Menge an benötigtem Ram ist auf website zu sehen
+
+----------------
+Beschreibung der Tupel in Konfig files http://files.postgres-xl.org/documentation/runtime-config.html
+----------------
+Übersicht und Tipps für Server redundanz http://files.postgres-xl.org/documentation/high-availability.html
+----------------
+http://files.postgres-xl.org/documentation/sql-createtable.html
+Die Verteilung der Daten erfolgt automatisch
+Anlegen einer Tabelle legt vertielung fest
+distributed by ... hash, modulo, replication or automatic by PK
+----------------
+Testen:
+
+Create Node Node With (TYPE='datanode', HOST='192.168.0.105', PORT=6668);
+Create Node Coordinator With (TYPE='coordinator', HOST='192.168.0.105', PORT=6669);
+select * from pgxc_pool_reload();
+----------------
+Daten übertragen:
+
+in postgresql datenbank mit postgis verwenden
+cluster: create database agrodb_3 with template agrodb;
+
+----------------
+Zwischen SRIDs umrechnen
+select id, st_astext(geom) as point, st_srid(geom) as srid from n.nsensorlogs limit 10; -> epsg 4326
+select id, st_astext(geom) as point, st_srid(geom) as srid, st_astext(st_transform(geom, 3857)) as transformed, st_srid(st_transform(geom, 3857)) as newsrid from n.nsensorlogs limit 10;
+select id, st_astext(st_transform(geom, 3857)) as transformed, st_srid(st_transform(geom, 3857)) as newsrid, st_astext(st_transform(st_transform(geom, 3857), 4326)) as original, st_srid(st_transform(st_transform(geom, 3857), 4326)) as srid from nutrients.samples limit 10;

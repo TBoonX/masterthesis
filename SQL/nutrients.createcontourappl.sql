@@ -1,3 +1,9 @@
+CREATE TYPE nutrients.contourtextpolygon AS
+   (level double precision,
+    textpolygon text);
+ALTER TYPE nutrients.contourtextpolygon
+  OWNER TO dboperator;
+
 -- Function: nutrients.createcontourappl(text, text, text, text)
 
 -- DROP FUNCTION nutrients.createcontourappl(text, text, text, text);

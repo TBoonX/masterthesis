@@ -1,0 +1,38 @@
+VMware ESX -> jetzt VMware vSphere
+
+type-1
+2 Versionen: ESX mit Lizenz und mit ESX Service Console
+	     ESXi ohne beides
+	    
+	    
+mehrere Editionen mit unterschiedlichen Einschränkungen
+VM kann logischer oder physischer Kern direkt zugeordnet werden (CPU Affinität)
+RAM ist dynamisch, jedoch kann eine statische mindestangabe von fest vergebenen RAM erstell werden
+http://www.vladan.fr/esxi-5-5-free-version-details/
+
+http://www.tecchannel.de/server/virtualisierung/2051909/kostenlose_virtualisierungsloesungen_im_vergleich/
+
+-> wird verwendet!
+
+----------------------------------------------
+XenServer
+
+Hypervisor type-1
+OpenSource mit allen Tools
+Linux kann auch als para-virtualisation laufen
+linux-virtual linux-image-virtual linux-headers-virtual ist als Kernel zu verwenden
+CPU Zuordnung ist hier auhc möglich
+----------------------------------------------
+
+VMware vSphere 6 Installation
+
+root
+00Schneider
+
+60 Tages Version mit ESXi und vSphere Client für Windows herunterladen
+ESXi mit Lilu auf Sick und von diesem starten
+ESXi wird einfach konfiguriert und nach der Installation mit vSphere Client kontaktiert
+vSphere Client: SSH aktivieren; NTP einrichten http://www.mustbegeek.com/time-synchronization-between-virtual-machine-and-esxi-server/ ; Ubuntu iso auf host kopieren
+
+Hardwarezuordnung ist möglich!
+VM clonen geht mit ssh und kopie der dateien (vmkfstools)

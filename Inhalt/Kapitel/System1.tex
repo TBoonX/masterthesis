@@ -120,8 +120,8 @@ Die wesentliche Randbedingung Testumgebung wurde nach der Softwareauswahl und vo
 Da es sich bei dieser Umgebung nicht um aktuelle Hardware handelt, sind einzig relative Aussagen der Leistung treffbar.
 Der Cluster wird mit Virtualisierung erstellt.
 Dafür steht ein IBM Rack Server x3850 M2 zur Verfügung, mit folgender Ausstattung:
-vier Xeon E7330 Quad-Core mit 2,4 GHz, 32GB DDR2 RAM, vier 500GB 2,5 Zoll SATA Festplatten von Western Digital mit 7.200 U/min und einem MR10k Raid-Controller.
-Als Virtualisierungssoftware kommt \Gls{esxi} in der kostenlosen Version 5.5 mit \Gls{vsphere} 6 als Testversion zum Einsatz.
+vier Xeon E7330 Quad-Core mit 2,4 GHz, 44GB DDR2 RAM, vier 500GB 2,5 Zoll SATA Festplatten von Western Digital mit 7.200 U/min und einem MR10k Raid-Controller.
+Als Virtualisierungssoftware kommt \Gls{esxi} in der kostenlosen Version 6.0 mit \Gls{vsphere} 6.0 als Testversion zum Einsatz.
 Mit dieser Virtualisierungslösung ist es möglich, Ressourcen explizit und ausschließlich einer VM zuzuordnen.
 Ziel dieser unter Abbildung \ref{fig:physAufb} skizzierten Testumgebung ist es Postgres-XL mit PostgreSQL des Ist Standes zu vergleichen, einen homogenen Cluster zu erzeugen und Aussagen über die Skalierbarkeit von Postgres-XL zu treffen.
 Die Ausstattung des Computers zur Verwaltung der Virtualisierung wird nicht definiert, da dies keinen Einfluss auf Messungen hat.
@@ -130,8 +130,8 @@ Typ I enthält eine GTM Instanz und Typ II eine GTM-Proxy, eine Coordinator und 
 Dabei stehen sechs Typ II VMs zur Verfügung, wobei zur Beurteilung der Skalierbarkeit zwei bis sieben genutzt werden.
 Jede VM besitzt als Betriebssystem Ubuntu 14.04 LTS und alle für die Installation und Ausführung des Prototypen notwendigen Pakete.
 Weiterhin erhalten die Typ II VMs folgende Hardware Zuordnung:
-zwei Prozessorkerne, drei GB RAM und 100 GB Festplattenspeicherplatz.
-Typ I erhält dagegen zwei Prozessorkerne, drei GB RAM und 20 GB Festplattenspeicherplatz.
+zwei Prozessorkerne, vier GB RAM und 100 GB Festplattenspeicherplatz.
+Typ I erhält dagegen zwei Prozessorkerne, vier GB RAM und 20 GB Festplattenspeicherplatz.
 \begin{figure}[h!]
 \centering
 \input{Abbildungen/Testsystem_physischerAufbau.tex}
@@ -151,7 +151,8 @@ Mit der exakten Übereinstimmung der Ausstattung der VMs ist eine Vergleichbarke
 Außerdem kann durch Verkleinerung und Vergrößerung des Clusters die Skalierbarkeit von Postgres-XL bewertet werden.
 
 Die physischen Festspeicher des Testservers stehen den VMs nicht exklusiv zur Verfügung.
-Die Anzahl an Operationen pro Zeiteinheit auf diesem Medium soll für alle VMs annähernd gleich sein, deswegen wird der feste Speicherbereich der VMs gleichmäßig auf die vier physischen Festplatten verteilt.\footnote{Statische Verteilung, sodass jede physische Festplatte die gleiche Anzahl an virtuellen Festplatten beinhaltet.}
+Die Anzahl an Operationen pro Zeiteinheit auf diesem Medium soll für alle VMs annähernd gleich sein.
+Als Kompromiss aus Verteilung der Last auf alle Festspeicher und Kosten, werden die Festspeicher in einem RAID 0 Verbund zusammengefasst.
 Um die Vergleichbarkeit der zeitlich abhängigen Messwerte zu gewährleisten, wird ESXi als Zeitgeber für alle VMs eingerichtet.
 
 %Überwachung der Systemauslastung?
@@ -164,9 +165,13 @@ Die Schnittstellen sind nicht explizit zu testen, da Postgres-XL und PostgreSQL 
 Da beide Systeme PostGIS 2.1.5 verwenden, sind die Austauschformate für geografische Daten identisch.
 %Austauschformate: Übertragung der vorhandenen Daten ist beleg
 
-Mit PostGIS kann direkt zwischen den Koordinatenreferenzsystemen umgerechnet werden:\\
+Mit PostGIS kann mit der FUnktion st\_{}transform direkt zwischen den Koordinatenreferenzsystemen umgerechnet werden:\\
 \textit{select id, st\_{}astext(st\_{}transform(geom, 3857)) as transformed, st\_{}srid(st\_{}transform(geom, 3857)) as newsrid, st\_{}astext(st\_{}transform(st\_{}transform(geom, 3857), 4326)) as original, st\_{}srid(st\_{}transform(st\_{}transform(geom, 3857), 4326)) as srid from nutrients.samples limit 10;}\\
 So werden die Punkte der Tabelle samples im Schema nutrients mit dem EPSG Code 4326 zum EPSG Code 3857 sowie wieder zurück umgerechnet.
+Die Funktionsdeklaration lautet:
+\textit{geometry ST\_{}Transform(geometry g1, integer srid);}\\
+srid ist dabei ein EPSG Code aus der Tabelle SPATIAL\_{}REF\_{}SYS, welche 3911 Einträge im Testsystem enthält.
+geometry steht dagegen für einen beliebigen räumlichen Datentyp.
 %EPSG Codes 4326 und 3857 testen (Zwischen ihnen Umwandeln)
 
 
@@ -183,8 +188,8 @@ So werden die Punkte der Tabelle samples im Schema nutrients mit dem EPSG Code 4
 %mit SQL Bordmitteln - pg_bench eventuell zusätzlich um ein paar Aussagen zum cluster overhead zu treffen
 
 %Aggregation
-%Query vorbereiten
-%Laufzeitmessung testen
-%Auslastung messen/testen
+%Query vorbereiten   select * from n.nsensorlogs where farmid=1038
+%Laufzeitmessung testen   explain analyze
+%Auslastung messen/testen    mit vSphere
 %mehrere Durchgänge
 %gegenüber stellen
