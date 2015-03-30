@@ -7,6 +7,8 @@
 %replikationsverfahren wichtig?
 %auf Fehlen von Triggern eingehen
 
+Nach der theoretischen Vorstellung des Frameworks im Abschnitt \ref{grundlagen:postgresxl} wird in diesem Unterkapitel die konkrete praktische Verwendung entsprechend den Abschnitten Installation, Schnittstelle und Verarbeitung dargelegt.
+
 \subsection{Installation}
 %mit Systemvoraussetzungen
 \subsubsection{Systemvoraussetzungen}
@@ -93,19 +95,14 @@ Die Installation von Pl/R mit dem Quellcode als Grundlage ist in Anhang \ref{app
 %ERM festhalten
 
 \section{Entwurf}
-%Übernahme des Schemas
-%spezielle Daten werden übernommen -> vllt. replikation möglich?
-%eine Idee: quelldaten (punkte) in pgxc schreiben, dort Verarbeitung starten und Ergebnis auf pg kopieren
-%zwei Datenquellen in Programmen ist kompliziert, server in pg nimmt performanz?
-%vollständige Umstellung auf pgxc kann zu kombatibilitätsproblemen führen (Funktionen) und replikation zu hetzner wird schwierig
+Dieses Unterkapitel enthält die Definition des Postgres-XL Prototypen für den Einsatz bei der Agri Con.
+Doch zunächst werden die Gründe für diese Art des Entwurfs dargelegt.
 
-%Überlegen, ob konkreter Prototyp nicht zu kompliziert ist, und man stattdessen eine allgemeine Aussage zur Leistungsfähigkeit gegenüber PostgreSQL  trift
+Die Erfüllung der Anforderungen liegt bei Postgres-XL auf Grund der Verwendung von PostgreSQL bei 86\%{}.
+Aus diesem Grund besteht die Möglichkeit einen Entwurf zu erzeugen, welcher wesentliche Aufgaben des Ist-Standes übernimmt oder sogar des Ist-Stand ersetzt.
+Dagegen spricht das Trigger in der aktuellen Postgres-XL Version nicht verwendet werden können.
+Zwar können Trigger in Funktionen ausgelagert und bei Verwendung der Tabellen aufgerufen werden, aber dies würde einen erheblichen Implementationsaufwand bedeuten und nicht zu 100\%{} alle Funktionalitäten abbilden.
 
-%welche Funktionen benötigen Daten aus beiden DBs?
-%Gibt es Quelldaten die nur verarbeitet und nicht direkt gelesen werden?
-%Die Replikation zu Hetzner mit berücksichtigen?
-%Mail Service  -> existiert eine Übersicht?
-%Maßnahmen Service?
 
 \section{Implementierung}
 %SQL mit dblnk skizzieren
@@ -113,17 +110,18 @@ Die Installation von Pl/R mit dem Quellcode als Grundlage ist in Anhang \ref{app
 \section{Tests}
 %pgbench http://www.postgresql.org/docs/devel/static/pgbench.html
 Die systematischen Tests werden in diesem Kapitel vorgestellt.
-Die Kriterien wurden in Kapitel \ref{qualitätsmetriken} definiert, somit werden hier die Randbedingungen, Eingaben und Ergebnisse dargelegt.
+Die Kriterien wurden in Kapitel \ref{qualitätsmetriken} definiert, somit werden hier die Randbedingungen, Eingaben, Durchführung und Ergebnisse dargelegt.
 
 \subsection{Testumgebung}
 Die wesentliche Randbedingung Testumgebung wurde nach der Softwareauswahl und vor der Durchführung der Tests erstellt.
-Da es sich bei dieser Umgebung nicht um aktuelle Hardware handelt, sind einzig relative Aussagen der Leistung treffbar.
-Der Cluster wird mit Virtualisierung erstellt.
+Da es sich bei dieser Umgebung um gebrauchte Hardware aus dem Jahr 2007 handelt, sind einzig relative Aussagen der Leistung treffbar.
+Der Cluster wird mit Virtualisierung der einzelnen Knoten erstellt.
 Dafür steht ein IBM Rack Server x3850 M2 zur Verfügung, mit folgender Ausstattung:
 vier Xeon E7330 Quad-Core mit 2,4 GHz, 44GB DDR2 RAM, vier 500GB 2,5 Zoll SATA Festplatten von Western Digital mit 7.200 U/min und einem MR10k Raid-Controller.
 Als Virtualisierungssoftware kommt \Gls{esxi} in der kostenlosen Version 6.0 mit \Gls{vsphere} 6.0 als Testversion zum Einsatz.
 Mit dieser Virtualisierungslösung ist es möglich, Ressourcen explizit und ausschließlich einer VM zuzuordnen.
-Ziel dieser unter Abbildung \ref{fig:physAufb} skizzierten Testumgebung ist es Postgres-XL mit PostgreSQL des Ist Standes zu vergleichen, einen homogenen Cluster zu erzeugen und Aussagen über die Skalierbarkeit von Postgres-XL zu treffen.
+So werden die Prozessorkerne in Paaren und der Arbeitsspeicher direkt und mit exklusiver Verwendung den einzelnen VMs zugeordnet.
+Ziel dieser unter Abbildung \ref{fig:physAufb} skizzierten Testumgebung ist es Postgres-XL mit der PostgreSQL Konfiguration des Ist Standes zu vergleichen, einen homogenen Cluster zu erzeugen und Aussagen über die Skalierbarkeit von Postgres-XL zu treffen.
 Die Ausstattung des Computers zur Verwaltung der Virtualisierung wird nicht definiert, da dies keinen Einfluss auf Messungen hat.
 Die VMs ist in Abbildung \ref{fig:VMAufb} dargestellt.
 Typ I enthält eine GTM Instanz und Typ II eine GTM-Proxy, eine Coordinator und zwei DataNode Instanzen.
@@ -147,18 +145,40 @@ Typ I erhält dagegen zwei Prozessorkerne, vier GB RAM und 20 GB Festplattenspei
 
 Als Referenzsystem wird ein Ubuntu System mit PostgreSQL, PostGIS und R sowie der Hardwareausstattung einer Typ II VM verwendet.
 Dabei kommt PostgreSQL 9.3 und PostGIS 2.1.5 zum Einsatz.
-Mit der exakten Übereinstimmung der Ausstattung der VMs ist eine Vergleichbarkeit von PostgreSQL und Postgres-XL gegeben.
+Mit der Übereinstimmung der Hardware Ausstattung der VMs ist eine Vergleichbarkeit von PostgreSQL und Postgres-XL gegeben.
 Außerdem kann durch Verkleinerung und Vergrößerung des Clusters die Skalierbarkeit von Postgres-XL bewertet werden.
 
 Die physischen Festspeicher des Testservers stehen den VMs nicht exklusiv zur Verfügung.
 Die Anzahl an Operationen pro Zeiteinheit auf diesem Medium soll für alle VMs annähernd gleich sein.
-Als Kompromiss aus Verteilung der Last auf alle Festspeicher und Kosten, werden die Festspeicher in einem RAID 0 Verbund zusammengefasst.
+Als Kompromiss aus Verteilung der Last auf alle Festspeicher, Ausfallsicherheit und Kosten, werden die Festspeicher in einem RAID 5 Verbund zusammengefasst.
+So stehen 1,4 TB Festspeicher zur Verfügung.
 Um die Vergleichbarkeit der zeitlich abhängigen Messwerte zu gewährleisten, wird ESXi als Zeitgeber für alle VMs eingerichtet.
+Zur Überwachung der Auslastung der einzelnen VMs bietet VMware mit vSphere einfache Graphen für die zeitabhängige Auslastung der einzelnen Kerne, des Arbeitsspeichers und weiterer Komponenten.
+Diese Graphen besitzen als zeitliche Achse einen beliebigen Bereich bis zum momentanen Zeitpunkt.
+Damit sind historische Daten für einzelne VMs nicht darstellbar.
+Deshalb wird zur Überwachung Zabbix eingesetzt.
+Zabbix ist ein freies Framework zur Überwachung von Computern und Netzwerken.
+Auf einem Zabbix Server werden Daten zentral von beliebigen Zabbix Clients empfangen.
+Dabei sind die Art der zu überwachenden Daten beliebig, standardmäßig wird die Systemauslastung und allgemeine Daten zum jeweiligen System an den Server gesendet.
+Dazu können eigene Skripts installiert werden und Protokolle wie \Gls{snmp} oder \Gls{ipmi} zur Datenerhebung und Verwaltung genutzt werden.
+Ein Zabbix Server wird zur Analyse und Verwaltung der Zabbix Clients mit einem PHP Web-Frontend versehen.
+Über dieses Frontend können Clients konfiguriert, deren Status eingesehen, Diagramme zu erhobenen Daten definiert und angezeigt werden.
+Weiterhin ist Zabbix ein Mehrbenutzer System und reagiert mit Funktionsaufrufen oder E-Mails auf definierte Ereignisse wie den Ausfall einzelner Clients.
+%Installation im Anhang?
 
-%Überwachung der Systemauslastung?
 %Überwachung der logs?
 
 \subsection{Funktionstests}
+Im Abschnitt Prototypische Implementierung auf Seite \pageref{grundlagen-funktionstests} wurden die Funktionstests bereits als Black-Box Tests definiert und der Umfang im Kapitel \ref{subsection:testfaelle} genauer festgesetzt.
+In diesem Abschnitt werden die Funktionstests für die Durchführung spezifiziert und deren Ergebnis festgehalten.
+Alle Funktionstests werden im Anhang \ref{appendix:funktionstests} in Form eines Testdokumentes\footnote{ein Testdokument mit Testfällen in tabellarischer Form, wie es in der Softwareentwicklung zum Einsatz kommt} zusätzlich dargelegt.
+Darin wird der Testfall beschrieben, die Testdaten konkretisiert, das Sollergebnis vordefiniert, das schlussendliche Ergebnis dargestellt und die Akzeptanz des Tests erläutert.
+Entsprechend der Reihenfolge der Testfälle im Anhang werden nachfolgend die Tests mit deren Durchführung und deren Ergebnissen präsentiert.
+Die Testfälle werden durchnummeriert und mit einem vorangestellten FT für Funktionstest bezeichnet.
+Dabei werden die Testfälle mit absteigender Priorität aufgelistet.
+Die Priorität hängt vom geschätzten Implementationsaufwand zur Behebung des Fehlschlages des Testfalles ab.
+%Nummerierung der Testfälle?
+
 Die Schnittstellen sind nicht explizit zu testen, da Postgres-XL und PostgreSQL wie in Abschnitt \ref{subsection:interface} demonstriert direkt Daten austauschen können.
 %Schnittstellen: PostgreSQL mit dblink demonstrieren; PostGIS: Tabelle mit geometry erzeugen, füllen und Funktionen darauf anwenden; UMN: simples Mapfile für nsensorlogs erstellen
 
@@ -178,7 +198,19 @@ geometry steht dagegen für einen beliebigen räumlichen Datentyp.
 %weitere Funktionen: Schläge miteinander verschneiden (typische Fälle verwenden, mit UMN darstellen?); Geostatistik mit R Bibo zeigen; topologische Filterung?; räumliche Filterung anhand von Fields demonstrieren   <- Immer auf Funktionsdefinition mit Parametern verweisen
 
 \subsection{Leistungstests}
-%Ziel ist Vergleich und Aussage über Skalierbarkeit(T(1)/T(p))/Effizienz(S(p)/p)
+Die hier verwendeten Leistungstests wurden ebenfalls in Kapitel \ref{grundlagen-funktionstests} als spezielle Tests zur Messung der Leistungsfähigkeit und Effizienz definiert.
+%Systemüberwachung
+Kapitel \ref{subsection:testfaelle} beschreibt unabhängig des Testsystems die Arten der Leistungstests.
+Nachfolgend wird auf den Aufbau der Tests, deren Durchführung und deren Ergebnis eingegangen.
+Zusammenfassend ist das Ziel dieser Leistungstests die spezielle Leistung gegenüber des Ist-Standes und die Skalierbarkeit von Postgres-XL zu ermitteln.
+%Skalierbarkeit(T(1)/T(p))/Effizienz(S(p)/p)
+
+%gleichmäßige Beeinflussung durch Zabbix nennen
+%UMN und JMeter verwenden - nennen und Beschreiben (Frameworks und Einsatz/Zweck)
+Um die Aggregation zusätzlich konkret entsprechend des Anwendungsfalles zu testen, erfolgt die Aggregation im Rahmen der direkten Darstellung als Karte.
+Dafür wird der \Gls{umn} mit einem Mapfile als \Gls{fcgi} Modul verwendet.
+Die hohe Leistungsfähig des \Gls{umn} für dieses Szenario wurde bereits in \cite{ba:kurt} dargestellt, sodass von einer hohen Auslastung des \Gls{dbms} ausgegangen werden kann ohne das der \Gls{umn} als begrenzendes Element auftritt.
+Analog des Testaufbaus der Bachelor Arbeit des Autors wird zur Generierung der Last das freie Java JMeter Programm verwendet.
 
 %historische Daten?
 %Wie schnell werden nsensorlogs gespeichert?

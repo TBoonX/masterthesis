@@ -27,7 +27,7 @@ CPU Zuordnung ist hier auhc möglich
 VMware vSphere 6 Installation
 
 root
-00Schneider
+***********
 
 60 Tages Version mit ESXi und vSphere Client für Windows herunterladen
 ESXi mit Lilu auf Sick und von diesem starten
