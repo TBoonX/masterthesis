@@ -298,3 +298,31 @@ Auf Grund dessen ist dies nach Auswahl des Frameworks im Entwurf des Prototypen 
 %- Grundschema der DB beschreieben (geografische agratechnische Daten und Daten des Unternehmens, der Organisation)
 %- Funktionsumfang hinsichtlich berechnung aufzeigen: was macht postgresql und was R
 %- 
+
+
+\section{Technischer Stand} %In Einleitung schieben?
+%Diskussion der Literatur
+Während der Tätigkeit bei Agri~Con und durch die mehrfache Teilnahme an der internationalen Messe für freie geografischer Informationssysteme FOSSGIS\footnote{\url{http://www.fossgis.de/}} gewann der Autor den Eindruck, dass PostgreSQL mit PostGIS in der Regel als \Gls{dbms} für GIS eingesetzt wird.
+Zwar existiert eine Vielzahl von Elementen zur Darstellung und Kartenverwaltung erzeugt aus den vorhandenen Daten, aber es scheint keine geeignete Alternative zur Datenhaltung und Verarbeitung von komplexen geografischen Daten zu geben.
+
+Dieser Eindruck wurde durch die Literaturrecherche bestätigt.
+\cite{ba:pgvsoracle} vergleicht PostgreSQL nur mit Oracle Spatial\\
+\cite{ba:nosqlfuergeodaten} untersucht gängige NoSQL \Gls{dbms} für Eignung mit geografischen Daten im vergleich mit PostGIS und Oracle Spatial und kommt zu dem Schluss das es für einfache Datenobjekte in begrenzten Mengen nützlich ist(neo4j mit Funktionalitäte für kürzeste Strecke etc.), jedoch für allgemeine komplexe Projekte ungeeignet.\\
+\cite{ma:neo4j} vergleicht Neo4J mit PostGIS und kommt auch zu dem Schluss das graphenbasierte Datenhaltung zwar Vorteile für Fragen wie den kürzesten Weg geeignet sind, aber NoSQL ist neu und hat im allgemeinen Anwendungsfall Schwächen.
+
+Es existieren umfangreiche Arbeiten zur Verwendung von relationalen und NoSQL Systemen zur verteilten Verwendung, z.B. \cite{ba:vertnosql}, \\
+Unternehmen werben mit höher Leistung als PostGIS:\\
+GeoMesa: 10 bis 60 fache Antwortgeschwindigkeit bei GeoMesa gegenüber PostGIS\\
+\begin{figure}[h!]
+\centering
+\includegraphics[width=.8\textwidth]{Abbildungen/geomesa_versus_postgis.png}
+\caption[Antwortzeiten von GeoMesa und PostGIS]{Antwortzeiten von GeoMesa und PostGIS, Quelle \url{http://de.slideshare.net/CCRinc/location-techdc-talk2-28465214} S.24}
+\label{fig:geomesaversuspostgis}
+\end{figure}
+Postgres-XL: bis zu sechs fache Antwortdauer von PostgreSQL gegenüber Postgres-XL in einem TPC-H Benchmark\\
+\begin{figure}[h!]
+\centering
+\includegraphics[width=.8\textwidth]{Abbildungen/postgresxl_versus_postgis.png}
+\caption[TPC-H Benchmark von PostgreSQL und Postgres-XL]{TPC-H Benchmark von PostgreSQL und Postgres-XL, Quelle \url{http://de.slideshare.net/mason_s/postgres-xl-scaling} S.12}
+\label{fig:pgxcversuspgsql}
+\end{figure}

@@ -6,10 +6,11 @@ Diese Menge an Daten ist essentiell für das Unternehmen und dessen Kunden, wesh
 
 % Zur Verbreitung von Postgis leider nichts gefunden
 
-
+%EInordnung - big picture: Zwar allgemein Datenhaltung und -verarbeitung bis Informationssystem, jedoch durch geodaten ein Spezialfall; verteiltes system ist wesentliche einschränkung zum zwecke der aktualität  und führt zu NoSQL
 \section{Zielsetzung}
-
-Die aktuellen Werkzeuge erfüllen nicht alle Anforderungen, wenn große Datenmengen zur Laufzeit bearbeitet werden müssen. Es ist zu untersuchen welche Vorteile alternative Datenhaltungssysteme bieten bzw. welche alternativen Herangehensweisen wie NoSQL und die verteilte Datenhaltung geeignet sind.
+%Was ist neu am forschungsziel?
+Die aktuellen Werkzeuge erfüllen nicht alle Anforderungen, wenn große Datenmengen zur Laufzeit bearbeitet werden müssen. %vertikale Skalierung nicht mehr effizient
+Es ist zu untersuchen welche Vorteile alternative Datenhaltungssysteme bieten bzw. welche alternativen Herangehensweisen wie NoSQL und die verteilte Datenhaltung geeignet sind.
 Dafür sind existierende \Glspl{gis} zu untersuchen und deren Eignung für den in Kapitel \ref{chapter:ausgangsszenario} beschriebenen Anwendungsfall festzustellen. Die Schwerpunkte der Untersuchung sind die Möglichkeiten und die Leistungsfähigkeit der räumlichen Datenverarbeitung und nicht die Formen der Datendarstellung.
 Dabei werden NoSQL und Open-Source Frameworks bevorzugt untersucht.
 Aus geeigneten wird eines ausgewählt. Dieses wird speziell untersucht und eine prototypische Installation\footnote{Dabei kann eine Installation aus mehreren Frameworks bestehen und eigens implementierte Funktionalitäten enthalten} erstellt.
@@ -17,8 +18,8 @@ Schlussendlich soll eine Entscheidungsgrundlage anhand von bewerteten Qualitäts
 % Die Auswahl zwischen vorhandenen Systemen nach ausgesuchten Merkmalen soll für ähnliche  Untersuchungen als Handelsempfehlung dienen.
 
 \section{Aufbau der Arbeit}
-
-
+%empirisches Vorgehen für Spezialfall nicht Allgemeinheit
+%systematisches Vorgehen - softwareauswahl ist technologische Aussage
 Zu Beginn werden theoretische Grundlagen zu Datenbanken, geographischer Datenverarbeitung, NoSQL und Tests festgehalten.
 Daran schließt sich die Darstellung und Begründung des methodischen Vorgehens an.
 Anschließend definiert Kapitel \ref{chapter:ausgangsszenario} das Ausgangsszenario, für welches die Frameworks analysiert und getestet werden sollen, sowie die dazugehörigen Anforderungen.

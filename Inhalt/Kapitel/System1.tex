@@ -98,7 +98,7 @@ Die Installation von Pl/R mit dem Quellcode als Grundlage ist in Anhang \ref{app
 Dieses Unterkapitel enthält die Definition des Postgres-XL Prototypen für den Einsatz bei der Agri Con.
 Doch zunächst werden die Gründe für diese Art des Entwurfs dargelegt.
 
-Die Erfüllung der Anforderungen liegt bei Postgres-XL auf Grund der Verwendung von PostgreSQL bei 86\%{}.
+Die Erfüllung der Anforderungen liegt bei Postgres-XL auf Grund der Beinhaltens von PostgreSQL bei 86\%{}.
 Aus diesem Grund besteht die Möglichkeit einen Entwurf zu erzeugen, welcher wesentliche Aufgaben des Ist-Standes übernimmt oder sogar des Ist-Stand ersetzt.
 Dagegen spricht das Trigger in der aktuellen Postgres-XL Version nicht verwendet werden können.
 Zwar können Trigger in Funktionen ausgelagert und bei Verwendung der Tabellen aufgerufen werden, aber dies würde einen erheblichen Implementationsaufwand bedeuten und nicht zu 100\%{} alle Funktionalitäten abbilden.
@@ -108,6 +108,8 @@ Zwar können Trigger in Funktionen ausgelagert und bei Verwendung der Tabellen a
 %SQL mit dblnk skizzieren
 
 \section{Tests}
+%Erwartung definieren!
+
 %pgbench http://www.postgresql.org/docs/devel/static/pgbench.html
 Die systematischen Tests werden in diesem Kapitel vorgestellt.
 Die Kriterien wurden in Kapitel \ref{qualitätsmetriken} definiert, somit werden hier die Randbedingungen, Eingaben, Durchführung und Ergebnisse dargelegt.
