@@ -99,9 +99,24 @@ Dieses Unterkapitel enthält die Definition des Postgres-XL Prototypen für den 
 Doch zunächst werden die Gründe für diese Art des Entwurfs dargelegt.
 
 Die Erfüllung der Anforderungen liegt bei Postgres-XL auf Grund der Beinhaltens von PostgreSQL bei 86\%{}.
+%starke Integration: 2 Möglichkeiten
+%Ersetzung
 Aus diesem Grund besteht die Möglichkeit einen Entwurf zu erzeugen, welcher wesentliche Aufgaben des Ist-Standes übernimmt oder sogar des Ist-Stand ersetzt.
 Dagegen spricht das Trigger in der aktuellen Postgres-XL Version nicht verwendet werden können.
-Zwar können Trigger in Funktionen ausgelagert und bei Verwendung der Tabellen aufgerufen werden, aber dies würde einen erheblichen Implementationsaufwand bedeuten und nicht zu 100\%{} alle Funktionalitäten abbilden.
+Zwar können Trigger in Funktionen ausgelagert und bei Verwendung der Tabellen aufgerufen werden, aber dies würde einen erheblichen Implementationsaufwand bedeuten und nicht zu 100\%{} die bestehende Funktionalitäten abbilden.
+%Teilintegration
+Jedoch ist eine grundlegende Integration in den Ist-Stand notwendig.
+Dies ist in der Datenabhängigkeit der Bestandsdaten und der Eignung von Postgres-XL begründet.
+Entsprechend den Funktions- und Leistungstests sollte der Entwurf Quelldaten direkt empfangen, diese zu einem geeigneten Zeitpunkt nach der gegebenen Geostatistik und alle Daten dem Ist-Stand zur Verfügung stellen.
+%Probleme beim Entwurf
+Die Quelldaten beziehen sich auf betriebliche Daten, welche vom Ist-Stand verwaltet werden.
+Somit ist der Entwurf direkt mit dem Ist-Stand verbunden.
+%Schemata zum Teil nicht normalisiert aber alle in 1.NF
+%auch inhaltliche Zusammenhänge machen Aufteilung schwierig
+%Eintrittspunkt muss pgsql bleiben
+
+%Für Test- und Demonstrationszwecke soll Entwurf das komplette Schema mit ausgewählten Daten enthalten
+%großer Aufwand für genauen Entwurf, weshalb lieber Aussagen zum Einsatz in diesem Szenario gegeben werden sollen
 
 
 \section{Implementierung}
@@ -157,7 +172,7 @@ So stehen 1,4 TB Festspeicher zur Verfügung.
 Um die Vergleichbarkeit der zeitlich abhängigen Messwerte zu gewährleisten, wird ESXi als Zeitgeber für alle VMs eingerichtet.
 Zur Überwachung der Auslastung der einzelnen VMs bietet VMware mit vSphere einfache Graphen für die zeitabhängige Auslastung der einzelnen Kerne, des Arbeitsspeichers und weiterer Komponenten.
 Diese Graphen besitzen als zeitliche Achse einen beliebigen Bereich bis zum momentanen Zeitpunkt.
-Damit sind historische Daten für einzelne VMs nicht darstellbar.
+Damit sind historische Daten für einzelne VMs und ausgewählte Zeiträume nicht darstellbar.
 Deshalb wird zur Überwachung Zabbix eingesetzt.
 Zabbix ist ein freies Framework zur Überwachung von Computern und Netzwerken.
 Auf einem Zabbix Server werden Daten zentral von beliebigen Zabbix Clients empfangen.
@@ -215,7 +230,7 @@ Die hohe Leistungsfähig des \Gls{umn} für dieses Szenario wurde bereits in \ci
 Analog des Testaufbaus der Bachelor Arbeit des Autors wird zur Generierung der Last das freie Java JMeter Programm verwendet.
 
 %historische Daten?
-%Wie schnell werden nsensorlogs gespeichert?
+%Wie schnell werden nsensorlogs gespeichert? Trigger beim befüllen nicht vergessen!
 %Wie schnell werden nsensorlogs abgerufen?
 %Laufzeit Kriging: abhängig nach Distribution - entweder nach geom oder farmid oder fileid
 

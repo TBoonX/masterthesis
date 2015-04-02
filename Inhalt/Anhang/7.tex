@@ -1,3 +1,60 @@
 \label{appendix:funktionstests} 
- 
+\capstartfalse
 %Tabellen
+\begin{table}[h!]
+\centering
+\small
+\begin{tabular}{p{2.8cm}|p{12cm}}
+\textbf{Testfall:} & Vorhandene Schnittstelle zu PostgreSQL. \\ \hline
+\textbf{Beschreibung:} & Ein direkter Datenaustausch muss mit PostgreSQL möglich sein. Dabei sollen Datenbankkonfigurationen und Daten übertragen und verwendet werden können. \\ \hline
+\textbf{Testdaten:} & Zufällige Einträge aus farm.farms. Das Datenbankschema wird zunächst ohne die Daten übernommen. \\ \hline
+\textbf{Sollergebnis:} & Die Schemata sind mit SQL create erzeugbar und die Daten werden ohne Fehler und ohne Umwandlung eingefügt. \\ \hline
+\textbf{Ist Ergebnis:} &  \\ \hline
+\textbf{Bestanden:} & Nein \\
+\end{tabular}
+\caption*{FT01}
+\end{table}
+
+\begin{table}[h!]
+\centering
+\small
+\begin{tabular}{p{2.8cm}|p{12cm}}
+\textbf{Testfall:} & Vorhandene Schnittstelle zu \Gls{umn}. \\ \hline
+\textbf{Beschreibung:} & Das System muss im \Gls{umn} als Datenquelle nutzbar sein. \\ \hline
+\textbf{Testdaten:} & Mapfile zur Anzeige beispielhafter Schläge aus farm.fields der farmid 1177. Darin muss ein Ausschnitt mit 3 Schlägen zu sehen sein. \\ \hline
+\textbf{Sollergebnis:} & Alle Schläge werden angezeigt. \\ \hline
+\textbf{Ist Ergebnis:} &  \\ \hline
+\textbf{Bestanden:} & Nein \\
+\end{tabular}
+\caption*{FT02}
+\end{table}
+
+\begin{table}[h!]
+\centering
+\small
+\begin{tabular}{p{2.8cm}|p{12cm}}
+\textbf{Testfall:} & Datenaustausch nach PostGIS Format. \\ \hline
+\textbf{Beschreibung:} & Daten sind in einem PostGIS Format zu übertragen und zu speichern. \\ \hline
+\textbf{Testdaten:} & Zufällige Einträge aus farm.fields und n.nsensorlogs. Das Datenbankschema wird zunächst ohne die Daten übernommen. \\ \hline
+\textbf{Sollergebnis:} & Einträge aus den Tabellen werden ohne Umwandlung direkt in die Datenbank geschrieben. \\ \hline
+\textbf{Ist Ergebnis:} &  \\ \hline
+\textbf{Bestanden:} & Nein \\
+\end{tabular}
+\caption*{FT03}
+\end{table}
+
+\begin{table}[h!]
+\centering
+\small
+\begin{tabular}{p{2.8cm}|p{12cm}}
+\textbf{Testfall:} & Umwandlung zwischen Koordinatenreferenzsystemen mit EPSG Codes 4326 und 3857. \\ \hline
+\textbf{Beschreibung:} & Vorhandene räumliche Daten werden zwischen 4326 nach 3857 umgewandelt. \\ \hline
+\textbf{Testdaten:} & Zufällige Einträge aus nutrients.samples. \\ \hline
+\textbf{Sollergebnis:} & Einträge werden mit st\_{}transform von 4326 nach 3857 und anders herum umgewandelt. \\ \hline
+\textbf{Ist Ergebnis:} &  \\ \hline
+\textbf{Bestanden:} & Nein \\
+\end{tabular}
+\caption*{FT04}
+\end{table}
+
+\capstarttrue
