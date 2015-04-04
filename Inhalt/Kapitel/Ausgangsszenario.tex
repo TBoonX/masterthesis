@@ -220,16 +220,25 @@ Für folgende Aufgaben sind die Funktionen zu analysieren:
 Dabei ist stets zu berücksichtigen mit welchen Datentypen die Funktionen verwendet werden können.
 
 \subsubsection{Lasttests}
-%TODO: Testarten genau definieren und auf Anhang mit SQL und Beschreibung verweisen
 Die Basis für die Erstellung von Lasttests ist Kapitel \ref{iststand-vorgaenge}.
-Ein Lasttest misst die Laufzeit zur Aggregation von Punktdaten.
-Dies ist auf dem System der Datenbank bzw. des Masters über den gängigen Weg, vorrangig SQL, durchzuführen.
-Die Laufzeitmessung der Anfragen erfolgt über diese mit Parametern der Anfrage.
-Analog ist ein weiterer Lasttest zur Interpolation bzw. Kriging durchzuführen.
-%funktion ist noch zu erstellen
+Eine exakte Definition der Lasttests ist in diesem Kapitel nicht möglich, da das zu verwendende Framework noch nicht ausgewählt wurde und somit die darin zu verwendenden Werkzeuge und Daten nicht bekannt sind.
+Es werden jedoch die zu testenden Szenarien benannt.
+
+Ein zu testendes Szenario ist die Aggregation von Daten.
+Dabei ist eine Menge von mehreren hundert Megabyte an Punktdaten mit den gegebenen Werkzeugen abzurufen und die Laufzeit zu messen.
+Die Werkzeuge sollten dabei eine Abfragesprache wie SQL und bei Vorhandensein der Schnittstelle der \Gls{umn} sein.
+Über eine Abfragesprache sind neben der Laufzeit weitere Informationen abrufbar.
+Mit SQL kann das Vorgehen des Query Planers ausgegeben werden, was für die Auswertung herangezogen werden kann.
+Die Verwendung des \Gls{umn} zielt auf eine Anwendungsnahe Darstellung der Leistungsfähigkeit ab.
+Die hohe Leistungsfähig des \Gls{umn} für ein solches Szenario wurde bereits in \cite{ba:kurt} dargestellt, sodass von einer hohen Auslastung des \Gls{dbms} ausgegangen werden kann ohne das der \Gls{umn} als begrenzendes Element auftritt.
+
+Analog zu diesem ersten Szenario ist ein weiterer zur Interpolation bzw. Kriging durchzuführen.
+Darin sollen Punktdaten zu Vektordaten mit Interpolation im Rahmen eines Krigings verarbeitet werden.
+Damit soll die Verarbeitungsleistung bewertet werden.
 
 %Lasttests zur Persistierung von Eingangsdaten?
 
+Da es sich bei den zu untersuchenden Frameworks um verteilte Systeme handelt, ist in allen Tests die Verteilung der Daten und der Verarbeitungsschritte zu berücksichtigen.
 
 
 \section{Ist-Stand}
@@ -248,6 +257,7 @@ In den Programmiersprachen Delphi und \Gls{r} werden zusätzlich automatische Ve
 Daten werden von extern und intern eingespeist.
 Dabei handelt es sich um Punkte, Vektoren und Raster mit dazugehörigen Metadaten.
 Im Rahmen der Datenverarbeitung werden Punktdaten interpoliert und mit Hilfe von Geostatistik Auswertungen aus originalen und verarbeiteten Daten erstellt.
+Die Darstellung der Daten erfolgt über \Gls{umn} und \Gls{manifold}.
 Als zentrales Element enthält die Datenbank neben den agrartechnischen Kennzahlen alle weiteren Daten des Unternehmens. In dieser Betrachtung werden einzig die agrartechnischen Kennzahlen berücksichtigt.
 \begin{figure}[h]
 \centering
@@ -260,7 +270,7 @@ Als zentrales Element enthält die Datenbank neben den agrartechnischen Kennzahl
 
 Es existiert eine Vielzahl von Vorgängen, welche zur Erhöhung der Useability in Hinsicht auf ihre Laufzeit verbessert werden können.
 Für die Bewertung der Frameworks und schließlich zum Entwurf des Prototypen, ist es notwendig eine Auswahl der zu untersuchenden Vorgängen zu treffen.
-Die Auswahl erfolgt durch Mitarbeiter der Agri Con und hat Vorgänge mit der längsten Laufzeit als Ergebnis.
+Die Auswahl erfolgt durch Mitarbeiter der Agri~Con und hat Vorgänge mit der längsten Laufzeit als Ergebnis.
 Dazu zählt das Laden von Daten zum Zwecke der Verarbeitung und Anzeige.
 Die größten Datenmengen sind bei Punkten aus dem N-Sensor Bereich zu finden.
 Die Anzeige der Punktdaten für einen Betrieb kann bis zu neun Sekunden dauern.
@@ -269,7 +279,7 @@ Die Punktdaten aus dem N-Sensor Bereich sind jedoch repräsentativ und werden de
 Weiterhin zählt Interpolation zu diesen Vorgängen.
 Punkte und Fahrspuren werden mit einem angepassten Kriging interpoliert und als Vektoren und Raster abgespeichert.
 Dies wird mit einer R Bibliothek realisiert und bei großen Datenmengen Nachts angestoßen.
-Das spezielle Kriging im jeweiligen Framework zu implmentieren ist aufwendig, weshalb ein unveränderter Kriging Algorithmus für den Vergleich verwendet werden muss.\footnote{siehe Anhang \ref{appendix-A}}
+Das spezielle Kriging im jeweiligen Framework zu implementieren ist aufwendig, weshalb ein unveränderter Kriging Algorithmus für den Vergleich verwendet werden muss, sofern R nicht verwendet werden kann.\footnote{Dieser Algorithmus wurde im Auftrag durch dritte erstellt.}
 Diese zwei charakteristischen Vorgänge sind durch ein Framework zu realisieren.
 
 

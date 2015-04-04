@@ -140,7 +140,7 @@ Mit dieser Virtualisierungslösung ist es möglich, Ressourcen explizit und auss
 So werden die Prozessorkerne in Paaren und der Arbeitsspeicher direkt und mit exklusiver Verwendung den einzelnen VMs zugeordnet.
 Ziel dieser unter Abbildung \ref{fig:physAufb} skizzierten Testumgebung ist es Postgres-XL mit der PostgreSQL Konfiguration des Ist Standes zu vergleichen, einen homogenen Cluster zu erzeugen und Aussagen über die Skalierbarkeit von Postgres-XL zu treffen.
 Die Ausstattung des Computers zur Verwaltung der Virtualisierung wird nicht definiert, da dies keinen Einfluss auf Messungen hat.
-Die VMs ist in Abbildung \ref{fig:VMAufb} dargestellt.
+Die VMs sind in Abbildung \ref{fig:VMAufb} dargestellt.
 Typ I enthält eine GTM Instanz und Typ II eine GTM-Proxy, eine Coordinator und zwei DataNode Instanzen.
 Dabei stehen sechs Typ II VMs zur Verfügung, wobei zur Beurteilung der Skalierbarkeit zwei bis sieben genutzt werden.
 Jede VM besitzt als Betriebssystem Ubuntu 14.04 LTS und alle für die Installation und Ausführung des Prototypen notwendigen Pakete.
@@ -160,8 +160,7 @@ Typ I erhält dagegen zwei Prozessorkerne, vier GB RAM und 20 GB Festplattenspei
 \label{fig:VMAufb}
 \end{figure}
 
-Als Referenzsystem wird ein Ubuntu System mit PostgreSQL, PostGIS und R sowie der Hardwareausstattung einer Typ II VM verwendet.
-Dabei kommt PostgreSQL 9.3 und PostGIS 2.1.5 zum Einsatz.
+Als Referenzsystem wird ein Ubuntu System mit PostgreSQL 9.3.5, PostGIS 2.1.5 und R sowie der Hardwareausstattung einer Typ II VM verwendet.
 Mit der Übereinstimmung der Hardware Ausstattung der VMs ist eine Vergleichbarkeit von PostgreSQL und Postgres-XL gegeben.
 Außerdem kann durch Verkleinerung und Vergrößerung des Clusters die Skalierbarkeit von Postgres-XL bewertet werden.
 
@@ -224,10 +223,19 @@ Zusammenfassend ist das Ziel dieser Leistungstests die spezielle Leistung gegen�
 
 %gleichmäßige Beeinflussung durch Zabbix nennen
 %UMN und JMeter verwenden - nennen und Beschreiben (Frameworks und Einsatz/Zweck)
-Um die Aggregation zusätzlich konkret entsprechend des Anwendungsfalles zu testen, erfolgt die Aggregation im Rahmen der direkten Darstellung als Karte.
+Für die Aggregation entsprechend des Anwendungsfalles erfolgt die Aggregation im Rahmen der direkten Darstellung als Karte.
 Dafür wird der \Gls{umn} mit einem Mapfile als \Gls{fcgi} Modul verwendet.
-Die hohe Leistungsfähig des \Gls{umn} für dieses Szenario wurde bereits in \cite{ba:kurt} dargestellt, sodass von einer hohen Auslastung des \Gls{dbms} ausgegangen werden kann ohne das der \Gls{umn} als begrenzendes Element auftritt.
-Analog des Testaufbaus der Bachelor Arbeit des Autors wird zur Generierung der Last das freie Java JMeter Programm verwendet.
+Analog des Testaufbaus der Bachelor Arbeit des Autors\footnote{\cite{ba:kurt}} wird zur Generierung der Last das freie Java Programm JMeter verwendet, welches mehrere vorbereitete Anfragen parallel und verschränkt erzeugt sowie eine Auswertung der Laufzeiten zur Verfügung stellt.
+
+%Verteilung der Daten im Cluster
+
+%TODO: Testarten genau definieren und auf Anhang mit SQL und Beschreibung verweisen
+Der erste Lasttest misst die Laufzeit zur Aggregation von Punktdaten aus der Tabelle nsensorlogs des Schemas n.
+Die Abfrage und Messung erfolgt mit dem SQL Befehl Explain Analyze Select.
+Damit wird neben der Laufzeit der Aggregation auch die Aufteilung des SQL Statements an die Knoten des Clusters ersichtlich.
+Zusätzlich erfolgt die Aggregation in einem gesonderten Test mit dem \Gls{umn}.
+Dafür wird ein Mapfile verwendet, welches Kartenausschnitte der Punktdaten darstellt.
+Die Karte wird dabei farbig anhand der Metadaten erzeugt.
 
 %historische Daten?
 %Wie schnell werden nsensorlogs gespeichert? Trigger beim befüllen nicht vergessen!
