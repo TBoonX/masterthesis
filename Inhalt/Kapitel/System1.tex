@@ -101,7 +101,7 @@ Doch zunächst werden die Gründe für diese Art des Entwurfs dargelegt.
 Die Erfüllung der Anforderungen liegt bei Postgres-XL auf Grund der Beinhaltens von PostgreSQL bei 86\%{}.
 %starke Integration: 2 Möglichkeiten
 %Ersetzung
-Aus diesem Grund besteht die Möglichkeit einen Entwurf zu erzeugen, welcher wesentliche Aufgaben des Ist-Standes übernimmt oder sogar des Ist-Stand ersetzt.
+Aus diesem Grund besteht die Möglichkeit einen Entwurf zu erzeugen, welcher wesentliche Aufgaben des Ist-Standes übernimmt oder den Ist-Stand ersetzt.
 Dagegen spricht das Trigger in der aktuellen Postgres-XL Version nicht verwendet werden können.
 Zwar können Trigger in Funktionen ausgelagert und bei Verwendung der Tabellen aufgerufen werden, aber dies würde einen erheblichen Implementationsaufwand bedeuten und nicht zu 100\%{} die bestehende Funktionalitäten abbilden.
 %Teilintegration
@@ -218,23 +218,21 @@ Die hier verwendeten Leistungstests wurden ebenfalls in Kapitel \ref{grundlagen-
 %Systemüberwachung
 Kapitel \ref{subsection:testfaelle} beschreibt unabhängig des Testsystems die Arten der Leistungstests.
 Nachfolgend wird auf den Aufbau der Tests, deren Durchführung und deren Ergebnis eingegangen.
-Zusammenfassend ist das Ziel dieser Leistungstests die spezielle Leistung gegenüber des Ist-Standes und die Skalierbarkeit von Postgres-XL zu ermitteln.
+Zusammenfassend ist das Ziel dieser Leistungstests, die spezielle Leistung gegenüber des Ist-Standes und die Skalierbarkeit von Postgres-XL zu ermitteln. %Skalierbarkeit raus lassen?
 %Skalierbarkeit(T(1)/T(p))/Effizienz(S(p)/p)
 
 %gleichmäßige Beeinflussung durch Zabbix nennen
-%UMN und JMeter verwenden - nennen und Beschreiben (Frameworks und Einsatz/Zweck)
-Für die Aggregation entsprechend des Anwendungsfalles erfolgt die Aggregation im Rahmen der direkten Darstellung als Karte.
-Dafür wird der \Gls{umn} mit einem Mapfile als \Gls{fcgi} Modul verwendet.
 Analog des Testaufbaus der Bachelor Arbeit des Autors\footnote{\cite{ba:kurt}} wird zur Generierung der Last das freie Java Programm JMeter verwendet, welches mehrere vorbereitete Anfragen parallel und verschränkt erzeugt sowie eine Auswertung der Laufzeiten zur Verfügung stellt.
 
 %Verteilung der Daten im Cluster
 
-%TODO: Testarten genau definieren und auf Anhang mit SQL und Beschreibung verweisen
 Der erste Lasttest misst die Laufzeit zur Aggregation von Punktdaten aus der Tabelle nsensorlogs des Schemas n.
-Die Abfrage und Messung erfolgt mit dem SQL Befehl Explain Analyze Select.
-Damit wird neben der Laufzeit der Aggregation auch die Aufteilung des SQL Statements an die Knoten des Clusters ersichtlich.
-Zusätzlich erfolgt die Aggregation in einem gesonderten Test mit dem \Gls{umn}.
-Dafür wird ein Mapfile verwendet, welches Kartenausschnitte der Punktdaten darstellt.
+Die Abfrage und Messung erfolgt mit dem SQL Statement \textit{Select * From n.nsensorlogs Where farmid=1038;} sowie \textit{Explain Analyze Select * From n.nsensorlogs Where farmid=1038;}.
+Die erste Query liefert die korrekten Daten und die Laufzeit\footnote{Sofern in PostgreSQL die Zeiterfassung mit \\timing eingeschaltet wurde.} und die zweite die Aufteilung des SQL Statements an die Knoten des Clusters.
+%Wie viele Zeilen liefert die Query?
+Zusätzlich erfolgt die Aggregation in einem gesonderten Test entsprechend des Anwendungsfalles mit dem \Gls{umn}, mit der Darstellung als Karte als Ergebnis.
+Dafür wird der \Gls{umn} mit einem Mapfile als \Gls{fcgi} Modul verwendet, siehe Anhang \ref{appendix:mapfileaggregate}.
+Das Mapfile stellt Kartenausschnitte der Punktdaten dar.
 Die Karte wird dabei farbig anhand der Metadaten erzeugt.
 
 %historische Daten?
