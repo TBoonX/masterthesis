@@ -57,5 +57,47 @@
 \caption*{FT04}
 \end{table}
 
+\begin{table}[h!]
+\centering
+\small
+\begin{tabular}{p{2.8cm}|p{12cm}}
+\textbf{Testfall:} & Verschneidung von räumlichen Daten. \\ \hline
+\textbf{Beschreibung:} & Überlagernde Vektordaten werden miteinander verschnitten. \\ \hline
+\textbf{Testdaten:} & Ausgewählte Schläge und Teilschläge aus farm.fields. \\ \hline
+\textbf{Sollergebnis:} & Intersection, union, difference und symmetric difference ist durchführbar und liefert das korrekte Ergebnis. \\ \hline
+\textbf{Ist Ergebnis:} &  \\ \hline
+\textbf{Bestanden:} & Nein \\
+\end{tabular}
+\caption*{FT05}
+\end{table}
+
+\begin{table}[h!]
+\centering
+\small
+\begin{tabular}{p{2.8cm}|p{12cm}}
+\textbf{Testfall:} & Interpolation von Punktdaten mit dem Spezialfall Kriging. \\ \hline
+\textbf{Beschreibung:} & Punkte aus nutrients.samples werden über die spezielle Kriging Bibliothek der Agri~Con interpoliert. \\ \hline
+\textbf{Testdaten:} & Ausschnitt aus nutrients.samples eines Betriebes und eines Grundnährstoffes. \\ \hline
+\textbf{Sollergebnis:} & Vektordaten mit gewichteten Werten des Grundnährstoffes entsprechend des Algorithmus. \\ \hline
+\textbf{Ist Ergebnis:} &  \\ \hline
+\textbf{Bestanden:} & Nein \\
+\end{tabular}
+\caption*{FT06}
+\end{table}
+
+\begin{table}[h!]
+\centering
+\small
+\begin{tabular}{p{2.8cm}|p{12cm}}
+\textbf{Testfall:} & Räumliche Filterung. \\ \hline
+\textbf{Beschreibung:} & Räumliche Daten können räumlich gefiltert werden, dass heißt die Aggregation filtert anhand räumliche Eigenschaften wie die Koordinaten. \\ \hline
+\textbf{Testdaten:} & Schläge aus farm.fields und Userlayer aus common.userlayers eines Betriebes. \\ \hline
+\textbf{Sollergebnis:} & Zu einem Userlayer sollen nur die entsprechend dessen Ausdehnung enthaltenen Schläge geliefert werden. \\ \hline
+\textbf{Ist Ergebnis:} &  \\ \hline
+\textbf{Bestanden:} & Nein \\
+\end{tabular}
+\caption*{FT07}
+\end{table}
+
 \capstarttrue
 \newpage

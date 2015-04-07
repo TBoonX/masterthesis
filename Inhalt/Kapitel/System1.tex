@@ -195,23 +195,39 @@ Dabei werden die Testfälle mit absteigender Priorität aufgelistet.
 Die Priorität hängt vom geschätzten Implementationsaufwand zur Behebung des Fehlschlages des Testfalles ab.
 %Nummerierung der Testfälle?
 
+\textbf{FT01:}\\
 Die Schnittstellen sind nicht explizit zu testen, da Postgres-XL und PostgreSQL wie in Abschnitt \ref{subsection:interface} demonstriert direkt Daten austauschen können.
 %Schnittstellen: PostgreSQL mit dblink demonstrieren; PostGIS: Tabelle mit geometry erzeugen, füllen und Funktionen darauf anwenden; UMN: simples Mapfile für nsensorlogs erstellen
 
-Da beide Systeme PostGIS 2.1.5 verwenden, sind die Austauschformate für geografische Daten identisch.
-%Austauschformate: Übertragung der vorhandenen Daten ist beleg
+\textbf{FT02:}\\
+%vorhandenes Mapfile verwenden und schauen was passiert
 
-Mit PostGIS kann mit der FUnktion st\_{}transform direkt zwischen den Koordinatenreferenzsystemen umgerechnet werden:\\
+\textbf{FT03:}\\
+Da beide Systeme PostGIS 2.1.5 verwenden, sind die Austauschformate für geografische Daten identisch.
+
+\textbf{FT04:}\\
+Mit PostGIS kann mit der Funktion st\_{}transform direkt zwischen den Koordinatenreferenzsystemen umgerechnet werden:\\
 \textit{select id, st\_{}astext(st\_{}transform(geom, 3857)) as transformed, st\_{}srid(st\_{}transform(geom, 3857)) as newsrid, st\_{}astext(st\_{}transform(st\_{}transform(geom, 3857), 4326)) as original, st\_{}srid(st\_{}transform(st\_{}transform(geom, 3857), 4326)) as srid from nutrients.samples limit 10;}\\
 So werden die Punkte der Tabelle samples im Schema nutrients mit dem EPSG Code 4326 zum EPSG Code 3857 sowie wieder zurück umgerechnet.
 Die Funktionsdeklaration lautet:
 \textit{geometry ST\_{}Transform(geometry g1, integer srid);}\\
 srid ist dabei ein EPSG Code aus der Tabelle SPATIAL\_{}REF\_{}SYS, welche 3911 Einträge im Testsystem enthält.
 geometry steht dagegen für einen beliebigen räumlichen Datentyp.
-%EPSG Codes 4326 und 3857 testen (Zwischen ihnen Umwandeln)
+
+\textbf{FT05:}\\
+%Beispielhafte Schläge mit überlappenden Teilschlägen finden, die verschneidungsfunktionen anwenden und Ergebnis grafisch darstellen - vllt UMN?
 
 
-%weitere Funktionen: Schläge miteinander verschneiden (typische Fälle verwenden, mit UMN darstellen?); Geostatistik mit R Bibo zeigen; topologische Filterung?; räumliche Filterung anhand von Fields demonstrieren   <- Immer auf Funktionsdefinition mit Parametern verweisen
+\textbf{FT06:}\\
+Dies wird im zweiten Szenario der Lasttests im nachfolgenden Abschnitt durchgeführt.
+%auf schwierigkeiten hinweisen
+
+\textbf{FT07:}\\
+%Betrieb mit kleinen Userlayern verwenden
+
+%Darstellung mit UMN?
+
+%Zusammenfassen!
 
 \subsection{Leistungstests}
 Die hier verwendeten Leistungstests wurden ebenfalls in Kapitel \ref{grundlagen-funktionstests} als spezielle Tests zur Messung der Leistungsfähigkeit und Effizienz definiert.
