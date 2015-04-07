@@ -187,6 +187,10 @@ Weiterhin ist Zabbix ein Mehrbenutzer System und reagiert mit Funktionsaufrufen 
 \subsection{Funktionstests}
 Im Abschnitt Prototypische Implementierung auf Seite \pageref{grundlagen-funktionstests} wurden die Funktionstests bereits als Black-Box Tests definiert und der Umfang im Kapitel \ref{subsection:testfaelle} genauer festgesetzt.
 In diesem Abschnitt werden die Funktionstests für die Durchführung spezifiziert und deren Ergebnis festgehalten.
+Es wird eine vollständige Erfüllung der Funktionstests erwartet, da PostgreSQL 9.2 und PostGIS 2.1.5 an sich die gesetzten Anforderungen erfüllen.
+Das Fehlen von Triggerfunktionen in Postgres-XL wird durch die Funktionstests nicht aufgedeckt.
+Jedoch ist dies als wesentliche Einschränkung festzuhalten und für die Auswertung heran zu ziehen.
+
 Alle Funktionstests werden im Anhang \ref{appendix:funktionstests} in Form eines Testdokumentes\footnote{ein Testdokument mit Testfällen in tabellarischer Form, wie es in der Softwareentwicklung zum Einsatz kommt} zusätzlich dargelegt.
 Darin wird der Testfall beschrieben, die Testdaten konkretisiert, das Sollergebnis vordefiniert, das schlussendliche Ergebnis dargestellt und die Akzeptanz des Tests erläutert.
 Entsprechend der Reihenfolge der Testfälle im Anhang werden nachfolgend die Tests mit deren Durchführung und deren Ergebnissen präsentiert.
@@ -236,11 +240,23 @@ Kapitel \ref{subsection:testfaelle} beschreibt unabhängig des Testsystems die A
 Nachfolgend wird auf den Aufbau der Tests, deren Durchführung und deren Ergebnis eingegangen.
 Zusammenfassend ist das Ziel dieser Leistungstests, die spezielle Leistung gegenüber des Ist-Standes und die Skalierbarkeit von Postgres-XL zu ermitteln. %Skalierbarkeit raus lassen?
 %Skalierbarkeit(T(1)/T(p))/Effizienz(S(p)/p)
+Es wird von einer höheren Leistung bei der Aggregation und einer gleichen Leistung bei der Verarbeitung im Gegensatz zum Ist-Stand ausgegangen.
+
+%Aggregation ohne joins und Unterabfragen -> gewählte Verteilung der Daten und QueryPlaner Bestimmungen sind sehr speziell - für eigene Thesis - für diesen Fall keine Berücksichtigung dieser Feinheiten
 
 %gleichmäßige Beeinflussung durch Zabbix nennen
 Analog des Testaufbaus der Bachelor Arbeit des Autors\footnote{\cite{ba:kurt}} wird zur Generierung der Last das freie Java Programm JMeter verwendet, welches mehrere vorbereitete Anfragen parallel und verschränkt erzeugt sowie eine Auswertung der Laufzeiten zur Verfügung stellt.
 
 %Verteilung der Daten im Cluster
+Abhängig von der Verteilung der Daten und deren Aufruf ergeben sich unterschiedliche Ergebnisse der Leistungsmessung.
+%Nach Kudraß
+Kosten=IO Kosten (lesende und schreibende Speicherseiten) + Berechnungskosten (Prüfungen, arithmetische operationen) + Kommunikationskosten    S.260
+Kostenmaß ist ohne Einheit
+Erwartung der Treffer (Selektivität) und Histogramme (erzeugt mit analyze) sollen einbezogen werden S.261f.
+Kosten nach S.300f. : Rechenzeit (syntaxprüfer, BErechnung Ausführungsplanes, daten werden verglichen kombiniert sortiert, zusammenfassung in logischen tabellen), IO Zeit (Anzahl der Aufrufe an Speichersystem und Protokollierung mit internem speichermanagement), Datenübertragungszeit (Netzwerk)
+Einflussfaktoren: logisches DB Design, Anwendung, Abfrage, Ausführungsplan, Datenmenge der Abfrage, physisches DB Design, größe der DB, DBMS, Systemlast, Netzwerk, Parallelität, OS
+S.401 horizontale Fragmentierung wird mit create table distribute by durchgeführt (Datenlokalisierung S.407)
+
 
 Der erste Lasttest misst die Laufzeit zur Aggregation von Punktdaten aus der Tabelle nsensorlogs des Schemas n.
 Die Abfrage und Messung erfolgt mit dem SQL Statement \textit{Select * From n.nsensorlogs Where farmid=1038;} sowie \textit{Explain Analyze Select * From n.nsensorlogs Where farmid=1038;}.
@@ -250,6 +266,19 @@ Zusätzlich erfolgt die Aggregation in einem gesonderten Test entsprechend des A
 Dafür wird der \Gls{umn} mit einem Mapfile als \Gls{fcgi} Modul verwendet, siehe Anhang \ref{appendix:mapfileaggregate}.
 Das Mapfile stellt Kartenausschnitte der Punktdaten dar.
 Die Karte wird dabei farbig anhand der Metadaten erzeugt.
+%Aggregation
+%Query vorbereiten   select * from n.nsensorlogs where farmid=1038
+%Laufzeitmessung testen   explain analyze
+%Auslastung messen/testen    mit Zabbix
+%mehrere Durchgänge
+%gegenüber stellen
+
+Der Lasttest zum messen der Verarbeitungsleistung ruft die SQL Funktion \textit{nutrients.createcontourappl(text, text, text, text)} auf.
+Diese führt den speziellen Kriging Algorithmus durch.
+Neben der Laufzeit ist gesondert die Auslastung der einzelnen Knoten zu beobachten und zu bewerten.
+Zu Beginn dieser Untersuchung steht nicht fest, in wie weit die DataNodes mit in die Berechnungen der Coordinator einbezogen werden.
+Eine automatisierte Verteilung der Berechnungen ist für einen höheren Durchsatz wünschenswert.
+%an volkmar: parallelität wie eingeführt?
 
 %historische Daten?
 %Wie schnell werden nsensorlogs gespeichert? Trigger beim befüllen nicht vergessen!
@@ -258,9 +287,3 @@ Die Karte wird dabei farbig anhand der Metadaten erzeugt.
 
 %mit SQL Bordmitteln - pg_bench eventuell zusätzlich um ein paar Aussagen zum cluster overhead zu treffen
 
-%Aggregation
-%Query vorbereiten   select * from n.nsensorlogs where farmid=1038
-%Laufzeitmessung testen   explain analyze
-%Auslastung messen/testen    mit vSphere
-%mehrere Durchgänge
-%gegenüber stellen
