@@ -1,4 +1,188 @@
 \label{appendix:mapfileaggregate} 
 \begin{lstlisting}[language=make,caption={Mapfile Aggregation Punktdaten}]
-
+MAP
+	NAME "WMSmap"
+	STATUS ON
+	SIZE 256 256
+	EXTENT 1560098.91160313 6610084.3680505 1561696.27498181 6611681.73142918
+	#Idee: mit UMN CLient entsprechend userlayern ausschnitte erzeugen und diese verwenden viewids=[8357,4491,4701,4720,4696]
+	UNITS METERS
+	IMAGETYPE 'png'
+	
+	CONFIG "MS_ERRORFILE" "/tmp/ms_error.txt"
+	DEBUG 5
+	CONFIG "MS_TEMPPATH" "/tmp/"
+	
+	OUTPUTFORMAT
+		NAME "png"
+		MIMETYPE "image/png"
+		DRIVER "AGG/PNG"
+		EXTENSION "png"
+		IMAGEMODE RGBA
+		TRANSPARENT TRUE
+	END # OUTPUTFORMAT
+	
+	WEB
+	  IMAGEPATH "/tmp/"
+	  IMAGEURL "tmp/"
+	  METADATA
+		WMS_TITLE "WMSmap"
+		WMS_ONLINERESOURCE "http://localhost:84/fcgi-bin/mapserv?map=WMSmap.map&"
+		WMS_SRS "EPSG:3857"
+		WMS_ENABLE_REQUEST "GetMap GetFeatureInfo GetCapabilities GetLegendGraphic"
+	  END
+	END
+	
+	PROJECTION	#EPSG:3857
+		"proj=merc"
+		"a=6378137"
+		"b=6378137"
+		"lat_ts=0.0"
+		"lon_0=0.0"
+		"x_0=0.0"
+		"y_0=0"
+		"k=1.0"
+		"units=m"
+		"nadgrids=@null"
+		"wktext"
+		"no_defs"
+	END
+	
+	SYMBOL
+		NAME "sld_mark_symbol_circle_filled"
+		TYPE ELLIPSE
+		FILLED TRUE
+		POINTS
+		  1 1
+		END
+	END
+	
+	LEGEND
+		IMAGECOLOR 255 255 255
+		OUTLINECOLOR 80 80 80
+		KEYSIZE 30 20
+		STATUS off
+		TRANSPARENT on
+	END
+	
+	QUERYMAP
+		SIZE -1 -1
+		STATUS OFF
+		STYLE HILITE
+	END # QUERYMAP
+	
+	LAYER
+		NAME "NSensorlogs"
+		TYPE Point
+		VALIDATION
+		  'shash' '[\w\d\s\/\+\=]{28}'
+		END
+		CLASSITEM "applraten"
+		LABELITEM "applraten"
+		CONNECTION "user=postgres password=postgres dbname=agrodb2 host=192.168.0.114 port=20001"
+		CONNECTIONTYPE postgis
+		PROCESSING "CLOSE_CONNECTION=DEFER"
+		DATA "geom from (Select nsensorlogs.id,nsensorlogs.geom,nsensorlogs.fileid,nsensorlogs.date,nsensorlogs.altitude,nsensorlogs.marker1,nsensorlogs.marker2,nsensorlogs.marker3,nsensorlogs.s1,nsensorlogs.s2,nsensorlogs.sn,nsensorlogs.applraten,nsensorlogs.applfactor,nsensorlogs.opmode,nsensorlogs.sprraten,nsensorlogs.s1l,nsensorlogs.s2l,nsensorlogs.s1r,nsensorlogs.s2r,nsensorlogs.bi,nsensorlogs.farmid,nsensorlogs.applratenclass from n.nsensorlogs where fileid = 35457) layerselect using unique id using srid=4326"
+		#fileid entfernen
+		PROJECTION
+			#"init=epsg:4326"
+			"proj=latlong"
+			"ellps=WGS84"
+			"datum=WGS84"
+			"no_defs"
+		END
+		STATUS On
+		#TRANSFORM true
+		UNITS meters
+		METADATA
+			"wms_title" "NSensorlogs"
+			#"wms_srs" "EPSG:3857"
+			"wms_extent" "4.49157642122284 16.16967511640222 46.741611471444564 55.196005052343054"
+			"wms_enable_request" "GetMap GetFeatureInfo GetCapabilities GetLegendGraphic"
+		END
+		
+		CLASS
+		  NAME "< 18"
+		  EXPRESSION ([applraten]  < 18)
+		  STYLE
+			COLOR 247 251 255
+			OUTLINECOLOR 0 0 0
+			SIZE 6
+			SYMBOL "sld_mark_symbol_circle_filled"
+		  END # STYLE
+		END # CLASS
+		CLASS
+		  NAME "18 - 36"
+		  EXPRESSION ( ([applraten]  >= 18) And ([applraten]  < 36))
+		  STYLE
+			COLOR 218 232 245
+			OUTLINECOLOR 0 0 0
+			SIZE 6
+			SYMBOL "sld_mark_symbol_circle_filled"
+		  END # STYLE
+		END # CLASS
+		CLASS
+		  NAME "36 - 54"
+		  EXPRESSION ( ([applraten]  >= 36) And ([applraten]  < 54))
+		  STYLE
+			COLOR 186 214 235
+			OUTLINECOLOR 0 0 0
+			SIZE 6
+			SYMBOL "sld_mark_symbol_circle_filled"
+		  END # STYLE
+		END # CLASS
+		CLASS
+		  NAME "54 - 73"
+		  EXPRESSION ( ([applraten]  >= 54) And ([applraten]  < 73))
+		  STYLE
+			COLOR 136 190 220
+			OUTLINECOLOR 0 0 0
+			SIZE 6
+			SYMBOL "sld_mark_symbol_circle_filled"
+		  END # STYLE
+		END # CLASS
+		CLASS
+		  NAME "73 - 91"
+		  EXPRESSION ( ([applraten]  >= 73) And ([applraten]  < 91))
+		  STYLE
+			COLOR 83 158 204
+			OUTLINECOLOR 0 0 0
+			SIZE 6
+			SYMBOL "sld_mark_symbol_circle_filled"
+		  END # STYLE
+		END # CLASS
+		CLASS
+		  NAME "91 - 109"
+		  EXPRESSION ( ([applraten]  >= 91) And ([applraten]  < 109))
+		  STYLE
+			COLOR 42 122 185
+			OUTLINECOLOR 0 0 0
+			SIZE 6
+			SYMBOL "sld_mark_symbol_circle_filled"
+		  END # STYLE
+		END # CLASS
+		CLASS
+		  NAME "109 - 127"
+		  EXPRESSION ( ([applraten]  >= 109) And ([applraten]  < 127))
+		  STYLE
+			COLOR 11 85 159
+			OUTLINECOLOR 0 0 0
+			SIZE 6
+			SYMBOL "sld_mark_symbol_circle_filled"
+		  END # STYLE
+		END # CLASS
+		CLASS
+		  NAME "> 145"
+		  EXPRESSION ([applraten]  >= 127)
+		  STYLE
+			COLOR 8 48 107
+			OUTLINECOLOR 0 0 0
+			SIZE 6
+			SYMBOL "sld_mark_symbol_circle_filled"
+		  END # STYLE
+		END # CLASS
+	END #Layer
+	
+END
 \end{lstlisting}
+\newpage

@@ -228,9 +228,9 @@ Analog des Testaufbaus der Bachelor Arbeit des Autors\footnote{\cite{ba:kurt}} w
 
 Der erste Lasttest misst die Laufzeit zur Aggregation von Punktdaten aus der Tabelle nsensorlogs des Schemas n.
 Die Abfrage und Messung erfolgt mit dem SQL Statement \textit{Select * From n.nsensorlogs Where farmid=1038;} sowie \textit{Explain Analyze Select * From n.nsensorlogs Where farmid=1038;}.
-Die erste Query liefert die korrekten Daten und die Laufzeit\footnote{Sofern in PostgreSQL die Zeiterfassung mit \\timing eingeschaltet wurde.} und die zweite die Aufteilung des SQL Statements an die Knoten des Clusters.
+Die erste Query liefert die korrekten Daten und die Laufzeit\footnote{Sofern in PostgreSQL die Zeiterfassung mit \textbackslash{}timing eingeschaltet wurde.} und die zweite die Aufteilung des SQL Statements an die Knoten des Clusters.
 %Wie viele Zeilen liefert die Query?
-Zusätzlich erfolgt die Aggregation in einem gesonderten Test entsprechend des Anwendungsfalles mit dem \Gls{umn}, mit der Darstellung als Karte als Ergebnis.
+Zusätzlich erfolgt die Aggregation in einem gesonderten Test entsprechend des Anwendungsfalles mit dem \Gls{umn}, mit der Darstellung in Kartenform als Ergebnis.
 Dafür wird der \Gls{umn} mit einem Mapfile als \Gls{fcgi} Modul verwendet, siehe Anhang \ref{appendix:mapfileaggregate}.
 Das Mapfile stellt Kartenausschnitte der Punktdaten dar.
 Die Karte wird dabei farbig anhand der Metadaten erzeugt.
