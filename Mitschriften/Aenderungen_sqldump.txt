@@ -1,0 +1,13 @@
+Änderungen am sqldump:
+
+distributed by für farms, fields, nsensorlogfiles, planningperiod     mit hash(id) außer samples, soilsamplefiles und nsensorlogs  -> modulo (fileid)
+
+einige primary key erzeugungen in create table übernommen
+
+einige foreign key constraints gelöscht
+
+create trigger entfernt
+
+bucardo funktionen entfernt die syntaktisch falsch waren
+
+sequenzen für fields für alle schemas umbenannt

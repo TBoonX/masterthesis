@@ -95,31 +95,32 @@ Die Installation von Pl/R mit dem Quellcode als Grundlage ist in Anhang \ref{app
 %ERM festhalten
 
 \section{Entwurf}
-Dieses Unterkapitel enthält die Definition des Postgres-XL Prototypen für den Einsatz bei der Agri Con.
-Doch zunächst werden die Gründe für diese Art des Entwurfs dargelegt.
+Dieses Unterkapitel enthält die Definition des Postgres-XL Prototypen für den Einsatz bei Agri Con.
+Als erstes werden die Gründe für diese Art des Entwurfs dargelegt.
 
 Die Erfüllung der Anforderungen liegt bei Postgres-XL auf Grund der Beinhaltens von PostgreSQL bei 86\%{}.
 %starke Integration: 2 Möglichkeiten
 %Ersetzung
-Aus diesem Grund besteht die Möglichkeit einen Entwurf zu erzeugen, welcher wesentliche Aufgaben des Ist-Standes übernimmt oder den Ist-Stand ersetzt.
-Dagegen spricht das Trigger in der aktuellen Postgres-XL Version nicht verwendet werden können.
+Aus diesem Grund besteht die geeignete Möglichkeit einen Entwurf zu erzeugen, welcher wesentliche Aufgaben des Ist-Standes übernimmt oder den Ist-Stand ersetzt.\\
+Gegen eine Ersetzung spricht das Trigger in der aktuellen Postgres-XL Version nicht verwendet werden können.
 Zwar können Trigger in Funktionen ausgelagert und bei Verwendung der Tabellen aufgerufen werden, aber dies würde einen erheblichen Implementationsaufwand bedeuten und nicht zu 100\%{} die bestehende Funktionalitäten abbilden.
 %Teilintegration
-Jedoch ist eine grundlegende Integration in den Ist-Stand notwendig.
+Jedoch ist eine grundlegende Integration in den Ist-Stand notwendig. %warum?
 Dies ist in der Datenabhängigkeit der Bestandsdaten und der Eignung von Postgres-XL begründet.
+Das Datenbankschema befindet sich in der ersten und zweiten Normalform, wodurch eine Abhängigkeit über Fremdschlüssel zu häufig verwendeten Tabellen wie farm.farms oder farm.fields besteht, was eine Auslagerung von Tabellen und Funktionen nicht trivial macht.
+Eine teilweise Schemaintegration mit anschließender Normalisierung der zwei Datenbankschemata würde Änderung aller Programme nach sich ziehen und in diesem Rahmen aufwendig ausfallen.\\
+Deshalb ist die Erstellung eines umfassenden Entwurfs hinsichtlich des speziellen Szenarios bei Agri~Con im Rahmen dieser Arbeit nicht möglich.
+Der Entwurf wird daher als Klon des Ist-Standes, jedoch ohne Trigger, erstellt.
+%großer Aufwand für genauen Entwurf, weshalb lieber Aussagen zum Einsatz in diesem Szenario gegeben werden sollen
+Ziel ist es damit die Eignung für die definierten Anforderungen zu testen und direkt mit dem Ist-Stand zu vergleichen.
+%das hier unten weg lassen?!
 Entsprechend den Funktions- und Leistungstests sollte der Entwurf Quelldaten direkt empfangen, diese zu einem geeigneten Zeitpunkt nach der gegebenen Geostatistik und alle Daten dem Ist-Stand zur Verfügung stellen.
 %Probleme beim Entwurf
 Die Quelldaten beziehen sich auf betriebliche Daten, welche vom Ist-Stand verwaltet werden.
 Somit ist der Entwurf direkt mit dem Ist-Stand verbunden.
-%Schemata zum Teil nicht normalisiert aber alle in 1.NF
 %auch inhaltliche Zusammenhänge machen Aufteilung schwierig
-%Eintrittspunkt muss pgsql bleiben
 
-%Für Test- und Demonstrationszwecke soll Entwurf das komplette Schema mit ausgewählten Daten enthalten
-%großer Aufwand für genauen Entwurf, weshalb lieber Aussagen zum Einsatz in diesem Szenario gegeben werden sollen
-
-
-\section{Implementierung}
+%\section{Implementierung}
 %SQL mit dblnk skizzieren
 
 \section{Tests}
