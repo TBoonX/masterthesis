@@ -7,10 +7,10 @@
 \begin{tabular}{p{2.8cm}|p{12cm}}
 \textbf{Testfall:} & Vorhandene Schnittstelle zu PostgreSQL. \\ \hline
 \textbf{Beschreibung:} & Ein direkter Datenaustausch muss mit PostgreSQL möglich sein. Dabei sollen Datenbankkonfigurationen und Daten übertragen und verwendet werden können. \\ \hline
-\textbf{Testdaten:} & Zufällige Einträge aus farm.farms. Das Datenbankschema wird zunächst ohne die Daten übernommen. \\ \hline
-\textbf{Sollergebnis:} & Die Schemata sind mit SQL create erzeugbar und die Daten werden ohne Fehler und ohne Umwandlung eingefügt. \\ \hline
-\textbf{Ist Ergebnis:} &  \\ \hline
-\textbf{Bestanden:} & Nein \\
+\textbf{Testdaten:} & Beliebige Einträge aus farm.farms. Das Datenbankschema wird vor den Daten übernommen. \\ \hline
+\textbf{Sollergebnis:} & Die Schemata sind mit SQL übertragbar und die Daten werden ohne Fehler und ohne Umwandlung eingefügt. \\ \hline
+\textbf{Ist Ergebnis:} & Schema ist nach Triggern, Primär- und Fremdschlüssel anzupassen, anschließend lassen sich die Daten direkt übertragen. \\ \hline
+\textbf{Bestanden:} & Ja \\
 \end{tabular}
 \caption*{FT01}
 \end{table}
@@ -23,7 +23,7 @@
 \textbf{Beschreibung:} & Das System muss im \Gls{umn} als Datenquelle nutzbar sein. \\ \hline
 \textbf{Testdaten:} & Mapfile zur Anzeige beispielhafter Schläge aus farm.fields der farmid 1177. Darin muss ein Ausschnitt mit 3 Schlägen zu sehen sein. \\ \hline
 \textbf{Sollergebnis:} & Alle Schläge werden angezeigt. \\ \hline
-\textbf{Ist Ergebnis:} &  \\ \hline
+\textbf{Ist Ergebnis:} &  \\ \hline %TODO
 \textbf{Bestanden:} & Nein \\
 \end{tabular}
 \caption*{FT02}
@@ -35,9 +35,9 @@
 \begin{tabular}{p{2.8cm}|p{12cm}}
 \textbf{Testfall:} & Datenaustausch nach PostGIS Format. \\ \hline
 \textbf{Beschreibung:} & Daten sind in einem PostGIS Format zu übertragen und zu speichern. \\ \hline
-\textbf{Testdaten:} & Zufällige Einträge aus farm.fields und n.nsensorlogs. Das Datenbankschema wird zunächst ohne die Daten übernommen. \\ \hline
+\textbf{Testdaten:} & Beliebige Einträge aus farm.fields und n.nsensorlogs. Das Datenbankschema wird zunächst ohne die Daten übernommen. \\ \hline
 \textbf{Sollergebnis:} & Einträge aus den Tabellen werden ohne Umwandlung direkt in die Datenbank geschrieben. \\ \hline
-\textbf{Ist Ergebnis:} &  \\ \hline
+\textbf{Ist Ergebnis:} &  \\ \hline %TODO
 \textbf{Bestanden:} & Nein \\
 \end{tabular}
 \caption*{FT03}
@@ -49,10 +49,10 @@
 \begin{tabular}{p{2.8cm}|p{12cm}}
 \textbf{Testfall:} & Umwandlung zwischen Koordinatenreferenzsystemen mit EPSG Codes 4326 und 3857. \\ \hline
 \textbf{Beschreibung:} & Vorhandene räumliche Daten werden zwischen 4326 nach 3857 umgewandelt. \\ \hline
-\textbf{Testdaten:} & Zufällige Einträge aus nutrients.samples. \\ \hline
+\textbf{Testdaten:} & Beliebige Einträge aus nutrients.samples. \\ \hline
 \textbf{Sollergebnis:} & Einträge werden mit st\_{}transform von 4326 nach 3857 und anders herum umgewandelt. \\ \hline
-\textbf{Ist Ergebnis:} &  \\ \hline
-\textbf{Bestanden:} & Nein \\
+\textbf{Ist Ergebnis:} & Funktion ist nutzbar und liefert die korrekten Ergebnisse. \\ \hline
+\textbf{Bestanden:} & Ja \\
 \end{tabular}
 \caption*{FT04}
 \end{table}
@@ -65,7 +65,7 @@
 \textbf{Beschreibung:} & Überlagernde Vektordaten werden miteinander verschnitten. \\ \hline
 \textbf{Testdaten:} & Ausgewählte Schläge und Teilschläge aus farm.fields. \\ \hline
 \textbf{Sollergebnis:} & Intersection, union, difference und symmetric difference ist durchführbar und liefert das korrekte Ergebnis. \\ \hline
-\textbf{Ist Ergebnis:} &  \\ \hline
+\textbf{Ist Ergebnis:} &  \\ \hline %TODO
 \textbf{Bestanden:} & Nein \\
 \end{tabular}
 \caption*{FT05}
@@ -78,8 +78,8 @@
 \textbf{Testfall:} & Interpolation von Punktdaten mit dem Spezialfall Kriging. \\ \hline
 \textbf{Beschreibung:} & Punkte aus nutrients.samples werden über die spezielle Kriging Bibliothek der Agri~Con interpoliert. \\ \hline
 \textbf{Testdaten:} & Ausschnitt aus nutrients.samples eines Betriebes und eines Grundnährstoffes. \\ \hline
-\textbf{Sollergebnis:} & Vektordaten mit gewichteten Werten des Grundnährstoffes entsprechend des Algorithmus. \\ \hline
-\textbf{Ist Ergebnis:} &  \\ \hline
+\textbf{Sollergebnis:} & Vektordaten mit gewichteten Werten des Grundnährstoffes entsprechend des Algorithmus. Karten sollen mit denen des Ist-Standes übereinstimmen. \\ \hline
+\textbf{Ist Ergebnis:} &  \\ \hline %TODO
 \textbf{Bestanden:} & Nein \\
 \end{tabular}
 \caption*{FT06}
@@ -90,10 +90,10 @@
 \small
 \begin{tabular}{p{2.8cm}|p{12cm}}
 \textbf{Testfall:} & Räumliche Filterung. \\ \hline
-\textbf{Beschreibung:} & Räumliche Daten können räumlich gefiltert werden, dass heißt die Aggregation filtert anhand räumliche Eigenschaften wie die Koordinaten. \\ \hline
+\textbf{Beschreibung:} & Räumliche Daten können räumlich gefiltert werden, dass heißt die Aggregation filtert anhand räumlicher Eigenschaften wie den Koordinaten. \\ \hline
 \textbf{Testdaten:} & Schläge aus farm.fields und Userlayer aus common.userlayers eines Betriebes. \\ \hline
 \textbf{Sollergebnis:} & Zu einem Userlayer sollen nur die entsprechend dessen Ausdehnung enthaltenen Schläge geliefert werden. \\ \hline
-\textbf{Ist Ergebnis:} &  \\ \hline
+\textbf{Ist Ergebnis:} &  \\ \hline %TODO
 \textbf{Bestanden:} & Nein \\
 \end{tabular}
 \caption*{FT07}

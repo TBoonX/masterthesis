@@ -146,8 +146,8 @@ Typ I enthält eine GTM Instanz und Typ II eine GTM-Proxy, eine Coordinator und 
 Dabei stehen sechs Typ II VMs zur Verfügung, wobei zur Beurteilung der Skalierbarkeit zwei bis sieben genutzt werden.
 Jede VM besitzt als Betriebssystem Ubuntu 14.04 LTS und alle für die Installation und Ausführung des Prototypen notwendigen Pakete.
 Weiterhin erhalten die Typ II VMs folgende Hardware Zuordnung:
-zwei Prozessorkerne, vier GB RAM und 100 GB Festplattenspeicherplatz.
-Typ I erhält dagegen zwei Prozessorkerne, vier GB RAM und 20 GB Festplattenspeicherplatz.
+zwei Prozessorkerne, fünf GB RAM und 100 GB Festplattenspeicherplatz.
+Typ I erhält dagegen zwei Prozessorkerne, fünf GB RAM und 20 GB Festplattenspeicherplatz.
 \begin{figure}[h!]
 \centering
 \input{Abbildungen/Testsystem_physischerAufbau.tex}
@@ -274,7 +274,8 @@ Die Karte wird dabei farbig anhand der Metadaten erzeugt.
 %mehrere Durchgänge
 %gegenüber stellen
 
-Der Lasttest zum messen der Verarbeitungsleistung ruft die SQL Funktion \textit{nutrients.createcontourappl(text, text, text, text)} auf.
+Der Lasttest zum messen der Verarbeitungsleistung ruft die SQL Funktion\\
+\textit{nutrients.createcontourappl(text, text, text, text)} auf.
 Diese führt den speziellen Kriging Algorithmus durch.
 Neben der Laufzeit ist gesondert die Auslastung der einzelnen Knoten zu beobachten und zu bewerten.
 Zu Beginn dieser Untersuchung steht nicht fest, in wie weit die DataNodes mit in die Berechnungen der Coordinator einbezogen werden.
