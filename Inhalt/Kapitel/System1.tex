@@ -112,6 +112,7 @@ Eine teilweise Schemaintegration mit anschließender Normalisierung der zwei Dat
 Deshalb ist die Erstellung eines umfassenden Entwurfs hinsichtlich des speziellen Szenarios bei Agri~Con im Rahmen dieser Arbeit nicht möglich.
 Der Entwurf wird daher als Klon des Ist-Standes, jedoch ohne Trigger, erstellt.
 %großer Aufwand für genauen Entwurf, weshalb lieber Aussagen zum Einsatz in diesem Szenario gegeben werden sollen
+%Aufwand auch groß da Verteilung, ersatz der Trigger, Änderungen der Primär- und Fremdschlüssel bedacht werden müssen
 Ziel ist es damit die Eignung für die definierten Anforderungen zu testen und direkt mit dem Ist-Stand zu vergleichen.
 %das hier unten weg lassen?!
 Entsprechend den Funktions- und Leistungstests sollte der Entwurf Quelldaten direkt empfangen, diese zu einem geeigneten Zeitpunkt nach der gegebenen Geostatistik und alle Daten dem Ist-Stand zur Verfügung stellen.
@@ -206,6 +207,9 @@ Die Schnittstellen sind nicht explizit zu testen, da Postgres-XL und PostgreSQL 
 
 \textbf{FT02:}\\
 %vorhandenes Mapfile verwenden und schauen was passiert
+Für diesen Funktionstest wird der \Gls{umn} als \Gls{fcgi} Modul und einem geeigneten Mapfile verwendet.
+Es wird ein Kartenausschnitt vom \Gls{umn} angefordert, welcher drei Schläge enthält.
+Arbeitet Postgres-XL mit dem \Gls{umn} korrekt zusammen, liegt ein Bild mit den Schlägen in Form von  grauen Polygonen als Ergebnis vor.
 
 \textbf{FT03:}\\
 Da beide Systeme PostGIS 2.1.5 verwenden, sind die Austauschformate für geografische Daten identisch.
@@ -221,7 +225,14 @@ geometry steht dagegen für einen beliebigen räumlichen Datentyp.
 
 \textbf{FT05:}\\
 %Beispielhafte Schläge mit überlappenden Teilschlägen finden, die verschneidungsfunktionen anwenden und Ergebnis grafisch darstellen - vllt UMN?
-
+Auch in diesem Funktiontests findet die Validierung anhand von Bildern statt.
+Es werden sich überlappende Polygone aus farm.fields heraus gesucht und mit Hilfe von PostGIS Funktionen verschnitten.
+Dafür werden folgende Funktionen verwendet:\\
+\textit{geometry ST\_{}Intersection( geometry geomA , geometry geomB );}\\
+\textit{geometry ST\_{}Union(geometry g1, geometry g2);}\\
+\textit{geometry ST\_{}Difference(geometry geomA, geometry geomB);}\\
+\textit{geometry ST\_{}SymDifference(geometry geomA, geometry geomB);}\\
+Das Ergebnis jedes Funktionsaufrufes wird gespeichert und zu einer Karte gerendert.
 
 \textbf{FT06:}\\
 Dies wird im zweiten Szenario der Lasttests im nachfolgenden Abschnitt durchgeführt.
@@ -243,21 +254,52 @@ Zusammenfassend ist das Ziel dieser Leistungstests, die spezielle Leistung gegen
 %Skalierbarkeit(T(1)/T(p))/Effizienz(S(p)/p)
 Es wird von einer höheren Leistung bei der Aggregation und einer gleichen Leistung bei der Verarbeitung im Gegensatz zum Ist-Stand ausgegangen.
 
-%Aggregation ohne joins und Unterabfragen -> gewählte Verteilung der Daten und QueryPlaner Bestimmungen sind sehr speziell - für eigene Thesis - für diesen Fall keine Berücksichtigung dieser Feinheiten
-
 %gleichmäßige Beeinflussung durch Zabbix nennen
 Analog des Testaufbaus der Bachelor Arbeit des Autors\footnote{\cite{ba:kurt}} wird zur Generierung der Last das freie Java Programm JMeter verwendet, welches mehrere vorbereitete Anfragen parallel und verschränkt erzeugt sowie eine Auswertung der Laufzeiten zur Verfügung stellt.
 
-%Verteilung der Daten im Cluster
-Abhängig von der Verteilung der Daten und deren Aufruf ergeben sich unterschiedliche Ergebnisse der Leistungsmessung.
-%Nach Kudraß
-Kosten=IO Kosten (lesende und schreibende Speicherseiten) + Berechnungskosten (Prüfungen, arithmetische operationen) + Kommunikationskosten    S.260
-Kostenmaß ist ohne Einheit
-Erwartung der Treffer (Selektivität) und Histogramme (erzeugt mit analyze) sollen einbezogen werden S.261f.
-Kosten nach S.300f. : Rechenzeit (syntaxprüfer, BErechnung Ausführungsplanes, daten werden verglichen kombiniert sortiert, zusammenfassung in logischen tabellen), IO Zeit (Anzahl der Aufrufe an Speichersystem und Protokollierung mit internem speichermanagement), Datenübertragungszeit (Netzwerk)
-Einflussfaktoren: logisches DB Design, Anwendung, Abfrage, Ausführungsplan, Datenmenge der Abfrage, physisches DB Design, größe der DB, DBMS, Systemlast, Netzwerk, Parallelität, OS
-S.401 horizontale Fragmentierung wird mit create table distribute by durchgeführt (Datenlokalisierung S.407)
+Um ein statistisches Mittel zu erreichen und Nebeneffekte des Caching der Datenbank und des Betriebssystems zu reduzieren, wird ein Test elf mal ausgeführt.
+Es werden die zehn letzten Tests gemessen, der höchste und der niedrigste Wert ausgeschlossen und die letztendlichen acht Werte gemittelt.
+Dieses Vorgehen orientiert sich an der Masterarbeit von Herrn Baas Kapitel 6.1 Objective measurements\footnote{\cite[S.51]{ma:neo4j}}.
+Die Graphen der Auslastung der Knoten liegen als Bilder vor.
+Deshalb wird ein repräsentatives ausgewählt und zum Vergleich heran gezogen.
 
+Es besteht die Möglichkeit die theoretische Leistung anhand des Kostenmaßes zu bestimmen.
+Nach \cite[S.300 f.]{book:kudrass} setzen sich die Kosten für die Verarbeitung einer Anfrage aus folgendem zusammen:
+\begin{description}
+\item[Rechenzeit] Dazu zählt die Zeit des Syntaxprüfers, des Ausführungsplaners, der Kombinierung und der Sortierung.
+\item[Ein- und Ausgabe] Besteht aus der Anzahl der Aufrufe an das Speichersystem und der Protokollierung mit internem Speichermanagement.
+\item[Datenübertragung] Meint die Übertragung von Befehlen und Daten zwischen Komponenten.
+\end{description}
+Weiterhin sind Einflussfaktoren das  logische Datenbank Design, die Anwendung, die Abfrage, der Ausführungsplan, die Datenmenge der Abfrage, das physisches Datenbank Design, die Größe der Datenbank, das \Gls{dbms}, die Systemlast,das Netzwerk,die  Parallelität und das Betriebssystem.
+Eine Berechnung des einheitenlosen Kostenmaßes fällt auf Grund der Komplexität des Anwendungsfalles und der Menge der Einflussfaktoren aufwendig aus.
+Deshalb wird die Verarbeitungsleistung empirisch mit Tests festgestellt.
+
+Postgres-XL arbeitet mit verteilten Daten.
+Diese werden entweder auf jeden Knoten repliziert oder zwischen den Knoten aufgeteilt.
+Abhängig von der Verteilung der Daten und deren Aufrufen ergeben sich unterschiedliche Ergebnisse der Leistungsmessung.
+Entscheidend für die Laufzeit einer Anfrage an die Datenbank ist die Aufteilung dieser durch den Query Planer.
+Die erste Query Planer Instanz ist jene des angesprochenen Coordinators.
+Diese erstellt Unterabfragen entsprechend der Verteilung der Daten auf den DataNodes.
+Diese Unterabfragen werden lokal vom entsprechendem DataNode verarbeitet und das Ergebnis an den Coordinator zurück gesendet.
+Diese Zwischenergebnisse werden schlussendlich vom Coordinator zusammengefasst.
+Somit sind die Daten entsprechend Ihrer Verknüpfung hinsichtlich des Datenbankschemas und des Anwendungsfalles für ein geeignetes Zerlegen von Aufgaben durch den Query Planer zu verteilen.
+Geeignet meint hier das die Unterabfragen bereits wesentlich die Daten filtern, damit der Coordinator einzig die Untermengen zu einer Menge zusammenfassen und nicht grobe große Datenmengen aggregiert, diese selbst verknüpfen sowie filtern muss.
+Auf das Schema angewendet bedeutet dies:\\
+Die Tabellen fields und farms des Schemas farm werden per Replikation auf alle Knoten verteilt, da diese häufig zur nummerischen und räumlichen Filterung verwendet werden.
+Die Tabelle nsensorlogs im Schema n und die Tabelle samples im Schema nutrients werden anhand des Attributes fileid mit modulo auf die DataNodes verteilt, da dieses Attribut in der Regel als primäres Filterargument verwendet wird.\\
+Diese Verteilung sollte sich positiv auf die Ergebnisse der Leistungstests auswirken.
+Für den produktiven Einsatz bei der Agri~Con entsprechend des Anwendungsfalles sind weitere Änderung in der Verteilung der Daten  durchzuführen.
+%Nach Kudraß
+%Erwartung der Treffer (Selektivität) und Histogramme (erzeugt mit analyze) sollen einbezogen werden S.261f.
+%S.401 horizontale Fragmentierung wird mit create table distribute by durchgeführt (Datenlokalisierung S.407)
+
+Entscheident für die Leistungsfähigkeit des \Gls{dbms} ist ebenfalls die Konfiguration des Query Planers.
+Dazu zählt die Vergabe von Kostenwerten an Funktionen und das Setzen von Konfigurationen wie den Kostenfaktoren und der Algorithmennutzung in den postgresql.conf Dateien.
+Diese Einstellungen werden im Rahmen dieser Arbeit auf Standardwerten belassen, da eine solche Konfiguration sehr stark von den Anfragen und somit von Anwendungsfall abhängt.
+Da das Vergleichssystem mit PostgreSQL die selbe Konfiguration besitzt ist eine relative Vergleichbarkeit gewährleistet.
+Für einen produktiven Einsatz ist die Berücksichtigung dessen zu empfehlen.
+So besteht auch die Möglichkeit Coordinator mit unterschiedlichen Konfigurationen auszustatten, um mehrere Aspekte des Anwendungsfalles abzudecken.
+%Aggregation ohne joins und Unterabfragen -> gewählte Verteilung der Daten und QueryPlaner Bestimmungen sind sehr speziell - für eigene Thesis - für diesen Fall keine Berücksichtigung dieser Feinheiten
 
 Der erste Lasttest misst die Laufzeit zur Aggregation von Punktdaten aus der Tabelle nsensorlogs des Schemas n.
 Die Abfrage und Messung erfolgt mit dem SQL Statement \textit{Select * From n.nsensorlogs Where farmid=1038;} sowie \textit{Explain Analyze Select * From n.nsensorlogs Where farmid=1038;}.
@@ -281,6 +323,7 @@ Neben der Laufzeit ist gesondert die Auslastung der einzelnen Knoten zu beobacht
 Zu Beginn dieser Untersuchung steht nicht fest, in wie weit die DataNodes mit in die Berechnungen der Coordinator einbezogen werden.
 Eine automatisierte Verteilung der Berechnungen ist für einen höheren Durchsatz wünschenswert.
 %an volkmar: parallelität wie eingeführt?
+%mehrere Aufrufe gleichzeitig - mit scala?
 
 %historische Daten?
 %Wie schnell werden nsensorlogs gespeichert? Trigger beim befüllen nicht vergessen!
