@@ -1,0 +1,18 @@
+Ist nutrients.createcontourappl(text, text, text, text) die richtige verarbeitsfunktion?
+Nein, sie benötigt die Düngeplanung.
+Lieber nutrients.contouringcorrected(p_fileid bigint) und nutrients.contouringcorrectedatop(fileid bigint) verwenden.
+Diese benötigen die nutrients.r_* funktionen.
+
+Volkmar du hast in atopkriege parallelität eingeführt. Wie? nicht in der Datenank, nur im Aufruf der Services.
+
+ER der DB in Arbeit nehmen? Wie detailiert? Ist OK. Detailiert wie gewollt.
+
+pg_bench mit testen?
+Falls Zeit ist sehr interessant für allgemeine Einschätzung.
+---------------
+in Konfig Dateien für cascade:
+fsync off
+synchronous commit off
+
+Interessant:
+auslastung und lastverteilung von Postgres-XL bei aggregation und Berechnungen
