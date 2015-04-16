@@ -68,18 +68,10 @@ Analog dazu existiert der Befehl \textit{Drop Node nodename} zum entfernen eines
 Wurde das Cluster verändert, ist dies mit \textit{Select * From pgxc\_{}pool\_{}reload();} für alle Knoten zu propagieren.
 Weitere Abweichungen sind der Dokumentation zu entnehmen.\footnote{siehe \url{http://files.postgres-xl.org/documentation/sql-commands.html}}
 
-Daten wurden mit dem Kommandozeilentool pg\_{}dump aus dem Ist-Stand in das Testsystem überführt.
-Der Ist-Zustand verwendet PostgreSQL Version 9.3.
-Um Daten zwischen verschiedenen Versionen auszutauschen, muss der Zwischenstand der Datenbank im Textformat erstellt und dieser angepasst als SQL Anweisungen in das andere System eingespielt werden.
-%zu langsam
-Ein Datenaustausch mit der SQL Anweisung \textit{Copy} oder der Erweiterung DBLink ist ebenso möglich.
-Diese Kompatibilität wird als erfüllter Funktionstest des Datenaustausches gewertet.
-
-%DBLink -> Kombatibiltätsprobleme? nicht festgestellt
-%Übertragung im Prototyp???
-
-%psql -c "copy (select list of column  from table_name ) to stdin " dbanme | psql -c "table_name(specify the column ) from stdout " targetDB
-%https://stackoverflow.com/questions/14797327/copy-data-between-two-tables-in-postgresql-using-dblink-sql
+Das Datenbankschema wurde mit pg\_{}dump in eine Textdatei geladen und als SQL Befehle in Postgres-XL übernommen.
+Die Übernahme der Daten erfolgte mit db\_{}link, welches auch zwischen unterschiedlichen PostgreSQL Versionen funktioniert.
+%Der Ist-Zustand verwendet PostgreSQL Version 9.3.
+Die Daten können auch analog des Schema übertragen werden, dies dauert jedoch länger.
 
 \subsection{Verarbeitung}
 %SQL
@@ -108,18 +100,13 @@ Zwar können Trigger in Funktionen ausgelagert und bei Verwendung der Tabellen a
 Jedoch ist eine grundlegende Integration in den Ist-Stand notwendig. %warum?
 Dies ist in der Datenabhängigkeit der Bestandsdaten und der Eignung von Postgres-XL begründet.
 Das Datenbankschema befindet sich in der ersten und zweiten Normalform, wodurch eine Abhängigkeit über Fremdschlüssel zu häufig verwendeten Tabellen wie farm.farms oder farm.fields besteht, was eine Auslagerung von Tabellen und Funktionen nicht trivial macht.
-Eine teilweise Schemaintegration mit anschließender Normalisierung der zwei Datenbankschemata würde Änderung aller Programme nach sich ziehen und in diesem Rahmen aufwendig ausfallen.\\
+Eine teilweise Schemaintegration mit anschließender Normalisierung der zwei Datenbankschemata würde Änderung aller Programme nach sich ziehen und in diesem Rahmen zu aufwendig ausfallen.\\
 Deshalb ist die Erstellung eines umfassenden Entwurfs hinsichtlich des speziellen Szenarios bei Agri~Con im Rahmen dieser Arbeit nicht möglich.
 Der Entwurf wird daher als Klon des Ist-Standes, jedoch ohne Trigger, erstellt.
 %großer Aufwand für genauen Entwurf, weshalb lieber Aussagen zum Einsatz in diesem Szenario gegeben werden sollen
 %Aufwand auch groß da Verteilung, ersatz der Trigger, Änderungen der Primär- und Fremdschlüssel bedacht werden müssen
-Ziel ist es damit die Eignung für die definierten Anforderungen zu testen und direkt mit dem Ist-Stand zu vergleichen.
-%das hier unten weg lassen?!
-Entsprechend den Funktions- und Leistungstests sollte der Entwurf Quelldaten direkt empfangen, diese zu einem geeigneten Zeitpunkt nach der gegebenen Geostatistik und alle Daten dem Ist-Stand zur Verfügung stellen.
-%Probleme beim Entwurf
-Die Quelldaten beziehen sich auf betriebliche Daten, welche vom Ist-Stand verwaltet werden.
-Somit ist der Entwurf direkt mit dem Ist-Stand verbunden.
-%auch inhaltliche Zusammenhänge machen Aufteilung schwierig
+Entsprechend den Leistungstests soll der Entwurf die Produktivdaten liefern und anwendungsnahe Berechnungen ausführen.
+Somit sind Aussagen zur Leistungsfähigkeit hinsichtlich der Schwachstellen des Ist-Standes treffbar.
 
 %\section{Implementierung}
 %SQL mit dblnk skizzieren
@@ -224,7 +211,6 @@ srid ist dabei ein EPSG Code aus der Tabelle SPATIAL\_{}REF\_{}SYS, welche 3911 
 geometry steht dagegen für einen beliebigen räumlichen Datentyp.
 
 \textbf{FT05:}\\
-%Beispielhafte Schläge mit überlappenden Teilschlägen finden, die verschneidungsfunktionen anwenden und Ergebnis grafisch darstellen - vllt UMN?
 Auch in diesem Funktiontests findet die Validierung anhand von Bildern statt.
 Es werden sich überlappende Polygone aus farm.fields heraus gesucht und mit Hilfe von PostGIS Funktionen verschnitten.
 Dafür werden folgende Funktionen verwendet:\\
@@ -233,6 +219,7 @@ Dafür werden folgende Funktionen verwendet:\\
 \textit{geometry ST\_{}Difference(geometry geomA, geometry geomB);}\\
 \textit{geometry ST\_{}SymDifference(geometry geomA, geometry geomB);}\\
 Das Ergebnis jedes Funktionsaufrufes wird gespeichert und zu einer Karte gerendert.
+%Sandras WKT Polygone in eigene Tabelle, dafür mapfile erzeugen, Karte erstellen, verschneiden, Karten dazu auch erstellen
 
 \textbf{FT06:}\\
 Dies wird im zweiten Szenario der Lasttests im nachfolgenden Abschnitt durchgeführt.
