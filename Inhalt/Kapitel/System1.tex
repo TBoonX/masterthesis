@@ -128,7 +128,7 @@ Die wesentliche Randbedingung Testumgebung wurde nach der Softwareauswahl und vo
 Da es sich bei dieser Umgebung um gebrauchte Hardware aus dem Jahr 2007 handelt, sind einzig relative Aussagen der Leistung treffbar.
 Der Cluster wird mit Virtualisierung der einzelnen Knoten erstellt.
 Dafür steht ein IBM Rack Server x3850 M2 zur Verfügung, mit folgender Ausstattung:
-vier Xeon E7330 Quad-Core mit 2,4 GHz, 44GB DDR2 RAM, vier 500GB 2,5 Zoll SATA Festplatten von Western Digital mit 7.200 U/min und einem MR10k Raid-Controller.
+vier Xeon E7330 Quad-Core mit 2,4 GHz, 64GB DDR2 RAM, vier 500GB 2,5 Zoll SATA Festplatten von Western Digital mit 7.200 U/min und einem MR10k Raid-Controller.
 Als Virtualisierungssoftware kommt \Gls{esxi} in der kostenlosen Version 6.0 mit \Gls{vsphere} 6.0 als Testversion zum Einsatz.
 Mit dieser Virtualisierungslösung ist es möglich, Ressourcen explizit und ausschließlich einer VM zuzuordnen.
 So werden die Prozessorkerne in Paaren und der Arbeitsspeicher direkt und mit exklusiver Verwendung den einzelnen VMs zugeordnet.
@@ -139,8 +139,8 @@ Typ I enthält eine GTM Instanz und Typ II eine GTM-Proxy, eine Coordinator und 
 Dabei stehen sechs Typ II VMs zur Verfügung, wobei zur Beurteilung der Skalierbarkeit zwei bis sieben genutzt werden.
 Jede VM besitzt als Betriebssystem Ubuntu 14.04 LTS und alle für die Installation und Ausführung des Prototypen notwendigen Pakete.
 Weiterhin erhalten die Typ II VMs folgende Hardware Zuordnung:
-zwei Prozessorkerne, fünf GB RAM und 100 GB Festplattenspeicherplatz.
-Typ I erhält dagegen zwei Prozessorkerne, fünf GB RAM und 20 GB Festplattenspeicherplatz.
+zwei Prozessorkerne, sieben GB RAM und 100 GB Festplattenspeicherplatz.
+Typ I erhält dagegen zwei Prozessorkerne, sieben GB RAM und 20 GB Festplattenspeicherplatz.
 \begin{figure}[h!]
 \centering
 \input{Abbildungen/Testsystem_physischerAufbau.tex}
