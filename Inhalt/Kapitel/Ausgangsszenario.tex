@@ -282,8 +282,7 @@ Dies wird mit einer R Bibliothek realisiert und bei großen Datenmengen Nachts a
 Das spezielle Kriging im jeweiligen Framework zu implementieren ist aufwendig, weshalb ein unveränderter Kriging Algorithmus für den Vergleich verwendet werden muss, sofern R nicht verwendet werden kann.\footnote{Dieser Algorithmus wurde im Auftrag durch dritte erstellt.}
 Diese zwei charakteristischen Vorgänge sind durch ein Framework zu realisieren.
 
-
-\begin{figure}[h]
+\begin{figure}[h!]
 \centering
 \input{Abbildungen/Wunsch-Stand.tex}
 \caption[Aufbau Wunsch-Stand]{\"{U}bersicht des Aufbaus des Wunsch-Standes bei Agri Con}
@@ -296,34 +295,53 @@ In welcher konkreten Form das Framework als Speicher für historische und aufber
 Auf Grund dessen ist dies nach Auswahl des Frameworks im Entwurf des Prototypen zu konkretisieren.
 
 %- quelldaten benennen und auf Anforderungen verweisen
-%- Grundschema der DB beschreieben (geografische agratechnische Daten und Daten des Unternehmens, der Organisation)
+%- Grundschema der DB beschreieben (geografische agratechnische Daten und Daten des Unternehmens, der Organisation) -> ER mit dbvis
 %- Funktionsumfang hinsichtlich berechnung aufzeigen: was macht postgresql und was R
 %- 
 
 
 \section{Stand der Forschung} %In Einleitung schieben?
 %Diskussion der Literatur
-Während der Tätigkeit bei Agri~Con und durch die mehrfache Teilnahme an der internationalen Messe für freie geografischer Informationssysteme FOSSGIS\footnote{\url{http://www.fossgis.de/}} gewann der Autor den Eindruck, dass PostgreSQL mit PostGIS in der Regel als \Gls{dbms} für GIS eingesetzt wird.
-Zwar existiert eine Vielzahl von Elementen zur Darstellung und Kartenverwaltung erzeugt aus den vorhandenen Daten, aber es scheint keine geeignete Alternative zur Datenhaltung und Verarbeitung von komplexen geografischen Daten zu geben.
+Während der Tätigkeit bei Agri~Con und durch die mehrfache Teilnahme an der internationalen Messe für freie geografischer Informationssysteme FOSSGIS\footnote{\url{http://www.fossgis.de/}} gewann der Autor den Eindruck, dass PostgreSQL mit PostGIS in der Regel als freies \Gls{dbms} für GIS eingesetzt wird.
+Zwar existiert eine Vielzahl von Elementen zur Darstellung und Kartenverwaltung% erzeugt aus den vorhandenen Daten
+, aber es scheint keine geeignete Alternative zur Datenhaltung und Verarbeitung von komplexen geografischen Daten zu geben.
 
-Dieser Eindruck wurde durch die Literaturrecherche bestätigt.
-\cite{ba:pgvsoracle} vergleicht PostgreSQL nur mit Oracle Spatial\\
-\cite{ba:nosqlfuergeodaten} untersucht gängige NoSQL \Gls{dbms} für Eignung mit geografischen Daten im vergleich mit PostGIS und Oracle Spatial und kommt zu dem Schluss das es für einfache Datenobjekte in begrenzten Mengen nützlich ist(neo4j mit Funktionalitäte für kürzeste Strecke etc.), jedoch für allgemeine komplexe Projekte ungeeignet.\\
-\cite{ma:neo4j} vergleicht Neo4J mit PostGIS und kommt auch zu dem Schluss das graphenbasierte Datenhaltung zwar Vorteile für Fragen wie den kürzesten Weg geeignet sind, aber NoSQL ist neu und hat im allgemeinen Anwendungsfall Schwächen.
+Dieser Eindruck wurde durch die Literaturrecherche bestätigt.\\
+\cite{ba:pgvsoracle} vergleicht in seiner Bachelorarbeit PostgreSQL mit Oracle Spatial, da auch für ihn PostgreSQL der größte freie Vertreter für ein freies GIS ist.\\
+\cite{ba:nosqlfuergeodaten} untersucht gängige NoSQL \Gls{dbms} für Eignung mit geografischen Daten im Vergleich mit PostGIS und Oracle Spatial.
+Thurm kommt zu dem Schluss, dass es für einfache Datenobjekte in begrenzten Mengen nützlich ist die NoSQL Alternativen in Betracht zu ziehen.
+Beispielsweise eignet sich die graphenbasierte Datenbank Neo4J für Operationen mit Strecken.
+Für weniger spezielle und komplexe Anforderungen sind einzig PostGIS und Oracle Spatial zu empfehlen.
+Die NoSQL Systeme im Bereich der Datenverarbeitung von räumlichen Daten sind in den letzten Jahren entstanden und somit nicht ausgereift und umfangreich, so Thurm S.51.\\
+\cite{ma:neo4j} vergleicht Neo4J mit PostGIS und kommt auch zu dem Schluss, dass graphenbasierte Datenhaltung zwar Vorteile besitzt, aber die Eignung individuell validiert werden muss.
 
-Es existieren umfangreiche Arbeiten zur Verwendung von relationalen und NoSQL Systemen zur verteilten Verwendung, z.B. \cite{ba:vertnosql}, \\
-Unternehmen werben mit höher Leistung als PostGIS:\\
-GeoMesa: 10 bis 60 fache Antwortgeschwindigkeit bei GeoMesa gegenüber PostGIS\\
+Wissenschaftliche Dokumente in Form von Paper sind zu diesem Thema vorhanden.
+Diese beschreiben aber nur knapp Entwürfe eines Systems für einen speziellen Anwendungsfall, weshalb sie in diesem Zusammenhang nicht gebraucht werden können.
+\cite{paper:hdfsspatial} beschreibt einen Entwurf zur Speicherung und Verarbeitung räumlichen Daten mit Hadoop, VegaGiStore genannt.
+\cite{paper:spatialdistribution} erläutert dagegen Methoden zur Verteilung von Daten in einem verteilten System auf Grund der räumlichen Informationen.
+
+Ponomarenko stellt in seiner Bachelorarbeit\footnote{\cite{ba:vertnosql}} die beispielhafte Umsetzung einer NoSQL GIS Umgebung vor.
+
+Es existieren Arbeiten zu Randthemen und -betrachtungen sowie Teilproblemen, aber nicht zu den Fragen \textit{Gibt es eine freie Alternative zu PostGIS?} und \textit{Welche verteilten GIS eignen sich für einen komplexen Anwendungsfall?}.
+
+Neben wissenschaftlichen Dokumenten finden sich Werbetexte zu scheinbar geeigneten Systemen.
+Das Fehlen von verlässlichen konkreten Informationen erschwert die Literaturrecherche.
+Speziell Leistungsvergleiche sind in diesem Zusammenhang interessant, sind aber auf Grund fehlender Informationen nicht reproduzierbar.
+Nachfolgend zwei Beispiele einer solchen Werbung:\\
+%Unternehmen werben mit höher Leistung als PostGIS:\\
+GeoMesa: zehn bis 60 fache Antwortgeschwindigkeit bei GeoMesa gegenüber PostGIS, entsprechend der Abbildung \ref{fig:geomesaversuspostgis}.
 \begin{figure}[h!]
 \centering
 \includegraphics[width=.8\textwidth]{Abbildungen/geomesa_versus_postgis.png}
 \caption[Antwortzeiten von GeoMesa und PostGIS]{Antwortzeiten von GeoMesa und PostGIS, Quelle \url{http://de.slideshare.net/CCRinc/location-techdc-talk2-28465214} S.24}
 \label{fig:geomesaversuspostgis}
 \end{figure}
-Postgres-XL: bis zu sechs fache Antwortdauer von PostgreSQL gegenüber Postgres-XL in einem TPC-H Benchmark\\
+Postgres-XL: Bis zu sechs fache Antwortdauer von PostgreSQL gegenüber Postgres-XL in einem standardisierten TPC-H Benchmark bei Verwendung von vier DataNodes. Abbildung \ref{fig:pgxcversuspgsql} zeigt das Diagramm mit dem genannten Wert. Die x-Achse ist nicht beschrieben, weswegen eine Einschätzung der Werte nicht möglich ist.
 \begin{figure}[h!]
 \centering
 \includegraphics[width=.8\textwidth]{Abbildungen/postgresxl_versus_postgis.png}
 \caption[TPC-H Benchmark von PostgreSQL und Postgres-XL]{TPC-H Benchmark von PostgreSQL und Postgres-XL, Quelle \url{http://de.slideshare.net/mason_s/postgres-xl-scaling} S.12}
 \label{fig:pgxcversuspgsql}
 \end{figure}
+
+%nichts da, weswegen interesant zu erforschen

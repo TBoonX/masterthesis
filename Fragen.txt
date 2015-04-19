@@ -1,7 +1,1 @@
-Ist nutrients.createcontourappl(text, text, text, text) die richtige verarbeitsfunktion?
-Eventuell schönes Beispiel für den Aufruf?
-Volkmar du hast in atopkriege parallelität eingeführt. Wie?
-
-ER der DB in Arbeit nehmen? Wie detailiert?
-
-pg_bench mit testen?
+Sequence ist nicht verwendbar beim erstellen mit skript. bei create table geht es...
