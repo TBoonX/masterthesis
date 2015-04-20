@@ -9,4 +9,7 @@ make
 sudo make install
 psql -h localhost --port=6661 -d agrodb -f \
    /usr/local/pgsql/share/extension/postgis--2.1.5.sql
+psql -h localhost --port=6661 -d agrodb
+alter table spatial_ref_sys distribute by replication;
+\q
 \end{lstlisting} 

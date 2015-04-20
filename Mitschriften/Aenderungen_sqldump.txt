@@ -1,6 +1,7 @@
 Änderungen am sqldump:
 
 distribute by für farms, fields, nsensorlogfiles, planningperiod     mit hash(id) außer samples, soilsamplefiles und nsensorlogs  -> modulo (fileid)
+hash(id) files.soilsamplefields
 
 einige primary key erzeugungen in create table übernommen
 
