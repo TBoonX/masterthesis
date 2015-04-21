@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<jmeterTestPlan version="1.2" properties="2.3">
+<jmeterTestPlan version="1.2" properties="2.8" jmeter="2.13 r1665067">
   <hashTree>
     <TestPlan guiclass="TestPlanGui" testclass="TestPlan" testname="Testplan" enabled="true">
       <stringProp name="TestPlan.comments"></stringProp>
@@ -71,7 +71,7 @@
               <boolProp name="quotedData">true</boolProp>
               <boolProp name="recycle">true</boolProp>
               <boolProp name="stopThread">false</boolProp>
-              <stringProp name="shareMode">Current thread group</stringProp>
+              <stringProp name="shareMode">shareMode.group</stringProp>
             </CSVDataSet>
             <hashTree/>
           </hashTree>
@@ -116,7 +116,7 @@
               <boolProp name="quotedData">true</boolProp>
               <boolProp name="recycle">true</boolProp>
               <boolProp name="stopThread">false</boolProp>
-              <stringProp name="shareMode">Current thread group</stringProp>
+              <stringProp name="shareMode">shareMode.group</stringProp>
             </CSVDataSet>
             <hashTree/>
           </hashTree>
@@ -161,7 +161,7 @@
               <boolProp name="quotedData">true</boolProp>
               <boolProp name="recycle">true</boolProp>
               <boolProp name="stopThread">false</boolProp>
-              <stringProp name="shareMode">Current thread group</stringProp>
+              <stringProp name="shareMode">shareMode.group</stringProp>
             </CSVDataSet>
             <hashTree/>
           </hashTree>
@@ -206,7 +206,7 @@
               <boolProp name="quotedData">true</boolProp>
               <boolProp name="recycle">true</boolProp>
               <boolProp name="stopThread">false</boolProp>
-              <stringProp name="shareMode">Current thread group</stringProp>
+              <stringProp name="shareMode">shareMode.group</stringProp>
             </CSVDataSet>
             <hashTree/>
           </hashTree>
@@ -251,7 +251,7 @@
               <boolProp name="quotedData">true</boolProp>
               <boolProp name="recycle">true</boolProp>
               <boolProp name="stopThread">false</boolProp>
-              <stringProp name="shareMode">Current thread group</stringProp>
+              <stringProp name="shareMode">shareMode.group</stringProp>
             </CSVDataSet>
             <hashTree/>
           </hashTree>
@@ -323,7 +323,7 @@
               <boolProp name="quotedData">true</boolProp>
               <boolProp name="recycle">true</boolProp>
               <boolProp name="stopThread">false</boolProp>
-              <stringProp name="shareMode">Current thread group</stringProp>
+              <stringProp name="shareMode">shareMode.group</stringProp>
             </CSVDataSet>
             <hashTree/>
           </hashTree>
@@ -368,7 +368,7 @@
               <boolProp name="quotedData">true</boolProp>
               <boolProp name="recycle">true</boolProp>
               <boolProp name="stopThread">false</boolProp>
-              <stringProp name="shareMode">Current thread group</stringProp>
+              <stringProp name="shareMode">shareMode.group</stringProp>
             </CSVDataSet>
             <hashTree/>
           </hashTree>
@@ -413,7 +413,7 @@
               <boolProp name="quotedData">true</boolProp>
               <boolProp name="recycle">true</boolProp>
               <boolProp name="stopThread">false</boolProp>
-              <stringProp name="shareMode">Current thread group</stringProp>
+              <stringProp name="shareMode">shareMode.group</stringProp>
             </CSVDataSet>
             <hashTree/>
           </hashTree>
@@ -458,7 +458,7 @@
               <boolProp name="quotedData">true</boolProp>
               <boolProp name="recycle">true</boolProp>
               <boolProp name="stopThread">false</boolProp>
-              <stringProp name="shareMode">Current thread group</stringProp>
+              <stringProp name="shareMode">shareMode.group</stringProp>
             </CSVDataSet>
             <hashTree/>
           </hashTree>
@@ -503,7 +503,7 @@
               <boolProp name="quotedData">true</boolProp>
               <boolProp name="recycle">true</boolProp>
               <boolProp name="stopThread">false</boolProp>
-              <stringProp name="shareMode">Current thread group</stringProp>
+              <stringProp name="shareMode">shareMode.group</stringProp>
             </CSVDataSet>
             <hashTree/>
           </hashTree>
@@ -575,7 +575,7 @@
               <boolProp name="quotedData">true</boolProp>
               <boolProp name="recycle">true</boolProp>
               <boolProp name="stopThread">false</boolProp>
-              <stringProp name="shareMode">Current thread group</stringProp>
+              <stringProp name="shareMode">shareMode.group</stringProp>
             </CSVDataSet>
             <hashTree/>
           </hashTree>
@@ -620,7 +620,7 @@
               <boolProp name="quotedData">true</boolProp>
               <boolProp name="recycle">true</boolProp>
               <boolProp name="stopThread">false</boolProp>
-              <stringProp name="shareMode">Current thread group</stringProp>
+              <stringProp name="shareMode">shareMode.group</stringProp>
             </CSVDataSet>
             <hashTree/>
           </hashTree>
@@ -665,7 +665,7 @@
               <boolProp name="quotedData">true</boolProp>
               <boolProp name="recycle">true</boolProp>
               <boolProp name="stopThread">false</boolProp>
-              <stringProp name="shareMode">Current thread group</stringProp>
+              <stringProp name="shareMode">shareMode.group</stringProp>
             </CSVDataSet>
             <hashTree/>
           </hashTree>
@@ -710,7 +710,7 @@
               <boolProp name="quotedData">true</boolProp>
               <boolProp name="recycle">true</boolProp>
               <boolProp name="stopThread">false</boolProp>
-              <stringProp name="shareMode">Current thread group</stringProp>
+              <stringProp name="shareMode">shareMode.group</stringProp>
             </CSVDataSet>
             <hashTree/>
           </hashTree>
@@ -755,7 +755,7 @@
               <boolProp name="quotedData">true</boolProp>
               <boolProp name="recycle">true</boolProp>
               <boolProp name="stopThread">false</boolProp>
-              <stringProp name="shareMode">Current thread group</stringProp>
+              <stringProp name="shareMode">shareMode.group</stringProp>
             </CSVDataSet>
             <hashTree/>
           </hashTree>
@@ -827,7 +827,7 @@
               <boolProp name="quotedData">true</boolProp>
               <boolProp name="recycle">true</boolProp>
               <boolProp name="stopThread">false</boolProp>
-              <stringProp name="shareMode">Current thread group</stringProp>
+              <stringProp name="shareMode">shareMode.group</stringProp>
             </CSVDataSet>
             <hashTree/>
           </hashTree>
@@ -872,7 +872,7 @@
               <boolProp name="quotedData">true</boolProp>
               <boolProp name="recycle">true</boolProp>
               <boolProp name="stopThread">false</boolProp>
-              <stringProp name="shareMode">Current thread group</stringProp>
+              <stringProp name="shareMode">shareMode.group</stringProp>
             </CSVDataSet>
             <hashTree/>
           </hashTree>
@@ -917,7 +917,7 @@
               <boolProp name="quotedData">true</boolProp>
               <boolProp name="recycle">true</boolProp>
               <boolProp name="stopThread">false</boolProp>
-              <stringProp name="shareMode">Current thread group</stringProp>
+              <stringProp name="shareMode">shareMode.group</stringProp>
             </CSVDataSet>
             <hashTree/>
           </hashTree>
@@ -962,7 +962,7 @@
               <boolProp name="quotedData">true</boolProp>
               <boolProp name="recycle">true</boolProp>
               <boolProp name="stopThread">false</boolProp>
-              <stringProp name="shareMode">Current thread group</stringProp>
+              <stringProp name="shareMode">shareMode.group</stringProp>
             </CSVDataSet>
             <hashTree/>
           </hashTree>
@@ -1007,7 +1007,7 @@
               <boolProp name="quotedData">true</boolProp>
               <boolProp name="recycle">true</boolProp>
               <boolProp name="stopThread">false</boolProp>
-              <stringProp name="shareMode">Current thread group</stringProp>
+              <stringProp name="shareMode">shareMode.group</stringProp>
             </CSVDataSet>
             <hashTree/>
           </hashTree>
@@ -1079,7 +1079,7 @@
               <boolProp name="quotedData">true</boolProp>
               <boolProp name="recycle">true</boolProp>
               <boolProp name="stopThread">false</boolProp>
-              <stringProp name="shareMode">Current thread group</stringProp>
+              <stringProp name="shareMode">shareMode.group</stringProp>
             </CSVDataSet>
             <hashTree/>
           </hashTree>
@@ -1124,7 +1124,7 @@
               <boolProp name="quotedData">true</boolProp>
               <boolProp name="recycle">true</boolProp>
               <boolProp name="stopThread">false</boolProp>
-              <stringProp name="shareMode">Current thread group</stringProp>
+              <stringProp name="shareMode">shareMode.group</stringProp>
             </CSVDataSet>
             <hashTree/>
           </hashTree>
@@ -1169,7 +1169,7 @@
               <boolProp name="quotedData">true</boolProp>
               <boolProp name="recycle">true</boolProp>
               <boolProp name="stopThread">false</boolProp>
-              <stringProp name="shareMode">Current thread group</stringProp>
+              <stringProp name="shareMode">shareMode.group</stringProp>
             </CSVDataSet>
             <hashTree/>
           </hashTree>
@@ -1214,7 +1214,7 @@
               <boolProp name="quotedData">true</boolProp>
               <boolProp name="recycle">true</boolProp>
               <boolProp name="stopThread">false</boolProp>
-              <stringProp name="shareMode">Current thread group</stringProp>
+              <stringProp name="shareMode">shareMode.group</stringProp>
             </CSVDataSet>
             <hashTree/>
           </hashTree>
@@ -1259,7 +1259,7 @@
               <boolProp name="quotedData">true</boolProp>
               <boolProp name="recycle">true</boolProp>
               <boolProp name="stopThread">false</boolProp>
-              <stringProp name="shareMode">Current thread group</stringProp>
+              <stringProp name="shareMode">shareMode.group</stringProp>
             </CSVDataSet>
             <hashTree/>
           </hashTree>
@@ -1331,7 +1331,7 @@
               <boolProp name="quotedData">true</boolProp>
               <boolProp name="recycle">true</boolProp>
               <boolProp name="stopThread">false</boolProp>
-              <stringProp name="shareMode">Current thread group</stringProp>
+              <stringProp name="shareMode">shareMode.group</stringProp>
             </CSVDataSet>
             <hashTree/>
           </hashTree>
@@ -1376,7 +1376,7 @@
               <boolProp name="quotedData">true</boolProp>
               <boolProp name="recycle">true</boolProp>
               <boolProp name="stopThread">false</boolProp>
-              <stringProp name="shareMode">Current thread group</stringProp>
+              <stringProp name="shareMode">shareMode.group</stringProp>
             </CSVDataSet>
             <hashTree/>
           </hashTree>
@@ -1421,7 +1421,7 @@
               <boolProp name="quotedData">true</boolProp>
               <boolProp name="recycle">true</boolProp>
               <boolProp name="stopThread">false</boolProp>
-              <stringProp name="shareMode">Current thread group</stringProp>
+              <stringProp name="shareMode">shareMode.group</stringProp>
             </CSVDataSet>
             <hashTree/>
           </hashTree>
@@ -1466,7 +1466,7 @@
               <boolProp name="quotedData">true</boolProp>
               <boolProp name="recycle">true</boolProp>
               <boolProp name="stopThread">false</boolProp>
-              <stringProp name="shareMode">Current thread group</stringProp>
+              <stringProp name="shareMode">shareMode.group</stringProp>
             </CSVDataSet>
             <hashTree/>
           </hashTree>
@@ -1511,7 +1511,7 @@
               <boolProp name="quotedData">true</boolProp>
               <boolProp name="recycle">true</boolProp>
               <boolProp name="stopThread">false</boolProp>
-              <stringProp name="shareMode">Current thread group</stringProp>
+              <stringProp name="shareMode">shareMode.group</stringProp>
             </CSVDataSet>
             <hashTree/>
           </hashTree>
@@ -1533,7 +1533,7 @@
         <stringProp name="ThreadGroup.ramp_time">0</stringProp>
         <longProp name="ThreadGroup.start_time">1347054330000</longProp>
         <longProp name="ThreadGroup.end_time">1347054330000</longProp>
-        <boolProp name="ThreadGroup.scheduler">true</boolProp>
+        <boolProp name="ThreadGroup.scheduler">false</boolProp>
         <stringProp name="ThreadGroup.duration">30</stringProp>
         <stringProp name="ThreadGroup.delay"></stringProp>
       </ThreadGroup>
@@ -1583,7 +1583,7 @@
               <boolProp name="quotedData">true</boolProp>
               <boolProp name="recycle">true</boolProp>
               <boolProp name="stopThread">false</boolProp>
-              <stringProp name="shareMode">Current thread group</stringProp>
+              <stringProp name="shareMode">shareMode.group</stringProp>
             </CSVDataSet>
             <hashTree/>
           </hashTree>
@@ -1628,7 +1628,7 @@
               <boolProp name="quotedData">true</boolProp>
               <boolProp name="recycle">true</boolProp>
               <boolProp name="stopThread">false</boolProp>
-              <stringProp name="shareMode">Current thread group</stringProp>
+              <stringProp name="shareMode">shareMode.group</stringProp>
             </CSVDataSet>
             <hashTree/>
           </hashTree>
@@ -1673,7 +1673,7 @@
               <boolProp name="quotedData">true</boolProp>
               <boolProp name="recycle">true</boolProp>
               <boolProp name="stopThread">false</boolProp>
-              <stringProp name="shareMode">Current thread group</stringProp>
+              <stringProp name="shareMode">shareMode.group</stringProp>
             </CSVDataSet>
             <hashTree/>
           </hashTree>
@@ -1718,7 +1718,7 @@
               <boolProp name="quotedData">true</boolProp>
               <boolProp name="recycle">true</boolProp>
               <boolProp name="stopThread">false</boolProp>
-              <stringProp name="shareMode">Current thread group</stringProp>
+              <stringProp name="shareMode">shareMode.group</stringProp>
             </CSVDataSet>
             <hashTree/>
           </hashTree>
@@ -1763,7 +1763,7 @@
               <boolProp name="quotedData">true</boolProp>
               <boolProp name="recycle">true</boolProp>
               <boolProp name="stopThread">false</boolProp>
-              <stringProp name="shareMode">Current thread group</stringProp>
+              <stringProp name="shareMode">shareMode.group</stringProp>
             </CSVDataSet>
             <hashTree/>
           </hashTree>
@@ -1835,7 +1835,7 @@
               <boolProp name="quotedData">true</boolProp>
               <boolProp name="recycle">true</boolProp>
               <boolProp name="stopThread">false</boolProp>
-              <stringProp name="shareMode">Current thread group</stringProp>
+              <stringProp name="shareMode">shareMode.group</stringProp>
             </CSVDataSet>
             <hashTree/>
           </hashTree>
@@ -1880,7 +1880,7 @@
               <boolProp name="quotedData">true</boolProp>
               <boolProp name="recycle">true</boolProp>
               <boolProp name="stopThread">false</boolProp>
-              <stringProp name="shareMode">Current thread group</stringProp>
+              <stringProp name="shareMode">shareMode.group</stringProp>
             </CSVDataSet>
             <hashTree/>
           </hashTree>
@@ -1925,7 +1925,7 @@
               <boolProp name="quotedData">true</boolProp>
               <boolProp name="recycle">true</boolProp>
               <boolProp name="stopThread">false</boolProp>
-              <stringProp name="shareMode">Current thread group</stringProp>
+              <stringProp name="shareMode">shareMode.group</stringProp>
             </CSVDataSet>
             <hashTree/>
           </hashTree>
@@ -1970,7 +1970,7 @@
               <boolProp name="quotedData">true</boolProp>
               <boolProp name="recycle">true</boolProp>
               <boolProp name="stopThread">false</boolProp>
-              <stringProp name="shareMode">Current thread group</stringProp>
+              <stringProp name="shareMode">shareMode.group</stringProp>
             </CSVDataSet>
             <hashTree/>
           </hashTree>
@@ -2015,7 +2015,7 @@
               <boolProp name="quotedData">true</boolProp>
               <boolProp name="recycle">true</boolProp>
               <boolProp name="stopThread">false</boolProp>
-              <stringProp name="shareMode">Current thread group</stringProp>
+              <stringProp name="shareMode">shareMode.group</stringProp>
             </CSVDataSet>
             <hashTree/>
           </hashTree>
@@ -2087,7 +2087,7 @@
               <boolProp name="quotedData">true</boolProp>
               <boolProp name="recycle">true</boolProp>
               <boolProp name="stopThread">false</boolProp>
-              <stringProp name="shareMode">Current thread group</stringProp>
+              <stringProp name="shareMode">shareMode.group</stringProp>
             </CSVDataSet>
             <hashTree/>
           </hashTree>
@@ -2132,7 +2132,7 @@
               <boolProp name="quotedData">true</boolProp>
               <boolProp name="recycle">true</boolProp>
               <boolProp name="stopThread">false</boolProp>
-              <stringProp name="shareMode">Current thread group</stringProp>
+              <stringProp name="shareMode">shareMode.group</stringProp>
             </CSVDataSet>
             <hashTree/>
           </hashTree>
@@ -2177,7 +2177,7 @@
               <boolProp name="quotedData">true</boolProp>
               <boolProp name="recycle">true</boolProp>
               <boolProp name="stopThread">false</boolProp>
-              <stringProp name="shareMode">Current thread group</stringProp>
+              <stringProp name="shareMode">shareMode.group</stringProp>
             </CSVDataSet>
             <hashTree/>
           </hashTree>
@@ -2222,7 +2222,7 @@
               <boolProp name="quotedData">true</boolProp>
               <boolProp name="recycle">true</boolProp>
               <boolProp name="stopThread">false</boolProp>
-              <stringProp name="shareMode">Current thread group</stringProp>
+              <stringProp name="shareMode">shareMode.group</stringProp>
             </CSVDataSet>
             <hashTree/>
           </hashTree>
@@ -2267,7 +2267,7 @@
               <boolProp name="quotedData">true</boolProp>
               <boolProp name="recycle">true</boolProp>
               <boolProp name="stopThread">false</boolProp>
-              <stringProp name="shareMode">Current thread group</stringProp>
+              <stringProp name="shareMode">shareMode.group</stringProp>
             </CSVDataSet>
             <hashTree/>
           </hashTree>
@@ -2339,7 +2339,7 @@
               <boolProp name="quotedData">true</boolProp>
               <boolProp name="recycle">true</boolProp>
               <boolProp name="stopThread">false</boolProp>
-              <stringProp name="shareMode">Current thread group</stringProp>
+              <stringProp name="shareMode">shareMode.group</stringProp>
             </CSVDataSet>
             <hashTree/>
           </hashTree>
@@ -2384,7 +2384,7 @@
               <boolProp name="quotedData">true</boolProp>
               <boolProp name="recycle">true</boolProp>
               <boolProp name="stopThread">false</boolProp>
-              <stringProp name="shareMode">Current thread group</stringProp>
+              <stringProp name="shareMode">shareMode.group</stringProp>
             </CSVDataSet>
             <hashTree/>
           </hashTree>
@@ -2429,7 +2429,7 @@
               <boolProp name="quotedData">true</boolProp>
               <boolProp name="recycle">true</boolProp>
               <boolProp name="stopThread">false</boolProp>
-              <stringProp name="shareMode">Current thread group</stringProp>
+              <stringProp name="shareMode">shareMode.group</stringProp>
             </CSVDataSet>
             <hashTree/>
           </hashTree>
@@ -2474,7 +2474,7 @@
               <boolProp name="quotedData">true</boolProp>
               <boolProp name="recycle">true</boolProp>
               <boolProp name="stopThread">false</boolProp>
-              <stringProp name="shareMode">Current thread group</stringProp>
+              <stringProp name="shareMode">shareMode.group</stringProp>
             </CSVDataSet>
             <hashTree/>
           </hashTree>
@@ -2519,7 +2519,7 @@
               <boolProp name="quotedData">true</boolProp>
               <boolProp name="recycle">true</boolProp>
               <boolProp name="stopThread">false</boolProp>
-              <stringProp name="shareMode">Current thread group</stringProp>
+              <stringProp name="shareMode">shareMode.group</stringProp>
             </CSVDataSet>
             <hashTree/>
           </hashTree>
@@ -2531,7 +2531,7 @@
         </TestAction>
         <hashTree/>
       </hashTree>
-      <ConfigTestElement guiclass="HttpDefaultsGui" testclass="ConfigTestElement" testname="MapServer GetMap Feldgrenzen" enabled="true">
+      <ConfigTestElement guiclass="HttpDefaultsGui" testclass="ConfigTestElement" testname="MapServer GetMap NSensorlogs" enabled="true">
         <elementProp name="HTTPsampler.Arguments" elementType="Arguments" guiclass="HTTPArgumentsPanel" testclass="Arguments" testname="User Defined Variables" enabled="true">
           <collectionProp name="Arguments.arguments">
             <elementProp name="map" elementType="HTTPArgument">
@@ -2576,13 +2576,6 @@
               <boolProp name="HTTPArgument.use_equals">true</boolProp>
               <stringProp name="Argument.name">STYLES</stringProp>
             </elementProp>
-            <elementProp name="shash" elementType="HTTPArgument">
-              <boolProp name="HTTPArgument.always_encode">false</boolProp>
-              <stringProp name="Argument.value">EeGP98dtbGVfRnMugaaadG29ZCw=</stringProp>
-              <stringProp name="Argument.metadata">=</stringProp>
-              <boolProp name="HTTPArgument.use_equals">true</boolProp>
-              <stringProp name="Argument.name">shash</stringProp>
-            </elementProp>
             <elementProp name="TRANSPARENT" elementType="HTTPArgument">
               <boolProp name="HTTPArgument.always_encode">false</boolProp>
               <stringProp name="Argument.value">true</stringProp>
@@ -2592,13 +2585,13 @@
             </elementProp>
           </collectionProp>
         </elementProp>
-        <stringProp name="HTTPSampler.domain">localhost</stringProp>
-        <stringProp name="HTTPSampler.port">84</stringProp>
+        <stringProp name="HTTPSampler.domain">192.168.99.198</stringProp>
+        <stringProp name="HTTPSampler.port">80</stringProp>
         <stringProp name="HTTPSampler.connect_timeout"></stringProp>
         <stringProp name="HTTPSampler.response_timeout"></stringProp>
         <stringProp name="HTTPSampler.protocol"></stringProp>
         <stringProp name="HTTPSampler.contentEncoding"></stringProp>
-        <stringProp name="HTTPSampler.path">fcgi-bin/mapserv.exe</stringProp>
+        <stringProp name="HTTPSampler.path">fcgi-bin/mapserv.fcgi</stringProp>
         <stringProp name="HTTPSampler.concurrentPool">4</stringProp>
       </ConfigTestElement>
       <hashTree/>
@@ -2761,6 +2754,9 @@
             <saveAssertionResultsFailureMessage>false</saveAssertionResultsFailureMessage>
             <assertionsResultsToSave>0</assertionsResultsToSave>
             <bytes>true</bytes>
+            <hostname>true</hostname>
+            <threadCounts>true</threadCounts>
+            <sampleCount>true</sampleCount>
           </value>
         </objProp>
         <stringProp name="filename">D:\Dropbox\Uni\Thesis\apache-jmeter-2.7\bin\Szenario_log.jmx</stringProp>
@@ -2793,6 +2789,9 @@
             <saveAssertionResultsFailureMessage>false</saveAssertionResultsFailureMessage>
             <assertionsResultsToSave>0</assertionsResultsToSave>
             <bytes>true</bytes>
+            <hostname>true</hostname>
+            <threadCounts>true</threadCounts>
+            <sampleCount>true</sampleCount>
           </value>
         </objProp>
         <stringProp name="filename">D:\Dropbox\Uni\Thesis\apache-jmeter-2.7\bin\Szenario_log.jmx</stringProp>
@@ -2825,6 +2824,9 @@
             <saveAssertionResultsFailureMessage>false</saveAssertionResultsFailureMessage>
             <assertionsResultsToSave>0</assertionsResultsToSave>
             <bytes>true</bytes>
+            <hostname>true</hostname>
+            <threadCounts>true</threadCounts>
+            <sampleCount>true</sampleCount>
           </value>
         </objProp>
         <stringProp name="filename">D:\Dropbox\Uni\Thesis\apache-jmeter-2.7\bin\Szenario_log.jmx</stringProp>
@@ -2857,6 +2859,9 @@
             <saveAssertionResultsFailureMessage>false</saveAssertionResultsFailureMessage>
             <assertionsResultsToSave>0</assertionsResultsToSave>
             <bytes>true</bytes>
+            <hostname>true</hostname>
+            <threadCounts>true</threadCounts>
+            <sampleCount>true</sampleCount>
           </value>
         </objProp>
         <stringProp name="filename">D:\Dropbox\Uni\Thesis\apache-jmeter-2.7\bin\Szenario_log.jmx</stringProp>
@@ -2889,6 +2894,9 @@
             <saveAssertionResultsFailureMessage>false</saveAssertionResultsFailureMessage>
             <assertionsResultsToSave>0</assertionsResultsToSave>
             <bytes>true</bytes>
+            <hostname>true</hostname>
+            <threadCounts>true</threadCounts>
+            <sampleCount>true</sampleCount>
           </value>
         </objProp>
         <stringProp name="filename">D:\Dropbox\Uni\Thesis\apache-jmeter-2.7\bin\Szenario_log.jmx</stringProp>

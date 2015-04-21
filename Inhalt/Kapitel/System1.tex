@@ -322,18 +322,32 @@ So besteht auch die Möglichkeit Coordinator mit unterschiedlichen Konfiguration
 %Verteilung der Anfragen an alle Coordinator
 % -> definitive Steigerung der Leistungsfähigkeit  (mehr beantwortete Anfragen pro Sekunde)
 
+\subsubsection{Erster Lasttest}
 Der erste Lasttest misst die Laufzeit der Aggregation von Punktdaten aus der Tabelle nsensorlogs des Schemas n.
-Die Abfrage und Messung erfolgt mit dem SQL Statement \textit{Select * From n.nsensorlogs Where fileid=\%{};} sowie \textit{Explain Verbose Select * From n.nsensorlogs Where farmid=\%{};}.
+Die Abfrage und Messung erfolgt mit dem SQL Statement \textit{Select * From n.nsensorlogs Where fileid=\%{};} sowie \textit{Explain Verbose Select * From n.nsensorlogs Where fileid=\%{};}.
 Die erste Query liefert die Daten sowie Laufzeit\footnote{Sofern in PostgreSQL die Zeiterfassung mit \textbackslash{}timing eingeschaltet wurde.} und die zweite die Aufteilung des SQL Statements an die Knoten des Clusters.
 Der Aufruf der ersten Query erfolgt parallel an alle Coordinator und wird für den Lasttest verwendet.
 Diese zweite Query wird ein mal pro Coordinator abgerufen, um die Verteilung der Daten zu validieren.
 \%{} steht dafür für einen Integer Wert und ist einer aus files.soilsamplefiles.id.
-Es werden die sechs Werte mit der größten Menge an Eintrögen in n.nsensorlogs verwendet.
-%Wie viele Zeilen liefert die Query? -> Tabelle mit fileid und ANzahl der rows
+Es werden die sechs Werte mit der größten Menge an Einträgen, aufgelistet in Tabelle \ref{tbl:entrysnnsensorlogs}, in n.nsensorlogs verwendet.
+\begin{table}[h!]
+\centering
+\small
+\begin{tabular}{c|c}
+\textbf{fileid} & \textbf{Anzahl Einträge} \\ \hline
+10591 & 0 \\ \hline
+9396 & 0 \\ \hline
+9388 & 0 \\ \hline
+34791 & 0 \\ \hline
+9394 & 0 \\ \hline
+10595 & 0 \\
+\end{tabular}
+\caption{Anzahl der Einträge in n.nsensorlogs nach fileid}
+\label{tbl:entrysnnsensorlogs}
+\end{table}
 Zusätzlich erfolgt die Aggregation in einem gesonderten Test entsprechend des Anwendungsfalles mit dem \Gls{umn}, mit der Darstellung in Kartenform als Ergebnis.
 Dafür wird der \Gls{umn} mit einem Mapfile als \Gls{fcgi} Modul verwendet, siehe Anhang \ref{appendix:mapfileaggregate}.
-Das Mapfile stellt Kartenausschnitte der Punktdaten dar.
-Die Karte wird farbig anhand der Metadaten erzeugt.
+Das Mapfile stellt Kartenausschnitte der Punktdaten dar und die Karte wird farbig anhand der Metadaten erzeugt.
 %Aggregation
 %Query vorbereiten   select * from n.nsensorlogs where farmid=1038
 %Laufzeitmessung testen   explain analyze
@@ -341,6 +355,60 @@ Die Karte wird farbig anhand der Metadaten erzeugt.
 %mehrere Durchgänge
 %gegenüber stellen
 
+%TODO :
+% JMeter performant nutzen
+% JMeter cvs lesbar machen
+
+%\begin{figure}[h!]
+%\centering
+%\begin{subfigure}{.5\textwidth}
+%  \centering
+%  \includegraphics[width=.4\linewidth]{Abbildungen/}
+%  \caption{}
+%  \label{fig:sub1}
+%\end{subfigure}%
+%\begin{subfigure}{.5\textwidth}
+%  \centering
+%  \includegraphics[width=.4\linewidth]{Abbildungen/}
+%  \caption{}
+%  \label{fig:sub2}
+%\end{subfigure}
+%\caption{}
+%\label{fig:}
+%\end{figure}
+
+%\begin{figure}[!ht]
+%  \begin{minipage}{\textwidth}
+%    \centering
+%    \includegraphics[width=.4\textwidth]{figure1}\quad
+%    \includegraphics[width=.4\textwidth]{figure2}\\
+%    \includegraphics[width=.4\textwidth]{figure3}\quad
+%    \includegraphics[width=.4\textwidth]{figure4}
+%    \subcaption{First subfigure.}
+%    \label{fig:sub1}
+%  \end{minipage}\\[1em]
+%  \begin{minipage}{\textwidth}
+%    \centering
+%    \includegraphics[width=.4\textwidth]{figure5}\quad
+%    \includegraphics[width=.4\textwidth]{figure6}\\
+%    \includegraphics[width=.4\textwidth]{figure7}\quad
+%    \includegraphics[width=.4\textwidth]{figure8}
+%    \subcaption{Second subfigure.}
+%    \label{fig:sub2}
+%  \end{minipage}
+%\end{figure}
+
+%Bilder unteinander setzen: Auslastung, Laufzeiten
+%diese auswerten
+
+%exlain aller 6 fileids auf einem coodinator ausführen - bei anderen ist es analog
+% -< eventuell fileids ändern, um gleichverteilung zu erreichen?
+%dies kurz darlegen
+
+%UMN aktivieren und JMeter konfigurieren -> Beispielhafte BBOX raussuchen
+% -> Userlayer bbox oder kleinen client bauen
+
+\subsubsection{Zweiter Lasttest}
 Der Lasttest zum messen der Verarbeitungsleistung ruft die SQL Funktion\\
 \textit{nutrients.contouringcorrected(integer)} auf. %bzw. contouringcorrectedatop(integer)
 Diese führt den speziellen Kriging Algorithmus durch.
@@ -358,10 +426,14 @@ Weiterhin zeigte sich, dass Funktionen welche die Erweiterung plr für die Nutzu
 So wird \textit{nutrients.contouringcorrected(integer)} ohne Nebenwirkungen ausgeführt und endet zufällig mit oder ohne Fehler.
 Dieser Lasttest wird trotzdem durchgeführt, wobei die Anzahl der Fehlschläge gesondert festgehalten wird.
 
-%historische Daten?
-%Wie schnell werden nsensorlogs gespeichert? Trigger beim befüllen nicht vergessen!
-%Wie schnell werden nsensorlogs abgerufen?
-%Laufzeit Kriging: abhängig nach Distribution - entweder nach geom oder farmid oder fileid
+%Nur einen Coordinator ansprechen und Auslastung beobachten
+% Auslastungen als Bilder in Anhang und darauf verweisen
+% nur coodinator scheint augelastet zu werden - bewerten
+
+%Bilder unteinander setzen: Auslastung, Laufzeiten
+% diese auswerten
+% auf Fehleranteil eingehen
 
 %mit SQL Bordmitteln - pg_bench eventuell zusätzlich um ein paar Aussagen zum cluster overhead zu treffen
 
+%PostgreSQL System nicht vergessen!
