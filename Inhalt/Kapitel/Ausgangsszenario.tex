@@ -274,10 +274,10 @@ Die Auswahl erfolgt durch Mitarbeiter der Agri~Con und hat Vorgänge mit der lä
 Dazu zählt das Laden von Daten zum Zwecke der Verarbeitung und Anzeige.
 Die größten Datenmengen sind bei Punkten aus dem N-Sensor Bereich zu finden.
 Die Anzeige der Punktdaten für einen Betrieb kann bis zu neun Sekunden dauern.
-Punktdaten aus dem Docu Bereich werden ebenfalls nach mehrere Sekunden ausgegeben.
+Punktdaten aus dem Docu Bereich werden ebenfalls nach mehreren Sekunden ausgegeben.
 Die Punktdaten aus dem N-Sensor Bereich sind jedoch repräsentativ und werden deshalb betrachtet.
 Weiterhin zählt Interpolation zu diesen Vorgängen.
-Punkte und Fahrspuren werden mit einem angepassten Kriging interpoliert und als Vektoren und Raster abgespeichert.
+Punkte und Fahrspuren werden mit einem angepassten Kriging interpoliert und als Vektoren oder Raster abgespeichert.
 Dies wird mit einer R Bibliothek realisiert und bei großen Datenmengen Nachts angestoßen.
 Das spezielle Kriging im jeweiligen Framework zu implementieren ist aufwendig, weshalb ein unveränderter Kriging Algorithmus für den Vergleich verwendet werden muss, sofern R nicht verwendet werden kann.\footnote{Dieser Algorithmus wurde im Auftrag durch dritte erstellt.}
 Diese zwei charakteristischen Vorgänge sind durch ein Framework zu realisieren.
@@ -294,8 +294,18 @@ Die aufwendigen Vorgänge werden in den Lasttests untersucht.
 In welcher konkreten Form das Framework als Speicher für historische und aufbereitete Daten dient, ist abhängig vom Framework.
 Auf Grund dessen ist dies nach Auswahl des Frameworks im Entwurf des Prototypen zu konkretisieren.
 
+Für das Verständnis des Kapitels 6 wird nachfolgend das Datenbankschema knapp beschrieben.
+Es handelt sich um ein umfangreiches Schema, weshalb es aus mehreren Schemata besteht:
+adwork, apps, bu, bucardo, catalogs, checks, common, demo, docu, farm, files, import, information\_{}schema, ips, krig, log, n, nutrients, ogeo, pg\_{}catalog, pp, public, rax, statistics, tasks, temp, topology, umn, utils und yield.
+catalogs enthält statische Einträge analog eines globalen Kataloges.
+common enthält Benutzerspezifische, farm dagegen Betriebsspezifisce Daten.
+Das Schema files beinhaltet Informationen zu Dateien, welche von Kunden auf den Server hochgeladen wurden sowie Metainformationen zu Dateiarten.
+In den Schemata n und nutrients sind Daten zu N-Sensor zu finden.
+Hilfsfunktionen und -tabellen des \Gls{umn} sind im Schema umn zu finden.
+Alle Schemata beinhalten Funktionen, Trigger, Tabellen, Typen, Indizes und Contraints.
+%- Grundschema der DB beschreieben (geografische agratechnische Daten und Daten des Unternehmens, der Organisation) -> ER mit dbvis?
+
 %- quelldaten benennen und auf Anforderungen verweisen
-%- Grundschema der DB beschreieben (geografische agratechnische Daten und Daten des Unternehmens, der Organisation) -> ER mit dbvis
 %- Funktionsumfang hinsichtlich berechnung aufzeigen: was macht postgresql und was R
 %- 
 

@@ -102,5 +102,3 @@ select id, st_astext(geom) as point, st_srid(geom) as srid from n.nsensorlogs li
 select id, st_astext(geom) as point, st_srid(geom) as srid, st_astext(st_transform(geom, 3857)) as transformed, st_srid(st_transform(geom, 3857)) as newsrid from n.nsensorlogs limit 10;
 select id, st_astext(st_transform(geom, 3857)) as transformed, st_srid(st_transform(geom, 3857)) as newsrid, st_astext(st_transform(st_transform(geom, 3857), 4326)) as original, st_srid(st_transform(st_transform(geom, 3857), 4326)) as srid from nutrients.samples limit 10;
 ----------------
-drop sequence cascade; führt zum abbruch - manchmal
-alter sequence ist auch buggy - geht einfach nicht

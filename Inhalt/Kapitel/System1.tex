@@ -63,6 +63,7 @@ Beispielsweise das SQL Statement \textit{Create Table tblname (serial id, text d
 Jede Tabelle wird in jeder PostgreSQL Instanz erzeugt.
 Dabei werden die Daten entweder nach einem Attribut verteilt oder zwischen den Datenbankinstanzen gespiegelt.
 Das Schlüsselwort \textit{Distributed} veranlasst eine Verteilung der Daten, \textit{Replicate} dagegen eine Replikation der Tabelle über alle Nodes.
+Die unterstützten Datentypen sind der Dokumentation zu entnehmen.
 Weiterhin zu erwähnen ist der Befehl \textit{Create Node nodename With (TYPE=, HOST=, PORT=)}, welcher direkt als SQL Statement verwendet werden kann und dem Cluster einen Knoten hinzufügt.
 Analog dazu existiert der Befehl \textit{Drop Node nodename} zum entfernen eines Knotens.
 Wurde das Cluster verändert, ist dies mit \textit{Select * From pgxc\_{}pool\_{}reload();} für alle Knoten zu propagieren.
@@ -71,7 +72,7 @@ Weitere Abweichungen sind der Dokumentation zu entnehmen.\footnote{siehe \url{ht
 Das Datenbankschema wurde mit pg\_{}dump in eine Textdatei geladen und als SQL Befehle in Postgres-XL übernommen.
 Die Übernahme der Daten erfolgte mit db\_{}link, welches auch zwischen unterschiedlichen PostgreSQL Versionen funktioniert.
 %Der Ist-Zustand verwendet PostgreSQL Version 9.3.
-Die Daten können auch analog des Schema übertragen werden, dies dauert jedoch länger.
+Die Daten können auch analog des Schema übertragen werden, dies dauert jedoch auf Grund der Umwandlung von zu zu Textformaten länger.
 
 \subsection{Verarbeitung}
 %SQL
@@ -106,7 +107,9 @@ Der Entwurf wird daher als Klon des Ist-Standes, jedoch ohne Trigger, erstellt.
 %großer Aufwand für genauen Entwurf, weshalb lieber Aussagen zum Einsatz in diesem Szenario gegeben werden sollen
 %Aufwand auch groß da Verteilung, ersatz der Trigger, Änderungen der Primär- und Fremdschlüssel bedacht werden müssen
 Entsprechend den Leistungstests soll der Entwurf die Produktivdaten liefern und anwendungsnahe Berechnungen ausführen.
-Somit sind Aussagen zur Leistungsfähigkeit gegenüber dem Ist-Standes treffbar.
+Somit sind Aussagen zur Leistungsfähigkeit gegenüber dem Ist-Stand treffbar.
+Die Speicherung von historischen Daten wird aus Zeitgründen nicht betrachtet.
+Eine Übernahme aller vorhandenen Daten wurde mit Abschnitt \ref{subsection:interface} erläutert, sodass die Möglichkeit der Speicherung von historischen Daten damit gezeigt ist.
 
 Der Ist-Stand wurde unter Kapitel \ref{IstStand} dargelegt, somit sind die Unterschiede des für die Testumgebung umgesetzten Entwurfes zu erläutern.
 Das Datenbankschema unterscheidet sich von dem des Ist-Standes durch das Fehlen von Triggern und einigen Fremdschlüssel Constraints.
@@ -130,15 +133,15 @@ Der Cluster wird mit Virtualisierung der einzelnen Knoten erstellt.
 Dafür steht ein IBM Rack Server x3850 M2 zur Verfügung, mit folgender Ausstattung:
 vier Xeon E7330 Quad-Core mit 2,4 GHz, 64GB DDR2 RAM, vier 500GB 2,5 Zoll SATA Festplatten von Western Digital mit 7.200 U/min und einem MR10k Raid-Controller.
 Als Virtualisierungssoftware kommt \Gls{esxi} in der kostenlosen Version 6.0 mit \Gls{vsphere} 6.0 als Testversion zum Einsatz.
-Mit dieser Virtualisierungslösung ist es möglich, Ressourcen explizit und ausschließlich einer VM zuzuordnen.
-So werden die Prozessorkerne in Paaren und der Arbeitsspeicher direkt und mit exklusiver Verwendung den einzelnen VMs zugeordnet.
+Mit dieser Virtualisierungslösung ist es möglich, Ressourcen explizit und ausschließlich einer \Gls{vm} zuzuordnen.
+So werden die Prozessorkerne in Paaren und der Arbeitsspeicher direkt und mit exklusiver Verwendung den einzelnen \Gls{vm}s zugeordnet.
 Ziel dieser unter Abbildung \ref{fig:physAufb} skizzierten Testumgebung ist es Postgres-XL mit der PostgreSQL Konfiguration des Ist Standes zu vergleichen, einen homogenen Cluster zu erzeugen und Aussagen über die Skalierbarkeit von Postgres-XL zu treffen.
 Die Ausstattung des Computers zur Verwaltung der Virtualisierung wird nicht definiert, da dies keinen Einfluss auf Messungen hat.
-Die VMs sind in Abbildung \ref{fig:VMAufb} dargestellt.
+Die \Gls{vm}s sind in Abbildung \ref{fig:VMAufb} dargestellt.
 Typ I enthält eine GTM Instanz und Typ II eine GTM-Proxy, eine Coordinator und zwei DataNode Instanzen.
 Dabei stehen sechs Typ II VMs zur Verfügung, wobei zur Beurteilung der Skalierbarkeit zwei bis sieben genutzt werden.
-Jede VM besitzt als Betriebssystem Ubuntu 14.04 LTS und alle für die Installation und Ausführung des Prototypen notwendigen Pakete.
-Weiterhin erhalten die Typ II VMs folgende Hardware Zuordnung:
+Jede \Gls{vm} besitzt als Betriebssystem Ubuntu 14.04 LTS und alle für die Installation und Ausführung des Prototypen notwendigen Pakete.
+Weiterhin erhalten die Typ II \Gls{vm}s folgende Hardware Zuordnung:
 zwei Prozessorkerne, sieben GB RAM und 100 GB Festplattenspeicherplatz.
 Typ I erhält dagegen zwei Prozessorkerne, sieben GB RAM und 20 GB Festplattenspeicherplatz.
 \begin{figure}[h!]
@@ -154,18 +157,19 @@ Typ I erhält dagegen zwei Prozessorkerne, sieben GB RAM und 20 GB Festplattensp
 \label{fig:VMAufb}
 \end{figure}
 
-Als Referenzsystem wird ein Ubuntu System mit PostgreSQL 9.3.5, PostGIS 2.1.5 und R sowie der Hardwareausstattung einer Typ II VM verwendet.
-Mit der Übereinstimmung der Hardware Ausstattung der VMs ist eine Vergleichbarkeit von PostgreSQL und Postgres-XL gegeben.
+Als Referenzsystem wird ein Ubuntu System mit PostgreSQL 9.3.5, PostGIS 2.1.5 und R sowie der Hardwareausstattung einer Typ II \Gls{vm} verwendet.
+Mit der Übereinstimmung der Hardware Ausstattung der \Gls{vm}s ist eine Vergleichbarkeit von PostgreSQL und Postgres-XL gegeben.
 Außerdem kann durch Verkleinerung und Vergrößerung des Clusters die Skalierbarkeit von Postgres-XL bewertet werden.
 
-Die physischen Festspeicher des Testservers stehen den VMs nicht exklusiv zur Verfügung.
-Die Anzahl an Operationen pro Zeiteinheit auf diesem Medium soll für alle VMs annähernd gleich sein.
+Die physischen Festspeicher des Testservers stehen den \Gls{vm}s nicht exklusiv zur Verfügung.
+Die Anzahl an Operationen pro Zeiteinheit auf diesem Medium soll für alle \Gls{vm}s annähernd gleich sein.
 Als Kompromiss aus Verteilung der Last auf alle Festspeicher, Ausfallsicherheit und Kosten, werden die Festspeicher in einem RAID 5 Verbund zusammengefasst.
 So stehen 1,4 TB Festspeicher zur Verfügung.
-Um die Vergleichbarkeit der zeitlich abhängigen Messwerte zu gewährleisten, wird ESXi als Zeitgeber für alle VMs eingerichtet.
-Zur Überwachung der Auslastung der einzelnen VMs bietet VMware mit vSphere einfache Graphen für die zeitabhängige Auslastung der einzelnen Kerne, des Arbeitsspeichers und weiterer Komponenten.
+Die \Gls{vm}s sind mit virtuellen Netzwerkkarten von 10GBit/s verbunden, wodurch die Kosten der Datenübertragung im Netzwerk vernachlässigt werden können.
+Um die Vergleichbarkeit der zeitlich abhängigen Messwerte zu gewährleisten, wird ESXi als Zeitgeber für alle \Gls{vm}s eingerichtet.
+Zur Überwachung der Auslastung der einzelnen \Gls{vm}s bietet VMware mit vSphere einfache Graphen für die zeitabhängige Auslastung der einzelnen Kerne, des Arbeitsspeichers und weiterer Komponenten.
 Diese Graphen besitzen als zeitliche Achse einen beliebigen Bereich bis zum momentanen Zeitpunkt.
-Damit sind historische Daten für einzelne VMs und ausgewählte Zeiträume nicht darstellbar.
+Damit sind historische Daten für einzelne \Gls{vm}s und ausgewählte Zeiträume nicht darstellbar.
 Deshalb wird zur Überwachung Zabbix eingesetzt.
 Zabbix ist ein freies Framework zur Überwachung von Computern und Netzwerken.
 Auf einem Zabbix Server werden Daten zentral von beliebigen Zabbix Clients empfangen.
@@ -234,14 +238,19 @@ Dies wird im zweiten Szenario der Lasttests im nachfolgenden Abschnitt durchgef�
 
 \textbf{FT07:}\\
 %Betrieb mit kleinen Userlayern verwenden
-Userlayer eines Halbjahresplanung besitzt begrenzendes Rechteck, welches im WKT Format wie folgt beschrieben ist: \textit{POLYGON((13.2547868501418 50.7878870616778,13.2833057640198 50.7878870616778,13.2833057640198 50.7935526493687,13.2547868501418 50.7935526493687,13.2547868501418 50.7878870616778))}.
-Mit diesem können alle Schläge räumlich gefiltert werden.
+Userlayer einer Halbjahresplanung besitzen begrenzende Rechtecke, welche im WKT Format wie folgt beschrieben sind: \textit{POLYGON((13.2547868501418 50.7878870616778,
+13.2833057640198 50.7878870616778,13.2833057640198 50.7935526493687,\\
+13.2547868501418 50.7935526493687,13.2547868501418 50.7878870616778))}.
+Mit diesem können alle Schläge abhängig des Userlayers räumlich gefiltert werden.
 So sind im Testsystem 13803 Schläge vorhanden.
 Mit der Funktion \textit{boolean ST\_{}Intersects( geometry geomA , geometry geomB );} werden mit dem begrenzenden Rechteck überlappende Schläge gefiltert.
-Dies ergibt 382 Schläge.
+Dies ergibt mit dem oben genannten Rechteck 382 Schläge.
 Mit \textit{boolean ST\_{}Disjoint( geometry A , geometry B );} erhält man dagegen räumlich disjunkte Schläge.
+%Screenshots?
 Dies soll als Beweis der Verwendbarkeit und Korrektheit der PostGIS Funktionen dienen.
 Da die PostGIS Version des Ist-Standes mit der des Testsystems übereinstimmt, kann von voller Funktionalität  ausgegangen werden.
+Davon ausgenommen sind Teile der Funktionsmenge zur Verarbeitung von Rasterdaten.
+Da Postgres-XL internal als Transition Typ nicht unterstützt, ist die Funktionen zur Bildung der Vereinigung mit einem Raster nicht verfügbar\footnote{Installation von PostGIS wirft Fehler und legt die entsprechenden Funktionen nicht an.}.
 
 %Darstellung mit UMN?
 
@@ -254,14 +263,16 @@ Kapitel \ref{subsection:testfaelle} beschreibt unabhängig des Testsystems die A
 Nachfolgend wird auf den Aufbau der Tests, deren Durchführung und deren Ergebnis eingegangen.
 Zusammenfassend ist das Ziel dieser Leistungstests, die spezielle Leistung gegenüber des Ist-Standes und die Skalierbarkeit von Postgres-XL zu ermitteln. %Skalierbarkeit raus lassen?
 %Skalierbarkeit(T(1)/T(p))/Effizienz(S(p)/p)
-Es wird von einer höheren Leistung bei der Aggregation und einer gleichen Leistung bei der Verarbeitung im Gegensatz zum Ist-Stand ausgegangen.
+Es wird von einer höheren Leistung, abhängig der Anzahl der verwendeten Knoten, bei der Aggregation und der Verarbeitung im Gegensatz zum Ist-Stand ausgegangen.
 
 %gleichmäßige Beeinflussung durch Zabbix nennen
 Analog des Testaufbaus der Bachelor Arbeit des Autors\footnote{\cite{ba:kurt}} wird zur Generierung der Last das freie Java Programm JMeter verwendet, welches mehrere vorbereitete Anfragen parallel und verschränkt erzeugt sowie eine Auswertung der Laufzeiten zur Verfügung stellt.
+Ein Testlauf wir dabei per Kommandozeile gestartet und die Ergebnisse in einer .csv Datei festgehalten.
+Diese Datei wird anschließend mit der grafischen Oberfläche von JMeter geöffnet und die Daten in grafischer Form ausgewertet.
 
 Um ein statistisches Mittel zu erreichen und Nebeneffekte des Caching der Datenbank und des Betriebssystems zu reduzieren, wird ein Test elf mal ausgeführt.
 Es werden die zehn letzten Tests gemessen, der höchste und der niedrigste Wert ausgeschlossen und die letztendlichen acht Werte gemittelt.
-Dieses Vorgehen orientiert sich an der Masterarbeit von Herrn Baas Kapitel 6.1 Objective measurements\footnote{\cite[S.51]{ma:neo4j}}.
+Dieses Vorgehen orientiert sich an der Masterarbeit von Baas Kapitel 6.1 Objective measurements\footnote{\cite[S.51]{ma:neo4j}}.
 Die Graphen der Auslastung der Knoten liegen als Bilder vor.
 Deshalb wird ein repräsentatives ausgewählt und zum Vergleich heran gezogen.
 
@@ -272,9 +283,10 @@ Nach \cite[S.300 f.]{book:kudrass} setzen sich die Kosten für die Verarbeitung 
 \item[Ein- und Ausgabe] Besteht aus der Anzahl der Aufrufe an das Speichersystem und der Protokollierung mit internem Speichermanagement.
 \item[Datenübertragung] Meint die Übertragung von Befehlen und Daten zwischen Komponenten.
 \end{description}
-Weiterhin sind Einflussfaktoren das  logische Datenbank Design, die Anwendung, die Abfrage, der Ausführungsplan, die Datenmenge der Abfrage, das physisches Datenbank Design, die Größe der Datenbank, das \Gls{dbms}, die Systemlast,das Netzwerk,die  Parallelität und das Betriebssystem.
+Weiterhin sind Einflussfaktoren das  logische Datenbank Design, die Anwendung, die Abfrage, der Ausführungsplan, die Datenmenge der Abfrage, das physisches Datenbank Design, die Größe der Datenbank, das \Gls{dbms}, die Systemlast, das Netzwerk, die  Parallelität und das Betriebssystem.
 Eine Berechnung des einheitenlosen Kostenmaßes fällt auf Grund der Komplexität des Anwendungsfalles und der Menge der Einflussfaktoren aufwendig aus.
 Deshalb wird die Verarbeitungsleistung empirisch mit Tests festgestellt.
+%In Grundlagen-Tests vrschieben?
 
 Postgres-XL arbeitet mit verteilten Daten.
 Diese werden entweder auf jeden Knoten repliziert oder zwischen den Knoten aufgeteilt.
@@ -284,8 +296,8 @@ Die erste Query Planer Instanz ist jene des angesprochenen Coordinators.
 Diese erstellt Unterabfragen entsprechend der Verteilung der Daten auf den DataNodes.
 Diese Unterabfragen werden lokal vom entsprechendem DataNode verarbeitet und das Ergebnis an den Coordinator zurück gesendet.
 Diese Zwischenergebnisse werden schlussendlich vom Coordinator zusammengefasst.
-Somit sind die Daten entsprechend Ihrer Verknüpfung hinsichtlich des Datenbankschemas und des Anwendungsfalles für ein geeignetes Zerlegen von Aufgaben durch den Query Planer zu verteilen.
-Geeignet meint hier das die Unterabfragen bereits wesentlich die Daten filtern, damit der Coordinator einzig die Untermengen zu einer Menge zusammenfassen und nicht grobe große Datenmengen aggregiert, diese selbst verknüpfen sowie filtern muss.
+Somit sind die Daten entsprechend ihrer Verknüpfung hinsichtlich des Datenbankschemas und des Anwendungsfalles für ein geeignetes Zerlegen von Aufgaben durch den Query Planer zu verteilen.
+Geeignet meint hier das die Unterabfragen bereits wesentlich die Daten filtern, damit der Coordinator einzig die Untermengen zu einer Menge zusammenfassen und nicht grobe große Datenmengen aggregiert und diese selbst verknüpfen sowie filtern muss.
 Auf das Schema angewendet bedeutet dies:\\
 Die Tabellen fields und farms des Schemas farm werden per Replikation auf alle Knoten verteilt, da diese häufig zur nummerischen und räumlichen Filterung verwendet werden und somit jedem DataNode zur Filterung zur Verfügung stehen.
 Die Tabelle nsensorlogs im Schema n und die Tabelle samples im Schema nutrients werden anhand des Attributes fileid mit modulo auf die DataNodes verteilt, da dieses Attribut als primäres Filterargument verwendet wird.
@@ -293,6 +305,7 @@ Das Attribut fileid ist für eine modulo Verteilung geeignet, da Gruppen von fil
 Diese Verteilung sollte sich positiv auf die Ergebnisse der Leistungstests auswirken.
 Es wurden einzig Tabellen berücksichtigt, welche in den Tests verwendet werden.
 Für den produktiven Einsatz bei der Agri~Con entsprechend des Anwendungsfalles sind weitere Änderung in der Verteilung der Daten durchzuführen.
+%Verteilung in Ausblick aufnehmen
 %Nach Kudraß
 %Erwartung der Treffer (Selektivität) und Histogramme (erzeugt mit analyze) sollen einbezogen werden S.261f.
 %S.401 horizontale Fragmentierung wird mit create table distribute by durchgeführt (Datenlokalisierung S.407)
@@ -303,12 +316,20 @@ Diese Einstellungen werden im Rahmen dieser Arbeit auf Standardwerten belassen, 
 Da das Vergleichssystem mit PostgreSQL die selbe Konfiguration besitzt ist eine relative Vergleichbarkeit gewährleistet.
 Für einen produktiven Einsatz ist die Berücksichtigung dessen zu empfehlen.
 So besteht auch die Möglichkeit Coordinator mit unterschiedlichen Konfigurationen auszustatten, um mehrere Aspekte des Anwendungsfalles abzudecken.
+%Im Ausblick erneut darauf eingehen
 %Aggregation ohne joins und Unterabfragen -> gewählte Verteilung der Daten und QueryPlaner Bestimmungen sind sehr speziell - für eigene Thesis - für diesen Fall keine Berücksichtigung dieser Feinheiten
 
-Der erste Lasttest misst die Laufzeit zur Aggregation von Punktdaten aus der Tabelle nsensorlogs des Schemas n.
-Die Abfrage und Messung erfolgt mit dem SQL Statement \textit{Select * From n.nsensorlogs Where farmid=1038;} sowie \textit{Explain Verbose Select * From n.nsensorlogs Where farmid=1038;}.
-Die erste Query liefert die korrekten Daten und die Laufzeit\footnote{Sofern in PostgreSQL die Zeiterfassung mit \textbackslash{}timing eingeschaltet wurde.} und die zweite die Aufteilung des SQL Statements an die Knoten des Clusters.
-%Wie viele Zeilen liefert die Query?
+%Verteilung der Anfragen an alle Coordinator
+% -> definitive Steigerung der Leistungsfähigkeit  (mehr beantwortete Anfragen pro Sekunde)
+
+Der erste Lasttest misst die Laufzeit der Aggregation von Punktdaten aus der Tabelle nsensorlogs des Schemas n.
+Die Abfrage und Messung erfolgt mit dem SQL Statement \textit{Select * From n.nsensorlogs Where fileid=\%{};} sowie \textit{Explain Verbose Select * From n.nsensorlogs Where farmid=\%{};}.
+Die erste Query liefert die Daten sowie Laufzeit\footnote{Sofern in PostgreSQL die Zeiterfassung mit \textbackslash{}timing eingeschaltet wurde.} und die zweite die Aufteilung des SQL Statements an die Knoten des Clusters.
+Der Aufruf der ersten Query erfolgt parallel an alle Coordinator und wird für den Lasttest verwendet.
+Diese zweite Query wird ein mal pro Coordinator abgerufen, um die Verteilung der Daten zu validieren.
+\%{} steht dafür für einen Integer Wert und ist einer aus files.soilsamplefiles.id.
+Es werden die sechs Werte mit der größten Menge an Eintrögen in n.nsensorlogs verwendet.
+%Wie viele Zeilen liefert die Query? -> Tabelle mit fileid und ANzahl der rows
 Zusätzlich erfolgt die Aggregation in einem gesonderten Test entsprechend des Anwendungsfalles mit dem \Gls{umn}, mit der Darstellung in Kartenform als Ergebnis.
 Dafür wird der \Gls{umn} mit einem Mapfile als \Gls{fcgi} Modul verwendet, siehe Anhang \ref{appendix:mapfileaggregate}.
 Das Mapfile stellt Kartenausschnitte der Punktdaten dar.
@@ -321,13 +342,21 @@ Die Karte wird farbig anhand der Metadaten erzeugt.
 %gegenüber stellen
 
 Der Lasttest zum messen der Verarbeitungsleistung ruft die SQL Funktion\\
-\textit{nutrients.createcontouring(integer)} auf.%bzw. createcontouringatop(integer)
+\textit{nutrients.contouringcorrected(integer)} auf. %bzw. contouringcorrectedatop(integer)
 Diese führt den speziellen Kriging Algorithmus durch.
 Neben der Laufzeit ist gesondert die Auslastung der einzelnen Knoten zu beobachten und zu bewerten.
-Zu Beginn dieser Untersuchung steht nicht fest, in wie weit die DataNodes mit in die Berechnungen der Coordinator einbezogen werden.
+Zu Beginn dieser Untersuchung steht nicht fest, in wie weit die DataNodes mit in die Berechnungen der Coordinator mit einbezogen werden.
+%Nur Coordinator schein zu berechnen - dies ist mit auslastung EINES Coordinator zu beweisen
 Eine automatisierte Verteilung der Berechnungen ist für einen höheren Durchsatz wünschenswert.
-%an volkmar: parallelität wie eingeführt?
+Auch hierbei werden die Anfragen gleichmäßig auf die Coordinator verteilt.
 %mehrere Aufrufe gleichzeitig - mit scala?
+
+Es zeigte sich, dass mit Postgres-XL zwar Daten per SQL \textit{Insert into} gespeichert werden können, es jedoch bei einer Speicherung innerhalb einer SQL Funktion zu Fehlern kommt.
+In der Fehlermeldung wird auf unbekannte Parameter verwiesen, obwohl alle Daten in Parametern korrekt sind.
+Aus diesem Grund wurden die Funktionen der Berechnung angepasst, sodass zwar alle Berechnungen durchgeführt werden, die Ergebnisse aber nicht verfügbar sind.
+Weiterhin zeigte sich, dass Funktionen welche die Erweiterung plr für die Nutzung der Sprache R verwenden, zufällige Fehler werfen.
+So wird \textit{nutrients.contouringcorrected(integer)} ohne Nebenwirkungen ausgeführt und endet zufällig mit oder ohne Fehler.
+Dieser Lasttest wird trotzdem durchgeführt, wobei die Anzahl der Fehlschläge gesondert festgehalten wird.
 
 %historische Daten?
 %Wie schnell werden nsensorlogs gespeichert? Trigger beim befüllen nicht vergessen!

@@ -403,7 +403,8 @@ Die Elemente sind nach \cite{website:postgresxl-about} wie folgt beschrieben:
 \item[Data Node] Diese Elemente sind PostgreSQL Instanzen, welche die konkreten Daten vorhalten und das Transaktionsmanagement an den GTM abgegeben haben. Die Datenbanken und Tabellen der DataNodes werden entweder per partition verteilt oder repliziert. Anfragen können von verschiedenen Coordinators gleichzeitig in unterschiedlichen Sitzungen erfolgen. Auf Grund der Kapselung besitzt jeder Data Node seinen eigenen Kontext zur Transaktion.
 \end{description}
 Dabei besitzt jeder Coordinator und jeder DataNode einen ConnectionPool, welcher die Verbindungen verwaltet.
-Zur Erhöhung der Ausfallsicherheit, besteht die Möglichkeit, für jedes Element im Cluster eine dazugehörige schlafende Instanz zu erzeugen, welche bei Ausfall der eigentlichen Instanz für diese einspringt.
+Das System wird analog einer PostgreSQL Installation angesprochen.
+Zur Erhöhung der Ausfallsicherheit, besteht die Möglichkeit, für jedes Element im Cluster eine dazugehörige inaktive Instanz zu erzeugen, welche bei Ausfall der eigentlichen Instanz für diese einspringt.
 Jedes Element im Cluster ist einzeln zu konfigurieren, was zu $ n*3+1 $ verschiedenen Konfigurationen bei $n$ DataNodes führt.
 Zur Vereinfachung der Erstellung und Verwaltung eines Clusters sind neben den von PostgreSQL gelieferten Kommandozeilentools weitere durch Postgres-XL gegeben.
 Zur Erstellung und Verwaltung eines Clusters kann pgxc-ctl eingesetzt werden.
@@ -416,7 +417,7 @@ Damit kann mit einer Konfigurationsdatei ein Cluster definiert sowie erstellt we
 \end{figure}
 %Das System wird somit analog einer PostgreSQL Instanz angesprochen.
 Ebenso sind Erweiterungen wie PostGIS, DBLink oder PL/R installierbar.
-Es ist zu erwähnen, dass die Version 9.2.34 keine Trigger unterstützt.\footnote{siehe \url{http://files.postgres-xl.org/documentation/intro-whatis.html}}
+Es ist zu erwähnen, dass die Version 9.2.34 keine Trigger unterstützt\footnote{siehe \url{http://files.postgres-xl.org/documentation/intro-whatis.html} Ergänzung 4} und und der Transition Typ internal nicht verwendet werden kann.
 %Verteilung findet nach Attribut statt, schließt aber bigint aus
 
 \subsection{Array DBMS Rasdaman}
