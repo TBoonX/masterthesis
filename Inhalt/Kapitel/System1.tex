@@ -271,9 +271,13 @@ Der Faktor der Beschleunigung der Abarbeitung einer festgelegten Menge von gleic
 Analog des Testaufbaus der Bachelor Arbeit des Autors\footnote{\cite{ba:kurt}} wird zur Generierung der Last das freie Java Programm JMeter verwendet, welches mehrere vorbereitete Anfragen parallel und verschränkt erzeugt sowie eine Auswertung der Laufzeiten zur Verfügung stellt.
 Ein Testlauf wir dabei per Kommandozeile gestartet und die Ergebnisse in einer .csv Datei festgehalten.
 Diese Datei wird anschließend mit der grafischen Oberfläche von JMeter geöffnet und die Daten in grafischer Form ausgewertet.
+JMeter wird von einem externen Computer ausgeführt.
+Dieser ist mit 1GBit/s an das Testsystem angebunden und besitzt die folgende Ausstattung:
+16GB DDR3 RAM, 256GB mSata3 SSD und eine Intel i5-3320M Dual-Core CPU mit 2,6GHz und Hyperthreading.
 
 Um ein statistisches Mittel zu erreichen und Nebeneffekte des Caching der Datenbank und des Betriebssystems zu reduzieren, wird ein Test elf mal ausgeführt.
 Es werden die zehn letzten Tests gemessen, der höchste und der niedrigste Wert ausgeschlossen und die letztendlichen acht Werte gemittelt.
+Außerdem wird Postgres-XL vor jeder Testreihe neu gestartet.
 Dieses Vorgehen orientiert sich an der Masterarbeit von Baas Kapitel 6.1 Objective measurements\footnote{\cite[S.51]{ma:neo4j}}.
 Die Graphen der Auslastung der Knoten liegen als Bilder vor.
 Deshalb wird ein repräsentatives ausgewählt und zum Vergleich heran gezogen.
@@ -332,17 +336,19 @@ Der Aufruf der ersten Query erfolgt parallel an alle Coordinator und wird für d
 Diese zweite Query wird ein mal pro Coordinator abgerufen, um die Verteilung der Daten zu validieren.
 \%{} steht dafür für einen Integer Wert und ist einer aus files.soilsamplefiles.id.
 Es werden die sechs Werte mit der größten Menge an Einträgen, aufgelistet in Tabelle \ref{tbl:entrysnnsensorlogs}, in n.nsensorlogs verwendet.
+Die fileids wurden gleichzeitig so gewählt, dass jeder Datensatz einer fileid auf einem anderen Knoten vorhanden ist.
+Somit werden alle Knoten gleichmäßig angesprochen.
 \begin{table}[h!]
 \centering
 \small
 \begin{tabular}{c|c}
 \textbf{fileid} & \textbf{Anzahl Einträge} \\ \hline
-10591 & 37.926 \\ \hline
-9396 & 36.873 \\ \hline
-9388 & 35.281 \\ \hline
-34791 & 33.913 \\ \hline
-9394 & 33.391 \\ \hline
-10595 & 28.342 \\
+10591 & 37.926 \\ \hline	%dn 5 node3
+9396 & 36.873 \\ \hline		%dn 1 node1
+34791 & 33.913 \\ \hline 	%dn 12 node6
+9394 & 33.391 \\ \hline 	%dn 8 node4
+10595 & 28.342 \\ \hline	%dn 9 node5
+44982 & 20.494 \\ 			%dn 4 node2
 \end{tabular}
 \caption{Anzahl der Einträge in n.nsensorlogs nach fileid}
 \label{tbl:entrysnnsensorlogs}
@@ -357,9 +363,7 @@ Das Mapfile stellt Kartenausschnitte der Punktdaten dar und die Karte wird farbi
 %mehrere Durchgänge
 %gegenüber stellen
 
-%TODO :
-% JMeter performant nutzen
-% JMeter cvs lesbar machen
+
 
 %\begin{figure}[h!]
 %\centering
