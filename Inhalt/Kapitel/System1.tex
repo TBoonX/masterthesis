@@ -264,6 +264,8 @@ Nachfolgend wird auf den Aufbau der Tests, deren Durchführung und deren Ergebni
 Zusammenfassend ist das Ziel dieser Leistungstests, die spezielle Leistung gegenüber des Ist-Standes und die Skalierbarkeit von Postgres-XL zu ermitteln. %Skalierbarkeit raus lassen?
 %Skalierbarkeit(T(1)/T(p))/Effizienz(S(p)/p)
 Es wird von einer höheren Leistung, abhängig der Anzahl der verwendeten Knoten, bei der Aggregation und der Verarbeitung im Gegensatz zum Ist-Stand ausgegangen.
+Zwar sind bei Postgres-XL lokale Anfragen mit mehr administrativen Aufwand verbunden und werden somit langsamer gegenüber einer PostgreSQL Instanz bearbeitet, jedoch stehen mehrere Zugriffspunkte auf exklusiven Hardwaresystemen zur Verfügung.
+Der Faktor der Beschleunigung der Abarbeitung einer festgelegten Menge von gleichzeitigen Abfragen abhängig der Anzahl der Knoten ist zu ermitteln.
 
 %gleichmäßige Beeinflussung durch Zabbix nennen
 Analog des Testaufbaus der Bachelor Arbeit des Autors\footnote{\cite{ba:kurt}} wird zur Generierung der Last das freie Java Programm JMeter verwendet, welches mehrere vorbereitete Anfragen parallel und verschränkt erzeugt sowie eine Auswertung der Laufzeiten zur Verfügung stellt.
@@ -335,12 +337,12 @@ Es werden die sechs Werte mit der größten Menge an Einträgen, aufgelistet in 
 \small
 \begin{tabular}{c|c}
 \textbf{fileid} & \textbf{Anzahl Einträge} \\ \hline
-10591 & 0 \\ \hline
-9396 & 0 \\ \hline
-9388 & 0 \\ \hline
-34791 & 0 \\ \hline
-9394 & 0 \\ \hline
-10595 & 0 \\
+10591 & 37.926 \\ \hline
+9396 & 36.873 \\ \hline
+9388 & 35.281 \\ \hline
+34791 & 33.913 \\ \hline
+9394 & 33.391 \\ \hline
+10595 & 28.342 \\
 \end{tabular}
 \caption{Anzahl der Einträge in n.nsensorlogs nach fileid}
 \label{tbl:entrysnnsensorlogs}
@@ -410,8 +412,24 @@ Das Mapfile stellt Kartenausschnitte der Punktdaten dar und die Karte wird farbi
 
 \subsubsection{Zweiter Lasttest}
 Der Lasttest zum messen der Verarbeitungsleistung ruft die SQL Funktion\\
-\textit{nutrients.contouringcorrected(integer)} auf. %bzw. contouringcorrectedatop(integer)
-Diese führt den speziellen Kriging Algorithmus durch.
+\textit{nutrients.contouringcorrectedatop(integer)} auf.
+Diese führt den speziellen Kriging Algorithmus anhand der übergebenen fileid mit den Werten in nutrients.samples durch.
+Es werden fileids aus der Tabelle \ref{tbl:entrysnsamples} verwendet.
+\begin{table}[h!]
+\centering
+\small
+\begin{tabular}{c|c}
+\textbf{fileid} & \textbf{Anzahl Einträge} \\ \hline
+3904 & 260 \\ \hline
+742 & 201 \\ \hline
+4204 & 197 \\ \hline
+4186 & 160 \\ \hline
+5796 & 143 \\ \hline
+5915 & 110 \\
+\end{tabular}
+\caption{Anzahl der Einträge in nutrients.samples nach fileid}
+\label{tbl:entrysnsamples}
+\end{table}
 Neben der Laufzeit ist gesondert die Auslastung der einzelnen Knoten zu beobachten und zu bewerten.
 Zu Beginn dieser Untersuchung steht nicht fest, in wie weit die DataNodes mit in die Berechnungen der Coordinator mit einbezogen werden.
 %Nur Coordinator schein zu berechnen - dies ist mit auslastung EINES Coordinator zu beweisen
@@ -423,7 +441,8 @@ Es zeigte sich, dass mit Postgres-XL zwar Daten per SQL \textit{Insert into} ges
 In der Fehlermeldung wird auf unbekannte Parameter verwiesen, obwohl alle Daten in Parametern korrekt sind.
 Aus diesem Grund wurden die Funktionen der Berechnung angepasst, sodass zwar alle Berechnungen durchgeführt werden, die Ergebnisse aber nicht verfügbar sind.
 Weiterhin zeigte sich, dass Funktionen welche die Erweiterung plr für die Nutzung der Sprache R verwenden, zufällige Fehler werfen.
-So wird \textit{nutrients.contouringcorrected(integer)} ohne Nebenwirkungen ausgeführt und endet zufällig mit oder ohne Fehler.
+Die Wahrscheinlichkeit des Auftretens des Fehlers konnte durch neu laden der verwendeten R Bibliotheken bei jedem Funktionsaufruf veringert werden.
+So wird \textit{nutrients.contouringcorrectedatop(integer)} ohne Nebenwirkungen ausgeführt und endet zufällig mit oder ohne Fehler.
 Dieser Lasttest wird trotzdem durchgeführt, wobei die Anzahl der Fehlschläge gesondert festgehalten wird.
 
 %Nur einen Coordinator ansprechen und Auslastung beobachten

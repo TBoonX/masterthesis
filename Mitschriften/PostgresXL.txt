@@ -84,17 +84,22 @@ http://files.postgres-xl.org/documentation/sql-createtable.html
 Die Verteilung der Daten erfolgt automatisch
 Anlegen einer Tabelle legt vertielung fest
 distributed by ... hash, modulo, replication or automatic by PK
+bigint nicht nutzbar!
 ----------------
 Testen:
 
 Create Node Node With (TYPE='datanode', HOST='192.168.0.105', PORT=6668);
 Create Node Coordinator With (TYPE='coordinator', HOST='192.168.0.105', PORT=6669);
 select * from pgxc_pool_reload();
+
+mit pgxc_ctl nicht mehr aufzurufen
 ----------------
-Daten übertragen:
+Datenbank anlegen:
 
 in postgresql datenbank mit postgis verwenden
 cluster: create database agrodb_3 with template agrodb;
+
+create extension ;
 
 ----------------
 Zwischen SRIDs umrechnen
@@ -102,3 +107,10 @@ select id, st_astext(geom) as point, st_srid(geom) as srid from n.nsensorlogs li
 select id, st_astext(geom) as point, st_srid(geom) as srid, st_astext(st_transform(geom, 3857)) as transformed, st_srid(st_transform(geom, 3857)) as newsrid from n.nsensorlogs limit 10;
 select id, st_astext(st_transform(geom, 3857)) as transformed, st_srid(st_transform(geom, 3857)) as newsrid, st_astext(st_transform(st_transform(geom, 3857), 4326)) as original, st_srid(st_transform(st_transform(geom, 3857), 4326)) as srid from nutrients.samples limit 10;
 ----------------
+Probleme:
+Nach create database muss cluster neu gestartet werden, da login auf db permanent vorhanden ist.
+plr ist problematisch: R Bibliotheken sind immer neu zu laden da ansonsten "Parameter $28 not found" auftritt. Fixed es aber nicht immer. Neustart des Coordinator notwendig wenn fehler auftritt.
+procedure: stype internal nicht verwendbar
+zu häufiger Neustart des Clusters führt zu fehlerhaften unänderliche Sequenzen.
+internal subtransactions in Funktionen nicht möglich (wenn commit oder exception handling) oder fehlerhaft
+lang laufende Funktionen führen auch zu random fehlern - neustart coordinator notwendig
