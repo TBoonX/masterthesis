@@ -280,7 +280,7 @@ Es werden die zehn letzten Tests gemessen, der höchste und der niedrigste Wert 
 Außerdem wird Postgres-XL vor jeder Testreihe neu gestartet.
 Dieses Vorgehen orientiert sich an der Masterarbeit von Baas Kapitel 6.1 Objective measurements\footnote{\cite[S.51]{ma:neo4j}}.
 Die Graphen der Auslastung der Knoten liegen als Bilder vor.
-Deshalb wird ein repräsentatives ausgewählt und zum Vergleich heran gezogen.
+Zur Einschätzung der Auslastung wird der Durchlauf einer gesamten Testreihe auf einem Graph mit den dazugehörigen Laufzeiten festgehalten.
 
 Es besteht die Möglichkeit die theoretische Leistung anhand des Kostenmaßes zu bestimmen.
 Nach \cite[S.300 f.]{book:kudrass} setzen sich die Kosten für die Verarbeitung einer Anfrage aus folgendem zusammen:
@@ -341,14 +341,14 @@ Somit werden alle Knoten gleichmäßig angesprochen.
 \begin{table}[h!]
 \centering
 \small
-\begin{tabular}{c|c}
-\textbf{fileid} & \textbf{Anzahl Einträge} \\ \hline
-10591 & 37.926 \\ \hline	%dn 5 node3
-9396 & 36.873 \\ \hline		%dn 1 node1
-34791 & 33.913 \\ \hline 	%dn 12 node6
-9394 & 33.391 \\ \hline 	%dn 8 node4
-10595 & 28.342 \\ \hline	%dn 9 node5
-44982 & 20.494 \\ 			%dn 4 node2
+\begin{tabular}{c|c|c|c}
+\textbf{fileid} & \textbf{Anzahl Einträge} & \textbf{Betroffener Knoten} & \textbf{Betroffener DataNode} \\ \hline
+10591 & 37.926 & 3 & 5 \\ \hline	%dn 5 node3
+9396 & 36.873 & 1 & 1 \\ \hline		%dn 1 node1
+34791 & 33.913 & 6 & 12 \\ \hline 	%dn 12 node6
+9394 & 33.391 & 4 & 8 \\ \hline 	%dn 8 node4
+10595 & 28.342 & 5 & 9 \\ \hline	%dn 9 node5
+44982 & 20.494 & 2 & 4 \\ 			%dn 4 node2
 \end{tabular}
 \caption{Anzahl der Einträge in n.nsensorlogs nach fileid}
 \label{tbl:entrysnnsensorlogs}
@@ -410,6 +410,15 @@ Das Mapfile stellt Kartenausschnitte der Punktdaten dar und die Karte wird farbi
 %exlain aller 6 fileids auf einem coodinator ausführen - bei anderen ist es analog
 % -< eventuell fileids ändern, um gleichverteilung zu erreichen?
 %dies kurz darlegen
+\textit{Explain Verbose Select} liefert für die fileid 44982 folgenden Query Plan:\\
+\textit{Remote Subquery Scan on all (datanode4)  (cost=0.00..7.39 rows=1 width=172)\\
+\noindent\hspace*{4mm}%
+->  Index Scan using idx\_{}fileid on n.nsensorlogs  (cost=0.00..7.39 rows=1 width=172)\\
+\noindent\hspace*{8mm}%
+Index Cond: (nsensorlogs.fileid = 44982)}\\
+Das Ergebnis ist auf allen Coordinatorn gleich.\footnote{Tabelle wurde mit \textit{vacuum} und \textit{analyze} vorbereitet.}
+Bei unterschiedlichen fileids ändert sich der datanode entsprechend der Tabelle \ref{tbl:entrysnnsensorlogs}.
+Damit kann von einer gleichen Auslastung aller Knoten ausgegangen werden.
 
 %UMN aktivieren und JMeter konfigurieren -> Beispielhafte BBOX raussuchen
 % -> Userlayer bbox oder kleinen client bauen
@@ -424,12 +433,14 @@ Es werden fileids aus der Tabelle \ref{tbl:entrysnsamples} verwendet.
 \small
 \begin{tabular}{c|c}
 \textbf{fileid} & \textbf{Anzahl Einträge} \\ \hline
-3904 & 260 \\ \hline
-742 & 201 \\ \hline
-4204 & 197 \\ \hline
-4186 & 160 \\ \hline
-5796 & 143 \\ \hline
-5915 & 110 \\
+%3110 & 404 \\ \hline	%dn 11    geht nicht
+3114 & 369 \\ \hline	%dn 4
+3904 & 260 \\ \hline	%dn 2
+742 & 201 \\ \hline		%dn 8
+4204 & 197 \\ \hline	%dn 2
+4186 & 160 \\ \hline	%dn 8
+5796 & 143 \\ \hline	%dn 1
+5915 & 110 \\			%dn 9
 \end{tabular}
 \caption{Anzahl der Einträge in nutrients.samples nach fileid}
 \label{tbl:entrysnsamples}
