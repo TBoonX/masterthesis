@@ -317,20 +317,18 @@ Zwar existiert eine Vielzahl von Elementen zur Darstellung und Kartenverwaltung%
 , aber es scheint keine geeignete Alternative zur Datenhaltung und Verarbeitung von komplexen geografischen Daten zu geben.
 
 Dieser Eindruck wurde durch die Literaturrecherche bestätigt.\\
-\cite{ba:pgvsoracle} vergleicht in seiner Bachelorarbeit PostgreSQL mit Oracle Spatial, da auch für ihn PostgreSQL der größte freie Vertreter für ein freies GIS ist.\\
-\cite{ba:nosqlfuergeodaten} untersucht gängige NoSQL \Gls{dbms} für Eignung mit geografischen Daten im Vergleich mit PostGIS und Oracle Spatial.
-Thurm kommt zu dem Schluss, dass es für einfache Datenobjekte in begrenzten Mengen nützlich ist die NoSQL Alternativen in Betracht zu ziehen.
+\cite{ba:pgvsoracle} vergleicht in seiner Bachelorarbeit PostGIS mit Oracle Spatial, da auch für ihn PostGIS der größte freie Vertreter eines GIS ist.\\
+Thurm untersucht in \cite{ba:nosqlfuergeodaten} gängige NoSQL \Gls{dbms} für Eignung mit geografischen Daten im Vergleich mit PostGIS und Oracle Spatial.
+Darin kommt der Autor zu dem Schluss, dass es für einfache Datenobjekte in begrenzten Mengen nützlich ist die NoSQL Alternativen in Betracht zu ziehen.
 Beispielsweise eignet sich die graphenbasierte Datenbank Neo4J für Operationen mit Strecken.
-Für weniger spezielle und komplexe Anforderungen sind einzig PostGIS und Oracle Spatial zu empfehlen.
-Die NoSQL Systeme im Bereich der Datenverarbeitung von räumlichen Daten sind in den letzten Jahren entstanden und somit nicht ausgereift und umfangreich, so Thurm S.51.\\
-\cite{ma:neo4j} vergleicht Neo4J mit PostGIS und kommt auch zu dem Schluss, dass graphenbasierte Datenhaltung zwar Vorteile besitzt, aber die Eignung individuell validiert werden muss.
+Für weniger spezielle und mehr komplexe Anforderungen sind einzig PostGIS und Oracle Spatial zu empfehlen.
+Die NoSQL Systeme im Bereich der Datenverarbeitung von räumlichen Daten sind in den letzten Jahren entstanden und somit nicht ausgereift und umfangreich, so Thurm auf S.51.\\
+\cite{ma:neo4j} vergleicht dagegen Neo4J mit PostGIS und kommt auch zu dem Schluss, dass graphenbasierte Datenhaltung zwar Vorteile besitzt, aber die Eignung individuell validiert werden muss.
 
 Wissenschaftliche Dokumente in Form von Paper sind zu diesem Thema vorhanden.
 Diese beschreiben aber nur knapp Entwürfe eines Systems für einen speziellen Anwendungsfall, weshalb sie in diesem Zusammenhang nicht gebraucht werden können.
 \cite{paper:hdfsspatial} beschreibt einen Entwurf zur Speicherung und Verarbeitung räumlichen Daten mit Hadoop, VegaGiStore genannt.
 \cite{paper:spatialdistribution} erläutert dagegen Methoden zur Verteilung von Daten in einem verteilten System auf Grund der räumlichen Informationen.
-
-Ponomarenko stellt in seiner Bachelorarbeit\footnote{\cite{ba:vertnosql}} die beispielhafte Umsetzung einer NoSQL GIS Umgebung vor.
 
 Es existieren Arbeiten zu Randthemen und -betrachtungen sowie Teilproblemen, aber nicht zu den Fragen \textit{Gibt es eine freie Alternative zu PostGIS?} und \textit{Welche verteilten GIS eignen sich für einen komplexen Anwendungsfall?}.
 
@@ -339,13 +337,14 @@ Das Fehlen von verlässlichen konkreten Informationen erschwert die Literaturrec
 Speziell Leistungsvergleiche sind in diesem Zusammenhang interessant, sind aber auf Grund fehlender Informationen nicht reproduzierbar.
 Nachfolgend zwei Beispiele einer solchen Werbung:\\
 %Unternehmen werben mit höher Leistung als PostGIS:\\
-GeoMesa: zehn bis 60 fache Antwortgeschwindigkeit bei GeoMesa gegenüber PostGIS, entsprechend der Abbildung \ref{fig:geomesaversuspostgis}.
+GeoMesa: Zehn bis 60 fache Antwortgeschwindigkeit bei GeoMesa gegenüber PostGIS, entsprechend der Abbildung \ref{fig:geomesaversuspostgis}.
 \begin{figure}[h!]
 \centering
 \includegraphics[width=.8\textwidth]{Abbildungen/geomesa_versus_postgis.png}
 \caption[Antwortzeiten von GeoMesa und PostGIS]{Antwortzeiten von GeoMesa und PostGIS, Quelle \url{http://de.slideshare.net/CCRinc/location-techdc-talk2-28465214} S.24}
 \label{fig:geomesaversuspostgis}
 \end{figure}
+
 Postgres-XL: Bis zu sechs fache Antwortdauer von PostgreSQL gegenüber Postgres-XL in einem standardisierten TPC-H Benchmark bei Verwendung von vier DataNodes. Abbildung \ref{fig:pgxcversuspgsql} zeigt das Diagramm mit dem genannten Wert. Die x-Achse ist nicht beschrieben, weswegen eine Einschätzung der Werte nicht möglich ist.
 \begin{figure}[h!]
 \centering

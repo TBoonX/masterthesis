@@ -1,191 +1,150 @@
 \label{appendix:pgxcctlconfig} 
 \begin{lstlisting}[basicstyle=\tiny,language=bash,caption={Konfigurationsdatei pgxc-ctl}]
 #!/usr/bin/env bash
-
-pgxcInstallDir=$HOME/pgxc
-#---- OVERALL -----------------------------------------------------------------------------
-#
+pgxcInstallDir=$HOME/pgxc-ctl
+#---- OVERALL ----------
 pgxcOwner=$USER	
 pgxcUser=$pgxcOwner
-
-tmpDir=/tmp		
+tmpDir=/tmp
 localTmpDir=$tmpDir	
-
-configBackup=n					
-configBackupHost=pgxc-linker	
-configBackupDir=$HOME/pgxc		
-configBackupFile=pgxc_ctl.bak	
-
-#---- GTM ---------------------
-
-#---- GTM Master --------------
-
+configBackup=n	
+configBackupHost=pgxc-linker
+configBackupDir=$HOME/pgxc-backup
+configBackupFile=pgxc_ctl.bak
+#---- GTM -------------
+#---- GTM Master ------
 #---- Overall ----
 gtmName=gtm
-gtmMasterServer=ThinkCenter
-gtmMasterPort=6660
+gtmMasterServer=node0
+gtmMasterPort=20001
 gtmMasterDir=$HOME/data_gtm
-
 #---- Configuration ---
-gtmExtraConfig=none		
-gtmMasterSpecificExtraConfig=none	
-#---- GTM Slave ---------------
-
+gtmExtraConfig="log_min_messages = INFO"
+gtmMasterSpecificExtraConfig=none
+#---- GTM Slave -------
 #---- Overall ------
-gtmSlave=n					
+gtmSlave=n	
 gtmSlaveName=gtmSlave
-gtmSlaveServer=		
-gtmSlavePort=20001			
-gtmSlaveDir=$HOME/pgxc/nodes/gtm	
-
+gtmSlaveServer=node12
+gtmSlavePort=20001
+gtmSlaveDir=$HOME/pgxc/nodes/gtm
 #---- Configuration ----
-gtmSlaveSpecificExtraConfig=none
-
-#---- GTM Proxy ----------------
+gtmSlaveSpecificExtraConfig=none 
+#---- GTM Proxy ------
 #---- Shortcuts ------
 gtmProxyDir=$HOME/data_gtm_proxy
-
 #---- Overall -------
-gtmProxy=y				
-gtmProxyNames=(gtm_pxy1)
-gtmProxyServers=(ThinkCenter)		
-gtmProxyPorts=(20001)				
-gtmProxyDirs=($gtmProxyDir)
-
+gtmProxy=y	
+gtmProxyNames=(gtm_pxy1 gtm_pxy2 gtm_pxy3 gtm_pxy4 gtm_pxy5 gtm_pxy6)
+gtmProxyServers=(node1 node2 node3 node4 node5 node6)
+gtmProxyPorts=(20001 20001 20001 20001 20001 20001)
+gtmProxyDirs=($gtmProxyDir $gtmProxyDir $gtmProxyDir $gtmProxyDir $gtmProxyDir $gtmProxyDir)
 #---- Configuration ----
-gtmPxyExtraConfig=none		
-gtmPxySpecificExtraConfig=(none none none none)
-
-#---- Coordinators ------------
-
-#---- shortcuts ----------
+gtmPxyExtraConfig=none
+gtmPxySpecificExtraConfig=(none none none none none none)
+#---- Coordinators -----
+#---- shortcuts --------
 coordMasterDir=$HOME/data_coordinator
 coordSlaveDir=$HOME/pgxc/nodes/coord_slave
 coordArchLogDir=$HOME/pgxc/nodes/coord_archlog
-
-#---- Overall ------------
-coordNames=(coord1)		# Master and slave use the same name
-coordPorts=(6661)			# Master ports
-poolerPorts=(20010)			# Master pooler ports
-coordPgHbaEntries=(192.168.1.0/24)				
-#coordPgHbaEntries=(::1/128)	# Same as above but for IPv6 addresses
-
-#---- Master -------------
-coordMasterServers=(ThinkCenter)		# none means this master is not available
-coordMasterDirs=($coordMasterDir)
-coordMaxWALsernder=1	
-coordMaxWALSenders=($coordMaxWALsernder)
-
-#---- Slave -------------
-coordSlave=n			
-coordSlaveSync=y		# Specify to connect with synchronized mode.
-coordSlaveServers=(node07 node08 node09 node06)			# none means this slave is not available
-coordSlavePorts=(20004 20005 20004 20005)			# Master ports
-coordSlavePoolerPorts=(20010 20011 20010 20011)			# Master pooler ports
+#---- Overall ----------
+coordNames=(coord1 coord2 coord3 coord4 coord5 coord6)
+coordPorts=(20004 20004 20004 20004 20004 20004)
+poolerPorts=(20010 20010 20010 20010 20010 20010)
+coordPgHbaEntries=(192.168.0.0/24 192.168.99.0/24)
+#coordPgHbaEntries=(::1/128)
+#---- Master ----------
+coordMasterServers=(node1 node2 node3 node4 node5 node6)
+coordMasterDirs=($coordMasterDir $coordMasterDir $coordMasterDir $coordMasterDir $coordMasterDir $coordMasterDir)
+coordMaxWALsernder=0
+coordMaxWALSenders=($coordMaxWALsernder $coordMaxWALsernder $coordMaxWALsernder $coordMaxWALsernder $coordMaxWALsernder $coordMaxWALsernder )
+#---- Slave -----------
+coordSlave=n
+coordSlaveSync=y
+coordSlaveServers=(node07 node08 node09 node06)
+coordSlavePorts=(20004 20005 20004 20005)
+coordSlavePoolerPorts=(20010 20011 20010 20011)
 coordSlaveDirs=($coordSlaveDir $coordSlaveDir $coordSlaveDir $coordSlaveDir)
 coordArchLogDirs=($coordArchLogDir $coordArchLogDir $coordArchLogDir $coordArchLogDir)
-
 #---- Configuration files---
-coordExtraConfig=coordExtraConfig	# Extra configuration file for coordinators.  
-						# This file will be added to all the coordinators'
-						# postgresql.conf
-cat > $coordExtraConfig <<EOF
-#=============================
-# Added to all the coordinator postgresql.conf
-# Original: $coordExtraConfig
-log_destination = 'stderr'
-logging_collector = on
-log_directory = 'pg_log'
-listen_addresses = '*'
-max_connections = 100
-EOF
+coordExtraConfig=coordinator.conf
+coordSpecificExtraConfig=(none none none none none none)
+coordExtraPgHba=none
+coordSpecificExtraPgHba=(none none none none none none)
+#----- Additional Slaves ---
 
-# Additional Configuration file for specific coordinator master.
-# You can define each setting by similar means as above.
-coordSpecificExtraConfig=(none)
-coordExtraPgHba=none	
-coordSpecificExtraPgHba=(none)
-
-#----- Additional Slaves -----
-#
-# Please note that this section is just a suggestion how we extend the configuration for
-# multiple and cascaded replication.   They're not used in the current version.
-#
-coordAdditionalSlaves=n		# Additional slave can be specified as follows: where you
-coordAdditionalSlaveSet=(cad1)		# Each specifies set of slaves.   This case, two set of slaves are
-											# configured
-cad1_Sync=n		  		#
+coordAdditionalSlaves=n	
+coordAdditionalSlaveSet=(cad1)
+cad1_Sync=n	
 cad1_Servers=(node08 node09 node06 node07)	# Hosts
 cad1_dir=$HOME/pgxc/nodes/coord_slave_cad1
 cad1_Dirs=($cad1_dir $cad1_dir $cad1_dir $cad1_dir)
 cad1_ArchLogDir=$HOME/pgxc/nodes/coord_archlog_cad1
 cad1_ArchLogDirs=($cad1_ArchLogDir $cad1_ArchLogDir $cad1_ArchLogDir $cad1_ArchLogDir)
-
-
-#---- Datanodes --------------
-
-#---- Shortcuts --------------
-datanodeMasterDir=$HOME/data
+#---- Datanodes ----------
+#---- Shortcuts ----------
+datanodeMasterDir=$HOME/data_node1
+datanodeMasterDir2=$HOME/data_node2
 datanodeSlaveDir=$HOME/pgxc/nodes/dn_slave
-datanodeArchLogDir=$HOME/pgxc/nodes/datanode_archlog
-
+datanodeArchLogDir=$HOME/data_node1/pg_log_arch
+datanodeArchLogDir2=$HOME/data_node2/pg_log_arch
 #---- Overall ---------------
-#primaryDatanode=datanode1				
-primaryDatanode=datanode1				# Primary Node.
-datanodeNames=(datanode1)
-datanodePorts=(6663)	# Master ports
-datanodePoolerPorts=(20012)	# Master pooler ports
-datanodePgHbaEntries=(192.168.1.0/24)	
-
-#---- Master ----------------
-datanodeMasterServers=(ThinkCenter)	
-datanodeMasterDirs=($datanodeMasterDir)
-datanodeMaxWalSender=1
-datanodeMaxWALSenders=($datanodeMaxWalSender)
-						# max_wal_senders configuration for each datanode
-
-#---- Slave -----------------
-datanodeSlave=n			
-datanodeSlaveServers=(node07 node08 node09 node06)	# value none means this slave is not available
-datanodeSlavePorts=(20008 20009 20008 20009)	# value none means this slave is not available
-datanodeSlavePoolerPorts=(20012 20013 20012 20013)	# value none means this slave is not available
-datanodeSlaveSync=y		# If datanode slave is connected in synchronized mode
+#primaryDatanode=datanode1
+primaryDatanode=datanode1
+datanodeNames=(datanode1 datanode2 datanode3 datanode4 datanode5 datanode6 datanode7 datanode8 datanode9 datanode10 datanode11 datanode12)
+datanodePorts=(20008 20009 20008 20009 20008 20009 20008 20009 20008 20009 20008 20009)
+datanodePoolerPorts=(20012 20013 20012 20013 20012 20013 20012 20013 20012 20013 20012 20013)
+datanodePgHbaEntries=(192.168.0.0/24 192.168.99.0/24)
+#datanodePgHbaEntries=(::1/128)
+#---- Master ----------
+datanodeMasterServers=(node1 node1 node2 node2 node3 node3 node4 node4 node5 node5 node6 node6)	
+datanodeMasterDirs=($datanodeMasterDir $datanodeMasterDir2 $datanodeMasterDir $datanodeMasterDir2 $datanodeMasterDir $datanodeMasterDir2 $datanodeMasterDir $datanodeMasterDir2 $datanodeMasterDir $datanodeMasterDir2 $datanodeMasterDir $datanodeMasterDir2)
+datanodeMaxWalSender=0	
+datanodeMaxWALSenders=($datanodeMaxWalSender $datanodeMaxWalSender $datanodeMaxWalSender $datanodeMaxWalSender $datanodeMaxWalSender $datanodeMaxWalSender $datanodeMaxWalSender $datanodeMaxWalSender $datanodeMaxWalSender $datanodeMaxWalSender $datanodeMaxWalSender $datanodeMaxWalSender)
+#---- Slave -------
+datanodeSlave=n		
+datanodeSlaveServers=(node07 node08 node09 node06)
+datanodeSlavePorts=(20008 20009 20008 20009)
+datanodeSlavePoolerPorts=(20012 20013 20012 20013)
+datanodeSlaveSync=y	
 datanodeSlaveDirs=($datanodeSlaveDir $datanodeSlaveDir $datanodeSlaveDir $datanodeSlaveDir)
-datanodeArchLogDirs=( $datanodeArchLogDir $datanodeArchLogDir $datanodeArchLogDir $datanodeArchLogDir )
-
+datanodeArchLogDirs=( $datanodeArchLogDir $datanodeArchLogDir2 $datanodeArchLogDir $datanodeArchLogDir2 $datanodeArchLogDir $datanodeArchLogDir2 $datanodeArchLogDir $datanodeArchLogDir2 $datanodeArchLogDir $datanodeArchLogDir2 $datanodeArchLogDir $datanodeArchLogDir2 )
 # ---- Configuration files ---
-datanodeExtraConfig=none	
-datanodeSpecificExtraConfig=(none none none none)
-datanodeExtraPgHba=none		
-datanodeSpecificExtraPgHba=(none none none none)
-
+datanodeExtraConfig=datanode.conf	
+datanodeSpecificExtraConfig=(none none none none none none none none none none none none)
+datanodeExtraPgHba=none	
+datanodeSpecificExtraPgHba=(none none none none none none none none none none none none)
 #----- Additional Slaves -----
-datanodeAdditionalSlaves=n	
-# dad1_Sync=n	
-# dad1_Servers=(node08 node09 node06 node07)	# Hosts
-# dad1_dir=$HOME/pgxc/nodes/coord_slave_cad1
-# dad1_Dirs=($cad1_dir $cad1_dir $cad1_dir $cad1_dir)
-# dad1_ArchLogDir=$HOME/pgxc/nodes/coord_archlog_cad1
-# dad1_ArchLogDirs=($cad1_ArchLogDir $cad1_ArchLogDir $cad1_ArchLogDir $cad1_ArchLogDir)
-
-#---- WAL archives --------------------
-walArchive=n	
-#
-#		End of Configuration Section
-#
+datanodeAdditionalSlaves=n
+#---- WAL archives -----------
+walArchive=n
 #=========================
 
-#=========================
-walArchiveSet=(war1 war2)
-war1_source=(master)	
-wal1_source=(slave)
-wal1_source=(additiona_coordinator_slave_set additional_datanode_slave_set)
-war1_host=node10	# All the nodes are backed up at the same host for a given archive set
-war1_backupdir=$HOME/pgxc/backup_war1
-wal2_source=(master)
-war2_host=node11
-war2_backupdir=$HOME/pgxc/backup_war2
-#==<< End of future extension demonistration >> ===
+datanode.conf
+shared_buffers = 1GB #overall buffersize
+temp_buffers = 8MB #maximum number of temporary buffers used by each database session
+checkpoint_segments = 24 #number of writable wal files before checkpoint
+max_locks_per_transaction = 200
+autovacuum_max_workers = 3 #number of workers
+max_prepared_transactions = 60 #should be same as max_connections
+wal_buffers = 16MB #see checkpoint_segments
+work_mem = 5MB
+max_connections = 60
+
+coordinator.conf
+log_destination = 'stderr'
+logging_collector = on
+log_directory = 'pg_log'
+listen_addresses = '*'
+max_connections = 60
+shared_buffers = 1400MB #overall buffersize
+temp_buffers = 8MB #maximum number of temporary buffers used by each database session
+checkpoint_segments = 24 #number of writable wal files before checkpoint
+max_locks_per_transaction = 200
+autovacuum_max_workers = 3 #number of workers
+max_prepared_transactions = 60 #should be same as max_connections
+wal_buffers = 16MB #see checkpoint_segments
+work_mem = 1MB
 \end{lstlisting} 
  
 \newpage

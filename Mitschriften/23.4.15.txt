@@ -1,0 +1,30 @@
+Stand:
+Führe momentan die Leistungstests durch
+
+TODO:
+Funktionstests
+Zusammenfassung & Fazit
+5. verkleinern
+Anhang gliedern
+
+Fragen:
+6.3.3 Leistungstests - etwas in Grundlagen der Tests verfrachten? Je nachdem wie es passt: wenn 2.3 zu knapp dann ja
+Tests momentan in methodischem Vorgehen - das würde jetzt nochmal erweitert werden - Section dafür erzeugen?
+Ist 6.2 io? Klar definieren was gemacht wurde; Zeitlichen ABlauf der Arbeit hinsichtlich des Entwurfes darstellen und mit notwendigem Aufwand für konkreten Prototypen vergleichen; Aufwand und konkrete Aufgaben zur Realisierung nennen;nochmal genau nennen und begründen das/warum es nicht schaffbar ist; eventuell nicht Entwurf nennen.
+
+
+
+-----------------------------------------------------------------------------------
+
+formatierungen verbessern - gleiche absätze
+
+telefonat: 29.4 14 uhr
+
+
+
+
+
+
+
+
+

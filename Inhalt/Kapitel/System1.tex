@@ -1,16 +1,21 @@
 \chapter{Realisierung mit Postgres-XL}
 \label{chapter:postgresxl}
 
+Nach der Auswahl von Postgres-XL im vorangegangenen Kapitel% aus einer geeigneten Menge an Frameworks
+, wird es in diesem Kapitel hinsichtlich der Verwendung erläutert, eine Empfehlung für den Einsatz bei Agri~Con gegeben und das Framework hinsichtlich Funktionalität und Leistungsfähigkeit bezüglich der Anforderungen getestet sowie bewertet.
+
 \section{Verwendung}
-%Indexstrukturen nicht vergessen!
-%Mehrrechner-Datenbanksystem?
 %replikationsverfahren wichtig?
 %auf Fehlen von Triggern eingehen
 
-Nach der theoretischen Vorstellung des Frameworks im Abschnitt \ref{grundlagen:postgresxl} wird in diesem Unterkapitel die konkrete praktische Verwendung entsprechend den Abschnitten Installation, Schnittstelle und Verarbeitung dargelegt.
+Im Abschnitt \ref{grundlagen:postgresxl} der Grundlagen wurde Postgres-XL allgemein beschrieben und im Unterkapitel \ref{gegenuerbestellung:postgresxl} wurde es hinsichtlich des Anwendungsfalles mit einer Nutzwertanalyse bewertet.
+Darauf aufbauend folgt die Darstellung der konkreten praktischen Verwendung entsprechend den Abschnitten Installation, Schnittstelle und Verarbeitung.
+Für das Verständnis werden grundlegende Linux Kenntnisse und ein root Zugang voraus gesetzt.
+%tiefe der ausführungen
+%für wen geeignet?
 
 \subsection{Installation}
-%mit Systemvoraussetzungen
+
 \subsubsection{Systemvoraussetzungen}
 Die Dokumentation\footnote{\url{http://files.postgres-xl.org/documentation/install-requirements.html}} verwendet hierbei deckungsgleich die offizielle Dokumentation zu den Systemanforderungen von PostgreSQL\footnote{\url{http://www.postgresql.org/docs/9.2/static/install-requirements.html}}.
 Dabei wird ein Linux Betriebssystem, 155MB freien Festplattenspeicher für die Übersetzung, Installation und Erstellung eines leeren Datenbankclusters sowie eine Menge von Paketen genannt.
@@ -22,55 +27,60 @@ Die Prozessorarchitektur von Intel wird unterstützt, andere sind laut Dokumenta
 Im Rahmen dieser Arbeit konnte Postgres-XL auch auf einem Raspberry Pi 1 Model B, basierend auf einem ARMv6 Prozessor und dem Linux Derivat Raspbian, übersetzt und verwendet werden.
 
 \subsubsection{Installation}
+%generelles vorgehen der installation
 Postgres-XL steht als RPM und direkt als Quellcode bereit.
 Davon verfügbare RPM Pakete sind jedoch von Mai 2014 und somit veraltet.
 Im Rahmen dieser Arbeit wurde der aktuelle Quellcode von github verwendet.
-Die Übersetzung des Quellcodes erfolgt mit einer im Linux Umfeld oft verwendeten configure, make und make install Routine.
-Der aktuelle Quellcode wird mit dem Kommandozeilen- und Versionsverwaltungstool git auf den Computer geladen und die darin enthaltene Datei configure mit zusätzlichen Parametern zum Zwecke der Einrichtung der anschließenden Installation ausgeführt.
-Die Ausführung von make übersetzt den Quellcode und der Parameter install kopiert die Übersetzungen in die mit configure festgelegten Ordner.
+Die Übersetzung des Quellcodes erfolgt mit einer im Linux Umfeld oft verwendeten \verb+configure, make+ und \verb+make install+ Routine.
+Der aktuelle Quellcode wird mit dem Kommandozeilen- und Versionsverwaltungstool \verb+git+ auf den Computer geladen und die darin enthaltene Datei configure mit zusätzlichen Parametern zum Zwecke der Einrichtung der anschließenden Installation ausgeführt.
+Die Ausführung von \verb+make+ übersetzt den Quellcode und der Parameter \verb+install+ kopiert die Übersetzungen in die mit \verb+configure+ festgelegten Ordner.
 Im Anhang \ref{appendix:install} ist das Skript zur Installation von Postgres-XL auf dem Testsystem zu sehen.
 Das Installationsskript muss für andere Systemumgebungen angepasst werden, da Pfade und notwendige Pakete unterschiedlich sein können.
 Weiterhin ist zu erwähnen, dass Änderungen an der Kernel-Konfiguration vorzunehmen  sind, jedoch ebenso abhängig von der Systemumgebung.
 Im Testsystem musste der Wert des für jede Anwendung nutzbaren geteilten Speichers erhöht werden, um Postgres-XL starten zu können.\\
-Um das Kommandozeilentool pgxc\_{}ctl nutzen zu können, muss im Quellcode Ordner in ./contrib/pgxc\_{}ctl gewechselt und dort make sowie make install ausgeführt werden. damit wird das Tool übersetzt und in den in der vorangegangenen Installation festgelegten Ordner kopiert.
+Um das Kommandozeilentool \verb+pgxc_ctl+ nutzen zu können, muss im Quellcode Ordner in \verb+./contrib/pgxc_ctl+ gewechselt und dort \verb+make+ sowie \verb+make install+ ausgeführt werden. Damit wird das Tool übersetzt und in den in der vorangegangenen Installation festgelegten Ordner kopiert.
 
 \subsubsection{Einrichtung}
-Postgres-Xl ist für den Einsatz in einem Cluster konzipiert.
+Postgres-XL ist für den Einsatz als Cluster konzipiert.
 So muss die Installation für jeden Knoten vorgenommen werden.
 Die Einrichtung der einzelnen Knoten variiert je nach Art des Knotens, wobei ein Knoten entweder eine GTM Instanz oder mehrere Coordinator sowie DataNodes Instanzen mit einer GTM-Proxy Instanz enthält.
-Jede Instanz kann automatisiert mit pgxc\_{}ctl oder manuell erstellt und konfiguriert werden.
-Das Testsystem wurde mit pgxc\_{}ctl eingerichtet.
-Voraussetzung der Nutzung von pgxc\_{}ctl ist der Zugang zu allen Knoten per SSH ohne Passwortabfrage für den selben Benutzer und die Vergabe eindeutiger Hostnames an die Knoten.
-Ist dies gegeben, kann pgxc\_{}ctl in der Kommandozeile gestartet werden.
-Mit dem Kommando \textit{prepare config} erzeugt pgxc\_{}ctl eine Konfigurationsdatei unter dem in der Umgebungsvariable PGXC\_{}CTL\_{}HOME festgelegten Ordner.
+Jede Instanz kann automatisiert mit \verb+pgxc_ctl+ oder manuell erstellt und konfiguriert werden.
+Das Testsystem wurde mit \verb+pgxc_ctl+ eingerichtet.
+Voraussetzung der Nutzung dieses Kommandozeilentools ist der Zugang zu allen Knoten per SSH ohne Passwortabfrage für den selben Benutzer und die Vergabe eindeutiger Hostnames an die Knoten.
+Ist dies gegeben, kann \verb+pgxc_ctl+ in der Kommandozeile gestartet werden.
+Mit dem Kommando \verb+prepare config+ erzeugt \verb+pgxc_ctl+ eine Konfigurationsdatei unter dem in der Umgebungsvariable \verb+PGXC_CTL_HOME+ festgelegten Ordner.
 In dieser Datei werden alle Elemente des Clusters definiert.
 Dazu zählt: GTM, GTM-Proxys, Coordinators und DataNodes.
 Außerdem können zu allen vier Typen Slaves definiert werden, welche bei Ausfall des Elementes dessen Aufgaben übernehmen.
 So wird pro Element das Arbeitsverzeichnis, der Name, der Host, der Port, optionale Konfigurationsparameter, pg\_{}hba Einträge, pgPool Port und der Ordner der Logdateien festgelegt.
 Eine detaillierte Beschreibung befindet sich in der Dokumentation.\footnote{\url{http://files.postgres-xl.org/documentation/pgxc-ctl.html}}
-Anhang \ref{appendix:pgxcctlconfig} enthält eine beispielhafte Konfigurationsdatei.
-%schlussendliche Konfigurationdatei mit aufführen
+Anhang \ref{appendix:pgxcctlconfig} enthält die Konfigurationsdatei des Testsystems mit zwei ergänzenden Dateien.
 
 \subsection{Schnittstelle}
 \label{subsection:interface}
 %Datenimport gehört dazu
 Der Zugriff auf Daten eines Postgres-XL Clusters erfolgt über die Coordinators.
 Dazu sind Programme und Tools aus dem PostgreSQL Umfeld zu verwenden.
-Dazu zählen \Gls{jdbc}, das Kommandozeilentool psql und das grafische Programm zur Datenbankverwaltung pgAdminIII.
+Dazu zählen \Gls{jdbc}, das Kommandozeilentool \verb+psql+ und das grafische Programm zur Datenbankverwaltung pgAdminIII.
+So wird im Testsystem der erste Coordinator mit folgendem Aufruf angesprochen:\\
+\verb+psql -h node1 -p 20004 agrodb+\\
 Ebenso sind die SQL Befehle bis auf ein paar Ausnahmen deckungsgleich.
 Diese Ausnahmen beziehen sich auf die Verteilung der Daten und Verwaltung des Clusters.
-Beispielsweise das SQL Statement \textit{Create Table tblname (serial id, text data) Distributed by Hash(id);} weicht durch die Ergänzung \textit{Distributed by} vom PostgreSQL SQL Syntax ab.
+Beispielsweise das SQL Statement \verb+Create Table tblname (serial id, text data)+
+\verb+Distribute by Hash(id);+ weicht durch die Ergänzung \verb+Distribute by+ vom PostgreSQL SQL Syntax ab.
 Jede Tabelle wird in jeder PostgreSQL Instanz erzeugt.
 Dabei werden die Daten entweder nach einem Attribut verteilt oder zwischen den Datenbankinstanzen gespiegelt.
-Das Schlüsselwort \textit{Distributed} veranlasst eine Verteilung der Daten, \textit{Replicate} dagegen eine Replikation der Tabelle über alle Nodes.
+Das Schlüsselwort \verb+Distributed+ veranlasst eine Verteilung der Daten, \verb+Replicate+ dagegen eine Replikation der Tabelle über alle Nodes.
 Die unterstützten Datentypen sind der Dokumentation zu entnehmen.
-Weiterhin zu erwähnen ist der Befehl \textit{Create Node nodename With (TYPE=, HOST=, PORT=)}, welcher direkt als SQL Statement verwendet werden kann und dem Cluster einen Knoten hinzufügt.
-Analog dazu existiert der Befehl \textit{Drop Node nodename} zum entfernen eines Knotens.
-Wurde das Cluster verändert, ist dies mit \textit{Select * From pgxc\_{}pool\_{}reload();} für alle Knoten zu propagieren.
+Weiterhin zu erwähnen ist der Befehl \verb+Create Node nodename With (TYPE=, HOST=, PORT=)+, welcher\\
+direkt als SQL Statement verwendet werden kann und dem Cluster einen Knoten hinzufügt.
+Analog dazu existiert der Befehl \verb+Drop Node nodename+ zum entfernen eines Knotens.
+Wurde das Cluster verändert, ist dies mit\\
+\verb+Select * From pgxc_pool_reload();+ für alle Knoten zu propagieren.
 Weitere Abweichungen sind der Dokumentation zu entnehmen.\footnote{siehe \url{http://files.postgres-xl.org/documentation/sql-commands.html}}
 
-Das Datenbankschema wurde mit pg\_{}dump in eine Textdatei geladen und als SQL Befehle in Postgres-XL übernommen.
-Die Übernahme der Daten erfolgte mit db\_{}link, welches auch zwischen unterschiedlichen PostgreSQL Versionen funktioniert.
+Das Datenbankschema wurde mit \verb+pg_dump+ in eine Textdatei geladen und als SQL Befehle in Postgres-XL übernommen.
+Die Übernahme der Daten erfolgte mit \verb+db_link+, welches auch zwischen unterschiedlichen PostgreSQL Versionen funktioniert.
 %Der Ist-Zustand verwendet PostgreSQL Version 9.3.
 Die Daten können auch analog des Schema übertragen werden, dies dauert jedoch auf Grund der Umwandlung von zu zu Textformaten länger.
 
@@ -84,28 +94,28 @@ Mit der Installation\footnote{Skript siehe \ref{appendix:postgis}} von PostGIS a
 Dafür ist neben R als Programmiersprache mit notwendigen Paketen auf den Systemen, Pl/R als Erweiterung in Postgres-XL, zu installieren.
 Die Installation von Pl/R mit dem Quellcode als Grundlage ist in Anhang \ref{appendix:plr} zu finden.
 
-%\section{Prototyp}
-%ERM festhalten
-
 \section{Entwurf}
-Dieses Unterkapitel enthält die Definition des Postgres-XL Prototypen für den Einsatz bei Agri Con.
+%klar definieren was gemacht wurde
+%gant der arbeit und was gemacht hätte werden können
+%was müsste man machen? aufwand
+%wieso nicht schaffbar
+Dieses Unterkapitel enthält die Definition der Postgres-XL Konfiguration für den Einsatz bei Agri~Con.
 Als erstes werden die Gründe für diese Art des Entwurfs dargelegt.
 
-Die Erfüllung der Anforderungen liegt bei Postgres-XL auf Grund der Beinhaltens von PostgreSQL bei 86\%{}.
+Die Erfüllung der Anforderungen liegt entsprechen der Nutzwertanalyse von Postgres-XL bei 86\%{}.
 %starke Integration: 2 Möglichkeiten
 %Ersetzung
-Aus diesem Grund besteht die geeignete Möglichkeit einen Entwurf zu erzeugen, welcher wesentliche Aufgaben des Ist-Standes übernimmt oder den Ist-Stand ersetzt.\\
+Aus diesem Grund besteht die geeignete Möglichkeit einen Entwurf zu erzeugen, welcher wesentliche Aufgaben des Ist-Standes übernimmt oder den Ist-Stand ersetzt.
+
 Gegen eine Ersetzung spricht das Trigger in der aktuellen Postgres-XL Version nicht verwendet werden können.
 Zwar können Trigger in Funktionen ausgelagert und bei Verwendung der Tabellen aufgerufen werden, aber dies würde einen erheblichen Implementationsaufwand bedeuten und nicht zu 100\%{} die bestehende Funktionalitäten abbilden.
 %Teilintegration
 Jedoch ist eine grundlegende Integration in den Ist-Stand notwendig. %warum?
 Dies ist in der Datenabhängigkeit der Bestandsdaten und der Eignung von Postgres-XL begründet.
 Das Datenbankschema befindet sich in der ersten und zweiten Normalform, wodurch eine Abhängigkeit über Fremdschlüssel zu häufig verwendeten Tabellen wie farm.farms oder farm.fields besteht, was eine Auslagerung von Tabellen und Funktionen nicht trivial macht.
-Eine teilweise Schemaintegration mit anschließender Normalisierung der zwei Datenbankschemata würde Änderung aller Programme nach sich ziehen und in diesem Rahmen zu aufwendig ausfallen.\\
+Eine teilweise Schemaintegration mit anschließender Normalisierung der zwei Datenbankschemata würde Änderung aller Programme nach sich ziehen und in diesem Rahmen zu aufwendig ausfallen.
 Deshalb ist die Erstellung eines umfassenden Entwurfs hinsichtlich des speziellen Szenarios bei Agri~Con im Rahmen dieser Arbeit nicht möglich.
 Der Entwurf wird daher als Klon des Ist-Standes, jedoch ohne Trigger, erstellt.
-%großer Aufwand für genauen Entwurf, weshalb lieber Aussagen zum Einsatz in diesem Szenario gegeben werden sollen
-%Aufwand auch groß da Verteilung, ersatz der Trigger, Änderungen der Primär- und Fremdschlüssel bedacht werden müssen
 Entsprechend den Leistungstests soll der Entwurf die Produktivdaten liefern und anwendungsnahe Berechnungen ausführen.
 Somit sind Aussagen zur Leistungsfähigkeit gegenüber dem Ist-Stand treffbar.
 Die Speicherung von historischen Daten wird aus Zeitgründen nicht betrachtet.
@@ -113,11 +123,20 @@ Eine Übernahme aller vorhandenen Daten wurde mit Abschnitt \ref{subsection:inte
 
 Der Ist-Stand wurde unter Kapitel \ref{IstStand} dargelegt, somit sind die Unterschiede des für die Testumgebung umgesetzten Entwurfes zu erläutern.
 Das Datenbankschema unterscheidet sich von dem des Ist-Standes durch das Fehlen von Triggern und einigen Fremdschlüssel Constraints.
-Diese Fremdschlüsselbeziehungen müssen entfernt werden, da Primär- und Fremdschlüssel immer in \textit{distribute by} enthalten sein müssen, was entweder auf Grund der Stufe der Datennormalität nicht umsetzbar ist oder diese Beziehungen in den Tests nicht verwendet werden.
+Diese Fremdschlüsselbeziehungen müssen entfernt werden, da Primär- und Fremdschlüssel immer in \verb+distribute by+ enthalten sein müssen, was entweder auf Grund der Stufe der Datennormalität nicht umsetzbar ist oder diese Beziehungen in den Tests nicht verwendet werden.
 Diese Änderungen sind auch im Vergleichssystem mit PostgreSQL 9.3 enthalten.
+Weiterhin wurden die zu testenden Funktionen an den Funktionsumfang von Postgres-XL angepasst.
+Dabei wurden interne Transaktionen und inserts aus den verwendeten Funktionen entfernt.
+Das Vorgehen zur Erstellung dieses Aufbaus war zusammengefasst folgender:
+Postgres-XL auf sieben VMs installiert, eine Konfigurationsdatei für \verb+pgxc_ctl+ erstellt, den Cluster mit \verb+pgxc_ctl+ erzeugt, eine Datenbank mit dem Namen agrodb erzeugt, darin die Erweiterungen plr, dblink und PostGIS installiert, das Datenbankschema mit Funktionen angepasst, das Datenbankschema und Hilfsfunktionen eingespielt und die Daten mit dblink für ausgewählte Betriebe übernommen.
 
-%\section{Implementierung}
-%SQL mit dblnk skizzieren
+\begin{figure}[h!]
+\centering
+\includegraphics[width=.8\textwidth]{Abbildungen/gantt_aufwand_unsetzung_cropped.pdf}
+\caption[Aufwandsschätzung Umsetzung einer teilweisen Integration von Postgres-XL]{Aufwandsschätzung Umsetzung einer teilweisen Integration von Postgres-XL in den Ist-Stand}
+\label{fig:aufwand}
+\end{figure}
+%lieber als tabelle in Tex machen
 
 \section{Tests}
 %Erwartung definieren!
@@ -127,12 +146,13 @@ Die systematischen Tests werden in diesem Kapitel vorgestellt.
 Die Kriterien wurden in Kapitel \ref{qualitätsmetriken} definiert, somit werden hier die Randbedingungen, Eingaben, Durchführung und Ergebnisse dargelegt.
 
 \subsection{Testumgebung}
+%verlinkungen auch zur hardware!
 Die wesentliche Randbedingung Testumgebung wurde nach der Softwareauswahl und vor der Durchführung der Tests erstellt.
-Da es sich bei dieser Umgebung um gebrauchte Hardware aus dem Jahr 2007 handelt, sind einzig relative Aussagen der Leistung treffbar.
-Der Cluster wird mit Virtualisierung der einzelnen Knoten erstellt.
-Dafür steht ein IBM Rack Server x3850 M2 zur Verfügung, mit folgender Ausstattung:
+Die Testumgebung ist Hardware aus dem Jahr 2007 und soll dazu dienen, relative Aussagen über die Leistung von Postgres-XL zu treffen.
+Dafür steht ein IBM Rack Server x3850 M2\footnote{\url{http://www.redbooks.ibm.com/redpapers/pdfs/redp4362.pdf}} mit folgender Ausstattung zur Verfügung:
 vier Xeon E7330 Quad-Core mit 2,4 GHz, 64GB DDR2 RAM, vier 500GB 2,5 Zoll SATA Festplatten von Western Digital mit 7.200 U/min und einem MR10k Raid-Controller.
-Als Virtualisierungssoftware kommt \Gls{esxi} in der kostenlosen Version 6.0 mit \Gls{vsphere} 6.0 als Testversion zum Einsatz.
+Der Postgres-XL Cluster wird mit Virtualisierung der einzelnen Knoten erstellt.
+Als Virtualisierungssoftware kommt \Gls{esxi} in der kostenlosen Version 6.0 mit \Gls{vsphere} 6.0\footnote{\url{https://www.vmware.com/de/products/vsphere}} als Testversion zum Einsatz.
 Mit dieser Virtualisierungslösung ist es möglich, Ressourcen explizit und ausschließlich einer \Gls{vm} zuzuordnen.
 So werden die Prozessorkerne in Paaren und der Arbeitsspeicher direkt und mit exklusiver Verwendung den einzelnen \Gls{vm}s zugeordnet.
 Ziel dieser unter Abbildung \ref{fig:physAufb} skizzierten Testumgebung ist es Postgres-XL mit der PostgreSQL Konfiguration des Ist Standes zu vergleichen, einen homogenen Cluster zu erzeugen und Aussagen über die Skalierbarkeit von Postgres-XL zu treffen.
@@ -152,7 +172,7 @@ Typ I erhält dagegen zwei Prozessorkerne, sieben GB RAM und 20 GB Festplattensp
 \end{figure}
 \begin{figure}[h!]
 \centering
-\input{Abbildungen/Testsystem_VMs.tex}
+\input{Abbildungen/Testsystem_VMs_2.tex}
 \caption[Aufbau der VMs des Testsystems]{Aufbau der VMs des Testsystems}
 \label{fig:VMAufb}
 \end{figure}
@@ -189,7 +209,7 @@ Es wird eine vollständige Erfüllung der Funktionstests erwartet, da PostgreSQL
 Das Fehlen von Triggerfunktionen in Postgres-XL wird durch die Funktionstests nicht aufgedeckt.
 Jedoch ist dies als wesentliche Einschränkung festzuhalten und für die Auswertung heran zu ziehen.
 
-Alle Funktionstests werden im Anhang \ref{appendix:funktionstests} in Form eines Testdokumentes\footnote{ein Testdokument mit Testfällen in tabellarischer Form, wie es in der Softwareentwicklung zum Einsatz kommt} zusätzlich dargelegt.
+Alle Funktionstests werden im Anhang \ref{appendix:funktionstests} in Form eines Testdokumentes\footnote{Ein Testdokument mit Testfällen in tabellarischer Form, wie es in der Softwareentwicklung zum Einsatz kommt} zusätzlich dargelegt.
 Darin wird der Testfall beschrieben, die Testdaten konkretisiert, das Sollergebnis vordefiniert, das schlussendliche Ergebnis dargestellt und die Akzeptanz des Tests erläutert.
 Entsprechend der Reihenfolge der Testfälle im Anhang werden nachfolgend die Tests mit deren Durchführung und deren Ergebnissen präsentiert.
 Die Testfälle werden durchnummeriert und mit einem vorangestellten FT für Funktionstest bezeichnet.
@@ -330,7 +350,8 @@ So besteht auch die Möglichkeit Coordinator mit unterschiedlichen Konfiguration
 
 \subsubsection{Erster Lasttest}
 Der erste Lasttest misst die Laufzeit der Aggregation von Punktdaten aus der Tabelle nsensorlogs des Schemas n.
-Die Abfrage und Messung erfolgt mit dem SQL Statement \textit{Select * From n.nsensorlogs Where fileid=\%{};} sowie \textit{Explain Verbose Select * From n.nsensorlogs Where fileid=\%{};}.
+%listings verwenden
+Die Abfrage und Messung erfolgt mit dem SQL Statement \verb+Select * From n.nsensorlogs Where fileid=%;+ sowie \verb+Explain Verbose Select * From n.nsensorlogs Where fileid=%;+.
 Die erste Query liefert die Daten sowie Laufzeit\footnote{Sofern in PostgreSQL die Zeiterfassung mit \textbackslash{}timing eingeschaltet wurde.} und die zweite die Aufteilung des SQL Statements an die Knoten des Clusters.
 Der Aufruf der ersten Query erfolgt parallel an alle Coordinator und wird für den Lasttest verwendet.
 Diese zweite Query wird ein mal pro Coordinator abgerufen, um die Verteilung der Daten zu validieren.
@@ -409,13 +430,13 @@ Das Mapfile stellt Kartenausschnitte der Punktdaten dar und die Karte wird farbi
 
 %exlain aller 6 fileids auf einem coodinator ausführen - bei anderen ist es analog
 % -< eventuell fileids ändern, um gleichverteilung zu erreichen?
-%dies kurz darlegen
-\textit{Explain Verbose Select} liefert für die fileid 44982 folgenden Query Plan:\\
-\textit{Remote Subquery Scan on all (datanode4)  (cost=0.00..7.39 rows=1 width=172)\\
+%dies kurz darlegen  (cost=0.00..7.39 rows=1 width=172)
+\verb+Explain Verbose Select+ liefert für die fileid 44982 folgenden Query Plan:\\
+\verb+Remote Subquery Scan on all (datanode4)+\\
 \noindent\hspace*{4mm}%
-->  Index Scan using idx\_{}fileid on n.nsensorlogs  (cost=0.00..7.39 rows=1 width=172)\\
+\verb+->  Index Scan using idx\_{}fileid on n.nsensorlogs+\\
 \noindent\hspace*{8mm}%
-Index Cond: (nsensorlogs.fileid = 44982)}\\
+\verb+Index Cond: (nsensorlogs.fileid = 44982)}+\\
 Das Ergebnis ist auf allen Coordinatorn gleich.\footnote{Tabelle wurde mit \textit{vacuum} und \textit{analyze} vorbereitet.}
 Bei unterschiedlichen fileids ändert sich der datanode entsprechend der Tabelle \ref{tbl:entrysnnsensorlogs}.
 Damit kann von einer gleichen Auslastung aller Knoten ausgegangen werden.
@@ -457,7 +478,7 @@ In der Fehlermeldung wird auf unbekannte Parameter verwiesen, obwohl alle Daten 
 Aus diesem Grund wurden die Funktionen der Berechnung angepasst, sodass zwar alle Berechnungen durchgeführt werden, die Ergebnisse aber nicht verfügbar sind.
 Weiterhin zeigte sich, dass Funktionen welche die Erweiterung plr für die Nutzung der Sprache R verwenden, zufällige Fehler werfen.
 Die Wahrscheinlichkeit des Auftretens des Fehlers konnte durch neu laden der verwendeten R Bibliotheken bei jedem Funktionsaufruf veringert werden.
-So wird \textit{nutrients.contouringcorrectedatop(integer)} ohne Nebenwirkungen ausgeführt und endet zufällig mit oder ohne Fehler.
+So wird \verb+nutrients.contouringcorrectedatop(integer)+ ohne Nebenwirkungen ausgeführt und endet zufällig mit oder ohne Fehler.
 Dieser Lasttest wird trotzdem durchgeführt, wobei die Anzahl der Fehlschläge gesondert festgehalten wird.
 
 %Nur einen Coordinator ansprechen und Auslastung beobachten
