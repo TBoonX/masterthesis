@@ -104,4 +104,4 @@ clean.sh
 
 
 #Tests
-.csv
+*.csv

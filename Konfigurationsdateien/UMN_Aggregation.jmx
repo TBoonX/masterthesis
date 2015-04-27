@@ -1538,9 +1538,7 @@
         <stringProp name="ThreadGroup.delay"></stringProp>
       </ThreadGroup>
       <hashTree>
-        <RandomController guiclass="RandomControlGui" testclass="RandomController" testname="Zufalls-Controller" enabled="true">
-          <intProp name="InterleaveControl.style">1</intProp>
-        </RandomController>
+        <RandomOrderController guiclass="RandomOrderControllerGui" testclass="RandomOrderController" testname="Zufalls-Reihenfolgen-Controller" enabled="true"/>
         <hashTree>
           <LoopController guiclass="LoopControlPanel" testclass="LoopController" testname="15 Requests" enabled="true">
             <boolProp name="LoopController.continue_forever">true</boolProp>
@@ -1768,12 +1766,6 @@
             <hashTree/>
           </hashTree>
         </hashTree>
-        <TestAction guiclass="TestActionGui" testclass="TestAction" testname="Test Action?" enabled="true">
-          <intProp name="ActionProcessor.action">1</intProp>
-          <intProp name="ActionProcessor.target">0</intProp>
-          <stringProp name="ActionProcessor.duration">750</stringProp>
-        </TestAction>
-        <hashTree/>
       </hashTree>
       <ThreadGroup guiclass="ThreadGroupGui" testclass="ThreadGroup" testname="128 Clients" enabled="false">
         <stringProp name="ThreadGroup.on_sample_error">continue</stringProp>

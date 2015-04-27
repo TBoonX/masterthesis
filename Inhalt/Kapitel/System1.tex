@@ -439,6 +439,19 @@ Die Arbeitsspeichernutzung hat sich während der Durchläufe stetig um 180MB erh
 \label{fig:auslastungTest1_gtm}
 \end{figure}
 
+%exlain aller 6 fileids auf einem coodinator ausführen - bei anderen ist es analog
+% -< eventuell fileids ändern, um gleichverteilung zu erreichen?
+%dies kurz darlegen  (cost=0.00..7.39 rows=1 width=172)
+\verb+Explain Verbose Select+ liefert für die fileid 44982 folgenden Query Plan:\\
+\begin{lstlisting}[language=sql,caption={Explain Verbose Ergebnis eines Coordinator}]
+Remote Subquery Scan on all (datanode4)
+  -> Index Scan using idx_fileid on n.nsensorlogs
+    Index Cond: (nsensorlogs.fileid = 44982)}
+\end{lstlisting}
+Das Ergebnis ist auf allen Coordinatorn gleich.\footnote{Tabelle wurde mit \textit{vacuum} und \textit{analyze} vorbereitet.}
+Bei unterschiedlichen fileids ändert sich der datanode entsprechend der Tabelle \ref{tbl:entrysnnsensorlogs}.
+Damit kann von einer gleichen Auslastung aller Knoten ausgegangen werden.
+
 
 Zusätzlich erfolgt die Aggregation in einem gesonderten Test entsprechend des Anwendungsfalles mit dem \Gls{umn}, mit der Darstellung in Kartenform als Ergebnis.
 Dafür wird der \Gls{umn} mit einem Mapfile als \Gls{fcgi} Modul verwendet, siehe Anhang \ref{appendix:mapfileaggregate}.
@@ -449,66 +462,20 @@ Das Mapfile stellt Kartenausschnitte der Punktdaten dar und die Karte wird farbi
 %Auslastung messen/testen    mit Zabbix
 %mehrere Durchgänge
 %gegenüber stellen
-
-
-
-%\begin{figure}[h!]
-%\centering
-%\begin{subfigure}{.5\textwidth}
-%  \centering
-%  \includegraphics[width=.4\linewidth]{Abbildungen/}
-%  \caption{}
-%  \label{fig:sub1}
-%\end{subfigure}%
-%\begin{subfigure}{.5\textwidth}
-%  \centering
-%  \includegraphics[width=.4\linewidth]{Abbildungen/}
-%  \caption{}
-%  \label{fig:sub2}
-%\end{subfigure}
-%\caption{}
-%\label{fig:}
-%\end{figure}
-
-%\begin{figure}[!ht]
-%  \begin{minipage}{\textwidth}
-%    \centering
-%    \includegraphics[width=.4\textwidth]{figure1}\quad
-%    \includegraphics[width=.4\textwidth]{figure2}\\
-%    \includegraphics[width=.4\textwidth]{figure3}\quad
-%    \includegraphics[width=.4\textwidth]{figure4}
-%    \subcaption{First subfigure.}
-%    \label{fig:sub1}
-%  \end{minipage}\\[1em]
-%  \begin{minipage}{\textwidth}
-%    \centering
-%    \includegraphics[width=.4\textwidth]{figure5}\quad
-%    \includegraphics[width=.4\textwidth]{figure6}\\
-%    \includegraphics[width=.4\textwidth]{figure7}\quad
-%    \includegraphics[width=.4\textwidth]{figure8}
-%    \subcaption{Second subfigure.}
-%    \label{fig:sub2}
-%  \end{minipage}
-%\end{figure}
+Die Testdefinition orientiert sich an jener von \cite{ba:kurt}.
+Es werden 64 Clients simuliert, indem gleichzeitig 64 Threads fünf ausgewählte Kartenbereiche in zufälliger Reihenfolge per WMS abfragen.
+Diese Kartenausschnitte enthalten die Einträge aus n.nsensorlogs entsprechend des angeforderten Kartenausschnittes.
+Darin wird jeder Wert als Punkt dargestellt und entsprechend des Wertes \verb+applraten+ eingefärbt.
+Diese Darstellung wurde aus AgriPort übernommen, färbt die Punkte weiß bis dunkelblau und stellt die Aufnahmemenge von Stickstoff der Pflanzen dar.
+Ein Kartenbereich besteht dabei aus fünf Ausschnitten und somit aus fünf WMS Anfragen.
+Bei der Erstellung der Kartenausschnitte wurden die aufgeführten fileids berücksichtigt, um eine gleichmäßige Verteilung auf die DataNodes zu erreichen.
+Die angeforderten Kartenausschnitte werden als Bilder in den Arbeitsspeicher geladen.
 
 %Bilder unteinander setzen: Auslastung, Laufzeiten
 %diese auswerten
 
-%exlain aller 6 fileids auf einem coodinator ausführen - bei anderen ist es analog
-% -< eventuell fileids ändern, um gleichverteilung zu erreichen?
-%dies kurz darlegen  (cost=0.00..7.39 rows=1 width=172)
-\verb+Explain Verbose Select+ liefert für die fileid 44982 folgenden Query Plan:\\
-\verb+Remote Subquery Scan on all (datanode4)+\\ %als Listing!
-\noindent\hspace*{4mm}%
-\verb+->  Index Scan using idx\_{}fileid on n.nsensorlogs+\\
-\noindent\hspace*{8mm}%
-\verb+Index Cond: (nsensorlogs.fileid = 44982)}+\\
-Das Ergebnis ist auf allen Coordinatorn gleich.\footnote{Tabelle wurde mit \textit{vacuum} und \textit{analyze} vorbereitet.}
-Bei unterschiedlichen fileids ändert sich der datanode entsprechend der Tabelle \ref{tbl:entrysnnsensorlogs}.
-Damit kann von einer gleichen Auslastung aller Knoten ausgegangen werden.
-
 %UMN aktivieren und JMeter konfigurieren -> Beispielhafte BBOX raussuchen
-% -> Userlayer bbox oder kleinen client bauen
+% -> Userlayer bbox oder kleinen client bauen oder tinos client nutzen und bbox raus holen
 
 \subsubsection{Zweiter Lasttest}
 Der Lasttest zum messen der Verarbeitungsleistung ruft die SQL Funktion\\
@@ -519,7 +486,7 @@ Es werden fileids aus der Tabelle \ref{tbl:entrysnsamples} verwendet.
 \centering
 %\small
 \begin{tabular}{c|c}
-\textbf{fileid} & \textbf{Anzahl Einträge} \\ \hline
+\textbf{fileid} & \textbf{Anzahl Einträge} \\ \hline %TODO
 %3110 & 404 \\ \hline	%dn 11    geht nicht
 3114 & 369 \\ \hline	%dn 4
 3904 & 260 \\ \hline	%dn 2
@@ -534,7 +501,7 @@ Es werden fileids aus der Tabelle \ref{tbl:entrysnsamples} verwendet.
 \end{table}
 Neben der Laufzeit ist gesondert die Auslastung der einzelnen Knoten zu beobachten und zu bewerten.
 Zu Beginn dieser Untersuchung steht nicht fest, in wie weit die DataNodes mit in die Berechnungen der Coordinator mit einbezogen werden.
-%Nur Coordinator schein zu berechnen - dies ist mit auslastung EINES Coordinator zu beweisen
+%Nur Coordinator scheint zu berechnen - dies ist mit auslastung EINES Coordinator zu beweisen
 Eine automatisierte Verteilung der Berechnungen ist für einen höheren Durchsatz wünschenswert.
 Auch hierbei werden die Anfragen gleichmäßig auf die Coordinator verteilt.
 %mehrere Aufrufe gleichzeitig - mit scala?
@@ -546,6 +513,10 @@ Weiterhin zeigte sich, dass Funktionen welche die Erweiterung plr für die Nutzu
 Die Wahrscheinlichkeit des Auftretens des Fehlers konnte durch neu laden der verwendeten R Bibliotheken bei jedem Funktionsaufruf veringert werden.
 So wird\\\verb+nutrients.contouringcorrectedatop(integer)+ ohne Nebenwirkungen ausgeführt und endet zufällig mit oder ohne Fehler.
 Dieser Lasttest wird trotzdem durchgeführt, wobei die Anzahl der Fehlschläge gesondert festgehalten wird.
+
+Die Testdefinition wurde aus dem ersten Leistungstest übernommen.
+Geändert wurde dabei die SQL Anfrage und die Anzahl der Anfragen an Postgres-XL.
+Pro Coordinator wird gleichzeitig die Interpolation von sechs fileids aufgerufen.
 
 %Nur einen Coordinator ansprechen und Auslastung beobachten
 % Auslastungen als Bilder in Anhang und darauf verweisen
