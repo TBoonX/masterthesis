@@ -1,0 +1,210 @@
+MAP
+	NAME "Aggregation"
+	STATUS ON
+	SIZE 256 256
+	EXTENT 12.0000 50.000 15.00000 53.000
+	UNITS METERS
+	IMAGETYPE 'png'
+	
+	CONFIG "MS_ERRORFILE" "/tmp/ms_error.txt"
+	DEBUG 0
+	CONFIG "MS_TEMPPATH" "/tmp/"
+	
+	OUTPUTFORMAT
+		NAME "png"
+		MIMETYPE "image/png"
+		DRIVER "AGG/PNG"
+		EXTENSION "png"
+		IMAGEMODE RGBA
+		TRANSPARENT TRUE
+		FORMATOPTION "COMPRESSION=0"
+		FORMATOPTION "GAMMA=0.75"
+		FORMATOPTION "INTERLACE=false"
+	END # OUTPUTFORMAT
+	
+	WEB
+	  IMAGEPATH "/tmp/"
+	  IMAGEURL "tmp/"
+	  METADATA
+		WMS_TITLE "Aggregation"
+		WMS_ONLINERESOURCE "http://localhost/cgi-bin/mapserv.fcgi?"
+		WMS_SRS "EPSG:4326"
+		WMS_ENABLE_REQUEST "GetMap GetFeatureInfo GetCapabilities GetLegendGraphic"
+	  END
+	END
+	
+	PROJECTION
+		#"init=epsg:4326"
+		"proj=latlong"
+		"ellps=WGS84"
+		"datum=WGS84"
+		"no_defs"
+	END
+	
+	SYMBOL
+		NAME "sld_mark_symbol_circle_filled"
+		TYPE ELLIPSE
+		FILLED TRUE
+		POINTS
+		  1 1
+		END
+	END
+	
+	LEGEND
+		IMAGECOLOR 255 255 255
+		OUTLINECOLOR 80 80 80
+		KEYSIZE 60 20
+		STATUS off
+		TRANSPARENT on
+	END
+	
+	QUERYMAP
+		SIZE -1 -1
+		STATUS OFF
+		STYLE HILITE
+	END # QUERYMAP
+	
+	LAYER
+		CLASSITEM "farmid"
+		CONNECTION "host=192.168.99.192 port=20004 dbname=agrodb_2 user=postgres password=postgres"
+		CONNECTIONTYPE POSTGIS
+		DATA "geom from (select s.* from nutrients.samplefields s) x  using unique id using srid=4326"
+		LABELITEM "farmid"
+		NAME "Samplefields"
+		PROCESSING "CLOSE_CONNECTION=DEFER"
+		PROJECTION
+		  "proj=longlat"
+		  "ellps=WGS84"
+		  "datum=WGS84"
+		  "no_defs"
+		END # PROJECTION
+		STATUS ON
+		TILEITEM "location"
+		TYPE POLYGON
+		UNITS METERS
+		CLASS
+		  NAME "Unknown"
+		  STYLE
+			COLOR 255 255 255
+		  END # STYLE
+		  STYLE
+			OUTLINECOLOR 0 0 0
+			WIDTH 3
+		  END # STYLE
+		END # CLASS
+	END # LAYER
+	
+	LAYER
+		NAME "NSensorlogs"
+		TYPE Point
+		CLASSITEM "applraten"
+		LABELITEM "applraten"
+		CONNECTION "host=192.168.99.192 port=20004 dbname=agrodb_2 user=postgres password=postgres"
+		CONNECTIONTYPE postgis
+		PROCESSING "CLOSE_CONNECTION=DEFER"
+		Filter (fileid=%fileid%)
+		DATA "geom from (Select nsensorlogs.* from n.nsensorlogs) layerselect using unique id using srid=4326"
+		VALIDATION
+                        "fileid" "[0-9]{3,7}"
+                END #Validaion
+		PROJECTION
+			#"init=epsg:4326"
+			"proj=latlong"
+			"ellps=WGS84"
+			"datum=WGS84"
+			"no_defs"
+		END
+		STATUS On
+		#TRANSFORM true
+		UNITS meters
+		METADATA
+			"wms_title" "NSensorlogs"
+			#"wms_srs" "EPSG:3857"
+			#"wms_extent" "4.49157642122284 16.16967511640222 46.741611471444564 55.196005052343054"
+			"wms_enable_request" "GetMap GetFeatureInfo GetCapabilities GetLegendGraphic"
+			'fileid_validation_pattern' '[0-9]{3,7}'
+		END
+		
+		CLASS
+		  NAME "< 18"
+		  EXPRESSION ([applraten]  < 18)
+		  STYLE
+			COLOR 247 251 255
+			OUTLINECOLOR 0 0 0
+			SIZE 6
+			SYMBOL "sld_mark_symbol_circle_filled"
+		  END # STYLE
+		END # CLASS
+		CLASS
+		  NAME "18 - 36"
+		  EXPRESSION ( ([applraten]  >= 18) And ([applraten]  < 36))
+		  STYLE
+			COLOR 218 232 245
+			OUTLINECOLOR 0 0 0
+			SIZE 6
+			SYMBOL "sld_mark_symbol_circle_filled"
+		  END # STYLE
+		END # CLASS
+		CLASS
+		  NAME "36 - 54"
+		  EXPRESSION ( ([applraten]  >= 36) And ([applraten]  < 54))
+		  STYLE
+			COLOR 186 214 235
+			OUTLINECOLOR 0 0 0
+			SIZE 6
+			SYMBOL "sld_mark_symbol_circle_filled"
+		  END # STYLE
+		END # CLASS
+		CLASS
+		  NAME "54 - 73"
+		  EXPRESSION ( ([applraten]  >= 54) And ([applraten]  < 73))
+		  STYLE
+			COLOR 136 190 220
+			OUTLINECOLOR 0 0 0
+			SIZE 6
+			SYMBOL "sld_mark_symbol_circle_filled"
+		  END # STYLE
+		END # CLASS
+		CLASS
+		  NAME "73 - 91"
+		  EXPRESSION ( ([applraten]  >= 73) And ([applraten]  < 91))
+		  STYLE
+			COLOR 83 158 204
+			OUTLINECOLOR 0 0 0
+			SIZE 6
+			SYMBOL "sld_mark_symbol_circle_filled"
+		  END # STYLE
+		END # CLASS
+		CLASS
+		  NAME "91 - 109"
+		  EXPRESSION ( ([applraten]  >= 91) And ([applraten]  < 109))
+		  STYLE
+			COLOR 42 122 185
+			OUTLINECOLOR 0 0 0
+			SIZE 6
+			SYMBOL "sld_mark_symbol_circle_filled"
+		  END # STYLE
+		END # CLASS
+		CLASS
+		  NAME "109 - 127"
+		  EXPRESSION ( ([applraten]  >= 109) And ([applraten]  < 127))
+		  STYLE
+			COLOR 11 85 159
+			OUTLINECOLOR 0 0 0
+			SIZE 6
+			SYMBOL "sld_mark_symbol_circle_filled"
+		  END # STYLE
+		END # CLASS
+		CLASS
+		  NAME "> 145"
+		  EXPRESSION ([applraten]  >= 127)
+		  STYLE
+			COLOR 8 48 107
+			OUTLINECOLOR 0 0 0
+			SIZE 6
+			SYMBOL "sld_mark_symbol_circle_filled"
+		  END # STYLE
+		END # CLASS
+	END #Layer
+	
+END

@@ -37,7 +37,8 @@ Die Ausführung von \verb+make+ übersetzt den Quellcode und der Parameter \verb
 Im Anhang \ref{appendix:install} ist das Skript zur Installation von Postgres-XL auf dem Testsystem zu sehen.
 Das Installationsskript muss für andere Systemumgebungen angepasst werden, da Pfade und notwendige Pakete unterschiedlich sein können.
 Weiterhin ist zu erwähnen, dass Änderungen an der Kernel-Konfiguration vorzunehmen  sind, jedoch ebenso abhängig von der Systemumgebung.
-Im Testsystem musste der Wert des für jede Anwendung nutzbaren geteilten Speichers erhöht werden, um Postgres-XL starten zu können.\\
+Im Testsystem musste der Wert des für jede Anwendung nutzbaren geteilten Speichers erhöht werden, um Postgres-XL starten zu können.
+
 Um das Kommandozeilentool \verb+pgxc_ctl+ nutzen zu können, muss im Quellcode Ordner in \verb+./contrib/pgxc_ctl+ gewechselt und dort \verb+make+ sowie \verb+make install+ ausgeführt werden. Damit wird das Tool übersetzt und in den in der vorangegangenen Installation festgelegten Ordner kopiert.
 
 \subsubsection{Einrichtung}
@@ -166,7 +167,9 @@ Der Postgres-XL Cluster wird mit Virtualisierung der einzelnen Knoten erstellt.
 Als Virtualisierungssoftware kommt \Gls{esxi} in der kostenlosen Version 6.0 mit \Gls{vsphere} 6.0\footnote{\url{https://www.vmware.com/de/products/vsphere}} als Testversion zum Einsatz.
 Mit dieser Virtualisierungslösung ist es möglich, Ressourcen explizit und ausschließlich einer \Gls{vm} zuzuordnen.
 So werden die Prozessorkerne in Paaren und der Arbeitsspeicher direkt und mit exklusiver Verwendung den einzelnen \Gls{vm}s zugeordnet.
+
 Ziel dieser unter Abbildung \ref{fig:physAufb} skizzierten Testumgebung ist es Postgres-XL mit der PostgreSQL Konfiguration des Ist Standes zu vergleichen, einen homogenen Cluster zu erzeugen und Aussagen über die Skalierbarkeit von Postgres-XL zu treffen.
+
 Die Ausstattung des Computers zur Verwaltung der Virtualisierung wird nicht definiert, da dies keinen Einfluss auf Messungen hat.
 Die \Gls{vm}s sind in Abbildung \ref{fig:VMAufb} dargestellt.
 Typ I enthält eine GTM Instanz und Typ II eine GTM-Proxy, eine Coordinator und zwei DataNode Instanzen.
@@ -198,6 +201,7 @@ Als Kompromiss aus Verteilung der Last auf alle Festspeicher, Ausfallsicherheit 
 So stehen 1,4 TB Festspeicher zur Verfügung.
 Die \Gls{vm}s sind mit virtuellen Netzwerkkarten von 10GBit/s verbunden, wodurch die Kosten der Datenübertragung im Netzwerk vernachlässigt werden können.
 Um die Vergleichbarkeit der zeitlich abhängigen Messwerte zu gewährleisten, wird ESXi als Zeitgeber für alle \Gls{vm}s eingerichtet.
+
 Zur Überwachung der Auslastung der einzelnen \Gls{vm}s bietet VMware mit vSphere einfache Graphen für die zeitabhängige Auslastung der einzelnen Kerne, des Arbeitsspeichers und weiterer Komponenten.
 Diese Graphen besitzen als zeitliche Achse einen beliebigen Bereich bis zum momentanen Zeitpunkt.
 Damit sind historische Daten für einzelne \Gls{vm}s und ausgewählte Zeiträume nicht darstellbar.
@@ -338,7 +342,7 @@ Diese Unterabfragen werden lokal vom entsprechendem DataNode verarbeitet und das
 Diese Zwischenergebnisse werden schlussendlich vom Coordinator zusammengefasst.
 Somit sind die Daten entsprechend ihrer Verknüpfung hinsichtlich des Datenbankschemas und des Anwendungsfalles für ein geeignetes Zerlegen von Aufgaben durch den Query Planer zu verteilen.
 Geeignet meint hier das die Unterabfragen bereits wesentlich die Daten filtern, damit der Coordinator einzig die Untermengen zu einer Menge zusammenfassen und nicht mehr als notwendig Datenmengen aggregiert und diese selbst verknüpfen sowie filtern muss.
-Auf das Schema angewendet bedeutet dies:\\
+Auf das Schema angewendet bedeutet dies:
 Die Tabellen fields und farms des Schemas farm werden per Replikation auf alle Knoten verteilt, da diese häufig zur nummerischen und räumlichen Filterung verwendet werden und somit jedem DataNode zur Vorfilterung zur Verfügung stehen.
 Die Tabelle nsensorlogs im Schema n und die Tabelle samples im Schema nutrients werden anhand des Attributes fileid mit modulo auf die DataNodes verteilt, da dieses Attribut als primäres Filterargument verwendet wird.
 Das Attribut fileid ist für eine modulo Verteilung geeignet, da Gruppen von files mit aufsteigender id zu einem Betrieb gehören und bei modulo Verteilung die Wahrscheinlichkeit erhöht wird, dass ein DataNode die files eines Betriebes vorhält.\footnote{Bezogen auf eine betriebsübergreifende Verarbeitung.}\\
@@ -363,10 +367,13 @@ So besteht auch die Möglichkeit Coordinator mit unterschiedlichen Konfiguration
 
 %Verteilung der Anfragen an alle Coordinator
 % -> definitive Steigerung der Leistungsfähigkeit  (mehr beantwortete Anfragen pro Sekunde)
+Postgres-XL bietet mit mehreren Coordinator Instanzen mehrere Verbindungspunkte zum Datenbanksystem.
+Bei gleicher Konfiguration aller Instanzen ist eine gleichmäßige Verteilung der Anfragen an alle Instanzen für die Antwortzeit gewinnbringend.
+In den nachfolgenden Tests werden alle Instanzen durch JMeter gleich belastet.
+Für den produktiven Einsatz bietet sich ein Lastverteilungsprogramm wie pgpool an, welches als Verbindungspunkt zwischen Programmen und Postgres-XL dient und die Anfragen an alle Coodinator weiterreicht.
 
 \subsubsection{Erster Lasttest}
 Der erste Lasttest misst die Laufzeit der Aggregation von Punktdaten aus der Tabelle nsensorlogs des Schemas n.
-%listings verwenden
 Die Abfrage und Messung erfolgt mit dem SQL Statement \verb+Select * From n.nsensorlogs Where fileid=%;+ sowie \verb+Explain Verbose+\\
 \verb+Select * From n.nsensorlogs Where fileid=%;+.
 Die erste Query liefert die Daten sowie Laufzeit\footnote{Sofern in PostgreSQL die Zeiterfassung mit \textbackslash{}timing eingeschaltet wurde.} und die zweite die Aufteilung des SQL Statements an die Knoten des Clusters.
@@ -439,9 +446,6 @@ Die Arbeitsspeichernutzung hat sich während der Durchläufe stetig um 180MB erh
 \label{fig:auslastungTest1_gtm}
 \end{figure}
 
-%exlain aller 6 fileids auf einem coodinator ausführen - bei anderen ist es analog
-% -< eventuell fileids ändern, um gleichverteilung zu erreichen?
-%dies kurz darlegen  (cost=0.00..7.39 rows=1 width=172)
 \verb+Explain Verbose Select+ liefert für die fileid 44982 folgenden Query Plan:\\
 \begin{lstlisting}[language=sql,caption={Explain Verbose Ergebnis eines Coordinator}]
 Remote Subquery Scan on all (datanode4)
@@ -462,8 +466,8 @@ Das Mapfile stellt Kartenausschnitte der Punktdaten dar und die Karte wird farbi
 %Auslastung messen/testen    mit Zabbix
 %mehrere Durchgänge
 %gegenüber stellen
-Die Testdefinition orientiert sich an jener von \cite{ba:kurt}.
-Es werden 64 Clients simuliert, indem gleichzeitig 64 Threads fünf ausgewählte Kartenbereiche in zufälliger Reihenfolge per WMS abfragen.
+Die Testdefinition baut auf jener aus \cite{ba:kurt} bei Verwendung des \Gls{umn} auf.
+Es werden 32 Clients simuliert, indem gleichzeitig 32 Threads in zwei Wiederholungen fünf ausgewählte Kartenbereiche in zufälliger Reihenfolge per WMS abfragen.
 Diese Kartenausschnitte enthalten die Einträge aus n.nsensorlogs entsprechend des angeforderten Kartenausschnittes.
 Darin wird jeder Wert als Punkt dargestellt und entsprechend des Wertes \verb+applraten+ eingefärbt.
 Diese Darstellung wurde aus AgriPort übernommen, färbt die Punkte weiß bis dunkelblau und stellt die Aufnahmemenge von Stickstoff der Pflanzen dar.
@@ -471,11 +475,36 @@ Ein Kartenbereich besteht dabei aus fünf Ausschnitten und somit aus fünf WMS A
 Bei der Erstellung der Kartenausschnitte wurden die aufgeführten fileids berücksichtigt, um eine gleichmäßige Verteilung auf die DataNodes zu erreichen.
 Die angeforderten Kartenausschnitte werden als Bilder in den Arbeitsspeicher geladen.
 
+In Vorbereitung des Testes wurde eine sehr hohe Auslastung der CPU in der \Gls{vm} beobachtet, welche die \Gls{umn} Instanz beinhaltet, im Gegensatz zu einer geringen Auslastung der restlichen \Gls{vm}s.
+Um einen höheren Durchsatz zu erreichen und das Postgres-XL Cluster mehr auszulasten, wurden der UMN \Gls{vm} zwei weitere CPU Kerne zugeordnet.
+Da bereits alle 16 Kerne vergeben sind, wurde die Prozessor Affinität der GTM \Gls{vm} so geändert, dass diese sich ihre zwei Prozessorkerne mit der UMN \Gls{vm} teilt.
+Es wurde dafür die GTM \Gls{vm} verwendet, da sie auch bei Benutzung des Postgres-XL Clusters eine geringe CPU Auslastung aufwies\footnote{siehe Abbildung \ref{fig:auslastungTest1_gtm}}.
+Diese Ressourcenaufteilung beeinträchtigt die Leistungsfähigkeit des Clusters somit nicht.
+
 %Bilder unteinander setzen: Auslastung, Laufzeiten
 %diese auswerten
 
-%UMN aktivieren und JMeter konfigurieren -> Beispielhafte BBOX raussuchen
-% -> Userlayer bbox oder kleinen client bauen oder tinos client nutzen und bbox raus holen
+\begin{table}[h!]
+\centering
+%\small
+\begin{tabular}{c|c|c}
+\textbf{Durchlauf} & \textbf{Durchschnittliche Antwortzeit in ms} & \textbf{Laufzeit des Tests in s} \\ \hline
+1 & 2418 & 155 \\ \hline
+2 & 2389 & 153 \\ \hline
+3 & 2414 & 152 \\ \hline
+4 & 2415 & 154 \\ \hline 
+5 & 3640 & 100 \\ \hline
+6 & 3644 & 102 \\ \hline
+7 & 3507 & 97 \\ \hline
+8 & 3602 & 101 \\ \hline 
+9 & 3813 & 104 \\ \hline
+10 & 3707 & 102 \\ \hline
+11 & 3541 & 98 \\ 			
+\end{tabular}
+\caption[Testergebnis Lasttest 1 mit Kartendarstellung]{Testergebnis Lasttest 1 mit Kartendarstellung unter Nutzung des \Gls{umn}}
+\label{tbl:ergebnisseTest1UMN}
+\end{table}
+
 
 \subsubsection{Zweiter Lasttest}
 Der Lasttest zum messen der Verarbeitungsleistung ruft die SQL Funktion\\
