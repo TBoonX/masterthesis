@@ -317,8 +317,10 @@ Dieses Vorgehen orientiert sich an der Masterarbeit von Baas Kapitel 6.1 Objecti
 Die Graphen der Auslastung der Knoten liegen als Bilder vor.
 Zur Einschätzung der Auslastung wird der Durchlauf einer gesamten Testreihe mit einem Graph pro Knoten und den dazugehörigen Laufzeiten festgehalten.
 Ein Graph enthält die Auslastung der CPU und die Menge des verwendeten Arbeitsspeichers in MB.
-Der Wert der CPU Auslastung geht von null bis fünf, was die Auslastung auf Linux Systemen wiedergibt.
+Der Wert der CPU Auslastung geht von null bis unbegrenzt, was die Auslastung auf Linux Systemen wiedergibt.
 Da es sich pro Knoten um zwei Prozessorkerne handelt, ist der Wert bereits durch 2 geteilt, um mit einer Linie die Durchschnittsauslastung anzeigen zu können.
+Der Wert eins bedeutet eine Auslastung aller Kerne von 100\%{}.
+Werte über eins zeigen an, dass das Vielfache der momentan verrichteten Arbeit noch für den Prozessor anliegt.
 
 Es besteht die Möglichkeit die theoretische Leistung anhand des Kostenmaßes zu bestimmen.
 Nach \cite[S.300 f.]{book:kudrass} setzen sich die Kosten für die Verarbeitung einer Anfrage aus folgendem zusammen:
@@ -484,6 +486,8 @@ Diese Ressourcenaufteilung beeinträchtigt die Leistungsfähigkeit des Clusters 
 %Bilder unteinander setzen: Auslastung, Laufzeiten
 %diese auswerten
 
+Die Ergebnisse der Testdurchläufe sind in Tabelle \ref{tbl:ergebnisseTest1UMN} aufgeführt.
+Entsprechend der genannten Berechnungsvorschrift ergibt sich eine mittlere Antwortdauer von 2393ms.
 \begin{table}[h!]
 \centering
 %\small
@@ -493,18 +497,41 @@ Diese Ressourcenaufteilung beeinträchtigt die Leistungsfähigkeit des Clusters 
 2 & 2389 & 153 \\ \hline
 3 & 2414 & 152 \\ \hline
 4 & 2415 & 154 \\ \hline 
-5 & 3640 & 100 \\ \hline
-6 & 3644 & 102 \\ \hline
-7 & 3507 & 97 \\ \hline
-8 & 3602 & 101 \\ \hline 
-9 & 3813 & 104 \\ \hline
-10 & 3707 & 102 \\ \hline
-11 & 3541 & 98 \\ 			
+5 & 2402 & 152 \\ \hline
+6 & 2370 & 153 \\ \hline
+7 & 2391 & 152 \\ \hline
+8 & 2404 & 154 \\ \hline 
+9 & 2380 & 153 \\ \hline
+10 & 2394 & 152 \\ \hline
+11 & 2375 & 152 \\ 			
 \end{tabular}
 \caption[Testergebnis Lasttest 1 mit Kartendarstellung]{Testergebnis Lasttest 1 mit Kartendarstellung unter Nutzung des \Gls{umn}}
 \label{tbl:ergebnisseTest1UMN}
 \end{table}
 
+Die Auslastung aller \Gls{vm}s ist in Abbildung \ref{fig:auslastungTest1UMN} sowie \ref{fig:auslastungTest1UMN_gtm_umn} abgebildet.
+In den Knoten eins bis sechs ist zu Beginn eine Erhöhung des genutzten Arbeitsspeichers von etwa 100 MB  zu verzeichnen.
+Nach zwei Minuten ändert sich die Auslastung nicht mehr.
+Die CPU Auslastung schwankt stark, enthält regelmäßige Leistungsspitzen und ist nicht deckungsgleich zwischen den Knoten.
+Dabei befindet sich die Auslastung je nach Knoten zwischen 0.01 und 0.31.
+Überblicksartig kann von einer CPU Auslastung 0,1 gesprochen werden.
+\begin{figure}[h!]
+\centering
+\includegraphics[width=\textwidth]{Testergebnisse/umn_aggregation_Testlauf.png}
+\caption[Auslastung der Knoten 1 bis 6 im ersten Lasttest mit Kartendarstellung]{Auslastung der Knoten 1 bis 6 im ersten Lasttest mit Kartendarstellung, 11:03-11:33 Uhr}
+\label{fig:auslastungTest1UMN}
+\end{figure}
+Bezüglich der GTM \Gls{vm} steigt auch in diesem Test die Arbeitsspeicher Auslastung stetig und die CPU Auslastung ist sehr gering.
+Der Arbeitsspeicher wird mit etwa 1GB belastet und die CPU wird einzig von 11:15 bis 11:21 Uhr bis zu einem Maximalwert von 0,06 genutzt.
+Trotz der Nutzung von vier Prozessoren ist die Auslastung der CPU durch die \Gls{umn} Instanz sehr hoch.
+Diese bewegt sich während der Tests zwischen 4.5 und 6.5.
+Zu Beginn wird rund 260MB Arbeitsspeicher der \Gls{umn} Instanz zugewiesen, ist zwischen den Tests 40MB niedriger und ansonsten gleich.
+\begin{figure}[h!]
+\centering
+\includegraphics[width=\textwidth]{Testergebnisse/umn_aggregation_Testlauf_bild2.png}
+\caption[Auslastung des Knoten 7 im ersten Lasttest mit Kartendarstellung]{Auslastung des Knoten 7 im ersten Lasttest mit Kartendarstellung, 11:03-11:33 Uhr}
+\label{fig:auslastungTest1UMN_gtm_umn}
+\end{figure}
 
 \subsubsection{Zweiter Lasttest}
 Der Lasttest zum messen der Verarbeitungsleistung ruft die SQL Funktion\\
@@ -514,20 +541,21 @@ Es werden fileids aus der Tabelle \ref{tbl:entrysnsamples} verwendet.
 \begin{table}[h!]
 \centering
 %\small
-\begin{tabular}{c|c}
-\textbf{fileid} & \textbf{Anzahl Einträge} \\ \hline %TODO
+\begin{tabular}{c|c|c|c}
+\textbf{fileid} & \textbf{Anzahl Einträge} & \textbf{Betroffener Knoten} & \textbf{Betroffener DataNode} \\ \hline
+%4004 & 494 \\ \hline	%dn 6    
 %3110 & 404 \\ \hline	%dn 11    geht nicht
-3114 & 369 \\ \hline	%dn 4
-3904 & 260 \\ \hline	%dn 2
-742 & 201 \\ \hline		%dn 8
-4204 & 197 \\ \hline	%dn 2
-4186 & 160 \\ \hline	%dn 8
-5796 & 143 \\ \hline	%dn 1
-5915 & 110 \\			%dn 9
+%3114 & 369 \\ \hline	%dn 4
+3904 & 260 & 1 & 2 \\ \hline	%dn 2
+742 & 201 & 4 & 8 \\ \hline		%dn 8
+4204 & 197 & 1 & 2 \\ \hline	%dn 2
+4186 & 160 & 4 & 8 \\ \hline	%dn 8
+5796 & 143 & 1 & 1 \\ \hline	%dn 1
+5915 & 110 & 5 & 9 \\			%dn 9
 \end{tabular}
 \caption{Anzahl der Einträge in nutrients.samples nach fileid}
 \label{tbl:entrysnsamples}
-\end{table}
+\end{table}	%Verteilung der Daten nicht so wichtig - da ids mit vielen Einträgen zum Abbruch führen muss es so gehen
 Neben der Laufzeit ist gesondert die Auslastung der einzelnen Knoten zu beobachten und zu bewerten.
 Zu Beginn dieser Untersuchung steht nicht fest, in wie weit die DataNodes mit in die Berechnungen der Coordinator mit einbezogen werden.
 %Nur Coordinator scheint zu berechnen - dies ist mit auslastung EINES Coordinator zu beweisen
@@ -558,3 +586,16 @@ Pro Coordinator wird gleichzeitig die Interpolation von sechs fileids aufgerufen
 %mit SQL Bordmitteln - pg_bench eventuell zusätzlich um ein paar Aussagen zum cluster overhead zu treffen
 
 %PostgreSQL System nicht vergessen!
+
+
+
+
+
+
+
+
+\section{Nutzwertanalyse}
+%Wertungsmaßstab ergänzen und anpassen
+%Änderung der Bewertung aufführen
+%Neue Wertungen erläutern
+%Wieder große Tabelle mit Nutzwert
