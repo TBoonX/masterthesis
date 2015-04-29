@@ -1,0 +1,46 @@
+Geografische Operationen werden genannt aber tauchen nicht in Grundlagen auf. Sollte ich es genau erläutern oder reicht Glossareintrag aus?
+sehr notwendig - in Grundlagen erklären!
+
+4.3 so machbar?
+persönliches am anfang weg - auch agricon weg
+fossgis im Link auch ausschreiben
+"eine literaturrecherche bestätigt dies... So vergleicht ahlers in seiner ba ..."
+warum literatur ausgewählt? -> weil es schneidet
+Herrn Herbst wegen Literatur fragen
+nennen: infos im netz nicht verwendbar da nicht nachvollziehbar und nicht wissenschaftlich
+daten sind kennwerte!
+slideshare in literatur aufnehmen
+tpc verlinken
+weiterforschen bei slideshare und locationtech tour (auch firmen nachverfolgen), hadoopsummer
+auch aus anderen kapiteln auf Literatur verweisen
+
+Plan zu 5.: 5.?.1 bis 5.?.4 in Anhang und nur Zusammenfassung lassen?
+anfang in 5.1 einlagern
+5.2 mit den 3 systemen und deren zusammenfassung befüllen
+wichtige literatur des Anhanges auch im haupttext verwenden
+
+Entwurf - gantt nur zu todo, nicht zu done - ok?
+Nein, auch gantt zu done mit groben schritten grob und genauer erklärung im text
+
+Weitere Unterteilung in Lasttests?
+Tests als extra chapter
+nutzwertanalse in zusammenfassung integrieren -> fazit zu "nutzwertanalyse und zusammenfassung"
+
+Abbildungen auf 75/88 zu groß?
+nein, im Haupttext lassen
+
+Ich wollte Skallierbarkeit von Postgres-Xl messen. Dafür ist keine Zeit mehr. Sollte ich nennen das man das testen sollte?
+ja, aber wegen zeitgründen nicht möglich
+vllt beispiel zur durchführung und ergebnis aufführen
+aufwand als argument benennen
+
+Wie viele Seiten im Kapitel 7 schreiben?
+nutzwertanalyse mehr text schreiben
+4-5 Seiten sind viel
+
+--------------------------------------------------------
+nosql - lieber "alternativen zum rel. db modell"
+2.2.1 lieber räumliche bezugssysteme
+2.2.2 lieber räumliche objekte
+
+immer mittwochs 14 Uhr erreichbar
