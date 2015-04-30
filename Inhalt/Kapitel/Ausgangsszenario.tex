@@ -312,12 +312,12 @@ Alle Schemata beinhalten Funktionen, Trigger, Tabellen, Typen, Indizes und Contr
 
 \section{Stand der Forschung} %In Einleitung schieben?
 %Diskussion der Literatur
-Während der Tätigkeit bei Agri~Con und durch die mehrfache Teilnahme an der internationalen Messe für freie geografischer Informationssysteme FOSSGIS\footnote{\url{http://www.fossgis.de/}} gewann der Autor den Eindruck, dass PostgreSQL mit PostGIS in der Regel als freies \Gls{dbms} für GIS eingesetzt wird.
+Die jährlich stattfindende Internationale Messe FOSSGIS\footnote{FOSSGIS \url{http://www.fossgis.de/}} zeigte das PostgreSQL mit PostGIS in der Regel als freies \Gls{dbms} für GIS eingesetzt wird.
 Zwar existiert eine Vielzahl von Elementen zur Darstellung und Kartenverwaltung% erzeugt aus den vorhandenen Daten
 , aber es scheint keine geeignete Alternative zur Datenhaltung und Verarbeitung von komplexen geografischen Daten zu geben.
 
-Dieser Eindruck wurde durch die Literaturrecherche bestätigt.\\
-\cite{ba:pgvsoracle} vergleicht in seiner Bachelorarbeit PostGIS mit Oracle Spatial, da auch für ihn PostGIS der größte freie Vertreter eines GIS ist.\\
+Die Literaturrecherche bestätigt dies.\\
+So vergleicht Ahlers in seiner Bachelorarbeit\footnote{\cite{ba:pgvsoracle}} PostGIS mit Oracle Spatial, da auch für ihn PostGIS der größte freie Vertreter eines GIS ist.\\
 Thurm untersucht in \cite{ba:nosqlfuergeodaten} gängige NoSQL \Gls{dbms} für Eignung mit geografischen Daten im Vergleich mit PostGIS und Oracle Spatial.
 Darin kommt der Autor zu dem Schluss, dass es für einfache Datenobjekte in begrenzten Mengen nützlich ist die NoSQL Alternativen in Betracht zu ziehen.
 Beispielsweise eignet sich die graphenbasierte Datenbank Neo4J für Operationen mit Strecken.
@@ -345,7 +345,7 @@ GeoMesa: Zehn bis 60 fache Antwortgeschwindigkeit bei GeoMesa gegenüber PostGIS
 \label{fig:geomesaversuspostgis}
 \end{figure}
 
-Postgres-XL: Bis zu sechs fache Antwortdauer von PostgreSQL gegenüber Postgres-XL in einem standardisierten TPC-H Benchmark bei Verwendung von vier DataNodes. Abbildung \ref{fig:pgxcversuspgsql} zeigt das Diagramm mit dem genannten Wert. Die x-Achse ist nicht beschrieben, weswegen eine Einschätzung der Werte nicht möglich ist.
+Postgres-XL: Bis zu sechs fache Antwortdauer von PostgreSQL gegenüber Postgres-XL in einem standardisierten TPC-H\footnote{?} Benchmark bei Verwendung von vier DataNodes. Abbildung \ref{fig:pgxcversuspgsql} zeigt das Diagramm mit dem genannten Wert. Die x-Achse ist nicht beschrieben, weswegen eine Einschätzung der Werte nicht möglich ist.
 \begin{figure}[h!]
 \centering
 \includegraphics[width=.8\textwidth]{Abbildungen/postgresxl_versus_postgis.png}

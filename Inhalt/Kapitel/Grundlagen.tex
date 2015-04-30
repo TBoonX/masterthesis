@@ -122,12 +122,12 @@ Dies setzt einen auf dieser Weise angepassten Query-Planer des \Gls{dbms} voraus
 Nach Kudraß wird ebenfalls nach drei Arten unterschieden.
 Konkret sind das Bereichspartitionierung, Round-Robin-Partitionierung und Hash-Partitionierung.
 
-\section{Geografische Datenverarbeitung}
+\section{Räumliche Datenverarbeitung}
 
 Diese spezielle Form der Datenverarbeitung berücksichtigt geografische und topologische Eigenschaften.
 Diese sind nach der Art und deren Bezug zueinander zu unterscheiden.
 
-\subsection{Bezugssysteme}
+\subsection{Räumliche Bezugssysteme}
 Entsprechend \cite[S.506]{book:kudrass} erlauben Räumliche Bezugssysteme die Interpretation der gespeicherten Koordinaten als Beschreibung von Lage- und Ausdehnungsinformationen in einem Datenraum. Ein räumliches Bezugssystem besteht aus einem Koordinatensystem, einem Geltungsbereich und Angaben, die es erlauben, Daten aus unterschiedlichen Koordinatensystemen auf ein globales System abzubilden.
 Kudraß allgemeine Definition wird durch \cite[S.141 ff.]{book:gi-theopluspraxis3} mit folgendem ergänzt:\\
 Man unterscheidet Koordinatensysteme nach kartesisch, homogen, Kugeltransformation und Ellipsoidentransformation, wobei den kartesischen einer hoher Stellenwert zugegordnet wird.
@@ -136,14 +136,14 @@ Dieser ist ein von der \Gls{epsg} vergebener so genannter \Gls{epsg-code}.
 Das auf einem Ellipsoiden basierende Bezugssystem World Geodetic System von 1984\footnote{EPSG:4326} wird von der Agri~Con GmbH verwendet.
 
 
-\subsection{Datenformate}
+\subsection{Räumliche Objekte}
 \cite[S.133]{book:gi-theopluspraxis3} definiert räumliche Objekte bzw. Geoobjekte als Elemente die zusätzlich zu ihrer Sachinformationen geometrische und topologische Eigenschaften besitzen und zeitlichen Veränderungen unterliegen können. Dabei sind Geometrie, Topologie, Thematik und Dynamik kennzeichnend.
 Ein Geoobjekt enthält als Geometrie eine oder mehrere zwei- oder dreidimensionale Koordinaten, was die Lage, den Umfang und die Ausdehnung beschreibt.
 Zur Topologie zählt de Lange Umgebungen, Nachbarschaften, Teilmengen und Überlagerungen.
 Weiterhin werden Geoobjekte mit Sachinformationen gespeichert und je nach Anwendungsfall versioniert.(vgl. \cite[S.133]{book:gi-theopluspraxis3})
 
 
-\subsubsection{einfache Geoobjekte}
+\subsubsection{einfache Objekte}
 Ein Punkt besteht aus einer zwei- oder dreidimensionalen Koordinate und beliebigen Sach-, Topologie- und Dynamikinformationen.
 Mehrere Punkte bilden Linien.
 Bildet eine Linie eine geschlossene Fläche, handelt es sich um ein Polygon.
@@ -165,11 +165,7 @@ Eine Fläche ist ebenfalls durch zusammenhängende Pixel darstellbar.
 Somit sind keine weiteren Zusatzinformationen zur Modellierung von Flächen wie im Vektormodell notwendig. (vgl. \cite[S.136]{book:gi-theopluspraxis3})
 Ein dreidimensionales Raster heißt Voxel.
 
-
-\subsubsection{Shapefile}\
-Bei Bedarf
-
-\subsection{Operationen}
+\subsection{Räumliche Operationen}
 % Grundlagenbuch geoinformatik zu rate ziehen
 
 \subsubsection{Aggregation}
@@ -178,9 +174,6 @@ TODO
 
 \subsubsection{Geostatistik}
 TODO
-
-\subsubsection{Resampling}
-Bei Bedarf
 
 
 \subsection{Geografisches Informationssystem}
@@ -217,9 +210,9 @@ Somit kann mit SQL direkt mit geografischen Daten gearbeitet werden.
 PostGIS steh unter der \Gls{gpl}v2.
 
 
-\section{NoSQL}
+\section{Alternativen zum relationalen Datenbankmodell}
 \label{nosql}
-
+Alternativen des relationalen Datenbankmodells werden unter dem Stichwort NoSQL zusammengefasst und dieses soll hier als Synonym dienen.
 NoSQL ist ein Begriff, dessen Kontext die Abkehr von klassischen relationalen Systemen fordert oder zumindest ein Umdenken bestehender Strukturen, Vorgehen und Grundsätze anstrebt.
 Dies wird durch andere Abfragesprachen, nicht relationale Datenbanksysteme oder Neudefinitionen von Begriffen wie der Konsistenz zum Ausdruck gebracht.
 Zu den Gründen des Umdenkens zählen die im Web 2.0 anfallenden unstrukturierten Daten, welche kostenarm persistiert und Zugänglich gemacht werden müssen.
@@ -229,7 +222,7 @@ Der Ursprung wird in der Literatur verschieden hergeleitet, jedoch wird immer zu
 Auf einer Messe zu aktuellen Trends im Datenbankbereich wurde der Begriff NoSQL zuerst öffentlich für Lösungen dieser Bewegung verwendet (vgl. \cite{website:originnosql}) und ist seitdem ein Sammelbegriff für eine hohe Anzahl an Systemen.
 Einen Überblick der bestehenden Systeme stellt Edlich auf einer eigenen Homepage bereit.\footnote{\url{http://nosql-database.org/}}
 
-\subsubsection{NoSQL GIS}
+\subsubsection{Nicht relationale GIS}
 
 In Bezug auf NoSQL kann \Gls{gis} wie in \ref{grundlagen:gis} definiert werden, jedoch muss das zugrunde liegende System nicht relational sein.
 Im Rahmen dieser Arbeit ist mit \Gls{gis} ein System oder die Teilsysteme zur räumlichen Datenhaltung, Datenverarbeitung und Bereitstellung gemeint, unabhängig des Konsistenzbegriffes und der Abfragesprache.

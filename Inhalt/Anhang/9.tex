@@ -1,0 +1,134 @@
+\label{appendix:systembewertung} 
+\subsection{GeoMesa}
+
+\subsubsection{Interoperabilität}
+\begin{description}
+\item[PostgreSQL - 7] Scala  kann mit JDBC auf PostgreSQL zugreifen.
+\item[\Gls{umn} - 0] \Gls{umn} bietet Accumulo nicht als Quelle an und GeoMesa besitzt keine \Gls{ogc} konformen Dienste wie beispielsweise WMS.
+\end{description}
+Die Wertung für Interoperabilität ist somit 7 mit einer Erfüllung von 58\%.
+
+\subsubsection{Funktionsumfang}
+\begin{description}
+\item[Parallele Verarbeitung - 2] Verteilte Datenhaltung durch Accumulo auf \Gls{hdfs} und verteiltes sowie paralleles Rechnen mit beispielsweise Spark möglich. \cite{website:geomesaeclipse}
+\item[Geografische Datentypen - 12] Vollständige Datentypen aus Simple Feature Access vorhanden. \cite{website:geomesaeclipse}
+\item[Umrechnungsfunktionen - 10] Datenverarbeitung direkt in Spark mit GeoTools möglich. \cite{website:geotools-crs}
+\item[Gruppierungsfunktionen - 7] Funktionale Verarbeitung mit Scala immanent.
+\item[Verschneidungsfunktionen - 3] \Gls{jts} stellt difference, union und symmetric difference zur Verfügung. \cite[S.29 ff.]{website:jts-vivid}
+\item[Overlayfunktionen - 2] \Gls{jts} stellt relate und overlay zur Verfügung.
+\item[Geostatistik - 0] Keine eingebaute Funktionalität.
+\item[Filterfunktionen - 10] Räumliche Filterung ist mit GeoTools möglich \cite{website:geotools}
+\item[Schemaversionierung - 0] Accumulo erlaubt entsprechend des BigTable Ansatzes ein dynamisches Datenbankschema, jedoch ohne Versionierung. Einzig erzeugte Datentypen, bestehend aus Simple Features, können in GeoMesa als Konstrukt persistiert werden.
+\end{description}
+Daraus ergibt sich ein Wert von 48, was 79\% des maximal zu erreichenden Wertes ist.
+
+\subsubsection{Dokumentation}
+\begin{description}
+\item[Installation - 1] Knappe Hinweise für GeoMesa auf \cite{website:geomesa-quickstart} vorhanden, dagegen ausführliche Anleitungen für Accumulo auf \cite{website:accumulo-manual}.
+\item[Zeitverhalten - 0] Keine Dokumentation vorhanden. %eventuell auf Postgis versus GeoMesa hinweisen
+\item[Funktionsumfang - 1] Konkrete Funktionalität von GeoMesa nur grob auf \cite{website:geomesa-tutorials} angedeutet. MapReduce mit Accumulo ist ausführlich beschrieben. \cite{website:accumulo-manual}
+\item[Interoperabilität - 1] Nicht explizit bei GeoMesa angegeben, aber Anbindungsmöglichkeiten mit Scala bzw. Java sind im allgemeinen ausführlich dokumentiert.
+\item[Best Practise - 0] Keine Dokumentation vorhanden.
+\item[Anpassbarkeit - 1] In \cite{website:geomesa-tutorials} sind einige Anregungen zu finden. Beispielsweise die Erzeugung eigener Schemabestandteile. \cite{website:geomesa-simplefeatures}
+\end{description}
+Das Qualitätskriterium Dokumentation wird für GeoMesa mit dem Wert 4, bzw. der Erfüllung von 31\%,  belegt.
+
+\subsubsection{Modifizierbarkeit}
+\begin{description}
+\item[Verwendung eigener Datentypen - 0] Es sind eigene Schemas aber keine Datentypen erstellbar. \cite{website:geomesa-simplefeatures}
+\item[Erstellung eigener Schnittstellen - 1] Indirekt über JDBC und ODBC möglich.
+\item[Erstellung eigener Funktionen - 1] Durch verschiedenste Frameworks zur Datenverarbeitung wie Spark beliebige Funktionen erstellbar.
+\item[Verwendung der Programmiersprachen Scala oder R - 1] GeoMesa ist in Scala geschrieben und kann mit dieser verwendet werden. R kann über das Tool SparkR und beim Einsatz von Hadoop über RHadoop verwendet werden.
+\item[Anlegen eigener Berechnungsvorgängen zur späteren Abarbeitung - 1] Mit einer Vielzahl von Tools möglich, bspw. Spark, \Gls{storm}, Pig und \Gls{cascading}.
+\end{description}
+Hier ist die Wertung 4 von 5 Punkten und damit 80\%.
+
+\subsection{Postgres-XL}
+\label{gegenuerbestellung:postgresxl}
+
+\subsubsection{Interoperabilität}
+\begin{description}
+\item[PostgreSQL - 7] PostgreSQL ist Bestandteil von Postgres-XL wobei die Datentypen vollständig verfügbar sind.
+\item[\Gls{umn} - 5] Mit der Erweiterung PostGIS direkt als Quelle für \Gls{umn} angebbar. \cite{website:umn-layer}
+\end{description}
+Die Wertung für Interoperabilität ist somit 12 mit einer Erfüllung von 100\%.
+
+\subsubsection{Funktionsumfang}
+\begin{description}
+\item[Parallele Verarbeitung - 2] Verteilte Datenhaltung mit partitioning der Daten und verschränkte parallele Datenverarbeitung mit \Gls{mpp} möglich. \cite{website:postgresxl-overview}
+\item[Geografische Datentypen - 14] Vollständige Datentypen aus Simple Feature Access sowie PostGIS raster vorhanden. \cite{website:postgisdocu-opengis}
+\item[Umrechnungsfunktionen - 10] Direkter Funktionsaufruf zur Umrechnung von und in beliebige EPSG Codes. \cite{website:postgis-updatesrid} %TODO: EPSG erklären
+\item[Gruppierungsfunktionen - 10] SQL in PostgreSQL mit der Erweiterung PostGIS erlaubt beliebige Querys mit geografischen Daten. \cite{website:postgisdocu-opengis}
+\item[Verschneidungsfunktionen - 3] Funktionsübersicht zeigt intersection, difference und symmetric difference. \cite{website:postgisdocu-functions}
+\item[Overlayfunktionen - 2] Funktionsübersicht zeigt relation und intersects. \cite{website:postgisdocu-functions}
+\item[Geostatistik - 2] Interpolation nur von Linie zu Punkt mit PostGIS möglich. Jedoch kann mit R oder C++ beliebige Geostatistik mit vorhandenen und eigenen Funktionen durchgeführt werden.
+\item[Filterfunktionen - 10] In SQL mit mehreren Funktionen möglich. \cite{website:postgisdocu-functions}
+\item[Schemaversionierung - 0] Nicht eingebaut. Mit eigenen Skripten nachrüstbar.
+\end{description}
+Daraus ergibt sich ein Wert von 53, was 87\% des maximal zu erreichenden Wertes ist.
+
+\subsubsection{Dokumentation}
+\begin{description}
+\item[Installation - 1] Knapp auf \cite{website:postgresxl-install} beschrieben.
+\item[Zeitverhalten - 0] Keine Angaben.
+\item[Funktionsumfang - 2] Es existiert eine Übersicht zur Verwaltung eines Postgres-XL Clusters. Dazu ist die allgemeine Dokumentation zu PostgreSQL und PostGIS verfügbar. \cite{website:postgresxl-manual}
+\item[Interoperabilität - 2] Verweis auf Dokumentation von PostgreSQL und PostGIS sowie API auf \cite{website:postgresxl-api} vorhanden.
+\item[Best Practise - 1] Einige Hinweise auf \cite{website:postgresxl-manual} vorhanden.
+\item[Anpassbarkeit - 3] \cite{website:postgresxl-extend} dokumentiert Erweiterung mit SQL, tcl, Perl und Python.
+\end{description}
+Das Qualitätskriterium Dokumentation wird für Postgres-XL mit dem Wert 9, bzw. der Erfüllung von 69\%,  belegt.
+
+\subsubsection{Modifizierbarkeit}
+\begin{description}
+\item[Verwendung eigener Datentypen - 1] Mit PostgreSQL eigene Datentypen erstellbar.
+\item[Erstellung eigener Schnittstellen - 1] Für eigene Programme mit JDBC oder ODBC Daten verwendbar.
+\item[Erstellung eigener Funktionen - 1] Ebenso mit SQL möglich.
+\item[Verwendung der Programmiersprachen Scala oder R - 1] R kann direkt in SQL Funktionen eingebettet werden. Scala ist mit JDBC verwendbar.
+\item[Anlegen eigener Berechnungsvorgängen zur späteren Abarbeitung - 1] Hier sind Trigger und selbstständige Programme mit JDBC Nutzung zu nennen.
+\end{description}
+Hier ist die Wertung 5 von 5 Punkten und damit 100\%.
+
+
+\subsection{Rasdaman}
+
+\subsubsection{Interoperabilität}
+\begin{description}
+\item[PostgreSQL - 7] PostgreSQL wird nach \cite{website:rasdaman-features} unterstützt.
+\item[\Gls{umn} - 0] Rasdaman bietet einzig \Gls{wcs_glos} und \Gls{wps_glos} Dienste an, diese können jedoch vom \Gls{umn} der aktuellen Version 6.4 nicht verwendet werden.
+\end{description}
+Die Wertung für Interoperabilität ist somit 7 mit einer Erfüllung von 58\%.
+
+\subsubsection{Funktionsumfang}
+\begin{description}
+\item[Parallele Verarbeitung - 1] Parallele Server Instanzen verwendbar. In der kostenlosen Version keine Query Optimierung für mehrere Kerne und Instanzen vorhanden. \cite{website:rasdaman-features}
+\item[Geografische Datentypen - 2] Raster und Punkte sind für die räumliche Datenverarbeitung vorhanden. Dazu sind Arrays mit beliebig vielen Dimensionen verwendbar. \cite{website:rasdaman-introduction}
+\item[Umrechnungsfunktionen - 0] Nur mit externer Bibliothek \Gls{gdal} für zwei-dimensionale Arrays möglich. \cite{website:rasdaman-gdal}
+\item[Gruppierungsfunktionen - 0] Laut Dokumentation der Funktionen keine Gruppierung möglich. \cite{website:rasdaman-querymanual}
+\item[Verschneidungsfunktionen - 1] Dagegen sind einfache Array Operationen vorhanden.
+\item[Overlayfunktionen - 1] Ditto.
+\item[Geostatistik - 0] Keine eingebaute Funktionalität.
+\item[Filterfunktionen - 5] Operationen für Array-Verarbeitung vorhanden.
+\item[Schemaversionierung - 0] Keine eingebaute Funktionalität.
+\end{description}
+Daraus ergibt sich ein Wert von 10, was 16\% des maximal zu erreichenden Wertes ist.
+
+\subsubsection{Dokumentation}
+\begin{description}
+\item[Installation - 1] \cite{website:rasdaman-dokumentation} ist eigenes Installationsdokument.
+\item[Zeitverhalten - 0] Keine Dokumentation vorhanden.
+\item[Funktionsumfang - 2] Ist grob unter \cite{website:rasdaman-features} beschrieben und detailiert in \cite{website:rasdaman-querymanual} aufgeführt.
+\item[Interoperabilität - 3] Interoperabilität mit PostgreSQL und API unter \cite{website:rasdaman-querymanual} verfügbar.
+\item[Best Practise - 1] Einzig Hinweise verfügbar. \cite{website:rasdaman-installationguide}
+\item[Anpassbarkeit - 1] Kein eigenständiges Dokument vorhanden, erschließt sich aber aus genannten Quellen.
+\end{description}
+Das Qualitätskriterium Dokumentation wird für Postgres-XL mit dem Wert 8, bzw. der Erfüllung von 62\%, belegt.
+
+\subsubsection{Modifizierbarkeit}
+\begin{description}
+\item[Verwendung eigener Datentypen - 0] Keine eigenen Datentypen erstellbar. Einzig die Verwendung von selbst definierten Arrays ist verfügbar.
+\item[Erstellung eigener Schnittstellen - 1] Über \Gls{jdbc}/\Gls{odbc} in Java und C++ möglich.
+\item[Erstellung eigener Funktionen - 1] In der Abfragesprache rasql nicht möglich, dagegen mit API.
+\item[Verwendung der Programmiersprachen Scala oder R - 1] Scala mit API verwendbar.
+\item[Anlegen eigener Berechnungsvorgängen zur späteren Abarbeitung - 0] Nicht vorgesehen.
+\end{description}
+Hier ist die Wertung 3 von 5 Punkten und damit 60\%.
