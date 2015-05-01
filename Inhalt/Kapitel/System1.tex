@@ -2,7 +2,8 @@
 \label{chapter:postgresxl}
 
 Nach der Auswahl von Postgres-XL im vorangegangenen Kapitel% aus einer geeigneten Menge an Frameworks
-, wird es in diesem Kapitel hinsichtlich der Verwendung erläutert, eine Empfehlung für den Einsatz bei Agri~Con gegeben und das Framework hinsichtlich Funktionalität und Leistungsfähigkeit bezüglich der Anforderungen getestet sowie bewertet.
+, wird es in diesem Kapitel hinsichtlich der Verwendung erläutert und eine Empfehlung für den Einsatz bei Agri~Con gegeben.
+% und das Framework hinsichtlich Funktionalität und Leistungsfähigkeit bezüglich der Anforderungen getestet sowie bewertet.
 
 \section{Verwendung}
 %replikationsverfahren wichtig?
@@ -135,6 +136,15 @@ Weiterhin wurden die zu testenden Funktionen an den Funktionsumfang von Postgres
 Dabei wurden interne Transaktionen und inserts aus den verwendeten Funktionen entfernt.
 Das Vorgehen zur Erstellung dieses Aufbaus war zusammengefasst folgender:
 Postgres-XL auf sieben VMs installiert, eine Konfigurationsdatei für \verb+pgxc_ctl+ erstellt, den Cluster mit \verb+pgxc_ctl+ erzeugt, eine Datenbank mit dem Namen agrodb erzeugt, darin die Erweiterungen plr, dblink und PostGIS installiert, das Datenbankschema mit Funktionen angepasst, das Datenbankschema und Hilfsfunktionen eingespielt und die Daten mit dblink für ausgewählte Betriebe übernommen.
+Die Schritte sind mit entsprechender Zeitschätzung in Abbildung \ref{fig:getan} zu finden.
+\begin{figure}[h!]
+\centering
+\includegraphics[width=.8\textwidth]{Abbildungen/gantt_done_cropped.pdf}
+\caption[Vorgehen zur Erstellung der Postgres-XL Testumgebung]{Vorgehen zur Erstellung der Postgres-XL Testumgebung mit Zeitschätzung}
+\label{fig:getan}
+\end{figure}
+Es handelt sich um eine Schätzung des Zeitaufwandes, da der Aufwand einzelner Schritte vom Szenario abhängt, ergo nicht allgemein bestimmbar ist.
+Außerdem kann es dazu kommen, dass bei einer Fehlkonfiguration von Postgres-XL der Cluster neu erstellt werden muss, um die vollständige Umsetzung zu realisieren.\footnote{Während der Erstellung durch den Autor waren falsche Einstellungskonstellationen aus Knoten und Datenbankschema irreversibel, sodass nur eine Neuerstellung die angestrebte Konfiguration ermöglichen konnte.}
 
 %\begin{table}[h!]
 %\centering
@@ -150,14 +160,14 @@ Postgres-XL auf sieben VMs installiert, eine Konfigurationsdatei für \verb+pgxc
 %\end{table}
 
 
-\section{Tests}
+\chapter{Tests}
 %Erwartung definieren!
-
+Postgres-XL wird hinsichtlich Funktionalität und Leistungsfähigkeit bezüglich der Anforderungen getestet.
 %pgbench http://www.postgresql.org/docs/devel/static/pgbench.html
 Die systematischen Tests werden in diesem Kapitel vorgestellt.
 Die Kriterien wurden in Kapitel \ref{qualitätsmetriken} definiert, somit werden hier die Randbedingungen, Eingaben, Durchführung und Ergebnisse dargelegt.
 
-\subsection{Testumgebung}
+\section{Testumgebung}
 %verlinkungen auch zur hardware!
 Die wesentliche Randbedingung Testumgebung wurde nach der Softwareauswahl und vor der Durchführung der Tests erstellt.
 Die Testumgebung ist Hardware aus dem Jahr 2007 und soll dazu dienen, relative Aussagen über die Leistung von Postgres-XL zu treffen.
@@ -168,12 +178,14 @@ Als Virtualisierungssoftware kommt \Gls{esxi} in der kostenlosen Version 6.0 mit
 Mit dieser Virtualisierungslösung ist es möglich, Ressourcen explizit und ausschließlich einer \Gls{vm} zuzuordnen.
 So werden die Prozessorkerne in Paaren und der Arbeitsspeicher direkt und mit exklusiver Verwendung den einzelnen \Gls{vm}s zugeordnet.
 
-Ziel dieser unter Abbildung \ref{fig:physAufb} skizzierten Testumgebung ist es Postgres-XL mit der PostgreSQL Konfiguration des Ist Standes zu vergleichen, einen homogenen Cluster zu erzeugen und Aussagen über die Skalierbarkeit von Postgres-XL zu treffen.
+Ziel dieser unter Abbildung \ref{fig:physAufb} skizzierten Testumgebung ist es einen homogenen Cluster zu erzeugen und Postgres-XL mit der PostgreSQL Konfiguration des Ist Standes zu vergleichen.
+% und Aussagen über die Skalierbarkeit von Postgres-XL zu treffen.
 
 Die Ausstattung des Computers zur Verwaltung der Virtualisierung wird nicht definiert, da dies keinen Einfluss auf Messungen hat.
 Die \Gls{vm}s sind in Abbildung \ref{fig:VMAufb} dargestellt.
 Typ I enthält eine GTM Instanz und Typ II eine GTM-Proxy, eine Coordinator und zwei DataNode Instanzen.
-Dabei stehen sechs Typ II VMs zur Verfügung, wobei zur Beurteilung der Skalierbarkeit zwei bis sieben genutzt werden.
+Dabei stehen sechs Typ II VMs zur Verfügung.
+%, wobei zur Beurteilung der Skalierbarkeit zwei bis sieben genutzt werden.
 Jede \Gls{vm} besitzt als Betriebssystem Ubuntu 14.04 LTS und alle für die Installation und Ausführung des Prototypen notwendigen Pakete.
 Weiterhin erhalten die Typ II \Gls{vm}s folgende Hardware Zuordnung:
 zwei Prozessorkerne, sieben GB RAM und 100 GB Festplattenspeicherplatz.
@@ -192,8 +204,8 @@ Typ I erhält dagegen zwei Prozessorkerne, sieben GB RAM und 20 GB Festplattensp
 \end{figure}
 
 Als Referenzsystem wird ein Ubuntu System mit PostgreSQL 9.3.5, PostGIS 2.1.5 und R sowie der Hardwareausstattung einer Typ II \Gls{vm} verwendet.
-Mit der Übereinstimmung der Hardware Ausstattung der \Gls{vm}s ist eine Vergleichbarkeit von PostgreSQL und Postgres-XL gegeben.
-Außerdem kann durch Verkleinerung und Vergrößerung des Clusters die Skalierbarkeit von Postgres-XL bewertet werden.
+Mit der Übereinstimmung der Hardwareausstattung der \Gls{vm}s ist eine Vergleichbarkeit von PostgreSQL und Postgres-XL gegeben.
+%Außerdem kann durch Verkleinerung und Vergrößerung des Clusters die Skalierbarkeit von Postgres-XL bewertet werden.
 
 Die physischen Festspeicher des Testservers stehen den \Gls{vm}s nicht exklusiv zur Verfügung.
 Die Anzahl an Operationen pro Zeiteinheit auf diesem Medium soll für alle \Gls{vm}s annähernd gleich sein.
@@ -217,7 +229,7 @@ Weiterhin ist Zabbix ein Mehrbenutzer System und reagiert mit Funktionsaufrufen 
 
 %Überwachung der logs?
 
-\subsection{Funktionstests}
+\section{Funktionstests}
 Im Abschnitt Prototypische Implementierung auf Seite \pageref{grundlagen-funktionstests} wurden die Funktionstests bereits als Black-Box Tests definiert und der Umfang im Kapitel \ref{subsection:testfaelle} genauer festgesetzt.
 In diesem Abschnitt werden die Funktionstests für die Durchführung spezifiziert und deren Ergebnis festgehalten.
 Es wird eine vollständige Erfüllung der Funktionstests erwartet, da PostgreSQL 9.2 und PostGIS 2.1.5 an sich die gesetzten Anforderungen erfüllen.
@@ -291,12 +303,13 @@ Da Postgres-XL internal als Transition Typ nicht unterstützt, ist die Funktione
 
 %Zusammenfassen!
 
-\subsection{Leistungstests}
+\section{Leistungstests}
 Die hier verwendeten Leistungstests wurden in Kapitel \ref{grundlagen-funktionstests} als spezielle Tests zur Messung der Leistungsfähigkeit und Effizienz definiert.
 %Systemüberwachung
 Kapitel \ref{subsection:testfaelle} beschreibt unabhängig des Testsystems die Arten der Leistungstests.
 Nachfolgend wird auf den Aufbau der Tests, deren Durchführung und deren Ergebnis eingegangen.
-Zusammenfassend ist das Ziel dieser Leistungstests, die spezielle Leistung gegenüber des Ist-Standes und die Skalierbarkeit von Postgres-XL zu ermitteln. %Skalierbarkeit raus lassen?
+Zusammenfassend ist das Ziel dieser Leistungstests, die spezielle Leistung gegenüber des Ist-Standes zu ermitteln.
+%und die Skalierbarkeit von Postgres-XL zu ermitteln.
 %Skalierbarkeit(T(1)/T(p))/Effizienz(S(p)/p)
 Es wird von einer höheren Leistung, abhängig der Anzahl der verwendeten Knoten, bei der Aggregation und der Verarbeitung im Gegensatz zum Ist-Stand ausgegangen.
 Zwar ist bei Postgres-XL die Verarbeitung lokaler Anfragen mit mehr administrativen Aufwand verbunden  wird somit langsamer gegenüber einer PostgreSQL Instanz bearbeitet, jedoch stehen mehrere Zugriffspunkte auf exklusiven Hardwaresystemen zur Verfügung.
@@ -318,7 +331,7 @@ Die Graphen der Auslastung der Knoten liegen als Bilder vor.
 Zur Einschätzung der Auslastung wird der Durchlauf einer gesamten Testreihe mit einem Graph pro Knoten und den dazugehörigen Laufzeiten festgehalten.
 Ein Graph enthält die Auslastung der CPU und die Menge des verwendeten Arbeitsspeichers in MB.
 Der Wert der CPU Auslastung geht von null bis unbegrenzt, was die Auslastung auf Linux Systemen wiedergibt.
-Da es sich pro Knoten um zwei Prozessorkerne handelt, ist der Wert bereits durch 2 geteilt, um mit einer Linie die Durchschnittsauslastung anzeigen zu können.
+Da es sich pro Knoten um zwei Prozessorkerne handelt, ist der Wert durch 2 geteilt, um mit einer Linie die Durchschnittsauslastung anzeigen zu können.
 Der Wert eins bedeutet eine Auslastung aller Kerne von 100\%{}.
 Werte über eins zeigen an, dass das Vielfache der momentan verrichteten Arbeit noch für den Prozessor anliegt.
 
@@ -374,7 +387,12 @@ Bei gleicher Konfiguration aller Instanzen ist eine gleichmäßige Verteilung de
 In den nachfolgenden Tests werden alle Instanzen durch JMeter gleich belastet.
 Für den produktiven Einsatz bietet sich ein Lastverteilungsprogramm wie pgpool an, welches als Verbindungspunkt zwischen Programmen und Postgres-XL dient und die Anfragen an alle Coodinator weiterreicht.
 
-\subsubsection{Erster Lasttest}
+%Skalierbarkeit ist ebenfalls interessant
+%Testen ist möglich, ist aber mit Aufwand und möglichen Problemen verbunden
+%Man müsste folgendes für eine Verkleinerung tun: DataNodes aus Datenbankschema entfernen und DataNodes/Coordinator mit pgxc_ctl entfernen
+%Tests mit Datenbankschema zeigten Fehleranfälligkeit der Verbindungen zwischen den Knoten, weshalb diese Anweisungen zu Problemen mit den Knoten/Schema  führt
+
+\subsection{Erster Lasttest}
 Der erste Lasttest misst die Laufzeit der Aggregation von Punktdaten aus der Tabelle nsensorlogs des Schemas n.
 Die Abfrage und Messung erfolgt mit dem SQL Statement \verb+Select * From n.nsensorlogs Where fileid=%;+ sowie \verb+Explain Verbose+\\
 \verb+Select * From n.nsensorlogs Where fileid=%;+.
@@ -533,7 +551,7 @@ Zu Beginn wird rund 260MB Arbeitsspeicher der \Gls{umn} Instanz zugewiesen, ist 
 \label{fig:auslastungTest1UMN_gtm_umn}
 \end{figure}
 
-\subsubsection{Zweiter Lasttest}
+\subsection{Zweiter Lasttest}
 Der Lasttest zum messen der Verarbeitungsleistung ruft die SQL Funktion\\
 \textit{nutrients.contouringcorrectedatop(integer)} auf.
 Diese führt den speziellen Kriging Algorithmus anhand der übergebenen fileid mit den Werten in nutrients.samples durch.
@@ -586,16 +604,3 @@ Pro Coordinator wird gleichzeitig die Interpolation von sechs fileids aufgerufen
 %mit SQL Bordmitteln - pg_bench eventuell zusätzlich um ein paar Aussagen zum cluster overhead zu treffen
 
 %PostgreSQL System nicht vergessen!
-
-
-
-
-
-
-
-
-\section{Nutzwertanalyse}
-%Wertungsmaßstab ergänzen und anpassen
-%Änderung der Bewertung aufführen
-%Neue Wertungen erläutern
-%Wieder große Tabelle mit Nutzwert
