@@ -91,7 +91,7 @@ Testen:
 Create Node Node With (TYPE='datanode', HOST='192.168.0.105', PORT=6668);
 Create Node Coordinator With (TYPE='coordinator', HOST='192.168.0.105', PORT=6669);
 select * from pgxc_pool_reload();
-
+select * from pgxc_node; zeigt alle knoten
 mit pgxc_ctl nicht mehr aufzurufen
 ----------------
 Datenbank anlegen:
@@ -115,3 +115,13 @@ zu häufiger Neustart des Clusters führt zu fehlerhaften unänderliche Sequenze
 internal subtransactions in Funktionen nicht möglich (wenn commit oder exception handling) oder fehlerhaft
 lang laufende Funktionen führen auch zu random fehlern - neustart coordinator notwendig
 plr und lang dauernde FUnktionen auf allen Coordinators führt zu "Failed to send command to data nodes", "Could not begin transaction on data node", "Failed to receive more data from data node 16390"
+----------------
+remove Coordinator
+DROP NODE COORD_2;
+SELECT pgxc_pool_reload();
+
+remove DataNode
+für jede Tabelle: ALTER TABLE rr_tab_foo DELETE NODE (DATA_NODE_3);
+relationen auf datanode checken: SELECT c.pcrelid FROM pgxc_class c, pgxc_node n WHERE n.node_name = 'DATA_NODE_3' AND n.oid = ANY (c.nodeoids);
+stop datanode node1
+Pro Coordinator: DROP NODE DATA_NODE_3; SELECT pgxc_pool_reload();

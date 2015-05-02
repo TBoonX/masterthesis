@@ -391,6 +391,14 @@ Für den produktiven Einsatz bietet sich ein Lastverteilungsprogramm wie pgpool 
 %Testen ist möglich, ist aber mit Aufwand und möglichen Problemen verbunden
 %Man müsste folgendes für eine Verkleinerung tun: DataNodes aus Datenbankschema entfernen und DataNodes/Coordinator mit pgxc_ctl entfernen
 %Tests mit Datenbankschema zeigten Fehleranfälligkeit der Verbindungen zwischen den Knoten, weshalb diese Anweisungen zu Problemen mit den Knoten/Schema  führt
+Zur Bewertung eines verteilten Systems ist die Skalierbarkeit zu ermitteln.
+%Skalierbarkeit(T(1)/T(p))/Effizienz(S(p)/p)
+Skalierbarkeit ist die Differenz der Laufzeit T bei Verwendung eines Knotens und der Laufzeit bei Verwendung von p Knoten:
+$T(1)/T(p)$
+Dies sagt aus, um welches Maß sich die Laufzeit ändert bei Verminderung oder Erhöhung der Anzahl der Knoten.
+Ein idealer Wert ist bei beliebig vielen Knoten stets eins.
+Auf Grund von sequenziellen Anteilen in Algorithmen und Mehrkosten für Kommunikation zwischen den Knoten liegt der Wert in realen Szenarios unter 1.
+
 
 \subsection{Erster Lasttest}
 Der erste Lasttest misst die Laufzeit der Aggregation von Punktdaten aus der Tabelle nsensorlogs des Schemas n.
@@ -561,15 +569,16 @@ Es werden fileids aus der Tabelle \ref{tbl:entrysnsamples} verwendet.
 %\small
 \begin{tabular}{c|c|c|c}
 \textbf{fileid} & \textbf{Anzahl Einträge} & \textbf{Betroffener Knoten} & \textbf{Betroffener DataNode} \\ \hline
-%4004 & 494 \\ \hline	%dn 6    
-%3110 & 404 \\ \hline	%dn 11    geht nicht
-%3114 & 369 \\ \hline	%dn 4
-3904 & 260 & 1 & 2 \\ \hline	%dn 2
-742 & 201 & 4 & 8 \\ \hline		%dn 8
-4204 & 197 & 1 & 2 \\ \hline	%dn 2
+4004 & 494 & 3 & 6 \\ \hline	%dn 6    
+3110 & 404 & 6 & 11 \\ \hline	%dn 11    geht nicht
+3114 & 369 & 2 & 4 \\ \hline	%dn 4
+%3904 & 260 & 1 & 2 \\ \hline	%dn 2
+%742 & 201 & 4 & 8 \\ \hline		%dn 8
+%4204 & 197 & 1 & 2 \\ \hline	%dn 2
 4186 & 160 & 4 & 8 \\ \hline	%dn 8
 5796 & 143 & 1 & 1 \\ \hline	%dn 1
-5915 & 110 & 5 & 9 \\			%dn 9
+5915 & 110 & 5 & 9 \\ %\hline	%dn 9
+%5050 & 12 & 4 & 8 \\
 \end{tabular}
 \caption{Anzahl der Einträge in nutrients.samples nach fileid}
 \label{tbl:entrysnsamples}
@@ -592,6 +601,10 @@ Dieser Lasttest wird trotzdem durchgeführt, wobei die Anzahl der Fehlschläge g
 Die Testdefinition wurde aus dem ersten Leistungstest übernommen.
 Geändert wurde dabei die SQL Anfrage und die Anzahl der Anfragen an Postgres-XL.
 Pro Coordinator wird gleichzeitig die Interpolation von sechs fileids aufgerufen.
+Diese Definition ist nicht verwendbar, da bei den Coordinators zwei bis sechs ab dem zweiten Aufruf der Funktion diese bis zum Neustart des Coordinator Fehler wirft.
+Dabei verlieren die Coordinator die Verbindung zu den DataNodes.
+Dies tritt auch auf, wenn man die Anfragen parallel an einen Coordinator verschickt.
+Aus diesem Grund wird nur der erste Coordinator verwendet und die Anfragen erfolgen sequenziell.
 
 %Nur einen Coordinator ansprechen und Auslastung beobachten
 % Auslastungen als Bilder in Anhang und darauf verweisen
