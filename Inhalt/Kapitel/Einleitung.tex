@@ -1,21 +1,37 @@
 \chapter{Einleitung}
-Die Agri~Con GmbH verwaltet als Akteur im Bereich \Gls{prec_farm} täglich mehrere Millionen räumliche Daten. Diese Daten werden von mit moderner Technik ausgestatteten Landwirtschaftsmaschinen und durch die Verarbeitung durch firmeninterne und firmenexterne Mitarbeiter sowie Systeme erzeugt. Weiterhin fallen dadurch indirekt Vektor- und Rasterdaten an, welche gespeichert und anschließend verarbeitet werden.
-Aus den Quelldaten werden Vektordaten für beispielsweise Verteilung der Grunddüngung erzeugt. Rasterdaten werden für die Stickstoffdüngung oder auch \glqq N-Düngung\grqq\ genannt verwendet, was unter anderem die Biomasse, die Nährstoffaufnahme und die Nährstoffverteilung beinhaltet.
-Diese Menge an Daten ist essentiell für das Unternehmen und dessen Kunden, weshalb diese strukturiert gespeichert und kostengünstig verarbeitet werden müssen. Nicht nur Agri~Con steht vor dieser Notwendigkeit, sondern der Großteil der Unternehmen, die sich mit komplexen Geodaten beschäftigen, wie Monsanto, Google, Facebook, ESRI, OpenGEO, etc.
+Die Agri~Con GmbH verwaltet als Akteur im Bereich \Gls{prec_farm} täglich mehrere Millionen räumliche Datensätze.
+Diese werden von mit moderner Technik ausgestatteten Landwirtschaftsmaschinen und durch die Verarbeitung durch firmeninterne und firmenexterne Mitarbeiter sowie Systeme erzeugt. Weiterhin fallen dadurch indirekt Vektor- und Rasterdaten an, welche gespeichert und anschließend verarbeitet werden.
+Aus den Quelldaten werden Vektordaten für beispielsweise Verteilung der Grunddüngung erzeugt.
+Rasterdaten werden für die Stickstoffdüngung oder auch \glqq N-Düngung\grqq\ genannt verwendet, was unter anderem die Biomasse, die Nährstoffaufnahme und die Nährstoffverteilung beinhaltet.
+Diese Menge an Daten ist essentiell für das Unternehmen und dessen Kunden, weshalb diese strukturiert gespeichert und kostengünstig verarbeitet werden müssen.
+Nicht nur Agri~Con steht vor dieser Notwendigkeit, sondern der Großteil der Unternehmen, die sich mit komplexen Geodaten beschäftigen, wie Monsanto, Google, Facebook, ESRI, OpenGEO, etc.
 
 
 % Zur Verbreitung von Postgis leider nichts gefunden
 
-%EInordnung - big picture: Zwar allgemein Datenhaltung und -verarbeitung bis Informationssystem, jedoch durch geodaten ein Spezialfall; verteiltes system ist wesentliche einschränkung zum zwecke der aktualität  und führt zu NoSQL
 \section{Zielsetzung}
 %Was ist neu am forschungsziel?
-Die aktuellen Werkzeuge erfüllen nicht alle Anforderungen, wenn große Datenmengen zur Laufzeit bearbeitet werden müssen. %vertikale Skalierung nicht mehr effizient
-Es ist zu untersuchen welche Vorteile alternative Datenhaltungssysteme bieten bzw. welche alternativen Herangehensweisen wie NoSQL und die verteilte Datenhaltung geeignet sind.
-Dafür sind existierende \Glspl{gis} zu untersuchen und deren Eignung für den in Kapitel \ref{chapter:ausgangsszenario} beschriebenen Anwendungsfall festzustellen. Die Schwerpunkte der Untersuchung sind die Möglichkeiten und die Leistungsfähigkeit der räumlichen Datenverarbeitung und nicht die Formen der Datendarstellung.
+PostgreSQL mit der Erweiterung PostGIS erfüllt nicht alle Anforderungen, wenn große Datenmengen zur Laufzeit aggregiert und bearbeitet werden müssen. %vertikale Skalierung nicht mehr effizient
+Eine bereits durchgeführte vertikale Skalierung der Hardware verringerte die Laufzeit kritische Operationen, jedoch muss das zu Grunde liegende System wachsenden Anforderungen stand halten.
+Es ist zu untersuchen, welche Vorteile andere Datenhaltungssysteme bieten bzw. welche alternativen Herangehensweisen wie NoSQL und die verteilte Datenhaltung geeignet sind um die Anforderungen zu erfüllen.
+Dafür sind existierende \Glspl{gis} zu untersuchen und deren Eignung für den in Kapitel \ref{chapter:ausgangsszenario} beschriebenen Anwendungsfall festzustellen.
+Die Schwerpunkte der Untersuchung sind die Möglichkeiten und die Leistungsfähigkeit der räumlichen Datenverarbeitung und nicht die Formen der Datendarstellung.
 Dabei werden NoSQL und Open-Source Frameworks bevorzugt untersucht.
-Aus geeigneten wird eines ausgewählt. Dieses wird speziell untersucht und eine prototypische Installation\footnote{Dabei kann eine Installation aus mehreren Frameworks bestehen und eigens implementierte Funktionalitäten enthalten} erstellt.
-Schlussendlich soll eine Entscheidungsgrundlage anhand von bewerteten Qualitätsmerkmalen und des dargestellten Entwurfes für die teilweise Ersetzung des Ist-Standes gegeben werden.
+Aus geeigneten wird eines ausgewählt.
+Dieses wird untersucht, für den Einsatz bei Agri~Con validiert und hinsichtlich Funktionalität und Leistung bewertet.
+Schlussendlich soll eine Entscheidungsgrundlage in Form einer Nutzwertanalyse anhand von bewerteten Qualitätsmerkmalen und durchgeführten Tests für die Eignung entsprechend des Anwendungsfalles gegeben werden.
 % Die Auswahl zwischen vorhandenen Systemen nach ausgesuchten Merkmalen soll für ähnliche  Untersuchungen als Handelsempfehlung dienen.
+
+Somit soll mit dieser Arbeit ein spezieller Vergleich von verschiedenen System erfolgen und eine Wertung eines geeigneten Kandidaten gegeben werden, was beides ein neues Forschungsziel darstellt.
+
+\section{Einordnung der Arbeit}
+%EInordnung - big picture: Zwar allgemein Datenhaltung und -verarbeitung bis Informationssystem, jedoch durch geodaten ein Spezialfall; verteiltes system ist wesentliche einschränkung zum zwecke der aktualität  und führt zu NoSQL
+Es handelt sich um eine Softwareauswahl anhand von Nutzwertanalysen sowie die ergänzende Bewertung eines Frameworks hinsichtlich Funktionalität und Leistung.
+Diese Frameworks entsprechen der Definition eines \Gls{gis}, gehen somit über die Funktionalität und den Umfang über Frameworks zur reinen Datenhaltung und -verarbeitung hinaus.
+Zusätzlich handelt es sich um räumliche Daten und Datenverarbeitung.
+Die Bewertung von \Gls{gis} erfolgt mit Bewertungsmaßnahmen von Informationssystemen, mit Berücksichtigung des Spezialfalles des räumlichen Bezuges der Daten.
+Die Einschränkung auf verteilt arbeitende Frameworks führt allein genommen bereits zur Betrachtung von Alternativen des relationalen Modells, da bekannte Vertreter eine verteilte Arbeitsweise unterstützen.
+
 
 \section{Aufbau der Arbeit}
 %empirisches Vorgehen für Spezialfall nicht Allgemeinheit
@@ -24,6 +40,10 @@ Zu Beginn werden theoretische Grundlagen zu Datenbanken, geographischer Datenver
 Daran schließt sich die Darstellung und Begründung des methodischen Vorgehens an.
 Anschließend definiert Kapitel \ref{chapter:ausgangsszenario} das Ausgangsszenario, für welches die Frameworks analysiert und getestet werden sollen, sowie die dazugehörigen Anforderungen.
 Darauf folgend bewertet eine Nutzwertanalyse ausgewählte Frameworks nach den Anforderungen des Anwendungsfalles.
-Das vorletzte Kapitel stellt das ausgewählte Framework unter den Punkten Installation, Schnittstellen sowie Verarbeitung dar und präsentiert den Entwurf sowie die Umsetzung des Prototypen.
-Dazu werden Funktions- und Leistungstest durchgeführt und ausgewertet.
+Das darauf folgende Kapitel stellt das ausgewählte Framework unter den Punkten Installation, Schnittstellen sowie Verarbeitung dar und präsentiert die Möglichkeiten zum Einsatz bei Agri~Con.
+Dazu werden Funktions- und Leistungstest im Kapitel \ref{chapter:tests} durchgeführt und ausgewertet.
 Die Arbeit endet mit einer Zusammenfassung, einer Empfehlung bzw. Wertung der Ergebnisse und einem Ausblick auf die zukünftige Handhabung der räumlichen Daten bei Agri~Con.
+
+
+
+%weitere Punkte: EInordnung des Themas, Ausgangslage, Ziel der Arbeit, Aufbau der Arbeit, Hinweise zu rArbeit
