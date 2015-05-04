@@ -560,6 +560,72 @@ Zu Beginn wird rund 260MB Arbeitsspeicher der \Gls{umn} Instanz zugewiesen, ist 
 \label{fig:auslastungTest1UMN_gtm_umn}
 \end{figure}
 
+Für die Lasttests mit der PostgreSQL \Gls{vm} wurden die Datenbankverbindungen zu den Coordinators auf die IP und den Port der PostgreSQL \Gls{vm} geändert.
+PostgreSQL und Postgres-XL werden somit mit den gleichen Anfragen in der gleichen Menge belastet.
+
+Die Aggregation mit SQL ergab für die PostgreSQL \Gls{vm} 4319ms durchschnittliche Laufzeit.
+\begin{table}[h!]
+\centering
+%\small
+\begin{tabular}{c|c|c}
+\textbf{Durchlauf} & \textbf{Durchschnittliche Antwortzeit in ms} & \textbf{Laufzeit des Tests in s} \\ \hline
+1 & 4348 & 113 \\ \hline
+2 & 4214 & 110 \\ \hline
+3 & 4215 & 110 \\ \hline
+4 & 4317 & 112 \\ \hline
+5 & 4288 & 112 \\ \hline 
+6 & 4631 & 122 \\ \hline
+7 & 4412 & 116 \\ \hline
+8 & 4369 & 114 \\ \hline
+9 & 4363 & 114 \\ \hline 
+10 & 4154 & 109 \\ \hline
+11 & 4226 & 110 \\	
+\end{tabular}
+\caption[Testergebnis Lasttest 1 mit PostgreSQL \Gls{vm}]{Testergebnis Lasttest 1 mit PostgreSQL \Gls{vm}}
+\label{tbl:ergebnisseTest1PG}
+\end{table}
+
+\begin{figure}[h!]
+\centering
+\includegraphics[width=\textwidth]{Testergebnisse/jdbc_aggregation_pg_Testlauf.png}
+\caption[Auslastung der VM im ersten Lasttest]{Auslastung der VM im ersten Lasttest, 13:09-13:32 Uhr}
+\label{fig:auslastungTest1_pg}
+\end{figure}
+
+
+Die Aggregation mit dem \Gls{umn} ergab für die PostgreSQL \Gls{vm} 2595ms durchschnittliche Laufzeit.
+\begin{table}[h!]
+\centering
+%\small
+\begin{tabular}{c|c|c}
+\textbf{Durchlauf} & \textbf{Durchschnittliche Antwortzeit in ms} & \textbf{Laufzeit des Tests in s} \\ \hline
+1 & 2302 & 151 \\ \hline
+2 & 2370 & 150 \\ \hline
+3 & 2377 & 151 \\ \hline
+4 & 2379 & 150 \\ \hline
+5 & 2364 & 150 \\ \hline 
+6 & 2388 & 150 \\ \hline
+7 & 2357 & 150 \\ \hline
+8 & 2352 & 150 \\ \hline
+9 & 2352 & 150 \\ \hline 
+10 & 2348 & 150 \\ \hline
+11 & 2365 & 150 \\	
+\end{tabular}
+\caption[Testergebnis Lasttest 1 mit Kartendarstellung und PostgreSQL \Gls{vm}]{Testergebnis Lasttest 1 mit Kartendarstellung und PostgreSQL \Gls{vm}}
+\label{tbl:ergebnisseTest1PG}
+\end{table}
+
+\begin{figure}[h!]
+\centering
+\includegraphics[width=\textwidth]{Testergebnisse/umn_aggregation_pg_Testlauf.png}
+\caption[Auslastung der VM im ersten Lasttest mit Kartendarstellung]{Auslastung der VM im ersten Lasttest mit Kartendarstellung, 13:40-14:09 Uhr}
+\label{fig:auslastungTest1UMN_pg}
+\end{figure}
+
+
+
+
+
 \subsection{Zweiter Lasttest}
 Der Lasttest zum messen der Verarbeitungsleistung ruft die SQL Funktion\\
 \textit{nutrients.contouringcorrectedatop(integer)} auf.
@@ -602,10 +668,9 @@ Dieser Lasttest wird trotzdem durchgeführt, wobei die Anzahl der Fehlschläge g
 Die Testdefinition wurde aus dem ersten Leistungstest übernommen.
 Geändert wurde dabei die SQL Anfrage und die Anzahl der Anfragen an Postgres-XL.
 Pro Coordinator wird gleichzeitig die Interpolation von sechs fileids aufgerufen.
-Diese Definition ist nicht verwendbar, da bei den Coordinators zwei bis sechs ab dem zweiten Aufruf der Funktion diese bis zum Neustart des Coordinator Fehler wirft.
+Diese Definition ist nicht verwendbar, da bei gleichzeitigen parallelen Aufruf Fehler geworfen werden.
 Dabei verlieren die Coordinator die Verbindung zu den DataNodes.
-Dies tritt auch auf, wenn man die Anfragen parallel an einen Coordinator verschickt.
-Aus diesem Grund wird nur der erste Coordinator verwendet und die Anfragen erfolgen sequenziell.
+Aus diesem Grund wird ein Coordinator verwendet und die Anfragen erfolgen sequenziell mit den fileids aus Tabelle \ref{tbl:entrysnsamples} beginnend mit dem ersten Eintrag.
 
 %Nur einen Coordinator ansprechen und Auslastung beobachten
 % Auslastungen als Bilder in Anhang und darauf verweisen

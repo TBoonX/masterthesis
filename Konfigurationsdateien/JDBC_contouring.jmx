@@ -107,7 +107,7 @@
         <stringProp name="username">postgres</stringProp>
       </JDBCDataSource>
       <hashTree/>
-      <ResultCollector guiclass="ViewResultsFullVisualizer" testclass="ResultCollector" testname="View Results Tree" enabled="true">
+      <ResultCollector guiclass="ViewResultsFullVisualizer" testclass="ResultCollector" testname="View Results Tree" enabled="false">
         <boolProp name="ResultCollector.error_logging">false</boolProp>
         <objProp>
           <name>saveConfig</name>
@@ -247,7 +247,7 @@
         <stringProp name="filename">/home/tboonx/Downloads/apache-jmeter-2.13/bin/data.csv</stringProp>
       </ResultCollector>
       <hashTree/>
-      <ResultCollector guiclass="StatVisualizer" testclass="ResultCollector" testname="Report" enabled="true">
+      <ResultCollector guiclass="StatVisualizer" testclass="ResultCollector" testname="Report" enabled="false">
         <boolProp name="ResultCollector.error_logging">false</boolProp>
         <objProp>
           <name>saveConfig</name>
@@ -376,7 +376,7 @@
         </JDBCSampler>
         <hashTree/>
       </hashTree>
-      <ThreadGroup guiclass="ThreadGroupGui" testclass="ThreadGroup" testname="contouringcorrectedatop 1" enabled="false">
+      <ThreadGroup guiclass="ThreadGroupGui" testclass="ThreadGroup" testname="contouringcorrectedatop 2" enabled="false">
         <stringProp name="ThreadGroup.on_sample_error">continue</stringProp>
         <elementProp name="ThreadGroup.main_controller" elementType="LoopController" guiclass="LoopControlPanel" testclass="LoopController" testname="Schleifen-Controller (Loop Controller)" enabled="true">
           <boolProp name="LoopController.continue_forever">false</boolProp>
@@ -392,7 +392,7 @@
       </ThreadGroup>
       <hashTree>
         <JDBCSampler guiclass="TestBeanGUI" testclass="JDBCSampler" testname="fileid=4004" enabled="false">
-          <stringProp name="dataSource">Postgresql1</stringProp>
+          <stringProp name="dataSource">Postgresql2</stringProp>
           <stringProp name="query">select * from nutrients.contouringcorrectedatop(4004);</stringProp>
           <stringProp name="queryArguments"></stringProp>
           <stringProp name="queryArgumentsTypes"></stringProp>
@@ -404,7 +404,7 @@
         </JDBCSampler>
         <hashTree/>
         <JDBCSampler guiclass="TestBeanGUI" testclass="JDBCSampler" testname="fileid=3110" enabled="false">
-          <stringProp name="dataSource">Postgresql1</stringProp>
+          <stringProp name="dataSource">Postgresql2</stringProp>
           <stringProp name="query">select * from nutrients.contouringcorrectedatop(3110);</stringProp>
           <stringProp name="queryArguments"></stringProp>
           <stringProp name="queryArgumentsTypes"></stringProp>
@@ -416,7 +416,7 @@
         </JDBCSampler>
         <hashTree/>
         <JDBCSampler guiclass="TestBeanGUI" testclass="JDBCSampler" testname="fileid=3114" enabled="false">
-          <stringProp name="dataSource">Postgresql1</stringProp>
+          <stringProp name="dataSource">Postgresql2</stringProp>
           <stringProp name="query">select * from nutrients.contouringcorrectedatop(3114);</stringProp>
           <stringProp name="queryArguments"></stringProp>
           <stringProp name="queryArgumentsTypes"></stringProp>
@@ -428,7 +428,7 @@
         </JDBCSampler>
         <hashTree/>
         <JDBCSampler guiclass="TestBeanGUI" testclass="JDBCSampler" testname="fileid=4186" enabled="false">
-          <stringProp name="dataSource">Postgresql1</stringProp>
+          <stringProp name="dataSource">Postgresql2</stringProp>
           <stringProp name="query">select * from nutrients.contouringcorrectedatop(4186);</stringProp>
           <stringProp name="queryArguments"></stringProp>
           <stringProp name="queryArgumentsTypes"></stringProp>
@@ -440,7 +440,7 @@
         </JDBCSampler>
         <hashTree/>
         <JDBCSampler guiclass="TestBeanGUI" testclass="JDBCSampler" testname="fileid=5796" enabled="true">
-          <stringProp name="dataSource">Postgresql1</stringProp>
+          <stringProp name="dataSource">Postgresql2</stringProp>
           <stringProp name="query">select * from nutrients.contouringcorrectedatop(5796);</stringProp>
           <stringProp name="queryArguments"></stringProp>
           <stringProp name="queryArgumentsTypes"></stringProp>
@@ -452,7 +452,7 @@
         </JDBCSampler>
         <hashTree/>
         <JDBCSampler guiclass="TestBeanGUI" testclass="JDBCSampler" testname="fileid=5915" enabled="false">
-          <stringProp name="dataSource">Postgresql1</stringProp>
+          <stringProp name="dataSource">Postgresql2</stringProp>
           <stringProp name="query">select * from nutrients.contouringcorrectedatop(5915);</stringProp>
           <stringProp name="queryArguments"></stringProp>
           <stringProp name="queryArgumentsTypes"></stringProp>
@@ -464,7 +464,7 @@
         </JDBCSampler>
         <hashTree/>
       </hashTree>
-      <ThreadGroup guiclass="ThreadGroupGui" testclass="ThreadGroup" testname="contouringcorrectedatop 1" enabled="false">
+      <ThreadGroup guiclass="ThreadGroupGui" testclass="ThreadGroup" testname="contouringcorrectedatop 3" enabled="false">
         <stringProp name="ThreadGroup.on_sample_error">continue</stringProp>
         <elementProp name="ThreadGroup.main_controller" elementType="LoopController" guiclass="LoopControlPanel" testclass="LoopController" testname="Schleifen-Controller (Loop Controller)" enabled="true">
           <boolProp name="LoopController.continue_forever">false</boolProp>
@@ -480,7 +480,7 @@
       </ThreadGroup>
       <hashTree>
         <JDBCSampler guiclass="TestBeanGUI" testclass="JDBCSampler" testname="fileid=4004" enabled="false">
-          <stringProp name="dataSource">Postgresql1</stringProp>
+          <stringProp name="dataSource">Postgresql3</stringProp>
           <stringProp name="query">select * from nutrients.contouringcorrectedatop(4004);</stringProp>
           <stringProp name="queryArguments"></stringProp>
           <stringProp name="queryArgumentsTypes"></stringProp>
@@ -492,7 +492,7 @@
         </JDBCSampler>
         <hashTree/>
         <JDBCSampler guiclass="TestBeanGUI" testclass="JDBCSampler" testname="fileid=3110" enabled="false">
-          <stringProp name="dataSource">Postgresql1</stringProp>
+          <stringProp name="dataSource">Postgresql3</stringProp>
           <stringProp name="query">select * from nutrients.contouringcorrectedatop(3110);</stringProp>
           <stringProp name="queryArguments"></stringProp>
           <stringProp name="queryArgumentsTypes"></stringProp>
@@ -504,7 +504,7 @@
         </JDBCSampler>
         <hashTree/>
         <JDBCSampler guiclass="TestBeanGUI" testclass="JDBCSampler" testname="fileid=3114" enabled="false">
-          <stringProp name="dataSource">Postgresql1</stringProp>
+          <stringProp name="dataSource">Postgresql3</stringProp>
           <stringProp name="query">select * from nutrients.contouringcorrectedatop(3114);</stringProp>
           <stringProp name="queryArguments"></stringProp>
           <stringProp name="queryArgumentsTypes"></stringProp>
@@ -516,7 +516,7 @@
         </JDBCSampler>
         <hashTree/>
         <JDBCSampler guiclass="TestBeanGUI" testclass="JDBCSampler" testname="fileid=4186" enabled="true">
-          <stringProp name="dataSource">Postgresql1</stringProp>
+          <stringProp name="dataSource">Postgresql3</stringProp>
           <stringProp name="query">select * from nutrients.contouringcorrectedatop(4186);</stringProp>
           <stringProp name="queryArguments"></stringProp>
           <stringProp name="queryArgumentsTypes"></stringProp>
@@ -528,7 +528,7 @@
         </JDBCSampler>
         <hashTree/>
         <JDBCSampler guiclass="TestBeanGUI" testclass="JDBCSampler" testname="fileid=5796" enabled="false">
-          <stringProp name="dataSource">Postgresql1</stringProp>
+          <stringProp name="dataSource">Postgresql3</stringProp>
           <stringProp name="query">select * from nutrients.contouringcorrectedatop(5796);</stringProp>
           <stringProp name="queryArguments"></stringProp>
           <stringProp name="queryArgumentsTypes"></stringProp>
@@ -540,7 +540,7 @@
         </JDBCSampler>
         <hashTree/>
         <JDBCSampler guiclass="TestBeanGUI" testclass="JDBCSampler" testname="fileid=5915" enabled="false">
-          <stringProp name="dataSource">Postgresql1</stringProp>
+          <stringProp name="dataSource">Postgresql3</stringProp>
           <stringProp name="query">select * from nutrients.contouringcorrectedatop(5915);</stringProp>
           <stringProp name="queryArguments"></stringProp>
           <stringProp name="queryArgumentsTypes"></stringProp>
@@ -552,7 +552,7 @@
         </JDBCSampler>
         <hashTree/>
       </hashTree>
-      <ThreadGroup guiclass="ThreadGroupGui" testclass="ThreadGroup" testname="contouringcorrectedatop 1" enabled="false">
+      <ThreadGroup guiclass="ThreadGroupGui" testclass="ThreadGroup" testname="contouringcorrectedatop 4" enabled="false">
         <stringProp name="ThreadGroup.on_sample_error">continue</stringProp>
         <elementProp name="ThreadGroup.main_controller" elementType="LoopController" guiclass="LoopControlPanel" testclass="LoopController" testname="Schleifen-Controller (Loop Controller)" enabled="true">
           <boolProp name="LoopController.continue_forever">false</boolProp>
@@ -568,7 +568,7 @@
       </ThreadGroup>
       <hashTree>
         <JDBCSampler guiclass="TestBeanGUI" testclass="JDBCSampler" testname="fileid=4004" enabled="false">
-          <stringProp name="dataSource">Postgresql1</stringProp>
+          <stringProp name="dataSource">Postgresql4</stringProp>
           <stringProp name="query">select * from nutrients.contouringcorrectedatop(4004);</stringProp>
           <stringProp name="queryArguments"></stringProp>
           <stringProp name="queryArgumentsTypes"></stringProp>
@@ -580,7 +580,7 @@
         </JDBCSampler>
         <hashTree/>
         <JDBCSampler guiclass="TestBeanGUI" testclass="JDBCSampler" testname="fileid=3110" enabled="false">
-          <stringProp name="dataSource">Postgresql1</stringProp>
+          <stringProp name="dataSource">Postgresql4</stringProp>
           <stringProp name="query">select * from nutrients.contouringcorrectedatop(3110);</stringProp>
           <stringProp name="queryArguments"></stringProp>
           <stringProp name="queryArgumentsTypes"></stringProp>
@@ -592,7 +592,7 @@
         </JDBCSampler>
         <hashTree/>
         <JDBCSampler guiclass="TestBeanGUI" testclass="JDBCSampler" testname="fileid=3114" enabled="true">
-          <stringProp name="dataSource">Postgresql1</stringProp>
+          <stringProp name="dataSource">Postgresql4</stringProp>
           <stringProp name="query">select * from nutrients.contouringcorrectedatop(3114);</stringProp>
           <stringProp name="queryArguments"></stringProp>
           <stringProp name="queryArgumentsTypes"></stringProp>
@@ -604,7 +604,7 @@
         </JDBCSampler>
         <hashTree/>
         <JDBCSampler guiclass="TestBeanGUI" testclass="JDBCSampler" testname="fileid=4186" enabled="false">
-          <stringProp name="dataSource">Postgresql1</stringProp>
+          <stringProp name="dataSource">Postgresql4</stringProp>
           <stringProp name="query">select * from nutrients.contouringcorrectedatop(4186);</stringProp>
           <stringProp name="queryArguments"></stringProp>
           <stringProp name="queryArgumentsTypes"></stringProp>
@@ -616,7 +616,7 @@
         </JDBCSampler>
         <hashTree/>
         <JDBCSampler guiclass="TestBeanGUI" testclass="JDBCSampler" testname="fileid=5796" enabled="false">
-          <stringProp name="dataSource">Postgresql1</stringProp>
+          <stringProp name="dataSource">Postgresql4</stringProp>
           <stringProp name="query">select * from nutrients.contouringcorrectedatop(5796);</stringProp>
           <stringProp name="queryArguments"></stringProp>
           <stringProp name="queryArgumentsTypes"></stringProp>
@@ -628,7 +628,7 @@
         </JDBCSampler>
         <hashTree/>
         <JDBCSampler guiclass="TestBeanGUI" testclass="JDBCSampler" testname="fileid=5915" enabled="false">
-          <stringProp name="dataSource">Postgresql1</stringProp>
+          <stringProp name="dataSource">Postgresql4</stringProp>
           <stringProp name="query">select * from nutrients.contouringcorrectedatop(5915);</stringProp>
           <stringProp name="queryArguments"></stringProp>
           <stringProp name="queryArgumentsTypes"></stringProp>
@@ -640,7 +640,7 @@
         </JDBCSampler>
         <hashTree/>
       </hashTree>
-      <ThreadGroup guiclass="ThreadGroupGui" testclass="ThreadGroup" testname="contouringcorrectedatop 1" enabled="false">
+      <ThreadGroup guiclass="ThreadGroupGui" testclass="ThreadGroup" testname="contouringcorrectedatop 5" enabled="false">
         <stringProp name="ThreadGroup.on_sample_error">continue</stringProp>
         <elementProp name="ThreadGroup.main_controller" elementType="LoopController" guiclass="LoopControlPanel" testclass="LoopController" testname="Schleifen-Controller (Loop Controller)" enabled="true">
           <boolProp name="LoopController.continue_forever">false</boolProp>
@@ -656,7 +656,7 @@
       </ThreadGroup>
       <hashTree>
         <JDBCSampler guiclass="TestBeanGUI" testclass="JDBCSampler" testname="fileid=4004" enabled="false">
-          <stringProp name="dataSource">Postgresql1</stringProp>
+          <stringProp name="dataSource">Postgresql5</stringProp>
           <stringProp name="query">select * from nutrients.contouringcorrectedatop(4004);</stringProp>
           <stringProp name="queryArguments"></stringProp>
           <stringProp name="queryArgumentsTypes"></stringProp>
@@ -668,7 +668,7 @@
         </JDBCSampler>
         <hashTree/>
         <JDBCSampler guiclass="TestBeanGUI" testclass="JDBCSampler" testname="fileid=3110" enabled="true">
-          <stringProp name="dataSource">Postgresql1</stringProp>
+          <stringProp name="dataSource">Postgresql5</stringProp>
           <stringProp name="query">select * from nutrients.contouringcorrectedatop(3110);</stringProp>
           <stringProp name="queryArguments"></stringProp>
           <stringProp name="queryArgumentsTypes"></stringProp>
@@ -680,7 +680,7 @@
         </JDBCSampler>
         <hashTree/>
         <JDBCSampler guiclass="TestBeanGUI" testclass="JDBCSampler" testname="fileid=3114" enabled="false">
-          <stringProp name="dataSource">Postgresql1</stringProp>
+          <stringProp name="dataSource">Postgresql5</stringProp>
           <stringProp name="query">select * from nutrients.contouringcorrectedatop(3114);</stringProp>
           <stringProp name="queryArguments"></stringProp>
           <stringProp name="queryArgumentsTypes"></stringProp>
@@ -692,7 +692,7 @@
         </JDBCSampler>
         <hashTree/>
         <JDBCSampler guiclass="TestBeanGUI" testclass="JDBCSampler" testname="fileid=4186" enabled="false">
-          <stringProp name="dataSource">Postgresql1</stringProp>
+          <stringProp name="dataSource">Postgresql5</stringProp>
           <stringProp name="query">select * from nutrients.contouringcorrectedatop(4186);</stringProp>
           <stringProp name="queryArguments"></stringProp>
           <stringProp name="queryArgumentsTypes"></stringProp>
@@ -704,7 +704,7 @@
         </JDBCSampler>
         <hashTree/>
         <JDBCSampler guiclass="TestBeanGUI" testclass="JDBCSampler" testname="fileid=5796" enabled="false">
-          <stringProp name="dataSource">Postgresql1</stringProp>
+          <stringProp name="dataSource">Postgresql5</stringProp>
           <stringProp name="query">select * from nutrients.contouringcorrectedatop(5796);</stringProp>
           <stringProp name="queryArguments"></stringProp>
           <stringProp name="queryArgumentsTypes"></stringProp>
@@ -716,7 +716,7 @@
         </JDBCSampler>
         <hashTree/>
         <JDBCSampler guiclass="TestBeanGUI" testclass="JDBCSampler" testname="fileid=5915" enabled="false">
-          <stringProp name="dataSource">Postgresql1</stringProp>
+          <stringProp name="dataSource">Postgresql5</stringProp>
           <stringProp name="query">select * from nutrients.contouringcorrectedatop(5915);</stringProp>
           <stringProp name="queryArguments"></stringProp>
           <stringProp name="queryArgumentsTypes"></stringProp>
@@ -728,7 +728,7 @@
         </JDBCSampler>
         <hashTree/>
       </hashTree>
-      <ThreadGroup guiclass="ThreadGroupGui" testclass="ThreadGroup" testname="contouringcorrectedatop 1" enabled="false">
+      <ThreadGroup guiclass="ThreadGroupGui" testclass="ThreadGroup" testname="contouringcorrectedatop 6" enabled="false">
         <stringProp name="ThreadGroup.on_sample_error">continue</stringProp>
         <elementProp name="ThreadGroup.main_controller" elementType="LoopController" guiclass="LoopControlPanel" testclass="LoopController" testname="Schleifen-Controller (Loop Controller)" enabled="true">
           <boolProp name="LoopController.continue_forever">false</boolProp>
@@ -744,7 +744,7 @@
       </ThreadGroup>
       <hashTree>
         <JDBCSampler guiclass="TestBeanGUI" testclass="JDBCSampler" testname="fileid=4004" enabled="true">
-          <stringProp name="dataSource">Postgresql1</stringProp>
+          <stringProp name="dataSource">Postgresql6</stringProp>
           <stringProp name="query">select * from nutrients.contouringcorrectedatop(4004);</stringProp>
           <stringProp name="queryArguments"></stringProp>
           <stringProp name="queryArgumentsTypes"></stringProp>
@@ -756,7 +756,7 @@
         </JDBCSampler>
         <hashTree/>
         <JDBCSampler guiclass="TestBeanGUI" testclass="JDBCSampler" testname="fileid=3110" enabled="false">
-          <stringProp name="dataSource">Postgresql1</stringProp>
+          <stringProp name="dataSource">Postgresql6</stringProp>
           <stringProp name="query">select * from nutrients.contouringcorrectedatop(3110);</stringProp>
           <stringProp name="queryArguments"></stringProp>
           <stringProp name="queryArgumentsTypes"></stringProp>
@@ -768,7 +768,7 @@
         </JDBCSampler>
         <hashTree/>
         <JDBCSampler guiclass="TestBeanGUI" testclass="JDBCSampler" testname="fileid=3114" enabled="false">
-          <stringProp name="dataSource">Postgresql1</stringProp>
+          <stringProp name="dataSource">Postgresql6</stringProp>
           <stringProp name="query">select * from nutrients.contouringcorrectedatop(3114);</stringProp>
           <stringProp name="queryArguments"></stringProp>
           <stringProp name="queryArgumentsTypes"></stringProp>
@@ -780,7 +780,7 @@
         </JDBCSampler>
         <hashTree/>
         <JDBCSampler guiclass="TestBeanGUI" testclass="JDBCSampler" testname="fileid=4186" enabled="false">
-          <stringProp name="dataSource">Postgresql1</stringProp>
+          <stringProp name="dataSource">Postgresql6</stringProp>
           <stringProp name="query">select * from nutrients.contouringcorrectedatop(4186);</stringProp>
           <stringProp name="queryArguments"></stringProp>
           <stringProp name="queryArgumentsTypes"></stringProp>
@@ -792,7 +792,7 @@
         </JDBCSampler>
         <hashTree/>
         <JDBCSampler guiclass="TestBeanGUI" testclass="JDBCSampler" testname="fileid=5796" enabled="false">
-          <stringProp name="dataSource">Postgresql1</stringProp>
+          <stringProp name="dataSource">Postgresql6</stringProp>
           <stringProp name="query">select * from nutrients.contouringcorrectedatop(5796);</stringProp>
           <stringProp name="queryArguments"></stringProp>
           <stringProp name="queryArgumentsTypes"></stringProp>
@@ -804,7 +804,7 @@
         </JDBCSampler>
         <hashTree/>
         <JDBCSampler guiclass="TestBeanGUI" testclass="JDBCSampler" testname="fileid=5915" enabled="false">
-          <stringProp name="dataSource">Postgresql1</stringProp>
+          <stringProp name="dataSource">Postgresql6</stringProp>
           <stringProp name="query">select * from nutrients.contouringcorrectedatop(5915);</stringProp>
           <stringProp name="queryArguments"></stringProp>
           <stringProp name="queryArgumentsTypes"></stringProp>
@@ -816,6 +816,15 @@
         </JDBCSampler>
         <hashTree/>
       </hashTree>
+      <ResponseAssertion guiclass="AssertionGui" testclass="ResponseAssertion" testname="Versicherte Anwort" enabled="false">
+        <collectionProp name="Asserion.test_strings">
+          <stringProp name="-761002216">ERROR:*</stringProp>
+        </collectionProp>
+        <stringProp name="Assertion.test_field">Assertion.response_data</stringProp>
+        <boolProp name="Assertion.assume_success">false</boolProp>
+        <intProp name="Assertion.test_type">16</intProp>
+      </ResponseAssertion>
+      <hashTree/>
     </hashTree>
   </hashTree>
 </jmeterTestPlan>
