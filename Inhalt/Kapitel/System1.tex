@@ -402,14 +402,27 @@ Für den produktiven Einsatz bietet sich ein Lastverteilungsprogramm wie pgpool 
 %Testen ist möglich, ist aber mit Aufwand und möglichen Problemen verbunden
 %Man müsste folgendes für eine Verkleinerung tun: DataNodes aus Datenbankschema entfernen und DataNodes/Coordinator mit pgxc_ctl entfernen
 %Tests mit Datenbankschema zeigten Fehleranfälligkeit der Verbindungen zwischen den Knoten, weshalb diese Anweisungen zu Problemen mit den Knoten/Schema  führt
-Zur Bewertung eines verteilten Systems ist die Skalierbarkeit zu ermitteln.
+Zur Bewertung eines verteilt arbeitenden Algorithmus ist die Skalierbarkeit bzw. die Effizienz zu ermitteln.
 %Skalierbarkeit(T(1)/T(p))/Effizienz(S(p)/p)
 Skalierbarkeit ist die Differenz der Laufzeit T bei Verwendung eines Knotens und der Laufzeit bei Verwendung von p Knoten:
-$T(1)/T(p)$
+$T(1)/T(p)$\ 
 Dies sagt aus, um welches Maß sich die Laufzeit ändert bei Verminderung oder Erhöhung der Anzahl der Knoten.
-Ein idealer Wert ist bei beliebig vielen Knoten stets eins.
-Auf Grund von sequenziellen Anteilen in Algorithmen und Mehrkosten für Kommunikation zwischen den Knoten liegt der Wert in realen Szenarios unter 1.
-
+Ein idealer Wert ist bei $n$ Knoten $n$.
+Auf Grund von sequenziellen Anteilen in Subalgorithmen und Mehrkosten für Kommunikation zwischen den Knoten liegt der Wert in realen Szenarios unter n.
+Die Teilung des Wertes der Skalierung durch die Anzahl der Knoten ergibt die Effizienz.
+Dieser Wert beurteilt die Skalierung.
+Eine Effizienz von eins ist bei verteilt arbeitenden Systemen ein Zielwert.
+Da die Skalierung wie benannt begrenzt ist, befindet sich die Effizienz in realen Szenarios unter eins.\\
+Diese Bewertung wird auch auf verteilt arbeitende Systeme angewandt.
+Für Postgres-XL ist die Anzahl an Knoten, welche Coordinator und DataNode Instanzen sowie eine GTM Proxy Instanz besitzen, zu ändern und die Differenz der Laufzeiten des unveränderten und geänderten Clusters zu messen.
+Dabei sind Techniken zur Lastverteilung oder auf gleiche Belastung aller Elemente des Clusters gerichtete Funktionen zu verwenden.
+Die Tests mit dem Testsystem zeigten Fehleranfälligkeiten der Verbindungen zwischen den Elementen des Clusters, weshalb auf empirische Ermittlung der Skalierbarkeit von Postgres-XL im Cluster abgesehen wird.
+Jedoch wird die theoretische Vorgehensweise für das Entfernen von Instanzen gegeben.
+Das Hinzufügen von Instanzen erfolgt analog mit kleinen Änderungen.
+\begin{description}
+\item[Coordinator] Eine Verbindung mit einem anderen Coordinator herstellen und darin \verb+DROP NODE coordinatorname;+ und \verb+SELECT pgxc_pool_reload();+ ausführen.
+\item[DataNode] Mit beliebigen Coordinator verbinden und für jede Relation, welche auf die zu löschende DataNode verteilt ist, \verb+ALTER TABLE tablename DELETE NODE+\\\verb+(datanodename);+ ausführen. Betroffene Relationen können mit \verb+SELECT+\\\verb+c.pcrelid FROM pgxc_class c, pgxc_node n WHERE n.node_name =+\\\verb+'datanodename' AND n.oid = ANY (c.nodeoids);+ ermittelt werden. Das Tool \verb+pgxc_ctl+ starten und darin \verb+stop datanode datanodename+ ausführen. Auf jedem Coordinator \verb+DROP NODE datanodename;+ und \verb+SELECT+\\\verb+pgxc_pool_reload();+ ausführen.
+\end{description}
 
 \subsection{Aggregation}
 Der erste Lasttest misst die Laufzeit der Aggregation von Punktdaten aus der Tabelle nsensorlogs des Schemas n.
