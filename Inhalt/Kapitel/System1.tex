@@ -697,6 +697,51 @@ Aus diesem Grund wird ein Coordinator verwendet und die Anfragen erfolgen sequen
 %Bilder unteinander setzen: Auslastung, Laufzeiten
 % diese auswerten
 % auf Fehleranteil eingehen
+Dieser Lasttest hat eine durchschnittliche Laufzeit von 975s im Postgres-XL Cluster.
+Tabelle \ref{tbl:ergebnisseTest2} enthält die einzelnen Laufzeiten und die maximale und minimale Antwortzeit der Anfragen.
+Die durchschnittliche Antwortzeit wird nicht aufgeführt, da 6 Anfragen gestellt werden, der Durchschnitt somit leicht berechenbar ist, und sich die Laufzeiten der Berechnungen bis zum 20 fachen unterscheiden.
+Die Laufzeit der Anfragen ist direkt proportional Abhängig zur Anzahl der betroffenen Einträge in nutrients.samples.
+\begin{table}[h!]
+\centering
+%\small
+\begin{tabular}{c|C{3.4cm}|C{3.4cm}|c}
+\textbf{Durchlauf} & \textbf{Maximale Antwortzeit in ms} & \textbf{Minimale Antwortzeit in ms} & \textbf{Laufzeit des Tests in s} \\ \hline
+1 & 563130 & 24992 & 987 \\ \hline
+2 & 553914 & 24948 & 978 \\ \hline
+3 & 552416 & 25027 & 970 \\ \hline
+4 & 551919 & 25097 & 970 \\ \hline
+5 & 553892 & 24919 & 977 \\ \hline 
+6 & 552905 & 25108 & 971 \\ \hline
+7 & 553884 & 24985 & 977 \\ \hline
+8 & 553931 & 24843 & 976 \\ \hline
+9 & 554989 & 24947 & 979 \\ \hline 
+10 & 554304 & 24916 & 978 \\ \hline
+11 & 552536 & 24915 & 975 \\	
+\end{tabular}
+\caption[Testergebnis Lasttest der Verarbeitung]{Testergebnis Lasttest der Verarbeitung}
+\label{tbl:ergebnisseTest2}
+\end{table}
+
+Abbildung \ref{fig:auslastungTest2} zeigt eine durchgehend starke Auslastung des ersten Knoten\footnote{Knoten eins wurde im Test angesprochen.} im Gegensatz zu einer geringen Auslastung der restlichen Knoten.
+Knoten eins, in Abbildung Node1 genannt, verwendet für die Testreihe 400MB und für einen Testdurchlauf etwa 100MB Arbeitsspeicher.
+Die Auslastung der CPU bewegt sich während der Testreihe zwischen 33\%{} und 78\%{}.
+Die restlichen Knoten reservierten während des Testlaufes stetig Arbeisspeicher, bis zu 100MB pro Knoten.
+Bezüglich der CPU kann von einer nicht relevanten Auslastung ausgegangen werden.
+Zwar existieren bei jedem Knoten Leistungsspitzen bis zu 80\%{}, jedoch dauert eine solche Auslastung maximal 5 Minuten und das Auftreten dieser Spitzenwerte ist während der Testreihe unterschiedlich sowie nicht deckungsgleich zwischen den Knoten.
+\begin{figure}[h!]
+\centering
+\includegraphics[width=\textwidth]{Testergebnisse/jdbc_contouring_Testlauf.png}
+\caption[Auslastung der Knoten 1 bis 6 im Lasttest der Verarbeitung]{Auslastung der Knoten 1 bis 6 im Lasttest der Verarbeitung, 10:07-13:09 Uhr}
+\label{fig:auslastungTest2}
+\end{figure}
+Der Knoten sieben zeigt erneut eine charakteristische geringe Auslastung der CPU sowie einer steigenden Auslastung des Arbeitsspeichers, wie in Abbildung \ref{fig:auslastungTest2_gtm} zu sehen.
+So wird etwa 1 GB verwendet, zusätzlich vom Grundwert von 610MB.
+\begin{figure}[h!]
+\centering
+\includegraphics[width=\textwidth]{Testergebnisse/jdbc_contouring_Testlauf_bild2.png}
+\caption[Auslastung des Knoten 7 im Lasttest der Verarbeitung]{Auslastung des Knoten 7 im Lasttest der Verarbeitung, 10:07-13:09 Uhr}
+\label{fig:auslastungTest2_gtm}
+\end{figure}
 
 %mit SQL Bordmitteln - pg_bench eventuell zusätzlich um ein paar Aussagen zum cluster overhead zu treffen
 
