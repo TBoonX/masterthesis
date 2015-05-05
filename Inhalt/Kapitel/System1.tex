@@ -245,6 +245,11 @@ Dabei werden die Testfälle mit absteigender Priorität aufgelistet.
 Die Priorität hängt vom geschätzten Implementationsaufwand zur Behebung des Fehlschlages des Testfalles ab.
 %Nummerierung der Testfälle?
 
+%TODO Funktionstests:
+%FT02: 3 Schläge raussuchen und bild erzeugen farmid=1038
+%FT04: st_transform nochmal testen
+%FT05: Sandras Polygone in DB eintragen, funktionen anwenden und mit UMN zu Bildern wandeln
+
 \textbf{FT01:}\\
 Die Schnittstellen sind nicht explizit zu testen, da Postgres-XL und PostgreSQL wie in Abschnitt \ref{subsection:interface} demonstriert direkt Daten austauschen können.
 %Schnittstellen: PostgreSQL mit dblink demonstrieren; PostGIS: Tabelle mit geometry erzeugen, füllen und Funktionen darauf anwenden; UMN: simples Mapfile für nsensorlogs erstellen
@@ -257,6 +262,7 @@ Arbeitet Postgres-XL mit dem \Gls{umn} korrekt zusammen, liegt ein Bild mit den 
 
 \textbf{FT03:}\\
 Da beide Systeme PostGIS 2.1.5 verwenden, sind die Austauschformate für geografische Daten identisch.
+Der Beweis stellt die erfolgte Übernahme der Daten des Ist-Standes dar.
 
 \textbf{FT04:}\\
 Mit PostGIS kann mit der Funktion st\_{}transform direkt zwischen den Koordinatenreferenzsystemen umgerechnet werden:\\
@@ -283,6 +289,7 @@ Das Ergebnis jedes Funktionsaufrufes wird gespeichert und zu einer Karte gerende
 \textbf{FT06:}\\
 Dies wird im zweiten Szenario der Lasttests im nachfolgenden Abschnitt durchgeführt.
 %auf schwierigkeiten hinweisen
+Da das Ergebnis nicht überprüft werden kann, gilt der Test als nicht bestanden.
 
 \textbf{FT07:}\\
 %Betrieb mit kleinen Userlayern verwenden
@@ -323,6 +330,9 @@ Diese Datei wird anschließend mit der grafischen Oberfläche von JMeter geöffn
 JMeter wird von einem externen Computer ausgeführt.
 Dieser ist mit 1GBit/s an das Testsystem angebunden und besitzt die folgende Ausstattung:
 16GB DDR3 RAM, 256GB mSata3 SSD und eine Intel i5-3320M Dual-Core CPU mit 2,6GHz und Hyperthreading.
+
+Die PostgreSQL Instanz, welche auf einer dedizierten \Gls{vm} als Vergleichssystem zum Postgres-XL Cluster dient, besitzt die gleiche Konfiguration wie die Coordinator Instanzen.
+Einzig \verb+max_connections+ und \verb+max_prepared_transactions+ wurden auf 160 erhöht, um der erhöhten Anzahl an Anfragen pro Instanz  gerecht zu werden.
 
 Um ein statistisches Mittel zu erreichen und Nebeneffekte des Caching der Datenbank und des Betriebssystems zu reduzieren, wird ein Test elf mal ausgeführt.
 Es werden die zehn letzten Tests gemittelt.
@@ -401,7 +411,7 @@ Ein idealer Wert ist bei beliebig vielen Knoten stets eins.
 Auf Grund von sequenziellen Anteilen in Algorithmen und Mehrkosten für Kommunikation zwischen den Knoten liegt der Wert in realen Szenarios unter 1.
 
 
-\subsection{Erster Lasttest}
+\subsection{Aggregation}
 Der erste Lasttest misst die Laufzeit der Aggregation von Punktdaten aus der Tabelle nsensorlogs des Schemas n.
 Die Abfrage und Messung erfolgt mit dem SQL Statement \verb+Select * From n.nsensorlogs Where fileid=%;+ sowie \verb+Explain Verbose+\\
 \verb+Select * From n.nsensorlogs Where fileid=%;+.
@@ -429,7 +439,18 @@ Somit werden alle Knoten gleichmäßig angesprochen.
 \end{table}
 Der JMeter Lasttest ist wie folgt geplant:
 Pro Coordinator werden drei Threads erzeugt, welche je fünf Wiederholungen folgender Abfragen durchführen:
-Fünf der sechs fileids werden für die beschriebene Anfrage verwendet und die Ergebnisse in den Arbeitsspeicher geladen.
+Fünf der sechs fileids\footnote{Jeder Coordinator verwendet andere fünf fileids, sodass alle fünf mal verwendet werden.} werden für die beschriebene Anfrage verwendet und die Ergebnisse in den Arbeitsspeicher geladen.
+
+Vor Ausführung des Tests ist der Query Plan der Aggregation zu untersuchen.
+\verb+Explain Verbose Select+ liefert für die fileid 44982 folgenden Query Plan:
+\begin{lstlisting}[language=sql,caption={Explain Verbose Ergebnis eines Coordinator}]
+Remote Subquery Scan on all (datanode4)
+  -> Index Scan using idx_fileid on n.nsensorlogs
+    Index Cond: (nsensorlogs.fileid = 44982)}
+\end{lstlisting}
+Das Ergebnis ist auf allen Coordinatorn gleich.\footnote{Tabelle wurde mit \textit{vacuum} und \textit{analyze} vorbereitet.}
+Bei unterschiedlichen fileids ändert sich der datanode entsprechend der Tabelle \ref{tbl:entrysnnsensorlogs}.
+Damit kann von einer gleichen Auslastung aller Knoten ausgegangen werden.
 
 Die einzelnen Ergebnisse des ersten Lasttest sind in Tabelle \ref{tbl:ergebnisseTest1} enthalten.
 Wird der erste Durchgang ignoriert und die restlichen zehn Werte gemittelt, lautet das Ergebnis 3619ms durchschnittliche Antwortzeit pro Anfrage.
@@ -450,7 +471,7 @@ Wird der erste Durchgang ignoriert und die restlichen zehn Werte gemittelt, laut
 10 & 3707 & 102 \\ \hline
 11 & 3541 & 98 \\ 			
 \end{tabular}
-\caption[Testergebnis Lasttest 1]{Testergebnis Lasttest 1}
+\caption[Testergebnis Lasttest Aggregation]{Testergebnis Lasttest der Aggregation}
 \label{tbl:ergebnisseTest1}
 \end{table}
 
@@ -465,25 +486,15 @@ Die Arbeitsspeichernutzung hat sich während der Durchläufe stetig um 180MB erh
 \begin{figure}[h!]
 \centering
 \includegraphics[width=\textwidth]{Testergebnisse/jdbc_aggregation_Testlauf.png}
-\caption[Auslastung der Knoten 1 bis 6 im ersten Lasttest]{Auslastung der Knoten 1 bis 6 im ersten Lasttest, 14:28-14:48 Uhr}
+\caption[Auslastung der Knoten 1 bis 6 im Lasttest der Aggregation]{Auslastung der Knoten 1 bis 6 im Lasttest der Aggregation, 14:28-14:48 Uhr}
 \label{fig:auslastungTest1}
 \end{figure}
 \begin{figure}[h!]
 \centering
 \includegraphics[width=.5\textwidth]{Testergebnisse/jdbc_aggregation_Testlauf_bild2.png}
-\caption[Auslastung des Knoten 7 im ersten Lasttest]{Auslastung des Knoten 7 im ersten Lasttest, 14:28-14:48 Uhr}
+\caption[Auslastung des Knoten 7 im Lasttest der Aggregation]{Auslastung des Knoten 7 im Lasttest der Aggregation, 14:28-14:48 Uhr}
 \label{fig:auslastungTest1_gtm}
 \end{figure}
-
-\verb+Explain Verbose Select+ liefert für die fileid 44982 folgenden Query Plan:\\
-\begin{lstlisting}[language=sql,caption={Explain Verbose Ergebnis eines Coordinator}]
-Remote Subquery Scan on all (datanode4)
-  -> Index Scan using idx_fileid on n.nsensorlogs
-    Index Cond: (nsensorlogs.fileid = 44982)}
-\end{lstlisting}
-Das Ergebnis ist auf allen Coordinatorn gleich.\footnote{Tabelle wurde mit \textit{vacuum} und \textit{analyze} vorbereitet.}
-Bei unterschiedlichen fileids ändert sich der datanode entsprechend der Tabelle \ref{tbl:entrysnnsensorlogs}.
-Damit kann von einer gleichen Auslastung aller Knoten ausgegangen werden.
 
 
 Zusätzlich erfolgt die Aggregation in einem gesonderten Test entsprechend des Anwendungsfalles mit dem \Gls{umn}, mit der Darstellung in Kartenform als Ergebnis.
@@ -532,7 +543,7 @@ Entsprechend der genannten Berechnungsvorschrift ergibt sich eine mittlere Antwo
 10 & 2394 & 152 \\ \hline
 11 & 2375 & 152 \\ 			
 \end{tabular}
-\caption[Testergebnis Lasttest 1 mit Kartendarstellung]{Testergebnis Lasttest 1 mit Kartendarstellung unter Nutzung des \Gls{umn}}
+\caption[Testergebnis Lasttest der Aggregation mit Kartendarstellung]{Testergebnis Lasttest der Aggregation mit Kartendarstellung unter Nutzung des \Gls{umn}}
 \label{tbl:ergebnisseTest1UMN}
 \end{table}
 
@@ -545,7 +556,7 @@ Dabei befindet sich die Auslastung je nach Knoten zwischen 0.01 und 0.31.
 \begin{figure}[h!]
 \centering
 \includegraphics[width=\textwidth]{Testergebnisse/umn_aggregation_Testlauf.png}
-\caption[Auslastung der Knoten 1 bis 6 im ersten Lasttest mit Kartendarstellung]{Auslastung der Knoten 1 bis 6 im ersten Lasttest mit Kartendarstellung, 11:03-11:33 Uhr}
+\caption[Auslastung der Knoten 1 bis 6 im Lasttest der Aggregation mit Kartendarstellung]{Auslastung der Knoten 1 bis 6 im Lasttest der Aggregation mit Kartendarstellung, 11:03-11:33 Uhr}
 \label{fig:auslastungTest1UMN}
 \end{figure}
 Bezüglich der GTM \Gls{vm} steigt auch in diesem Test die Arbeitsspeicher Auslastung stetig und die CPU Auslastung ist sehr gering.
@@ -556,14 +567,16 @@ Zu Beginn wird rund 260MB Arbeitsspeicher der \Gls{umn} Instanz zugewiesen, ist 
 \begin{figure}[h!]
 \centering
 \includegraphics[width=\textwidth]{Testergebnisse/umn_aggregation_Testlauf_bild2.png}
-\caption[Auslastung des Knoten 7 im ersten Lasttest mit Kartendarstellung]{Auslastung des Knoten 7 im ersten Lasttest mit Kartendarstellung, 11:03-11:33 Uhr}
+\caption[Auslastung des Knoten 7 im Lasttest der Aggregation mit Kartendarstellung]{Auslastung des Knoten 7 im Lasttest der Aggregation mit Kartendarstellung, 11:03-11:33 Uhr}
 \label{fig:auslastungTest1UMN_gtm_umn}
 \end{figure}
+
+
 
 Für die Lasttests mit der PostgreSQL \Gls{vm} wurden die Datenbankverbindungen zu den Coordinators auf die IP und den Port der PostgreSQL \Gls{vm} geändert.
 PostgreSQL und Postgres-XL werden somit mit den gleichen Anfragen in der gleichen Menge belastet.
 
-Die Aggregation mit SQL ergab für die PostgreSQL \Gls{vm} 4319ms durchschnittliche Laufzeit.
+Die Aggregation mit SQL ergab nach Tabelle \ref{tbl:ergebnisseTest1PG} für die PostgreSQL \Gls{vm} 4319ms durchschnittliche Laufzeit.
 \begin{table}[h!]
 \centering
 %\small
@@ -581,19 +594,23 @@ Die Aggregation mit SQL ergab für die PostgreSQL \Gls{vm} 4319ms durchschnittli
 10 & 4154 & 109 \\ \hline
 11 & 4226 & 110 \\	
 \end{tabular}
-\caption[Testergebnis Lasttest 1 mit PostgreSQL \Gls{vm}]{Testergebnis Lasttest 1 mit PostgreSQL \Gls{vm}}
+\caption[Testergebnis Lasttest der Aggregation mit PostgreSQL \Gls{vm}]{Testergebnis Lasttest der Aggregation mit PostgreSQL \Gls{vm}}
 \label{tbl:ergebnisseTest1PG}
 \end{table}
 
+Die Auslastung der \Gls{vm} ist in Abbildung \ref{fig:auslastungTest1_pg} abgebildet.
+Darin ist zu sehen, dass die Auslastung des Arbeitsspeichers um etwa 180MB zu Beginn des Testdurchlaufes zunahm und nur zwischen den Testschritten temporär um 40MB einbrach.
+Weiterhin ist in dieser Abbildung eine bis zu 460 prozentige Auslastung der CPU zu verzeichnen.
+Die Auslastung der CPU schwankt zwischen 250\%{} und 460\%{}.
 \begin{figure}[h!]
 \centering
 \includegraphics[width=\textwidth]{Testergebnisse/jdbc_aggregation_pg_Testlauf.png}
-\caption[Auslastung der VM im ersten Lasttest]{Auslastung der VM im ersten Lasttest, 13:09-13:32 Uhr}
+\caption[Auslastung der PostgreSQL \Gls{vm} im ersten Lasttest]{Auslastung der PostgreSQL \Gls{vm} im Lasttest, 13:09-13:32 Uhr}
 \label{fig:auslastungTest1_pg}
 \end{figure}
 
 
-Die Aggregation mit dem \Gls{umn} ergab für die PostgreSQL \Gls{vm} 2595ms durchschnittliche Laufzeit.
+Die Aggregation mit dem \Gls{umn} ergab für die PostgreSQL \Gls{vm} 2595ms durchschnittliche Laufzeit, entsprechend der Tabelle \ref{tbl:ergebnisseTest1PG_UMN}.
 \begin{table}[h!]
 \centering
 %\small
@@ -611,14 +628,17 @@ Die Aggregation mit dem \Gls{umn} ergab für die PostgreSQL \Gls{vm} 2595ms durc
 10 & 2348 & 150 \\ \hline
 11 & 2365 & 150 \\	
 \end{tabular}
-\caption[Testergebnis Lasttest 1 mit Kartendarstellung und PostgreSQL \Gls{vm}]{Testergebnis Lasttest 1 mit Kartendarstellung und PostgreSQL \Gls{vm}}
-\label{tbl:ergebnisseTest1PG}
+\caption[Testergebnis Lasttest der Aggregation mit Kartendarstellung und PostgreSQL \Gls{vm}]{Testergebnis Lasttest der Aggregation mit Kartendarstellung und PostgreSQL \Gls{vm}}
+\label{tbl:ergebnisseTest1PG_UMN}
 \end{table}
 
+Die Auslastung der PostgreSQL und UMN \Gls{vm} besitzt Ähnlichkeit mit jener der Knoten in Abbildung \ref{fig:auslastungTest1UMN} und \ref{fig:auslastungTest1UMN_gtm_umn}.
+Die UMN \Gls{vm} wird bezüglich der CPU um ein Vielfaches der Kapazität belastet.
+Die Auslastung beträgt 165MB bis 270MB der Arbeitsspeichers und 450\%{} bis 680\%{} der CPU.
 \begin{figure}[h!]
 \centering
 \includegraphics[width=\textwidth]{Testergebnisse/umn_aggregation_pg_Testlauf.png}
-\caption[Auslastung der VM im ersten Lasttest mit Kartendarstellung]{Auslastung der VM im ersten Lasttest mit Kartendarstellung, 13:40-14:09 Uhr}
+\caption[Auslastung der PostgreSQL \Gls{vm} im Lasttest der Aggregation mit Kartendarstellung]{Auslastung der PostgreSQL \Gls{vm} im Lasttest der Aggregation mit Kartendarstellung, 13:40-14:09 Uhr}
 \label{fig:auslastungTest1UMN_pg}
 \end{figure}
 
@@ -626,7 +646,7 @@ Die Aggregation mit dem \Gls{umn} ergab für die PostgreSQL \Gls{vm} 2595ms durc
 
 
 
-\subsection{Zweiter Lasttest}
+\subsection{Verarbeitung}
 Der Lasttest zum messen der Verarbeitungsleistung ruft die SQL Funktion\\
 \textit{nutrients.contouringcorrectedatop(integer)} auf.
 Diese führt den speziellen Kriging Algorithmus anhand der übergebenen fileid mit den Werten in nutrients.samples durch.
@@ -654,21 +674,19 @@ Neben der Laufzeit ist gesondert die Auslastung der einzelnen Knoten zu beobacht
 Zu Beginn dieser Untersuchung steht nicht fest, in wie weit die DataNodes mit in die Berechnungen der Coordinator mit einbezogen werden.
 %Nur Coordinator scheint zu berechnen - dies ist mit auslastung EINES Coordinator zu beweisen
 Eine automatisierte Verteilung der Berechnungen ist für einen höheren Durchsatz wünschenswert.
-Auch hierbei werden die Anfragen gleichmäßig auf die Coordinator verteilt.
 %mehrere Aufrufe gleichzeitig - mit scala?
 
 Es zeigte sich, dass mit Postgres-XL zwar Daten per SQL \textit{Insert into} gespeichert werden können, es jedoch bei einer Speicherung innerhalb einer SQL Funktion zu Fehlern kommt.
 In der Fehlermeldung wird auf unbekannte Parameter verwiesen, obwohl alle Daten in Parametern korrekt sind.
-Aus diesem Grund wurden die Funktionen der Berechnung angepasst, sodass zwar alle Berechnungen durchgeführt werden, die Ergebnisse aber nicht verfügbar sind.
+Aus diesem Grund wurden Nebenwirkungen der Funktionen der Berechnungen entfernt, sodass zwar alle Berechnungen durchgeführt werden, die Ergebnisse aber nicht verfügbar sind.
 Weiterhin zeigte sich, dass Funktionen welche die Erweiterung plr für die Nutzung der Sprache R verwenden, zufällige Fehler werfen.
 Die Wahrscheinlichkeit des Auftretens des Fehlers konnte durch neu laden der verwendeten R Bibliotheken bei jedem Funktionsaufruf veringert werden.
-So wird\\\verb+nutrients.contouringcorrectedatop(integer)+ ohne Nebenwirkungen ausgeführt und endet zufällig mit oder ohne Fehler.
-Dieser Lasttest wird trotzdem durchgeführt, wobei die Anzahl der Fehlschläge gesondert festgehalten wird.
+So wird\\\verb+nutrients.contouringcorrectedatop(integer)+ ohne Nebenwirkungen ausgeführt.
 
-Die Testdefinition wurde aus dem ersten Leistungstest übernommen.
+Die Testdefinition wurde aus dem Leistungstest der Aggregation übernommen.
 Geändert wurde dabei die SQL Anfrage und die Anzahl der Anfragen an Postgres-XL.
 Pro Coordinator wird gleichzeitig die Interpolation von sechs fileids aufgerufen.
-Diese Definition ist nicht verwendbar, da bei gleichzeitigen parallelen Aufruf Fehler geworfen werden.
+Diese Definition ist jedoch nicht verwendbar, da bei gleichzeitigen parallelen Aufruf Fehler geworfen werden.
 Dabei verlieren die Coordinator die Verbindung zu den DataNodes.
 Aus diesem Grund wird ein Coordinator verwendet und die Anfragen erfolgen sequenziell mit den fileids aus Tabelle \ref{tbl:entrysnsamples} beginnend mit dem ersten Eintrag.
 

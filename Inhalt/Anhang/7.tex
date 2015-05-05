@@ -21,7 +21,7 @@
 \begin{tabular}{p{2.8cm}|p{12cm}}
 \textbf{Testfall:} & Vorhandene Schnittstelle zu \Gls{umn}. \\ \hline
 \textbf{Beschreibung:} & Das System muss im \Gls{umn} als Datenquelle nutzbar sein. \\ \hline
-\textbf{Testdaten:} & Mapfile zur Anzeige beispielhafter Schläge aus farm.fields der farmid 1177. Darin muss ein Ausschnitt mit drei Schlägen zu sehen sein. \\ \hline
+\textbf{Testdaten:} & Mapfile zur Anzeige beispielhafter Schläge aus farm.fields der farmid 1038. Darin muss ein Ausschnitt mit drei Schlägen zu sehen sein. \\ \hline
 \textbf{Sollergebnis:} & Alle Schläge werden angezeigt. \\ \hline
 \textbf{Ist Ergebnis:} &  \\ \hline %TODO
 \textbf{Bestanden:} & Nein \\
@@ -37,8 +37,8 @@
 \textbf{Beschreibung:} & Daten sind in einem PostGIS Format zu übertragen und zu speichern. \\ \hline
 \textbf{Testdaten:} & Beliebige Einträge aus farm.fields und n.nsensorlogs. Das Datenbankschema wird zunächst ohne die Daten übernommen. \\ \hline
 \textbf{Sollergebnis:} & Einträge aus den Tabellen werden ohne Umwandlung direkt in die Datenbank geschrieben. \\ \hline
-\textbf{Ist Ergebnis:} &  \\ \hline %TODO
-\textbf{Bestanden:} & Nein \\
+\textbf{Ist Ergebnis:} & Datenübertragung mit dblink und PostGIS Datenformaten ohne Fehler durchgeführt. \\ \hline
+\textbf{Bestanden:} & Ja \\
 \end{tabular}
 \caption*{FT03}
 \end{table}
@@ -79,7 +79,7 @@
 \textbf{Beschreibung:} & Punkte aus nutrients.samples werden über die spezielle Kriging Bibliothek der Agri~Con interpoliert. \\ \hline
 \textbf{Testdaten:} & Ausschnitt aus nutrients.samples eines Betriebes und eines Grundnährstoffes. \\ \hline
 \textbf{Sollergebnis:} & Vektordaten mit gewichteten Werten des Grundnährstoffes entsprechend des Algorithmus. Karten sollen mit denen des Ist-Standes übereinstimmen. \\ \hline
-\textbf{Ist Ergebnis:} &  \\ \hline %TODO
+\textbf{Ist Ergebnis:} & Berechnungen konnten ausgeführt werden, jedoch waren sie nur nebenwirkungsfrei verwendbar, weshalb das Ergebnis nicht validiert werden kann. \\ \hline
 \textbf{Bestanden:} & Nein \\
 \end{tabular}
 \caption*{FT06}
@@ -93,11 +93,11 @@
 \textbf{Beschreibung:} & Räumliche Daten können räumlich gefiltert werden, dass heißt die Aggregation filtert anhand räumlicher Eigenschaften wie den Koordinaten. \\ \hline
 \textbf{Testdaten:} & Schläge aus farm.fields und Userlayer aus common.userlayers eines Betriebes. \\ \hline
 \textbf{Sollergebnis:} & Zu einem Userlayer sollen nur die entsprechend dessen Ausdehnung enthaltenen Schläge geliefert werden. \\ \hline
-\textbf{Ist Ergebnis:} &  \\ \hline %TODO
-\textbf{Bestanden:} & Nein \\
+\textbf{Ist Ergebnis:} & Die Funktionen st\_{}intersects() und st\_{}disjoint() filtern korrekt entsprechend der Ausdehnung des Userlayer, bewiesen durch Gesamtzahl der Schläge, enthaltene und nicht enthaltene Schläge. \\ \hline
+\textbf{Bestanden:} & Ja \\
 \end{tabular}
 \caption*{FT07}
 \end{table}
 
 \capstarttrue
-\newpage
+%\newpage
