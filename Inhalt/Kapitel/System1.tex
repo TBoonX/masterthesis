@@ -398,10 +398,6 @@ Bei gleicher Konfiguration aller Instanzen ist eine gleichmäßige Verteilung de
 In den nachfolgenden Tests werden alle Instanzen durch JMeter gleich belastet.
 Für den produktiven Einsatz bietet sich ein Lastverteilungsprogramm wie pgpool an, welches als Verbindungspunkt zwischen Programmen und Postgres-XL dient und die Anfragen an alle Coodinator weiterreicht.
 
-%Skalierbarkeit ist ebenfalls interessant
-%Testen ist möglich, ist aber mit Aufwand und möglichen Problemen verbunden
-%Man müsste folgendes für eine Verkleinerung tun: DataNodes aus Datenbankschema entfernen und DataNodes/Coordinator mit pgxc_ctl entfernen
-%Tests mit Datenbankschema zeigten Fehleranfälligkeit der Verbindungen zwischen den Knoten, weshalb diese Anweisungen zu Problemen mit den Knoten/Schema  führt
 Zur Bewertung eines verteilt arbeitenden Algorithmus ist die Skalierbarkeit bzw. die Effizienz zu ermitteln.
 %Skalierbarkeit(T(1)/T(p))/Effizienz(S(p)/p)
 Skalierbarkeit ist die Differenz der Laufzeit T bei Verwendung eines Knotens und der Laufzeit bei Verwendung von p Knoten:
@@ -533,9 +529,6 @@ Um einen höheren Durchsatz zu erreichen und das Postgres-XL Cluster mehr auszul
 Da bereits alle 16 Kerne vergeben sind, wurde die Prozessor Affinität der GTM \Gls{vm} so geändert, dass diese sich ihre zwei Prozessorkerne mit der UMN \Gls{vm} teilt.
 Es wurde dafür die GTM \Gls{vm} verwendet, da sie auch bei Benutzung des Postgres-XL Clusters eine geringe CPU Auslastung aufwies\footnote{siehe Abbildung \ref{fig:auslastungTest1_gtm}}.
 Diese Ressourcenaufteilung beeinträchtigt die Leistungsfähigkeit des Clusters somit nicht.
-
-%Bilder unteinander setzen: Auslastung, Laufzeiten
-%diese auswerten
 
 Die Ergebnisse der Testdurchläufe sind in Tabelle \ref{tbl:ergebnisseTest1UMN} aufgeführt.
 Entsprechend der genannten Berechnungsvorschrift ergibt sich eine mittlere Antwortdauer von 2393ms.
@@ -703,13 +696,6 @@ Diese Definition ist jedoch nicht verwendbar, da bei gleichzeitigen parallelen A
 Dabei verlieren die Coordinator die Verbindung zu den DataNodes.
 Aus diesem Grund wird ein Coordinator verwendet und die Anfragen erfolgen sequenziell mit den fileids aus Tabelle \ref{tbl:entrysnsamples} beginnend mit dem ersten Eintrag.
 
-%Nur einen Coordinator ansprechen und Auslastung beobachten
-% Auslastungen als Bilder in Anhang und darauf verweisen
-% nur coodinator scheint augelastet zu werden - bewerten
-
-%Bilder unteinander setzen: Auslastung, Laufzeiten
-% diese auswerten
-% auf Fehleranteil eingehen
 Dieser Lasttest hat eine durchschnittliche Laufzeit von 975s im Postgres-XL Cluster.
 Tabelle \ref{tbl:ergebnisseTest2} enthält die einzelnen Laufzeiten und die maximale und minimale Antwortzeit der Anfragen.
 Die durchschnittliche Antwortzeit wird nicht aufgeführt, da 6 Anfragen gestellt werden, der Durchschnitt somit leicht berechenbar ist, und sich die Laufzeiten der Berechnungen bis zum 20 fachen unterscheiden.
@@ -756,6 +742,38 @@ So wird etwa 1 GB verwendet, zusätzlich vom Grundwert von 610MB.
 \label{fig:auslastungTest2_gtm}
 \end{figure}
 
-%mit SQL Bordmitteln - pg_bench eventuell zusätzlich um ein paar Aussagen zum cluster overhead zu treffen
+Die Testergebnisse mit der PostgreSQL \Gls{vm} sind ähnlich zu denen mit dem Postgres-XL Cluster.
+969 Sekunden ist hier die durchschnittliche Laufzeit.
+\begin{table}[h!]
+\centering
+%\small
+\begin{tabular}{c|C{3.4cm}|C{3.4cm}|c}
+\textbf{Durchlauf} & \textbf{Maximale Antwortzeit in ms} & \textbf{Minimale Antwortzeit in ms} & \textbf{Laufzeit des Tests in s} \\ \hline
+1 & 551859 & 23890 & 966 \\ \hline
+2 & 551287 & 23919 & 966 \\ \hline
+3 & 553798 & 23897 & 967 \\ \hline
+4 & 553048 & 23981 & 968 \\ \hline
+5 & 553198 & 23950 & 969 \\ \hline 
+6 & 554308 & 23957 & 969 \\ \hline
+7 & 553516 & 23938 & 968 \\ \hline
+8 & 553376 & 23946 & 969 \\ \hline
+9 & 552566 & 23947 & 968 \\ \hline 
+10 & 553648 & 24010 & 970 \\ \hline
+11 & 556751 & 24039 & 974 \\	
+\end{tabular}
+\caption[Testergebnis Lasttest der Verarbeitung der PostgreSQL \Gls{vm}]{Testergebnis Lasttest der Verarbeitung der PostgreSQL \Gls{vm}}
+\label{tbl:ergebnisseTest2_pg}
+\end{table}
 
-%PostgreSQL System nicht vergessen!
+Ebenso ist die Auslastung der \Gls{vm} ähnlich, wie in Abbildung \ref{fig:auslastungTest2_pg} dargestellt.
+Die Auslastung der CPU liegt zwischen 30\%{} und 62\%{}.
+Pro Testdurchlauf wird etwa 150MB Arbeitsspeicher verwendet und bei Ende des Durchlaufes wieder frei gegeben.
+\begin{figure}[h!]
+\centering
+\includegraphics[width=\textwidth]{Testergebnisse/jdbc_contouring_pg_Testlauf.png}
+\caption[Auslastung der PostgreSQL \Gls{vm} im Lasttest der Verarbeitung]{Auslastung der PostgreSQL \Gls{vm} im Lasttest der Verarbeitung, 10:07-13:09 Uhr}
+\label{fig:auslastungTest2_pg}
+\end{figure}
+
+
+%mit SQL Bordmitteln - pg_bench eventuell zusätzlich um ein paar Aussagen zum cluster overhead zu treffen
