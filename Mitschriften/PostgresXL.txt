@@ -115,6 +115,7 @@ zu häufiger Neustart des Clusters führt zu fehlerhaften unänderliche Sequenze
 internal subtransactions in Funktionen nicht möglich (wenn commit oder exception handling) oder fehlerhaft
 lang laufende Funktionen führen auch zu random fehlern - neustart coordinator notwendig -> vacuum und analyze auf betroffene Tabellen auf allen Coordinators behebt es
 plr und lang dauernde FUnktionen auf allen Coordinators führt zu "Failed to send command to data nodes", "Could not begin transaction on data node", "Failed to receive more data from data node 16390"
+serial für jeden datanode bei replikation unterschiedlich
 ----------------
 remove Coordinator
 DROP NODE COORD_2;

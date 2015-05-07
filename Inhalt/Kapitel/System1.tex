@@ -246,8 +246,6 @@ Die Priorität hängt vom geschätzten Implementationsaufwand zur Behebung des F
 %Nummerierung der Testfälle?
 
 %TODO Funktionstests:
-%FT02: 3 Schläge raussuchen und bild erzeugen farmid=1038 BOX(14.0368325023265 50.8972553948787,14.0490303387537 50.9057132115426)
-%FT04: st_transform nochmal testen
 %FT05: Sandras Polygone in DB eintragen, funktionen anwenden und mit UMN zu Bildern wandeln
 
 \textbf{FT01:}\\
@@ -259,6 +257,14 @@ Die Schnittstellen sind nicht explizit zu testen, da Postgres-XL und PostgreSQL 
 Für diesen Funktionstest wird der \Gls{umn} als \Gls{fcgi} Modul und einem geeigneten Mapfile verwendet.
 Es wird ein Kartenausschnitt vom \Gls{umn} angefordert, welcher drei Schläge enthält.
 Arbeitet Postgres-XL mit dem \Gls{umn} korrekt zusammen, liegt ein Bild mit den Schlägen in Form von  grauen Polygonen als Ergebnis vor.
+Diese Schnittstelle ist nutzbar.
+Abbildung \ref{fig:3fields} ist die Rückgabe des \Gls{umn}.
+\begin{figure}[h!]
+\centering
+\includegraphics[width=.5\textwidth]{Abbildungen/3fields.png}
+\caption[Kartenausschnitt mit 3 Schlägen]{Kartenausschnitt mit 3 Schlägen}
+\label{fig:3fields}
+\end{figure}
 
 \textbf{FT03:}\\
 Da beide Systeme PostGIS 2.1.5 verwenden, sind die Austauschformate für geografische Daten identisch.
@@ -285,6 +291,58 @@ Das Ergebnis jedes Funktionsaufrufes wird gespeichert und zu einer Karte gerende
 %Sandras WKT Polygone in eigene Tabelle, dafür mapfile erzeugen, Karte erstellen, verschneiden, Karten dazu auch erstellen
 %POLYGON((-0.79904875148632581 0.11533888228299638,-0.78478002378121281 0.83115338882282985,0.39239001189060629 0.82401902497027335,0.38763376932223537 0.11533888228299638,-0.79904875148632581 0.11533888228299638))
 %POLYGON((-0.76575505350772888 -0.33412604042806182,-0.67776456599286561 -0.11533888228299649,-0.56123662306777644 0.08680142687277048,-0.40665873959571941 0.33650416171224729,-0.09988109393579081 0.41260404280618301,0.29013079667063013 0.37931034482758619,0.61593341260404277 0.39833531510107012,0.71581450653983336 0.19619500594530315,0.85612366230677739 -0.37693222354340061,0.45897740784780017 -0.56718192627824016,-0.33293697978596903 -0.46492271105826399,-0.76575505350772888 -0.33412604042806182))
+Zur Demonstration wurden zwei Schläge, in Abbildung \ref{fig:2fields} dargestellt, verwendet.
+Der Rechteckige Schlag erhält die Nummer 1 und der darüber liegende die Nummer 2.
+\begin{figure}[h!]
+\centering
+\includegraphics[width=.5\textwidth]{Abbildungen/2fields.png}
+\caption[Kartenausschnitt mit 2 überlappenden Schlägen]{Kartenausschnitt mit 2 überlappenden Schlägen}
+\label{fig:2fields}
+\end{figure}
+Das Ergebnis der Funktionen ist in den Abbildungen \ref{fig:intersects1} und \ref{fig:intersects2} abgebildet.
+Bei Difference ist das Ergebnis abhängig der Reihenfolge der Parameter.
+Die Geometrien der Schläge 1 und 2 wurden getauscht und beide Ergebnisse mit dargestellt.
+\begin{figure}[h!]
+\centering
+\begin{subfigure}{.3\textwidth}
+  \centering
+  \includegraphics[width=.7\linewidth]{Abbildungen/st_intersection.png}
+  \caption{Intersection}
+  \label{fig:sub1}
+\end{subfigure}%
+\begin{subfigure}{.3\textwidth}
+  \centering
+  \includegraphics[width=.7\linewidth]{Abbildungen/st_union.png}
+  \caption{Union}
+  \label{fig:sub2}
+\end{subfigure}
+\begin{subfigure}{.3\textwidth}
+  \centering
+  \includegraphics[width=.7\linewidth]{Abbildungen/st_symdifference.png}
+  \caption{Symmetric Difference}
+  \label{fig:sub3}
+\end{subfigure}
+\caption{Ergebnisse Verschneidungsfunktionen Intersection, Union und Symmetric Difference}
+\label{fig:intersects1}
+\end{figure}
+\begin{figure}[h!]
+\centering
+\begin{subfigure}{.5\textwidth}
+  \centering
+  \includegraphics[width=.7\linewidth]{Abbildungen/st_difference1.png}
+  \caption{Difference mit Schlag 1 zu Schlag 2}
+  \label{fig:sub4}
+\end{subfigure}%
+\begin{subfigure}{.5\textwidth}
+  \centering
+  \includegraphics[width=.7\linewidth]{Abbildungen/st_difference2.png}
+  \caption{Difference mit Schlag 2 zu Schlag 1}
+  \label{fig:sub5}
+\end{subfigure}
+\caption{Ergebnisse Verschneidungsfunktionen Difference}
+\label{fig:intersects2}
+\end{figure}
+In allen Fällen sind die Ergebnisse korrekt und DIe Funktionalität der Verschneidung bewiesen
 
 \textbf{FT06:}\\
 Dies wird im zweiten Szenario der Lasttests im nachfolgenden Abschnitt durchgeführt.
@@ -300,7 +358,7 @@ Mit diesem können alle Schläge abhängig des Userlayers räumlich gefiltert we
 So sind im Testsystem 13803 Schläge vorhanden.
 Mit der Funktion \textit{boolean ST\_{}Intersects( geometry geomA , geometry geomB );} werden mit dem begrenzenden Rechteck überlappende Schläge gefiltert.
 Dies ergibt mit dem oben genannten Rechteck 382 Schläge.
-Mit \textit{boolean ST\_{}Disjoint( geometry A , geometry B );} erhält man dagegen räumlich disjunkte Schläge.
+Mit \textit{boolean ST\_{}Disjoint( geometry A , geometry B );} erhält man dagegen räumlich disjunkte Schläge, 13421 in diesem Fall.
 %Screenshots?
 Dies soll als Beweis der Verwendbarkeit und Korrektheit der PostGIS Funktionen dienen.
 Da die PostGIS Version des Ist-Standes mit der des Testsystems übereinstimmt, kann von voller Funktionalität  ausgegangen werden.
@@ -611,7 +669,7 @@ Die Auslastung der CPU schwankt zwischen 250\%{} und 460\%{}.
 \begin{figure}[h!]
 \centering
 \includegraphics[width=\textwidth]{Testergebnisse/jdbc_aggregation_pg_Testlauf.png}
-\caption[Auslastung der PostgreSQL \Gls{vm} im ersten Lasttest]{Auslastung der PostgreSQL \Gls{vm} im Lasttest, 13:09-13:32 Uhr}
+\caption[Auslastung der PostgreSQL \Gls{vm} im Lasttest der Aggregatoin]{Auslastung der PostgreSQL \Gls{vm} im Lasttest der Aggregation, 13:09-13:32 Uhr}
 \label{fig:auslastungTest1_pg}
 \end{figure}
 
