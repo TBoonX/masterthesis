@@ -1,6 +1,11 @@
 \chapter{Fazit}
 %4-5 Seiten
-\section{Nutzwertanalyse und Zusammenfassung}
+In diesem letzten Kapitel wird das ausgewählte Framework Postgres-XL erneut einer Nutzwertanalyse unterzogen, da die vorhergehenden Kapitel neue Erkenntnisse hervorbrachten.
+Im Anschluss wird diese Arbeit zusammengefasst und die Ergebnisse dieser mit Schwerpunkt der Nutzwertanalyse für Agri~Con gewertet.
+Diese Arbeit und dieses Kapitel enden mit einem Abschnitt zum Ausblick, in welchem die zukünftige Nutzung der gewonnenen Erkenntnisse allgemein und bei Agri~Con erläutert wird.
+
+\section{Nutzwertanalyse}
+Aufbauend auf die Definition der Nutzwertanalyse in Abschnitt \ref{section:definitionnutzwertanalyse} wird diese erweitert, um die Ergebnisse aus den Tests in Kapitel \ref{chapter:tests} zu berücksichtigen.
 
 %Wertungsmaßstab ergänzen und anpassen
 \begin{table}[h!]
@@ -16,7 +21,7 @@ Modifizierbarkeit & 5
 \caption{Neuer Wertungsmaßstab der einzelnen Metriken}
 \label{table:Wertungsmassstab2}
 \end{table}
-Da Testergebnisse der Leistung vorhanden sind, wird in diesem Schritt das Zeitverhalten zusätzlich bewertet.
+Nach Erfassung der Testergebnisse der Leistung, wird in diesem Schritt das Zeitverhalten zusätzlich in einer erneuten Nutzwertanalyse bewertet.
 
 Die Interoperabilität wird weiterhin mit zwölf Punkten bzw. 100\%{} Erfüllung bewertet, da die Ergebnisse der Funktionstests beweisen, dass beide Schnittstellen verwendet werden können.
 
@@ -43,22 +48,26 @@ Das Zeitverhalten wird mit zwei gewertet.
 \small
 \begin{tabular}{l|p{1.8cm}|c|p{3.1cm}|p{1.8cm}}
 \textbf{Metrik} & \textbf{erreichter Wert} & \textbf{Erfüllung in \%} & \textbf{Kommentar} & \textbf{gewichteter Teilnutzen} \\ \hline
-Interoperabilität & 12 & 100 & Analog des Ist-Standes. &  \\ \hline
-Funktionsumfang & 53 & 87 & Mindestabdeckung erfüllt, jedoch sind Geostatistik und Versionierung nicht vorhanden. &  \\ \hline
-Dokumentation & 8 & 69 & Dokumentation zu PostGIS ist sehr gut, zu Postgres-XL grob. Mindestabdeckung ist erfüllt. &  \\ \hline
-Zeitverhalten & 2 & 67 & . &  \\ \hline
-Modifizierbarkeit & 5 & 100 & Vollständige Abdeckung vorhanden. Möglichkeiten sind in SQL gegeben. &  \\
+Interoperabilität & 12 & 100 & Analog des Ist-Standes. & 20 \\ \hline
+Funktionsumfang & 53 & 87 & Mindestabdeckung erfüllt, jedoch sind Geostatistik und Versionierung nicht vorhanden. Außerdem keine parallele Nutzung einer Funktion. & 17 \\ \hline
+Dokumentation & 8 & 69 & Dokumentation zu PostGIS ist sehr gut, zu Postgres-XL grob mit Mängeln bei fehlenden Funktionalitäten. Mindestabdeckung ist erfüllt. & 10 \\ \hline
+Zeitverhalten & 2 & 67 & Bei Nutzung aller Coordinator besseres Zeitverhalten als PostgreSQL, jedoch bestehen hohe Kosten in der Hardwareanschaffung. & 27 \\ \hline
+Modifizierbarkeit & 5 & 100 & Vollständige Abdeckung vorhanden. Möglichkeiten sind in SQL gegeben. & 5 \\
 \end{tabular}
 \caption{Neue Nutzwertanalyse von Postgres-XL}
 \label{table:nutzwertanalyse2-postgresxl}
 \end{table}
+Entsprechend Tabelle \ref{table:nutzwertanalyse2-postgresxl} ergibt sich ein Nutzwert von 79.
+
+\section{Zusammenfassung}
 
 
 \section{Wertung}
 %Ist Stand sollte nicht ersetzt werden
-%Postgres-XL ist nicht ausgereift
+%Postgres-XL ist nicht ausgereift - für standardfälle geeignet
 %Für spezielle Teilausfgaben könnte ein Framework eingeschätz und eigesetzt werden
 %Unter realen Bedingungen (wie echte Netzwerk) höhere Kosten für Anfragen
+%Docu schema für cluster geeignet
 
 \section{Ausblick}
 
@@ -67,7 +76,9 @@ Modifizierbarkeit & 5 & 100 & Vollständige Abdeckung vorhanden. Möglichkeiten 
 - verteilung der daten und query planning optimierung erneut nennen
 - distribute by wichtig
 - wenn trigger und subtransactions eingebaut sind und die Zuverlässigkeit erhöht wurde, kann der produktive EInsatz erneut validiert werden
-
+- skalierung kaum vorhanden, neuere versionen validieren
+- Kosten/Aufwand/Nutzen für Erstellung eines eigenen Clusters mit PostgreSQL Mitteln sind zu berücksichtigen
+- 
 
 
 
