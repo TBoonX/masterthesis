@@ -370,6 +370,7 @@ Da Postgres-XL internal als Transition Typ nicht unterstützt, ist die Funktione
 %Zusammenfassen!
 
 \section{Leistungstests}
+\label{section:leistungstests}
 Die hier verwendeten Leistungstests wurden in Kapitel \ref{grundlagen-funktionstests} als spezielle Tests zur Messung der Leistungsfähigkeit und Effizienz definiert.
 %Systemüberwachung
 Kapitel \ref{subsection:testfaelle} beschreibt unabhängig des Testsystems die Arten der Leistungstests.
@@ -379,7 +380,7 @@ Zusammenfassend ist das Ziel dieser Leistungstests, die spezielle Leistung gegen
 %Skalierbarkeit(T(1)/T(p))/Effizienz(S(p)/p)
 Es wird von einer höheren Leistung, abhängig der Anzahl der verwendeten Knoten, bei der Aggregation und der Verarbeitung im Gegensatz zum Ist-Stand ausgegangen.
 Zwar ist bei Postgres-XL die Verarbeitung lokaler Anfragen mit mehr administrativen Aufwand verbunden  wird somit langsamer gegenüber einer PostgreSQL Instanz bearbeitet, jedoch stehen mehrere Zugriffspunkte auf exklusiven Hardwaresystemen zur Verfügung.
-Der Faktor der Beschleunigung der Abarbeitung einer festgelegten Menge von gleichzeitigen Abfragen abhängig der Anzahl der Knoten ist zu ermitteln.%Wenn Skalierbarkeit weg, dann auch anzahl der knoten weglassen
+%Der Faktor der Beschleunigung der Abarbeitung einer festgelegten Menge von gleichzeitigen Abfragen abhängig der Anzahl der Knoten ist zu ermitteln.%Wenn Skalierbarkeit weg, dann auch anzahl der knoten weglassen
 
 %gleichmäßige Beeinflussung durch Zabbix nennen
 Analog des Testaufbaus der Bachelor Arbeit des Autors\footnote{\cite{ba:kurt}} wird zur Generierung der Last das freie Java Programm JMeter verwendet, welches mehrere vorbereitete Anfragen parallel und verschränkt erzeugt sowie eine Auswertung der Laufzeiten zur Verfügung stellt.
@@ -473,6 +474,7 @@ Dabei sind Techniken zur Lastverteilung oder auf gleiche Belastung aller Element
 Die Tests mit dem Testsystem zeigten Fehleranfälligkeiten der Verbindungen zwischen den Elementen des Clusters, weshalb auf empirische Ermittlung der Skalierbarkeit von Postgres-XL im Cluster abgesehen wird.
 Jedoch wird die theoretische Vorgehensweise für das Entfernen von Instanzen gegeben.
 Das Hinzufügen von Instanzen erfolgt analog mit kleinen Änderungen.
+Die Vorgehensweise stammt von der Postgres-XL Dokumentation\footnote{\url{http://files.postgres-xl.org/documentation/index.html}}.
 \begin{description}
 \item[Coordinator] Eine Verbindung mit einem anderen Coordinator herstellen und darin \verb+DROP NODE coordinatorname;+ und \verb+SELECT pgxc_pool_reload();+ ausführen.
 \item[DataNode] Mit beliebigen Coordinator verbinden und für jede Relation, welche auf die zu löschende DataNode verteilt ist, \verb+ALTER TABLE tablename DELETE NODE+\\\verb+(datanodename);+ ausführen. Betroffene Relationen können mit \verb+SELECT+\\\verb+c.pcrelid FROM pgxc_class c, pgxc_node n WHERE n.node_name =+\\\verb+'datanodename' AND n.oid = ANY (c.nodeoids);+ ermittelt werden. Das Tool \verb+pgxc_ctl+ starten und darin \verb+stop datanode datanodename+ ausführen. Auf jedem Coordinator \verb+DROP NODE datanodename;+ und \verb+SELECT+\\\verb+pgxc_pool_reload();+ ausführen.
@@ -508,7 +510,7 @@ Der JMeter Lasttest ist wie folgt geplant:
 Pro Coordinator werden drei Threads erzeugt, welche je fünf Wiederholungen folgender Abfragen durchführen:
 Fünf der sechs fileids\footnote{Jeder Coordinator verwendet andere fünf fileids, sodass alle fünf mal verwendet werden.} werden für die beschriebene Anfrage verwendet und die Ergebnisse in den Arbeitsspeicher geladen.
 
-Vor Ausführung des Tests ist der Query Plan der Aggregation zu untersuchen.
+Vor Ausführung des Tests ist der Query Plan der Aggregation zu untersuchen.\\
 \verb+Explain Verbose Select+ liefert für die fileid 44982 folgenden Query Plan:
 \begin{lstlisting}[language=sql,caption={Explain Verbose Ergebnis eines Coordinator}]
 Remote Subquery Scan on all (datanode4)
@@ -800,8 +802,7 @@ So wird etwa 1 GB verwendet, zusätzlich vom Grundwert von 610MB.
 \label{fig:auslastungTest2_gtm}
 \end{figure}
 
-Die Testergebnisse mit der PostgreSQL \Gls{vm} sind ähnlich zu denen mit dem Postgres-XL Cluster.
-969 Sekunden ist hier die durchschnittliche Laufzeit.
+Das Testergebnis mit der PostgreSQL \Gls{vm} ist 969 Sekunden als durchschnittliche Laufzeit.
 \begin{table}[h!]
 \centering
 %\small
@@ -823,8 +824,8 @@ Die Testergebnisse mit der PostgreSQL \Gls{vm} sind ähnlich zu denen mit dem Po
 \label{tbl:ergebnisseTest2_pg}
 \end{table}
 
-Ebenso ist die Auslastung der \Gls{vm} ähnlich, wie in Abbildung \ref{fig:auslastungTest2_pg} dargestellt.
-Die Auslastung der CPU liegt zwischen 30\%{} und 62\%{}.
+Die Auslastung der \Gls{vm} ist ähnlich, wie in Abbildung \ref{fig:auslastungTest2_pg} dargestellt.
+Dabei liegt die Auslastung der CPU zwischen 30\%{} und 62\%{}.
 Pro Testdurchlauf wird etwa 150MB Arbeitsspeicher verwendet und bei Ende des Durchlaufes wieder frei gegeben.
 \begin{figure}[h!]
 \centering
@@ -835,3 +836,63 @@ Pro Testdurchlauf wird etwa 150MB Arbeitsspeicher verwendet und bei Ende des Dur
 
 
 %mit SQL Bordmitteln - pg_bench eventuell zusätzlich um ein paar Aussagen zum cluster overhead zu treffen
+
+
+\subsection{Zusammenfassung}
+\label{subsection:leistungstests:summary}
+Nach der Definition der Leistungsmessung und der Testszenarien erfolgte die Durchführung dieser mit anschließender Wiedergabe der Messergebnisse.
+Als Testsystem kam ein Postgres-XL Cluster mit zwölf DataNodes, sechs Coordinator, sechs GTM Proxys und einem GTM sowie eine PostgreSQL Installation zum Einsatz.
+Diese zwei Systeme werden gegenüber gestellt.
+
+Tabelle \ref{tbl:verglergebnisse} stellt die durchschnittlichen Antwortzeiten der beiden Systeme für die Aggregation mit SQL und die Aggregation mit dem \Gls{umn} gegenüber.
+Bezüglich der Aggregation mit SQL Abfragen besteht ein Unterschied von 0,7 Sekunden.
+Ebenso ist die Antwortzeit bei der Aggregation über den \Gls{umn} mit Postgres-XL um 0,2 Sekunden kürzer.
+Postgres-XL besitzt somit bei sechsfacher Hardwareausstattung 16\%{} bzw. 8\%{} mehr Leistung bezüglich der Aggregation.
+\begin{table}[h!]
+\centering
+%\small
+\begin{tabular}{c|c|C{4cm}}
+\textbf{Durchschnittliche Antwortzeit} & \textbf{Aggregation} & \textbf{Aggregation mit Kartendarstellung} \\ \hline
+\textbf{Postgres-XL} & 3,6s & 2,4s \\ \hline
+\textbf{PostgreSQL} & 4,3s & 2,6s \\	
+\end{tabular}
+\caption[Vergleich der Testergebnisse]{Vergleich der Testergebnisse}
+\label{tbl:verglergebnisse}
+\end{table}
+
+Die Auslastung des Arbeitsspeichers beträgt auf beiden System bei allen Testdurchläufen maximal 180MB pro \Gls{vm}, was 3\%{} des verfügbaren Arbeitsspeichers darstellt.
+Diese geringe Auslastung ist positiv zu bewerten und wird nicht als Vergleichskriterium verwendet.
+
+\begin{table}[h!]
+\centering
+%\small
+\begin{tabular}{C{3.4cm}|c|C{3.6cm}|c}
+\textbf{Mittlere CPU Auslastung} & \textbf{Aggregation} & \textbf{Aggregation mit Kartendarstellung} & \textbf{Verarbeitung} \\ \hline
+\textbf{Postgres-XL} & 0,2 & 0,1 & 0,5 \\ \hline
+\textbf{PostgreSQL} & 3,6 & 0,4 & 0,5 \\	
+\end{tabular}
+\caption[Vergleich der CPU Auslastung]{Vergleich der CPU Auslastung, GTM \Gls{vm} nicht berücksichtigt}
+\label{tbl:verglcpu}
+\end{table}
+Die Auslastung der CPU ist in Tabelle \ref{tbl:verglcpu} aufgeführt.
+Entsprechend den abgebildeten Graphen wurden die Werte der CPU Auslastung gemittelt.
+Die Mittlung fand je Graph statt. Bei Postgres-XL wurden aus sechs gemittelten Werte ein Durchschnittswert erzeugt.
+
+
+Die Verarbeitungsleistung konnte bei Postgres-XL nur mit einem Coordinator gemessen werden.
+Aus diesem Grund ist unterscheidet sich die Laufzeit eines Testlaufes nicht relevant zwischen den Systemen.
+975 Sekunden zu 969 Sekunden beträgt 99\%{} zu 100\%{} Leistung, entsprechend Tabelle \ref{tbl:verglergebnisse2}.
+\begin{table}[h!]
+\centering
+%\small
+\begin{tabular}{c|c}
+ & \textbf{Durchschnittliche Laufzeit} \\ \hline
+\textbf{Postgres-XL} & 975s \\ \hline
+\textbf{PostgreSQL} & 969s \\	
+\end{tabular}
+\caption[Vergleich der Testergebnisse der Verarbeitung]{Vergleich der Testergebnisse der Verarbeitung}
+\label{tbl:verglergebnisse2}
+\end{table}
+
+Die erwartete Steigerung der Leistung gegenüber PostgreSQL konnte nicht bewiesen werden.
+Zwar ist die Laufzeit bei Nutzung aller Coordinator höher als bei Verwendung einer PostgreSQL Instanz, aber nicht so hoch, dass sich ein sechsfacher Hardwareaufwand lohnt.

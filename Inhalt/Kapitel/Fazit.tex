@@ -1,10 +1,57 @@
 \chapter{Fazit}
 %4-5 Seiten
 \section{Nutzwertanalyse und Zusammenfassung}
+
 %Wertungsmaßstab ergänzen und anpassen
-%Änderung der Bewertung aufführen
-%Neue Wertungen erläutern
-%Wieder große Tabelle mit Nutzwert
+\begin{table}[h!]
+\centering
+\begin{tabular}{l|l}
+\textbf{Metrik} & \textbf{Gewichtung in \%} \\ \hline
+Interoperabilität & 20 \\ \hline
+Funktionsumfang & 20 \\ \hline
+Dokumentation & 15 \\ \hline
+Zeitverhalten & 40 \\ \hline
+Modifizierbarkeit & 5
+\end{tabular}
+\caption{Neuer Wertungsmaßstab der einzelnen Metriken}
+\label{table:Wertungsmassstab2}
+\end{table}
+Da Testergebnisse der Leistung vorhanden sind, wird in diesem Schritt das Zeitverhalten zusätzlich bewertet.
+
+Die Interoperabilität wird weiterhin mit zwölf Punkten bzw. 100\%{} Erfüllung bewertet, da die Ergebnisse der Funktionstests beweisen, dass beide Schnittstellen verwendet werden können.
+
+Die Erkenntnisse, welche durch die Durchführung der Funktions- und Leistungstests entstanden sind, bedingen eine Änderung der Punkte für den Funktionsumfang.
+Verschneidungsfunktionen sind wie in FT05 gezeigt vorhanden und einsetzbar, weshalb der Wert dafür auf vier erhöht wird.
+Vermindert wird dagegen der Wert der Parallelität auf eins, da Funktionen des Lasttestes der Verarbeitung nicht gleichzeitig genutzt werden konnten.
+Dies ergibt einen Wert von 53.
+%Funktionsumfang muss schlechter bewertet werden, da wichtige Funktionen eines DBMS nicht vorhanden sind. Dies ist abe rnicht in der Nutzwertanalyse berücksichtigt.
+
+Der Wert der Dokumentation wird um eins auf acht vermindert, da fehlender Funktionsumfang schlecht oder gar nicht dokumentiert ist.
+Dies ist aber eine wesentliche Information für die Auswahl und Verwendung eines Frameworks.
+Funktionsumfang in Dokumentation wird so mit 1 bewertet.
+
+Hinsichtlich der Modifizierbarkeit gab es keine Erkenntnisse, somit ändert sich dessen Bewertung nicht.
+
+Das Zeitverhalten wurde mit den Lasttests in Kapitel \ref{section:leistungstests} ermittelt.
+Die Laufzeit der Aggregation mit Postgres-XL liegt unter der mit PostgreSQL.
+Dagegen ist die Verarbeitungsleistung gleich.
+Entsprechend der Bewertungsfunktion auf Seite \pageref{bf:zeitverhalten} ergibt das die Bewertung drei und eins.
+Das Zeitverhalten wird mit zwei gewertet.
+
+\begin{table}[h!]
+\centering
+\small
+\begin{tabular}{l|p{1.8cm}|c|p{3.1cm}|p{1.8cm}}
+\textbf{Metrik} & \textbf{erreichter Wert} & \textbf{Erfüllung in \%} & \textbf{Kommentar} & \textbf{gewichteter Teilnutzen} \\ \hline
+Interoperabilität & 12 & 100 & Analog des Ist-Standes. &  \\ \hline
+Funktionsumfang & 53 & 87 & Mindestabdeckung erfüllt, jedoch sind Geostatistik und Versionierung nicht vorhanden. &  \\ \hline
+Dokumentation & 8 & 69 & Dokumentation zu PostGIS ist sehr gut, zu Postgres-XL grob. Mindestabdeckung ist erfüllt. &  \\ \hline
+Zeitverhalten & 2 & 67 & . &  \\ \hline
+Modifizierbarkeit & 5 & 100 & Vollständige Abdeckung vorhanden. Möglichkeiten sind in SQL gegeben. &  \\
+\end{tabular}
+\caption{Neue Nutzwertanalyse von Postgres-XL}
+\label{table:nutzwertanalyse2-postgresxl}
+\end{table}
 
 
 \section{Wertung}
