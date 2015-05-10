@@ -60,7 +60,46 @@ Modifizierbarkeit & 5 & 100 & Vollständige Abdeckung vorhanden. Möglichkeiten 
 Entsprechend Tabelle \ref{table:nutzwertanalyse2-postgresxl} ergibt sich ein Nutzwert von 79.
 
 \section{Zusammenfassung}
+Die \titel{} am Beispiel des aktuellen Standes bei Agri~Con wird in diesem Abschnitt zusammengefasst.
 
+Diese Arbeit begann mit den Grundlagen, welche für das Verständnis der darauf folgenden Ausführungen und das angewandte Vorgehen notwendig zu klären sind.
+Dazu zählen Begriffe zu \Gls{dbms}, räumliche Datenverarbeitung und Alternativen zum relationalen Datenbankmodell.
+Darin wurden im dritten Abschnitt Frameworks vorgestellt, welche in den anderen Kapiteln relevant sind.
+Dazu zählt Postgres-XL, Rasdaman und GeoMesa.
+
+Nach Sicherstellung der theoretischen Grundlagen folgte in Kapitel \ref{chapter:methodik} die Darlegung und Begründung der Methodik dieser Arbeit.
+Diese Darlegung fand anhand einer Unterteilung des Themas in vier Unteraufgaben statt.
+Dabei waren die Vorgehen zur Softwareauswahl und Leistungsbestimmung Schwerpunkte.
+Es wurde die Nutzwertanalyse und Funktions- sowie Leistungstests als geeignete Mittel heraus gearbeitet.
+
+Kapitel \ref{chapter:ausgangsszenario} legte dar, worauf und wie diese Methodik angewandt wird.
+Das heißt, dass der Anwendungsfall mit Anforderungen festgelegt wurde.
+%Dabei war Softwarequalität das Mittel 
+Die Anforderungen wurden wissenschaftlich in Form von Softwarequalität festgehalten und mit Qualitätsmetriken messbar gemacht.
+Die Softwarequalität wurde umfassend beschrieben und für die Untersuchung relevante Kriterien heraus gearbeitet.
+Außerdem wurden Funktions- und Lasttests für den Anwendungsfall skizziert.
+Das Kapitel endet mit einer Übersicht über relevante Literatur zum Thema dieser Arbeit.
+Darin wird deutlich, dass keine thematisch vergleichbare Arbeit existiert und Teilprobleme in anderen Arbeiten zu finden sind.
+
+Die erste Hälfte der Aufgabenstellung wird im Kapitel \ref{chapter:systemauswahl} gelöst.
+Nach Definition der Nutzwertanalyse wurden Frameworks an Hand ihrer Spezifikation und der Nutzwertanalyse bewertet und Postgres-XL mit einem Nutzwert von 86 als geeignet ausgewählt.
+Die Frameworks GeoMesa und Rasdaman erhielten dabei die Wertung 56 bzw. 51.
+
+Postgres-XL erfuhr im darauf folgenden Kapitel eine Untersuchung hinsichtlich der allgemeinen Verwendung und der Möglichkeiten für den Einsatz bei Agri~Con.
+So wurde das Vorgehen der Installation, die Nutzung der Schnittstellen und die Möglichkeiten der Verarbeitung erörtert, wobei die Schnittstellen und die Verwendung analog zu den Schnittstellen und der Verwendung von PostgreSQL sind.
+Der Einsatz bei Agri~Con wurde heraus gearbeitet und eine tief greifende Integration in den ist-Stand als notwendig ermittelt.
+Doch auf Grund von fehlender Funktionalität ist die Integration von Postgres-XL im Rahmen dieser Arbeit nicht möglich.
+Für das weitere Vorgehen wurde die Anpassung des Ist-Standes an Postgres-XL für die Untersuchung mit Funktions- und Leistungstests beschrieben.
+
+Kapitel \ref{chapter:tests} enthält die Definition der Testumgebung sowie die Definition und die Ergebnisse der Funktions- und Leistungstests.
+Als Testumgebung diente ein IBM Server, auf welchem mit virtualisierten Maschinen Postgres-XL und PostgreSQL installiert und miteinander vergleichbar konfiguriert wurden.
+Die Funktionstests validierten die Funktionalität von Postgres-XL, wobei einzig der Test FT06 fehlschlug, da Speicher Befehle in SQL Funktionen Fehler verursachten und mit R berechneten Werte nicht validiert werden konnten.
+Die Leistungsfähigkeit bezüglich der Aggregation und Verarbeitung von Daten wurde mit den Leistungstests ermittelt.
+Diese Ermittlung fand mit Postgres-XL und PostgreSQL statt, um relative Aussagen treffen zu können.
+In der Präambel fand eine Auseinandersetzung mit den Begriffen Leistung, Lastmessung, Auswertung, Datenverteilung und Verbesserungen in Postgres-XL, Lastverteilung und Skalierung statt.
+Eine Zusammenfassung der Testergebnisse ergab geringere Laufzeiten von bis zu 16\%{} bezüglich der Aggregation mit Postgres-XL.
+Die Verarbeitungsleistung unterscheidet sich um 1\%{}.
+Diese Steigerung ging mit sechsfachen Hardwareaufwand einher.
 
 \section{Wertung}
 %Ist Stand sollte nicht ersetzt werden
