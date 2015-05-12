@@ -104,21 +104,56 @@ Diese Steigerung ging mit sechsfachen Hardwareaufwand einher.
 \section{Wertung}
 %Ist Stand sollte nicht ersetzt werden
 %Postgres-XL ist nicht ausgereift - für standardfälle geeignet
-%Für spezielle Teilausfgaben könnte ein Framework eingeschätz und eigesetzt werden
+%- verteilung der daten und query planning optimierung erneut nennen
+%- distribute by wichtig
+%- skalierung kaum vorhanden, neuere versionen validieren
 %Unter realen Bedingungen (wie echte Netzwerk) höhere Kosten für Anfragen
+%Für spezielle Teilausfgaben könnte ein Framework eingeschätz und eigesetzt werden
 %Docu schema für cluster geeignet
 
+Die Definition der Anforderungen kann für zukünftige Validierungen des Ist-Standes und zu analysierender Frameworks verwendet werden.
+Lücken der Funktionalität in Postgres-XL bedingen Ergänzungen der Anforderungen bezüglich allgemeiner Funktionen von \Gls{dbms} zur umfassenden Bewertung eines Frameworks.
+So ist Ordnungsmäßigkeit gesondert zu bewerten.
+Die Berücksichtigung dieses Qualitätskriteriums hat eine Verminderung des Nutzwertes von Postgres-XL zur Folge.
+
+Die in der Literaturrecherche aufgedeckte Lücke an wissenschaftlichen Dokumenten zu diesem Thema ist negativ zu bewerten.
+Diese Arbeit schließt diese Lücke nicht, da die Untersuchung für ein Anwendungsszenario und nicht allgemein stattfand, da als Grundlage zur Softwareauswahl eine unbestätigte Liste an relevanten Frameworks verwendet wurde und da die Leistungstests die Skalierbarkeit nicht ausreichend bestimmten, um  die Skalierbarkeit für andere Knotenzahlen zu schätzen.
+
+Die Übersicht und Bewertung der wichtigsten verteilten \Gls{gis} ist trotz fehlender Validierung von allgemeinem Interesse und zukünftig zu aktualisieren.
+%Wer validiert eine solche liste?
+
+Die durch eine genauere Untersuchung aufgedeckten Lücken in der Funktionalität von Postgres-XL sprechen gegen einen produktiven Einsatz des Frameworks im zu Grunde gelegten Anwendungsfall.
+Es ist in der verwendeten Version 9.2.34 nicht ausgereift.
+Darin werden keine Trigger und Sub-Transaktionen unterstützt, der Transaktionstyp internal ist in Prozeduren nicht verwendbar, Sequenzen unterscheiden sich auch bei Verteilung einer Tabelle per Replikation und die Verwendung von R Funktionen ist problematisch.
+Lagert man die virtuellen Maschinen auf eigenständige physische Maschinen aus, muss mit zu berücksichtigenden Kosten für den Netzwerkverkehr und höherer Lese - und Schreibgeschwindigkeit des Festspeichers pro Knoten gerechnet werden.
+In beiden Fällen ist der Leistungsgewinn durch Einsatz eines Clusters zu gering, als das sich ein sechsfacher Hardwareaufwand lohnt.
+Ein Nutzen ergibt sich mit Postgres-XL, wenn Daten in wenigen Relationen verteilt gespeichert und gelesen werden müssen.
+Besonders bei Datenmengen, welche die Größe von Festplatten übersteigen.
+Bei Agri~Con wäre der Bereich Docu dafür geeignet.
+So könnten alle Positionsdaten der Maschinen aller Betriebe unveränderlich abgelegt und mit kurzen Laufzeiten aggregiert werden.
+
+Für Agri~Con ist das Ergebnis, dass der Ist Stand mit der eingesetzten Technologie für diese umfangreichen Anforderungen am besten geeignet ist, sofern kostenlose Frameworks berücksichtigt werden.
+Änderungen am Datenbankschema, an den Kostenwerten der Funktionen, an der Konfiguration des Query Planers und den Datenbank nahen Anwendungen erhöhen die Leistungsfähigkeit der PostgreSQL Installation um gewünschte Verminderungen im Laufzeitverhalten zu erwirken.
+Der Einsatz von anderen Frameworks ist dagegen für Teilaufgaben sinnvoll.
+Beispielsweise würde sich Rasdaman bei wesentlicher Nutzung von Rasterdaten, welche unabhängig vom Datenbankschema sind, zur Speicherung, Verarbeitung und Bereitstellung eignen.
+
+
 \section{Ausblick}
+%- wenn trigger und subtransactions eingebaut sind und die Zuverlässigkeit erhöht wurde, kann der produktive EInsatz erneut validiert werden
+%- auch Bezug auf Verarbeitung von ganzen Länderdaten mit dem System(en)
+%- Darstellung als wichtige Komponente: Möglichkeiten und Performanz
+%- Kosten/Aufwand/Nutzen für Erstellung eines eigenen Clusters mit PostgreSQL Mitteln sind zu berücksichtigen
+%- zu geeigneten zeitpunkt erneute analyse relevanter frameworks
+%- ist stand sollte optimiert werden
 
-- auch Bezug auf Verarbeitung von ganzen Länderdaten mit dem System(en)
-- Darstellung als wichtige Komponente: Möglichkeiten und Performanz
-- verteilung der daten und query planning optimierung erneut nennen
-- distribute by wichtig
-- wenn trigger und subtransactions eingebaut sind und die Zuverlässigkeit erhöht wurde, kann der produktive EInsatz erneut validiert werden
-- skalierung kaum vorhanden, neuere versionen validieren
-- Kosten/Aufwand/Nutzen für Erstellung eines eigenen Clusters mit PostgreSQL Mitteln sind zu berücksichtigen
-- 
+Agri~Con wird Änderung an der PostgreSQL Installation vornehmen, um die gewünschten Effekte zu erzielen.
+Die in dieser Arbeit durchgeführte Untersuchung wird mittelfristig nicht erneut durchgeführt.
+Bei Änderung des Szenarios werden Untersuchungen spezieller Frameworks für diese Änderungen durchgeführt.
 
+Werden sich die Anforderungen bezüglich des Zeitverhaltens erhöhen, ist momentan die Erstellung eines Clusters mit PostgreSQL Instanzen das gewünschte Vorgehen.
+Dabei wird das Datenbankschema aufgeteilt und in zwei PostgreSQL Instanzen integriert.
+Es wird von einer annähernden Verdopplung der Leistungsfähigkeit ausgegangen.
+Neben der Veränderung des Schemas sind umfangreiche Änderungen in Programmen der Agri~Con durchzuführen.
 
 
 \label{LastPage}
