@@ -137,6 +137,7 @@ Dabei wurden interne Transaktionen und inserts aus den verwendeten Funktionen en
 Das Vorgehen zur Erstellung dieses Aufbaus war zusammengefasst folgender:
 Postgres-XL auf sieben VMs installiert, eine Konfigurationsdatei für \verb+pgxc_ctl+ erstellt, den Cluster mit \verb+pgxc_ctl+ erzeugt, eine Datenbank mit dem Namen agrodb erzeugt, darin die Erweiterungen plr, dblink und PostGIS installiert, das Datenbankschema mit Funktionen angepasst, das Datenbankschema und Hilfsfunktionen eingespielt und die Daten mit dblink für ausgewählte Betriebe übernommen.
 Die Schritte sind mit entsprechender Zeitschätzung in Abbildung \ref{fig:getan} zu finden.
+\newpage
 \begin{figure}[h!]
 \centering
 \includegraphics[width=.8\textwidth]{Abbildungen/gantt_done_cropped.pdf}
@@ -265,7 +266,7 @@ Abbildung \ref{fig:3fields} ist die Rückgabe des \Gls{umn}.
 \caption[Kartenausschnitt mit 3 Schlägen]{Kartenausschnitt mit 3 Schlägen}
 \label{fig:3fields}
 \end{figure}
-
+\newpage
 \textbf{FT03:}\\
 Da beide Systeme PostGIS 2.1.5 verwenden, sind die Austauschformate für geografische Daten identisch.
 Der Beweis stellt die erfolgte Übernahme der Daten des Ist-Standes dar.
@@ -859,10 +860,10 @@ Postgres-XL besitzt somit bei sechsfacher Hardwareausstattung 16\%{} bzw. 8\%{} 
 \caption[Vergleich der Testergebnisse]{Vergleich der Testergebnisse}
 \label{tbl:verglergebnisse}
 \end{table}
-
+%
 Die Auslastung des Arbeitsspeichers beträgt auf beiden System bei allen Testdurchläufen maximal 180MB pro \Gls{vm}, was 3\%{} des verfügbaren Arbeitsspeichers darstellt.
 Diese geringe Auslastung ist positiv zu bewerten und wird nicht als Vergleichskriterium verwendet.
-
+%
 \begin{table}[h!]
 \centering
 %\small
