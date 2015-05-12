@@ -220,6 +220,7 @@ Zur Überwachung der Auslastung der einzelnen \Gls{vm}s bietet VMware mit vSpher
 Diese Graphen besitzen als zeitliche Achse einen beliebigen Bereich bis zum momentanen Zeitpunkt.
 Damit sind historische Daten für einzelne \Gls{vm}s und ausgewählte Zeiträume nicht darstellbar.
 Deshalb wird zur Überwachung Zabbix eingesetzt.
+
 Zabbix ist ein freies Framework zur Überwachung von Computern und Netzwerken.
 Auf einem Zabbix Server werden Daten zentral von beliebigen Zabbix Clients empfangen.
 Dabei sind die Art der zu überwachenden Daten beliebig, standardmäßig wird die Systemauslastung und allgemeine Daten zum jeweiligen System an den Server gesendet.
@@ -266,7 +267,7 @@ Abbildung \ref{fig:3fields} ist die Rückgabe des \Gls{umn}.
 \caption[Kartenausschnitt mit 3 Schlägen]{Kartenausschnitt mit 3 Schlägen}
 \label{fig:3fields}
 \end{figure}
-\newpage
+
 \textbf{FT03:}\\
 Da beide Systeme PostGIS 2.1.5 verwenden, sind die Austauschformate für geografische Daten identisch.
 Der Beweis stellt die erfolgte Übernahme der Daten des Ist-Standes dar.
@@ -380,7 +381,7 @@ Zusammenfassend ist das Ziel dieser Leistungstests, die spezielle Leistung gegen
 %und die Skalierbarkeit von Postgres-XL zu ermitteln.
 %Skalierbarkeit(T(1)/T(p))/Effizienz(S(p)/p)
 Es wird von einer höheren Leistung, abhängig der Anzahl der verwendeten Knoten, bei der Aggregation und der Verarbeitung im Gegensatz zum Ist-Stand ausgegangen.
-Zwar ist bei Postgres-XL die Verarbeitung lokaler Anfragen mit mehr administrativen Aufwand verbunden  wird somit langsamer gegenüber einer PostgreSQL Instanz bearbeitet, jedoch stehen mehrere Zugriffspunkte auf exklusiven Hardwaresystemen zur Verfügung.
+Zwar ist bei Postgres-XL die Verarbeitung lokaler Anfragen mit mehr administrativen Aufwand verbunden,  wird somit langsamer gegenüber einer PostgreSQL Instanz bearbeitet, jedoch stehen mehrere Zugriffspunkte auf exklusiven Hardwaresystemen zur Verfügung.
 %Der Faktor der Beschleunigung der Abarbeitung einer festgelegten Menge von gleichzeitigen Abfragen abhängig der Anzahl der Knoten ist zu ermitteln.%Wenn Skalierbarkeit weg, dann auch anzahl der knoten weglassen
 
 %gleichmäßige Beeinflussung durch Zabbix nennen
@@ -468,8 +469,9 @@ Auf Grund von sequenziellen Anteilen in Subalgorithmen und Mehrkosten für Kommu
 Die Teilung des Wertes der Skalierung durch die Anzahl der Knoten ergibt die Effizienz.
 Dieser Wert beurteilt die Skalierung.
 Eine Effizienz von eins ist bei verteilt arbeitenden Systemen ein Zielwert.
-Da die Skalierung wie benannt begrenzt ist, befindet sich die Effizienz in realen Szenarios unter eins.\\
-Diese Bewertung wird auch auf verteilt arbeitende Systeme angewandt.
+Da die Skalierung wie benannt begrenzt ist, befindet sich die Effizienz in realen Szenarios unter eins.
+
+Diese Bewertung der Skalierung wird auch auf verteilt arbeitende Systeme angewandt.
 Für Postgres-XL ist die Anzahl an Knoten, welche Coordinator und DataNode Instanzen sowie eine GTM Proxy Instanz besitzen, zu ändern und die Differenz der Laufzeiten des unveränderten und geänderten Clusters zu messen.
 Dabei sind Techniken zur Lastverteilung oder auf gleiche Belastung aller Elemente des Clusters gerichtete Funktionen zu verwenden.
 Die Tests mit dem Testsystem zeigten Fehleranfälligkeiten der Verbindungen zwischen den Elementen des Clusters, weshalb auf empirische Ermittlung der Skalierbarkeit von Postgres-XL im Cluster abgesehen wird.
@@ -838,7 +840,7 @@ Pro Testdurchlauf wird etwa 150MB Arbeitsspeicher verwendet und bei Ende des Dur
 
 %mit SQL Bordmitteln - pg_bench eventuell zusätzlich um ein paar Aussagen zum cluster overhead zu treffen
 
-
+\newpage
 \subsection{Zusammenfassung}
 \label{subsection:leistungstests:summary}
 Nach der Definition der Leistungsmessung und der Testszenarien erfolgte die Durchführung dieser mit anschließender Wiedergabe der Messergebnisse.

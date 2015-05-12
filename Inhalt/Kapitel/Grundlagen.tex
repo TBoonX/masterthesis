@@ -292,7 +292,8 @@ Das \Gls{hdfs} ist ein verteiltes Dateisystem, welches keine besonderen Anforder
 Die in einem verteilten System teilnehmenden Computer heißen Knoten.
 Es besitzt eine hohe Fehlertoleranz und ist für den Einsatz auf kostengünstiger Hardware ausgelegt.
 Hoher Datendurchsatz und die Verwendung großer Dateien\footnote{eine Datei kann mehrere Gigabyte bis mehrere Terrabyte groß sein und wird in Blöcke gleicher Länge aufgeteilt} sind wesentliche Merkmale.(vgl. \cite[S.3]{paper:hadoop})
-Die Datei-Blöcke werden redundant auf die Knoten verteilt und sind mit Hilfe des Name-Node abrufbar.(vgl. \cite[S.7]{ba:dan})\\
+Die Datei-Blöcke werden redundant auf die Knoten verteilt und sind mit Hilfe des Name-Node abrufbar.(vgl. \cite[S.7]{ba:dan})
+
 Die verteilte Verarbeitung übernimmt MapReduce.
 Entsprechend dem Namen entspringt der Name MapReduce aus der funktionalen Programmierung, in welcher die Funktionen \glqq map\grqq \ und \glqq reduce\grqq \ zum Einsatz kommen.
 So werden hier die Daten mit einer map-Funktion modifiziert gesammelt und mit reduce-Funktion aggregiert.
@@ -310,8 +311,8 @@ Auch hier werden keine besonderen Anforderungen an die Hardware gestellt.(vgl. \
 \end{figure}
 Hadoop besitzt eine Master-Slave Architektur, wobei der Name-Node\footnote{damit ist der Master-Knoten gemeint, auch Jobtracker genannt} ankommende Anfragen bearbeitet und die Slave-Knoten organisiert.
 Hadoop ist per API verwendbar und bietet sich somit zur Stapelverarbeitung an. %Todo: belegen
-Es wird meist nur als Grundgerüst verwendet und mit Datenbanken wie HBase, MongoDB oder PostgreSQL sowie mit Frameworks für die Nutzung wie Hive, \Gls{pig}, \Gls{spark} oder Scalding erweitert.\\
-%
+Es wird meist nur als Grundgerüst verwendet und mit Datenbanken wie HBase, MongoDB oder PostgreSQL sowie mit Frameworks für die Nutzung wie Hive, \Gls{pig}, \Gls{spark} oder Scalding erweitert.
+
 Gegenüber der Möglichkeit auf unterschiedlicher Hardware direkt und gleichzeitig mit Terrabyte großen Daten zu arbeiten, steht die Kritik das MapReduce eine hohe IO auf Festplatten der einzelnen Systeme erzeugt, da alle Zwischenergebnisse auf den Festplatten abgelegt und anschließend gelesen werden.
 
 \subsection{ZooKeeper}
@@ -355,13 +356,15 @@ GeoMesa ist eine unter Apache License Version 2.0 stehende geografische Datenban
 Dieses Framework ist in \Gls{scala} geschrieben.
 Es erweitert Accumulo\footnote{siehe \ref{accumulo}}, unterstützt die GeoTools API und bietet ein Plugin für den Mapserver \Gls{geoserver} an.
 Die Daten werden nach Geohash %\footnote{siehe \ref{geohash}}
-verwaltet. (vgl. \cite{website:geomesaeclipse})\\
+verwaltet. (vgl. \cite{website:geomesaeclipse})
+
 GeoMesa wird in Verbindung mit stream processing\footnote{bspw. Spark oder Storm} und batch processing\footnote{bspw. Pig oder Cascading} verwendet.
 Zur räumlichen Datenverarbeitung werden Scala Bibliotheken wie \Gls{jts} und GeoTools eingesetzt.
 Vorrangig werden Vektordaten von GeoMesa verarbeitet, durch eine optionale Erweiterung sind auch Rasterdaten verwendbar.
 Datenimport wird ingest genannt, erfolgt über die Kommandazeile und unterstützt die Datenformate CSV, TSV und SHP.
 CSV, TSV, Shapefile, GeoJSON, and GML können dagegen über den selben Weg exportiert werden.
 Weiterhin erfolgt der Datenexport und -import über Scala.
+
 GeoMesa ist gedacht, um initial große Datenmengen per Ingest zu laden und diese anschließend mit Frameworks zur verteilten Datenverarbeitung wie Spark und dafür vorgesehenen Bibliotheken zu verarbeiten.
 %\url{https://www.locationtech.org/proposals/geomesa} :\\
 %- outperforming postgis with geoserver
@@ -387,7 +390,8 @@ XL steht dabei für eXtensible Lattice, erweiterbarer Verbund.
 Damit soll es ermöglicht werden, mit PostgreSQL verteilt Schreiboperationen zu skalieren sowie parallele Datenverarbeitung auf mehreren physischen und virtuellen Systemen gleichzeitig zu betreiben.
 Es handelt sich um ein shared nothing Mehrrechner-Datenbanksystem.
 Dafür wird zur verteilten Datenhaltung \Gls{acid} mit \Gls{mvcc} und zur parallelen Verarbeitung ein \Gls{mpp} Mechanismus eingesetzt. (siehe \cite{website:postgresxl-about})
-Die Postgres-XL Umgebung nutzt mehrere PostgreSQL Instanzen und bietet Schnittstellen für alle Instanzen an.\\
+Die Postgres-XL Umgebung nutzt mehrere PostgreSQL Instanzen und bietet Schnittstellen für alle Instanzen an.
+
 Abbildung \ref{fig:postgresxl} verbildlicht den Aufbau.
 Laut Abbildung wird als erstes ein Load-Balancer angesprochen und es existieren mehrere GTM Instanzen.
 Dies wird in der Dokumentation nicht belegt.
