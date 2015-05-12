@@ -97,9 +97,8 @@ Dafür ist neben R als Programmiersprache mit notwendigen Paketen auf den System
 Die Installation von Pl/R mit dem Quellcode als Grundlage ist in Anhang \ref{appendix:plr} zu finden.
 
 \section{Entwurf}
-%gant der arbeit und was gemacht hätte werden können
 Dieses Unterkapitel enthält die Definition der Postgres-XL Konfiguration für den Einsatz bei Agri~Con.
-Als erstes werden die Gründe für diese Art des Entwurfs dargelegt.
+Als erstes werden die Gründe für diese Art der Konfiguration dargelegt.
 
 Die Erfüllung der Anforderungen liegt entsprechen der Nutzwertanalyse von Postgres-XL bei 86\%{}.
 %starke Integration: 2 Möglichkeiten
@@ -121,6 +120,7 @@ Abbildung \ref{fig:aufwand} skizziert den notwendigen Zeitraum zur Umsetzung des
 \label{fig:aufwand}
 \end{figure}
 Deshalb ist die Erstellung eines umfassenden Entwurfs hinsichtlich des speziellen Szenarios bei Agri~Con im Rahmen dieser Arbeit nicht möglich.
+Ebenso ist der Aufwand zur Implementierung der Trigger Funktionalität in Postgres-XL zu hoch.
 
 Der Entwurf wird daher als Klon des Ist-Standes, jedoch ohne Trigger, erstellt.
 Entsprechend den Leistungstests soll der Entwurf die Produktivdaten liefern und anwendungsnahe Berechnungen ausführen.
