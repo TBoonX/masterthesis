@@ -167,14 +167,31 @@ Ein dreidimensionales Raster heißt Voxel.
 
 \subsection{Räumliche Operationen}
 % Grundlagenbuch geoinformatik zu rate ziehen
+Räumliche Operationen, welche in den zu betrachtenden Frameworks eingesetzt werden, sind Transformationen.
+Dabei werden die Koordinatenreferenzsysteme, die Objekte und topologischen Informationen geändert.
+Graeme führt Beispiele solcher Transformationen tabellarisch auf, siehe Tabelle  \ref{table:spatialfunctions}.
+\begin{table}[h]
+\centering
+\begin{tabular}{c|c|c|c}
+\textbf{FROM/TO} & \textbf{POINTS} & \textbf{LINES} & \textbf{AREAS} \\ \hline
+\textbf{POINTS} & interpolation & contouring & Thiessen polygons \\ \hline
+\textbf{LINES} & line intersections & line smoothing & buffer zones \\ \hline
+\textbf{AREAS} & sample at points & medial axis & re-sampling at areas \\ 
+\end{tabular}
+\caption[Beispiele für räumliche Transformationen]{Beispiele für räumliche Transformationen nach \cite[S.139]{book:gisforgeoscientists} Table 6-1 Examples of elementary GIS transformations}
+\label{table:spatialfunctions}
+\end{table}
+Darin werden ausgewählte Transformationen zwischen Objekten aufgeführt.
+Es ist zu erwähnen, dass Transformationen nicht nur mit den aufgezeigten Objekten verwendet werden.
+So ist interpolation auch für POINTS zu LINES möglich.
+Für die folgenden Betrachtungen sind jedoch nur die Transformationen interpolation und contouring von Interesse.
+In allen Transformationen werden Mittel der Statistik verwendet, da neben geografischen und topologischen Informationen auch Sachinformationen in die Berechnungen einbezogen werden, welche in die Transformation verändert übernommen werden.
+Diese Verknüpfung von Statistik und räumlichen Daten heißt Geostatistik.
 
-\subsubsection{Aggregation}
-%vereinigung mit Filterung
-\textcolor{red}{TODO}
-
-\subsubsection{Geostatistik}
-\textcolor{red}{TODO}
-
+%Geostatistik
+In den weiteren Ausführungen wird contouring mit dem Spezialfall kriging angewandt.
+Der Entwickler war Kriging, welcher diese Transformation zur Vorhersage von Goldvorkommen in Süd Afrika verwendet hat.
+Entsprechend Akin und Simes nach \cite[S.76]{book:verarbeitungspatialdata} ist kriging ein Schätzvorgang, der eine bestimmte Anzahl von Proben in einem Wichtungsprozess so einbezieht, dass die Schätzvarianz zu einem Minimum wird.
 
 \subsection{Geografisches Informationssystem}
 \label{grundlagen:gis}
