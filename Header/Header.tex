@@ -24,6 +24,12 @@
 
 \definecolor{InterneLinkfarbe}{rgb}{0.1,0.1,0.3} 	% Farbliche Absetzung von externen Links
 \definecolor{ExterneLinkfarbe}{rgb}{0.1,0.1,0.7}	% Farbliche Absetzung von internen Links
+\definecolor{LiteraturFarbe}{rgb}{0.0,1.0,0.3}		% Farbe der Links zur Literatur (cite)
+\ifAusdruck
+\definecolor{InterneLinkfarbe}{rgb}{0.0,0.0,0.0}
+\definecolor{ExterneLinkfarbe}{rgb}{0.0,0.0,0.0}
+\definecolor{LiteraturFarbe}{rgb}{0.0,0.0,0.0}
+\fi
 
 % Einstellungen f�r Fu�noten:
 \captionsetup{font=footnotesize,labelfont=sc,singlelinecheck=true,margin={5mm,5mm}}
@@ -47,8 +53,8 @@
     pdftitle={\titel},
     pdfauthor={\autor},
     pdfcreator={\autor},
-    pdfsubject={\titel},
-    pdfkeywords={\titel},
+    pdfsubject={\titel \untertitel},
+    pdfkeywords={\titel \untertitel},
 }
 
 % Beispiel f�r eine Listings-Codeumbebungen
