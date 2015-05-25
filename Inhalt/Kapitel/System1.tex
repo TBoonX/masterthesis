@@ -385,7 +385,7 @@ Zwar ist bei Postgres-XL die Verarbeitung lokaler Anfragen mit mehr administrati
 %Der Faktor der Beschleunigung der Abarbeitung einer festgelegten Menge von gleichzeitigen Abfragen abhängig der Anzahl der Knoten ist zu ermitteln.%Wenn Skalierbarkeit weg, dann auch anzahl der knoten weglassen
 
 %gleichmäßige Beeinflussung durch Zabbix nennen
-Analog des Testaufbaus der Bachelor Arbeit des Autors\footnote{\cite{ba:kurt}} wird zur Generierung der Last das freie Java Programm JMeter verwendet, welches mehrere vorbereitete Anfragen parallel und verschränkt erzeugt sowie eine Auswertung der Laufzeiten zur Verfügung stellt.
+Analog des Testaufbaus der Bachelorarbeit des Autors\footnote{\cite{ba:kurt}} wird zur Generierung der Last das freie Java Programm JMeter verwendet, welches mehrere vorbereitete Anfragen parallel und verschränkt erzeugt sowie eine Auswertung der Laufzeiten zur Verfügung stellt.
 Ein Testlauf wir dabei per Kommandozeile gestartet und die Ergebnisse in einer .csv Datei festgehalten.
 Diese Datei wird anschließend mit der grafischen Oberfläche von JMeter geöffnet und die Daten mit Graphen und Tabellen ausgewertet.
 JMeter wird von einem externen Computer ausgeführt.
@@ -480,7 +480,7 @@ Das Hinzufügen von Instanzen erfolgt analog mit kleinen Änderungen.
 Die Vorgehensweise stammt von der Postgres-XL Dokumentation\footnote{\url{http://files.postgres-xl.org/documentation/index.html}}.
 \begin{description}
 \item[Coordinator] Eine Verbindung mit einem anderen Coordinator herstellen und darin \verb+DROP NODE coordinatorname;+ und \verb+SELECT pgxc_pool_reload();+ ausführen.
-\item[DataNode] Mit beliebigen Coordinator verbinden und für jede Relation, welche auf die zu löschende DataNode verteilt ist, \verb+ALTER TABLE tablename DELETE NODE+\\\verb+(datanodename);+ ausführen. Betroffene Relationen können mit \verb+SELECT+\\\verb+c.pcrelid FROM pgxc_class c, pgxc_node n WHERE n.node_name =+\\\verb+'datanodename' AND n.oid = ANY (c.nodeoids);+ ermittelt werden. Das Tool \verb+pgxc_ctl+ starten und darin \verb+stop datanode datanodename+ ausführen. Auf jedem Coordinator \verb+DROP NODE datanodename;+ und \verb+SELECT+\\\verb+pgxc_pool_reload();+ ausführen.
+\item[DataNode] Mit beliebigen Coordinator verbinden und für jede Relation, welche auf die zu löschende DataNode verteilt ist, \verb+ALTER TABLE tablename DELETE NODE+\\\verb+(datanodename);+ ausführen. Betroffene Relationen können mit \verb+SELECT+\\\verb+c.pcrelid FROM pgxc_class c, pgxc_node n WHERE n.node_name =+\\\verb+'datanodename' AND n.oid = ANY (c.nodeoids);+ ermittelt werden. Das Tool \verb+pgxc_ctl+ starten und darin\\\verb+stop datanode datanodename+ ausführen. Auf jedem Coordinator \verb+DROP NODE datanodename;+ und \verb+SELECT+\\\verb+pgxc_pool_reload();+ ausführen.
 \end{description}
 
 \subsection{Aggregation}

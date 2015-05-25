@@ -245,13 +245,13 @@ Damit soll die Verarbeitungsleistung bewertet werden.
 Da es sich bei den zu untersuchenden Frameworks um verteilte Systeme handelt, ist in allen Tests die Verteilung der Daten und der Verarbeitungsschritte zu berücksichtigen.
 
 
-\section{Ist-Stand}
+\section{Aktuelles System}
 \label{IstStand}
 %groben Ablauf textuell und grafisch darstellen
 % geplanten Einsatz des Prototypen ebenso darstellen 
 
 Die Durchführung einer Softwareauswahl zum teilweisen Ersatz eines bestehenden Systems setzt die Analyse des Systems voraus.
-In diesem Unterkapitel wird der Ist-Stand sowie der der angestrebte Zustand nach Einbau des Prototypen dargestellt.
+In diesem Unterkapitel wird das aktuelle System sowie der der angestrebte Zustand nach Einbau des Prototypen dargestellt.
 Firmeninterne Schnittstellen mit dem ist-Stand werden nicht konkretisiert, da sie den Anwendungsfall nicht schneiden.
 
 In Abbildung \ref{fig:iststand} ist die Übersicht des Aufbaus ersichtlich.
@@ -349,7 +349,9 @@ GeoMesa: Zehn bis 60 fache Antwortgeschwindigkeit bei GeoMesa gegenüber PostGIS
 \label{fig:geomesaversuspostgis}
 \end{figure}
 \newpage
-Postgres-XL: Bis zu sechs fache Antwortdauer von PostgreSQL gegenüber Postgres-XL in einem standardisierten TPC-H\footnote{\url{http://www.tpc.org/tpch/}} Benchmark bei Verwendung von vier DataNodes. Abbildung \ref{fig:pgxcversuspgsql} zeigt das Diagramm mit dem genannten Wert. Die x-Achse ist nicht beschrieben, weswegen eine Einschätzung der Werte nicht möglich ist.
+Postgres-XL: Bis zu sechs fache Antwortdauer von PostgreSQL gegenüber Postgres-XL in einem standardisierten TPC-H\footnote{\url{http://www.tpc.org/tpch/}} Benchmark bei Verwendung von vier DataNodes. Abbildung \ref{fig:pgxcversuspgsql} zeigt das Diagramm mit dem genannten Wert.
+Die x-Achse ist nicht beschriftet, weswegen die Zuordnung der 15 Ergebnisse zu den 22 vorgegebenen Abfragen des TPC-H Benchmark nicht möglich ist.
+Somit kann keine Bewertung der Laufzeiten erfolgen.
 \begin{figure}[h!]
 \centering
 \includegraphics[width=.8\textwidth]{Abbildungen/postgresxl_versus_postgis.png}

@@ -1,0 +1,43 @@
+system versus framework
+geodaten versus räumliche Daten
+
+allgemein:
+sehr viel - man verliert sich
+Bachelor Arbeit -> Bachelorarbeit
+roten Faden deutlicher machen (vorallem bei 2.)
+
+gliederung:
+4.2 lieber aktuelles System - Ist-Stand klingt dumm
+
+glossar:
+spark
+
+einleitung:
+siehe kommentare
+
+Grundlagen:
+2.1 ausdünnen - ins glossar schieben
+GIS bedeutung hervorheben
+Überleitungen zwischen unterkapiteln!
+hadoop mehreren hundert bis mehreren tausend
+zookeeper und thrift entfernen? da nicht verwendet
+
+Methodisches Vorgehen:
+Nutzungsstatistik nicht auf arbeitnehmer beziehen - anzahl ist grund für relevanz
+
+4.:
+Softwarequalität in Grundlagen
+tpc-h - x-achse notwendig???
+
+5.:
+linked in raus nehmen - nicht stalker sein
+
+6.:
+installation nochmal kurz auflisten
+
+7.:
+eventuell kürzen
+7.3 eventuell an den Anhang packen
+
+Literatur:
+author überall angegeben? lehrbuch der softwaretechnik  da fehlt es beispielsweise
