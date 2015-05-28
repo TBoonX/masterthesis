@@ -13,7 +13,6 @@ In den letzten 3 Jahren wurde beispielsweise nur zum Thema N-Versorgung\footnote
 
 Daraus ergeben sich verschiedenen Anforderungen an die Technologie, die für die Verarbeitung, Analyse und Darstellung verwendet wird:
 \begin{itemize}
-%TODO nicht dick mit stichpunkten
 \item PostgreSQL mit PostGIS zum Datenimport und -export nutzbar
 \item Gruppieren und Filtern mit geringer Laufzeit
 \item parallele Berechnung\footnote{hier Geostatistik} über große Datenmengen mit geringer Laufzeit
@@ -27,11 +26,11 @@ Daraus ergeben sich verschiedenen Anforderungen an die Technologie, die für die
 % Eventuell technische Sicht extra darstellen, um Eignung der Systeme besser herausarbeiten zu können
 \newpage
 Konkret handelt es sich bei den Eingangsdaten um folgende:
-\begin{description}
-\item[Pflanzenbauliche Daten]\footnote{Sensoren, Bodenuntersuchung, \Gls{bonitur}, Logger} Punktdaten
-\item[Basisdaten wie Feldgrenzen sowie Interpolationen]\footnote{Interpolationen als Ergebnis von Nährstoffverteilung und Bodenscanner} Vektordaten
-\item[Externe Satelliteninformationen und Multispektralanalysen] Rasterdaten
-\end{description}
+\begin{itemize}
+\item Pflanzenbauliche Daten\footnote{Sensoren, Bodenuntersuchung, \Gls{bonitur}, Logger}: Punktdaten
+\item Basisdaten wie Feldgrenzen sowie Interpolationen\footnote{Interpolationen als Ergebnis von Nährstoffverteilung und Bodenscanner}: Vektordaten
+\item Externe Satelliteninformationen und Multispektralanalysen: Rasterdaten
+\end{itemize}
 
 \subsection{Softwarequalität}
 \label{softwarequalität}
@@ -228,6 +227,7 @@ Dabei ist stets zu berücksichtigen mit welchen Datentypen die Funktionen verwen
 Die Basis für die Erstellung von Lasttests ist Kapitel \ref{iststand-vorgaenge}.
 Eine exakte Definition der Lasttests ist in diesem Kapitel nicht möglich, da das zu verwendende Framework noch nicht ausgewählt wurde und somit die darin zu verwendenden Werkzeuge und Daten nicht bekannt sind.
 Es werden jedoch die zu testenden Szenarien benannt.
+Da es sich bei den zu untersuchenden Frameworks um verteilte Systeme handelt, ist in allen Tests die Verteilung der Daten und der Verarbeitungsschritte zu berücksichtigen.
 
 Ein zu testendes Szenario ist die Aggregation von Daten.
 Dabei ist eine Menge von mehreren hundert Megabyte an Punktdaten mit den gegebenen Werkzeugen abzurufen und die Laufzeit zu messen.
@@ -243,7 +243,6 @@ Damit soll die Verarbeitungsleistung bewertet werden.
 
 %Lasttests zur Persistierung von Eingangsdaten?
 
-Da es sich bei den zu untersuchenden Frameworks um verteilte Systeme handelt, ist in allen Tests die Verteilung der Daten und der Verarbeitungsschritte zu berücksichtigen.
 
 
 \section{Aktuelles System}

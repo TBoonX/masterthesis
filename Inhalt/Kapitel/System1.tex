@@ -2,7 +2,7 @@
 \label{chapter:postgresxl}
 
 Nach der Auswahl von Postgres-XL im vorangegangenen Kapitel% aus einer geeigneten Menge an Frameworks
-, wird es in diesem Kapitel hinsichtlich der Verwendung erläutert und eine Empfehlung für den Einsatz bei Agri~Con gegeben.
+, wird es in diesem hinsichtlich der Verwendung erläutert und eine Empfehlung für den Einsatz bei Agri~Con gegeben.
 % und das Framework hinsichtlich Funktionalität und Leistungsfähigkeit bezüglich der Anforderungen getestet sowie bewertet.
 
 \section{Verwendung}
@@ -64,21 +64,28 @@ Anhang \ref{appendix:pgxcctlconfig} enthält die Konfigurationsdatei des Testsys
 Der Zugriff auf Daten eines Postgres-XL Clusters erfolgt über die Coordinators.
 Dazu sind Programme und Tools aus dem PostgreSQL Umfeld zu verwenden.
 Dazu zählen \Gls{jdbc}, das Kommandozeilentool \verb+psql+ und das grafische Programm zur Datenbankverwaltung pgAdminIII.
-So wird im Testsystem der erste Coordinator mit folgendem Aufruf angesprochen:\\
-\verb+psql -h node1 -p 20004 agrodb+\\
+So wird im Testsystem der erste Coordinator mit folgendem Aufruf angesprochen:\begin{lstlisting}[language=sql,caption={Verbindung zu erstem Coordinator herstellen}]
+psql -h node1 -p 20004 agrodb
+\end{lstlisting}
 Ebenso sind die SQL Befehle bis auf ein paar Ausnahmen deckungsgleich.
 Diese Ausnahmen beziehen sich auf die Verteilung der Daten und Verwaltung des Clusters.
-Beispielsweise das SQL Statement \verb+Create Table tblname (serial id, text data)+
-\verb+Distribute by Hash(id);+ weicht durch die Ergänzung \verb+Distribute by+ vom PostgreSQL SQL Syntax ab.
-Jede Tabelle wird in jeder PostgreSQL Instanz erzeugt.
+Beispielsweise das SQL Statement in Listing \ref{lst:createtable} weicht durch die Ergänzung \verb+Distribute by+ vom PostgreSQL SQL Syntax ab.
+\begin{lstlisting}[language=sql,caption={SQL Query zum erzeugen einer Tabelle in Postgres-XL},label=lst:createtable]
+Create Table tblname (serial id, text data) Distribute by Hash(id);
+\end{lstlisting}
+Jede Tabelle wird in jeder Coordinator und DataNode Instanz erzeugt.
 Dabei werden die Daten entweder nach einem Attribut verteilt oder zwischen den Datenbankinstanzen gespiegelt.
 Das Schlüsselwort \verb+Distributed+ veranlasst eine Verteilung der Daten, \verb+Replicate+ dagegen eine Replikation der Tabelle über alle Nodes.
 Die unterstützten Datentypen sind der Dokumentation zu entnehmen.
-Weiterhin zu erwähnen ist der Befehl \verb+Create Node nodename With (TYPE=, HOST=, PORT=)+, welcher\\
-direkt als SQL Statement verwendet werden kann und dem Cluster einen Knoten hinzufügt.
-Analog dazu existiert der Befehl \verb+Drop Node nodename+ zum entfernen eines Knotens.
-Wurde das Cluster verändert, ist dies mit\\
-\verb+Select * From pgxc_pool_reload();+ für alle Knoten zu propagieren.
+Weiterhin zu erwähnen ist der Befehl des Listings \ref{lst:createnode}, welcher direkt als SQL Statement verwendet werden kann und dem Cluster einen Knoten hinzufügt.
+\begin{lstlisting}[language=sql,caption={SQL Query zum hinzufügen eines aktiven Knoten in einen Postgres-XL Cluster},label=lst:createnode]
+Create Node nodename With (TYPE=, HOST=, PORT=)
+\end{lstlisting}
+Analog zum hinzufügen existiert der Befehl \verb+Drop Node nodename+ zum entfernen eines Knotens.
+Wurde das Cluster verändert, ist dies mit Listing \ref{lst:pgxcreload} für alle Knoten zu propagieren.
+\begin{lstlisting}[language=sql,caption={SQL Query  zur Aktualisierung der Cluster Zusammensetzung},label=lst:pgxcreload]
+Select * From pgxc_pool_reload();
+\end{lstlisting}
 Weitere Abweichungen sind der Dokumentation zu entnehmen.\footnote{siehe \url{http://files.postgres-xl.org/documentation/sql-commands.html}}
 
 Das Datenbankschema wurde mit \verb+pg_dump+ in eine Textdatei geladen und als SQL Befehle in Postgres-XL übernommen.
@@ -92,8 +99,7 @@ Die Daten können auch analog des Schema übertragen werden, dies dauert jedoch 
 %R -> auf welchen Knoten wird das ausgeführt? Coordinator?
 %PostGIS
 Die Datenverarbeitung erfolgt analog des Ist-Standes bei Agri~Con.
-%TODO fußnote in text
-Mit der Installation\footnote{Skript siehe \ref{appendix:postgis}} von PostGIS als Erweiterung, können die vorhandenen SQL Funktionen übernommen werden, ebenso die R Bibliotheken des speziellen Krigings.
+Mit der Installation von PostGIS als Erweiterung wie in Skript \ref{appendix:postgis} dargestellt, können die vorhandenen SQL Funktionen übernommen werden, ebenso die R Bibliotheken des speziellen Krigings.
 Dafür ist neben R als Programmiersprache mit notwendigen Paketen auf den Systemen, Pl/R als Erweiterung in Postgres-XL, zu installieren.
 Die Installation von Pl/R mit dem Quellcode als Grundlage ist in Anhang \ref{appendix:plr} zu finden.
 
@@ -138,7 +144,7 @@ Dabei wurden interne Transaktionen und inserts aus den verwendeten Funktionen en
 Das Vorgehen zur Erstellung dieses Aufbaus war zusammengefasst folgender:
 Postgres-XL auf sieben VMs installiert, eine Konfigurationsdatei für \verb+pgxc_ctl+ erstellt, den Cluster mit \verb+pgxc_ctl+ erzeugt, eine Datenbank mit dem Namen agrodb erzeugt, darin die Erweiterungen plr, dblink und PostGIS installiert, das Datenbankschema mit Funktionen angepasst, das Datenbankschema und Hilfsfunktionen eingespielt und die Daten mit dblink für ausgewählte Betriebe übernommen.
 Die Schritte sind mit entsprechender Zeitschätzung in Abbildung \ref{fig:getan} zu finden.
-\newpage
+
 \begin{figure}[h!]
 \centering
 \includegraphics[width=.8\textwidth]{Abbildungen/gantt_done_cropped.pdf}
@@ -171,9 +177,8 @@ Die systematischen Tests werden in diesem Kapitel vorgestellt.
 Die Kriterien wurden in Kapitel \ref{qualitätsmetriken} definiert, somit werden hier die Randbedingungen, Eingaben, Durchführung und Ergebnisse dargelegt.
 
 \section{Testumgebung}
-%verlinkungen auch zur hardware!
 Die wesentliche Randbedingung Testumgebung wurde nach der Softwareauswahl und vor der Durchführung der Tests erstellt.
-Die Testumgebung ist Hardware aus dem Jahr 2007 und soll dazu dienen, relative Aussagen über die Leistung von Postgres-XL zu treffen.
+Die Testumgebung ist Hardware aus dem Jahr 2007 und dient dazu, relative Aussagen über die Leistung von Postgres-XL zu treffen.
 Dafür steht ein IBM Rack Server x3850 M2\footnote{\url{http://www.redbooks.ibm.com/redpapers/pdfs/redp4362.pdf}} mit folgender Ausstattung zur Verfügung:
 vier Xeon E7330 Quad-Core mit 2,4 GHz, 64GB DDR2 RAM, vier 500GB 2,5 Zoll SATA Festplatten von Western Digital mit 7.200 U/min und einem MR10k Raid-Controller.
 Der Postgres-XL Cluster wird mit Virtualisierung der einzelnen Knoten erstellt.
@@ -246,10 +251,6 @@ Entsprechend der Reihenfolge der Testfälle im Anhang werden nachfolgend die Tes
 Die Testfälle werden durchnummeriert und mit einem vorangestellten FT für Funktionstest bezeichnet.
 Dabei werden die Testfälle mit absteigender Priorität aufgelistet.
 Die Priorität hängt vom geschätzten Implementationsaufwand zur Behebung des Fehlschlages des Testfalles ab.
-%Nummerierung der Testfälle?
-
-%TODO Funktionstests:
-%FT05: Sandras Polygone in DB eintragen, funktionen anwenden und mit UMN zu Bildern wandeln
 
 \textbf{FT01:}\\
 Die Schnittstellen sind nicht explizit zu testen, da Postgres-XL und PostgreSQL wie in Abschnitt \ref{subsection:interface} demonstriert direkt Daten austauschen können.
@@ -274,9 +275,10 @@ Da beide Systeme PostGIS 2.1.5 verwenden, sind die Austauschformate für geograf
 Der Beweis stellt die erfolgte Übernahme der Daten des Ist-Standes dar.
 
 \textbf{FT04:}\\
-Mit PostGIS kann mit der Funktion st\_{}transform direkt zwischen den Koordinatenreferenzsystemen umgerechnet werden:\\
-%TODO listing
-\textit{select id, st\_{}astext(st\_{}transform(geom, 3857)) as transformed, st\_{}srid(st\_{}transform(geom, 3857)) as newsrid, st\_{}astext(st\_{}transform(st\_{}transform(geom, 3857), 4326)) as original, st\_{}srid(st\_{}transform(st\_{}transform(geom, 3857), 4326)) as srid from nutrients.samples limit 10;}\\
+Mit PostGIS kann mit der Funktion st\_{}transform direkt zwischen den Koordinatenreferenzsystemen umgerechnet werden:
+\begin{lstlisting}[language=sql,caption={SQL Query zur Umrechnung zwischen Koordinatenreferenzsystemen},label=lst:sttransform]
+select id, st_astext(st_transform(geom, 3857)) as transformed, st_srid(st_transform(geom, 3857)) as newsrid, st_astext(st_transform(st_transform(geom, 3857), 4326)) as original, st_srid(st_transform(st_transform(geom, 3857), 4326)) as srid from nutrients.samples limit 10;
+\end{lstlisting}
 So werden die Punkte der Tabelle samples im Schema nutrients mit dem EPSG Code 4326 zum EPSG Code 3857 sowie wieder zurück umgerechnet.
 Die Funktionsdeklaration lautet:
 \textit{geometry ST\_{}Transform(geometry g1, integer srid);}\\
@@ -286,11 +288,13 @@ geometry steht dagegen für einen beliebigen räumlichen Datentyp.
 \textbf{FT05:}\\
 Auch in diesem Funktiontests findet die Validierung anhand von Bildern statt.
 Es werden sich überlappende Polygone aus farm.fields heraus gesucht und mit Hilfe von PostGIS Funktionen verschnitten.
-Dafür werden folgende Funktionen verwendet:\\
-\textit{geometry ST\_{}Intersection( geometry geomA , geometry geomB );}\\
-\textit{geometry ST\_{}Union(geometry g1, geometry g2);}\\
-\textit{geometry ST\_{}Difference(geometry geomA, geometry geomB);}\\
-\textit{geometry ST\_{}SymDifference(geometry geomA, geometry geomB);}\\
+Dafür werden folgende Funktionen verwendet:
+\begin{lstlisting}[language=bash,caption={PostGIS Funktionen der Verschneidung},label=lst:fctsinsection]
+geometry ST_Intersection( geometry geomA , geometry geomB );
+geometry ST_Union(geometry g1, geometry g2);
+geometry ST_Difference(geometry geomA, geometry geomB);
+geometry ST_SymDifference(geometry geomA, geometry geomB);
+\end{lstlisting}
 Das Ergebnis jedes Funktionsaufrufes wird gespeichert und zu einer Karte gerendert.
 %Sandras WKT Polygone in eigene Tabelle, dafür mapfile erzeugen, Karte erstellen, verschneiden, Karten dazu auch erstellen
 %POLYGON((-0.79904875148632581 0.11533888228299638,-0.78478002378121281 0.83115338882282985,0.39239001189060629 0.82401902497027335,0.38763376932223537 0.11533888228299638,-0.79904875148632581 0.11533888228299638))
@@ -355,9 +359,12 @@ Da das Ergebnis nicht überprüft werden kann, gilt der Test als nicht bestanden
 
 \textbf{FT07:}\\
 %Betrieb mit kleinen Userlayern verwenden
-Userlayer einer Halbjahresplanung besitzen begrenzende Rechtecke, welche im WKT Format wie folgt beschrieben sind: \textit{POLYGON((13.2547868501418 50.7878870616778,
-13.2833057640198 50.7878870616778,13.2833057640198 50.7935526493687,\\
-13.2547868501418 50.7935526493687,13.2547868501418 50.7878870616778))}.
+Userlayer einer Halbjahresplanung besitzen begrenzende Rechtecke, welche im WKT Format wie folgt beschrieben sind:
+\begin{lstlisting}[language=bash,caption={Begrenzendes Rechteck im WKT Format},label=lst:koordinaten]
+POLYGON((13.2547868501418 50.7878870616778,
+13.2833057640198 50.7878870616778,13.2833057640198 50.7935526493687,
+13.2547868501418 50.7935526493687,13.2547868501418 50.7878870616778))
+\end{lstlisting}
 Mit diesem können alle Schläge abhängig des Userlayers räumlich gefiltert werden.
 So sind im Testsystem 13803 Schläge vorhanden.
 Mit der Funktion \textit{boolean ST\_{}Intersects( geometry geomA , geometry geomB );} werden mit dem begrenzenden Rechteck überlappende Schläge gefiltert.
@@ -482,8 +489,11 @@ Das Hinzufügen von Instanzen erfolgt analog mit kleinen Änderungen.
 Die Vorgehensweise stammt von der Postgres-XL Dokumentation\footnote{\url{http://files.postgres-xl.org/documentation/index.html}}.
 \begin{description}
 \item[Coordinator] Eine Verbindung mit einem anderen Coordinator herstellen und darin \verb+DROP NODE coordinatorname;+ und \verb+SELECT pgxc_pool_reload();+ ausführen.
-\item[DataNode] Mit beliebigen Coordinator verbinden und für jede Relation, welche auf die zu löschende DataNode verteilt ist, \verb+ALTER TABLE tablename DELETE NODE+\\\verb+(datanodename);+ ausführen. Betroffene Relationen können mit \verb+SELECT+\\\verb+c.pcrelid FROM pgxc_class c, pgxc_node n WHERE n.node_name =+\\\verb+'datanodename' AND n.oid = ANY (c.nodeoids);+ ermittelt werden. Das Tool \verb+pgxc_ctl+ starten und darin\\\verb+stop datanode datanodename+ ausführen. Auf jedem Coordinator \verb+DROP NODE datanodename;+ und \verb+SELECT+\\\verb+pgxc_pool_reload();+ ausführen.
+\item[DataNode] Mit beliebigen Coordinator verbinden und für jede Relation, welche auf die zu löschende DataNode verteilt ist, \verb+ALTER TABLE tablename DELETE NODE+\\\verb+(datanodename);+ ausführen. Betroffene Relationen können mit Listings \ref{st:getdatanodes} ermittelt werden. Das Tool \verb+pgxc_ctl+ starten und darin \verb+stop datanode datanodename+ ausführen. Auf jedem Coordinator \verb+DROP NODE datanodename;+ und \verb+SELECT pgxc_pool_reload();+ ausführen.
 \end{description}
+\begin{lstlisting}[language=sql,caption={SQL Query zur Ermittlung betroffener DataNodes ausgewählter Relationen},label=lst:getdatanodes]
+\SELECTc.pcrelid FROM pgxc_class c, pgxc_node n WHERE n.node_name ='datanodename' AND n.oid = ANY (c.nodeoids);
+\end{lstlisting}
 
 \subsection{Aggregation}
 Der erste Lasttest misst die Laufzeit der Aggregation von Punktdaten aus der Tabelle nsensorlogs des Schemas n.

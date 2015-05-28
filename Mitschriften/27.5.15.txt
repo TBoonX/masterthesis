@@ -1,6 +1,6 @@
 Abstract:
 Quelloffen nicht vergessen
-Agri COn beschreiben
+Agri Con beschreiben
 
 
 Danksagung:
@@ -10,28 +10,21 @@ historie raus nehmen
 
 Grundlagen:
 2.1 ohne unterkapitel alles als fließtext
+zu jedem system eine referenz als literatur: dokumentation oder produktinformation
 
 hyphenation für silbentrennung
 
-
 "dazu" zu umgangssprachlich - entweder satzumbau oder entsprechend
-
 
 GmbH immer dazu wenn es ums geschäft geht. bei fachlichen ohne GmbH
 
-
 d.h -> d.\,h.  auch für z.B.
-
 
 tabelle in meinem Stil halten
 
 Fußnote mehr als link
 
-
 Ein Abschnitt sollte mindestens 2 sätz haben
-
-zu jedem system eine referenz als literatur: dokumentation oder produktinformation
-
 
 zwischenüberschriften zwischen 2. und 3. anders?
 

@@ -18,7 +18,7 @@ Dafür sind existierende \Gls{gis} zu untersuchen und deren Eignung für den in 
 Die Schwerpunkte der Untersuchung sind die Möglichkeiten und die Leistungsfähigkeit der räumlichen Datenverarbeitung und nicht die Formen der Datendarstellung.
 %Dabei werden NoSQL und Open-Source Frameworks bevorzugt untersucht.
 Aus geeigneten Systemen wird eines ausgewählt.
-Dieses wird untersucht, für den Einsatz bei Agri~Con validiert und hinsichtlich Funktionalität und Leistung bewertet.
+Dieses wird untersucht, für den Einsatz bei Agri~Con GmbH validiert und hinsichtlich Funktionalität und Leistung bewertet.
 Schlussendlich soll eine Entscheidungsgrundlage in Form einer Nutzwertanalyse anhand von bewerteten Qualitätsmerkmalen und durchgeführten Tests für die Eignung entsprechend des Anwendungsfalles gegeben werden.
 % Die Auswahl zwischen vorhandenen Systemen nach ausgesuchten Merkmalen soll für ähnliche  Untersuchungen als Handelsempfehlung dienen.
 %Kürzen!
@@ -29,12 +29,11 @@ Dieses Forschungsziel ist von allgemeinem Interesse, da damit eine Erkenntnislü
 \section{Einordnung der Arbeit}
 %EInordnung - big picture: Zwar allgemein Datenhaltung und -verarbeitung bis Informationssystem, jedoch durch geodaten ein Spezialfall; verteiltes system ist wesentliche einschränkung zum zwecke der aktualität  und führt zu NoSQL
 Im Rahmen der Arbeit erfolgt eine Softwareauswahl mit Hilfe von Nutzwertanalysen.
-%TODO
- sowie eine ergänzende Bewertung eines Frameworks hinsichtlich Funktionalität und Leistung durch Tests.
-Diese Frameworks entsprechen der Definition eines \Gls{gis}, gehen somit über die Funktionalität und den Umfang über Frameworks zur reinen Datenhaltung und -ver\-ar\-beitung hinaus.
+Weiterhin erfolgt eine ergänzende Bewertung eines Frameworks durch Funktions- und Leistungstests.
+Die untersuchten Frameworks entsprechen der Definition eines \Gls{gis}, sie gehen somit über die Funktionalität und den Umfang über Frameworks zur reinen Datenhaltung und -ver\-ar\-beitung hinaus.
 %kapitel ergänzen
-Zusätzlich handelt es sich um räumliche Daten und Datenverarbeitung.
-Die Bewertung von \Gls{gis} erfolgt mit Bewertungsmaßstäben von Informationssystemen (vgl. Kapitel \ref{}), mit Berücksichtigung des Spezialfalles des räumlichen Bezuges der Daten.
+Zusätzlich handelt es sich um räumliche Daten und raumbezogene Datenverarbeitung.
+Die Bewertung von \Gls{gis} erfolgt mit Bewertungsmaßstäben von Informationssystemen (vgl. Kapitel \ref{softwarequalität}), mit Berücksichtigung des Spezialfalles des räumlichen Bezuges der Daten.
 Die Einschränkung auf verteilt arbeitende Frameworks führt allein genommen bereits zur Betrachtung von Alternativen des relationalen Modells, da bekannte Vertreter eine verteilte Arbeitsweise unterstützen.
 Die Methodik lässt sich auf ähnliche Ausgangsszenarios übertragen.
 Sie lässt sich somit als Handlungsempfehlung zur Auswahl eines \Gls{gis} Frameworks verwenden.
@@ -43,13 +42,13 @@ Sie lässt sich somit als Handlungsempfehlung zur Auswahl eines \Gls{gis} Framew
 %empirisches Vorgehen für Spezialfall nicht Allgemeinheit
 %systematisches Vorgehen - softwareauswahl ist technologische Aussage
 %immer Kapitel referenzieren!
-Zum Verständnis der Arbeit werden zu Beginn theoretische Grundlagen und Fachbegriffe zu Datenbanken, geographischer Datenverarbeitung und NoSQL dargestellt.
-Daran schließt sich die Darstellung und Begründung des methodischen Vorgehens an, was Definitionen der Begriffe Nutzwertanalyse und Funktions- sowie Leistungstest beinhaltet.
-Anschließend definiert Kapitel \ref{chapter:ausgangsszenario} das Ausgangsszenario, für welches die Frameworks analysiert und getestet werden sollen, sowie die dazugehörigen Anforderungen.
-Darauf folgend bewertet eine Nutzwertanalyse ausgewählte Frameworks nach den Anforderungen des Anwendungsfalles.
-Das darauf folgende Kapitel stellt das ausgewählte Framework unter den Punkten Installation, Schnittstellen sowie Verarbeitung dar und präsentiert die Möglichkeiten zum Einsatz bei Agri~Con.
-Entsprechend werden Funktions- und Leistungstest im Kapitel \ref{chapter:tests} durchgeführt und ausgewertet.
-Die Arbeit endet mit einer Zusammenfassung, einer Empfehlung bzw. Wertung der Ergebnisse und einem Ausblick auf die zukünftige Handhabung der räumlichen Daten bei Agri~Con.
+Zum Verständnis der Arbeit werden in Kapitel \ref{Grundlagen} theoretische Grundlagen und Fachbegriffe zu Datenbanken, räumlicher Datenverarbeitung und NoSQL dargestellt.
+Daran schließt sich in Kapitel \ref{chapter:methodik} die Darstellung und Begründung des methodischen Vorgehens an, was Definitionen der Begriffe Nutzwertanalyse und Funktions- sowie Leistungstest beinhaltet.
+Anschließend definiert Kapitel \ref{chapter:ausgangsszenario} das Ausgangsszenario, für welches die Frameworks analysiert und getestet werden sollen, sowie die dazugehörigen Anforderungen in Form von Softwarequalität.
+Darauf folgend bewertet eine Nutzwertanalyse ausgewählte Frameworks nach den Anforderungen des Anwendungsfalles (vgl. Kapitel \ref{chapter:systemauswahl}).
+Das darauf folgende Kapitel \ref{chapter:postgresxl} stellt das ausgewählte Framework unter den Punkten Installation, Schnittstellen sowie Verarbeitung dar und präsentiert die Möglichkeiten zum Einsatz bei der Agri~Con GmbH.
+Entsprechend den Anforderungen werden Funktions- und Leistungstest im Kapitel \ref{chapter:tests} durchgeführt und ausgewertet.
+Die Arbeit endet mit einer Zusammenfassung, einer Empfehlung bzw. Wertung der Ergebnisse und einem Ausblick auf die zukünftige Handhabung der räumlichen Daten bei der Agri~Con GmbH in Kapitel \ref{chapter:fazit}.
 %letzten Satz in Abstract übernehmen!
 
 
