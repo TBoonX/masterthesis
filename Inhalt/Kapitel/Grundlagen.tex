@@ -2,12 +2,14 @@
 \label{Grundlagen}
 
 Dieses Kapitel stellt die für die weiteren Ausführungen notwendigen Begriffe und Systeme vor.
-Entsprechend dem Titel dieser Arbeit werden Informationssysteme, geografische Datenverarbeitung und konkrete Systeme vorgestellt.
+Entsprechend dem Inhalt dieser Arbeit werden generelle Grundlagen zu Informationssystemen und zur geografische Datenverarbeitung dargelegt.
+%TODO: was genau noch passiert!
+ sowie werden konkrete Systeme  vorgestellt.
+
 Zu Informationssystemen wird über Datenbanken hingeführt.
 Die am Ende dieses Kapitels vorgestellten Systeme haben Bezug zu NoSQL, weshalb dieser und dazugehörigen Begriffe ebenso definiert werden.
-
-
-\subsubsection{Framework}
+%verbinden!
+Zentral für die Arbeit ist die Klärung des Begriffes Framework.
 Ein Framework ist eine Softwareumgebung zur wiederverwendbaren Herstellung einer Struktur oder Anwendung.
 Entweder werden Anwendung mit Frameworks vervollständigt oder aus daraus erstellt.
 In dieser Arbeit dienen Frameworks, oder auch Ordnungsrahmen genannt, zur Lösung spezieller Aufgaben und sind somit domänenspezifische Frameworks.
@@ -54,19 +56,23 @@ Dagegen sind förderierte Datenbanksysteme (FDBS) ebenfalls geografisch verteilt
 %Die Unterscheidung zwischen VDBS und FDBS muss dabei speziell erfolgen.
 
 
-\section{Räumliche Datenverarbeitung}
+\section{Verarbeitung raumbezogener Daten}
+%spatial mit verwenden - definieren: raumbezogen
 
 Diese spezielle Form der Datenverarbeitung berücksichtigt geografische und topologische Eigenschaften.
 Diese sind nach der Art und deren Bezug zueinander zu unterscheiden.
 
 \subsection{Räumliche Bezugssysteme}
-Entsprechend \cite[S.506]{book:kudrass} erlauben Räumliche Bezugssysteme die Interpretation der gespeicherten Koordinaten als Beschreibung von Lage- und Ausdehnungsinformationen in einem Datenraum. Ein räumliches Bezugssystem besteht aus einem Koordinatensystem, einem Geltungsbereich und Angaben, die es erlauben, Daten aus unterschiedlichen Koordinatensystemen auf ein globales System abzubilden.
+Entsprechend \cite[S.506]{book:kudrass} erlauben räumliche Bezugssysteme die Interpretation der gespeicherten Koordinaten als Beschreibung von Lage- und Ausdehnungsinformationen in einem Datenraum. Ein räumliches Bezugssystem besteht aus einem Koordinatensystem, einem Geltungsbereich und Angaben, die es erlauben, Daten aus unterschiedlichen Koordinatensystemen auf ein globales System abzubilden.
+Lange ergänzt die allgemeine Definition von Kudraß indem er ...
+%TODO
 Kudraß allgemeine Definition wird durch \cite[S.141 ff.]{book:gi-theopluspraxis3} mit folgendem ergänzt:\\
 Man unterscheidet Koordinatensysteme nach kartesisch, homogen, Kugeltransformation und Ellipsoidentransformation, wobei den kartesischen einer hoher Stellenwert zugegordnet wird.
 
 Allen Bezugssystemen wird zur Identifikation ein weltweit eindeutiger Code zugeordnet.
 Dieser ist ein von der \Gls{epsg} vergebener so genannter \Gls{epsg-code}.
-Das auf einem Ellipsoiden basierende Bezugssystem World Geodetic System von 1984\footnote{EPSG:4326} wird von der Agri~Con GmbH verwendet.
+Das auf einem Ellipsoiden basierende Bezugssystem World Geodetic System von 1984 (WGS84) mit dem EPSG Code EPSG:4326\footnote{\url{http://spatialreference.org/ref/epsg/wgs-84/}} wird von der Agri~Con GmbH verwendet.
+%epsg mit link
 
 
 \subsection{Räumliche Objekte}
@@ -76,7 +82,7 @@ Zur Topologie zählt de Lange Umgebungen, Nachbarschaften, Teilmengen und Überl
 Weiterhin werden Geoobjekte mit Sachinformationen gespeichert und je nach Anwendungsfall versioniert.(vgl. \cite[S.133]{book:gi-theopluspraxis3})
 
 
-\subsubsection{einfache Objekte}
+\subsubsection{Einfache Objekte}
 Ein Punkt besteht aus einer zwei- oder dreidimensionalen Koordinate und beliebigen Sach-, Topologie- und Dynamikinformationen.
 Mehrere Punkte bilden Linien.
 Bildet eine Linie eine geschlossene Fläche, handelt es sich um ein Polygon.
@@ -86,7 +92,7 @@ Multipolygone werden oft verwendet um Löcher in Polygonen abzubilden oder kompl
 \subsubsection{Vektorenmodell}
 
 Es besteht die Möglichkeit eine Menge von Punkten als Vektoren aufzufassen und daraus topologische Objekte entstehen zu lassen.
-Um damit geografisch zu modellieren, ist eine Diskretisierung d.h. eine Zuordnung der Vektoren untereinander notwendig. 
+Um damit geografisch zu modellieren, ist eine Diskretisierung d.\,h. eine Zuordnung der Vektoren untereinander notwendig. 
 
 \subsubsection{Rastermodell}
 Ein Raster löst einen rechteckigen Bereich mit in einem Koordinatensystem gleichmäßig angeordneten quadratischen Bildelementen bzw. Pixeln fester Größe auf.
@@ -105,36 +111,37 @@ Dabei werden die Koordinatenreferenzsysteme, die Objekte und die topologischen I
 Graeme führt Beispiele solcher Transformationen tabellarisch auf, siehe Tabelle  \ref{table:spatialfunctions}.
 \begin{table}[h]
 \centering
-\begin{tabular}{c|c|c|c}
-\textbf{FROM/TO} & \textbf{POINTS} & \textbf{LINES} & \textbf{AREAS} \\ \hline
-\textbf{POINTS} & interpolation & contouring & Thiessen polygons \\ \hline
-\textbf{LINES} & line intersections & line smoothing & buffer zones \\ \hline
-\textbf{AREAS} & sample at points & medial axis & re-sampling at areas \\ 
+\begin{tabular}{c|c|c|C{4cm}}
+\textbf{Von/Nach} & \textbf{Punkte} & \textbf{Linien} & \textbf{Flächen} \\ \hline
+\textbf{Punkte} & Interpolation & Contouring & Thiessen Polygone \\ \hline
+\textbf{Linien} & Linienüberschneidung & Linienglättung & Pufferzonen \\ \hline
+\textbf{Flächen} & \glqq{}sample at points\grqq & Mediale Achse & Wieder\-holungs\-proben\-nahme auf Flächen \\ 
 \end{tabular}
-\caption[Beispiele für räumliche Transformationen]{Beispiele für räumliche Transformationen nach \cite[S.139]{book:gisforgeoscientists} Table 6-1 Examples of elementary GIS transformations}
+\caption[Beispiele für räumliche Transformationen]{Beispiele für räumliche Transformationen nach \cite[S.139]{book:gisforgeoscientists}}
 \label{table:spatialfunctions}
 \end{table}
 Darin werden ausgewählte Transformationen zwischen Objekten aufgeführt.
 Es ist zu erwähnen, dass Transformationen nicht nur mit den aufgezeigten Objekten verwendet werden.
-So ist interpolation auch für POINTS zu LINES möglich.
-Für die folgenden Betrachtungen sind jedoch nur die Transformationen interpolation und contouring von Interesse.
+So ist die Interpolation auch für Punkte zu Linien möglich.
+Für die folgenden Betrachtungen sind jedoch nur die Transformationen Interpolation und Contouring von Interesse.
 In allen Transformationen werden Mittel der Statistik verwendet, da neben geografischen und topologischen Informationen auch Sachinformationen in die Berechnungen einbezogen werden, welche in die Transformation verändert übernommen werden.
 Diese Verknüpfung von Statistik und räumlichen Operationen heißt Geostatistik.
 
 %Geostatistik
-In den weiteren Ausführungen wird contouring mit dem Spezialfall kriging angewandt.
-Der Entwickler war Kriging, welcher diese Transformation zur Vorhersage von Goldvorkommen in Süd Afrika verwendete. (vgl. \cite[S.317]{book:spatialdataanalysis})
-Entsprechend Akin und Simes nach \cite[S.76]{book:verarbeitungspatialdata} ist kriging ein Schätzvorgang, der eine bestimmte Anzahl von Proben in einem Wichtungsprozess so einbezieht, dass die Schätzvarianz zu einem Minimum wird.
+In den weiteren Ausführungen wird die Transformationsmethode kriging als Spezialfall von Contouring angewandt.
+Der Entwickler war Kriging, welcher diese Transformation zur Vorhersage von Goldvorkommen in Süd Afrika verwendete (vgl. \cite[S.317]{book:spatialdataanalysis}).
+Entsprechend Akin und Simes nach \cite[S.76]{book:verarbeitungspatialdata} ist Kriging ein Schätzvorgang, der eine bestimmte Anzahl von Proben in einem Wichtungsprozess so einbezieht, dass die Schätzvarianz zu einem Minimum wird.
 Kriging wird bei Agri~Con eingesetzt, um aus Punktdaten mit Sachinformationen durch Wichtung bei hoher Erwartungstreue der Schätzwerte Vektordaten mit Sachinformationen zu erzeugen.
 
 \subsection{Geografisches Informationssystem}
 \label{grundlagen:gis}
 %Relevant hervorheben
+%TODO IS mit kudraß verbinden
+%TODO IS hier ausschreiben
 Ein \Gls{is} ist eine Softwareumgebung zur umfassenden Verwendung von Daten.
 Es stellt Möglichkeiten der Erfassung, Speicherung und Verarbeitung zur Verfügung.
 Außerdem können die Daten analysiert, übertragen, angezeigt und gepflegt werden.
 Alle Daten und Ergebnisse daraus sind Gegenstand der Verwendung von Informationssystemen.
-
 Wird ein \Gls{is} im geografischen Kontext benötigt, wird ein dafür explizit programmiertes benötigt.
 Die geometrischen und topologischen Informationen der Geodaten müssen sich im \Gls{is} widerspiegeln.
 So hat das System die topologischen Zusammenhänge zu berücksichtigen und die Daten bevorzugt optisch  darzustellen.
@@ -142,7 +149,7 @@ So hat das System die topologischen Zusammenhänge zu berücksichtigen und die D
 Lange definiert \Gls{gis} ähnlich:
 \begin{quote}
 Im Mittelpunkt  der  Geoinformatik  stehen  mit den  Geoinformationssystemen raumbezogene Informationssysteme, die im Gegensatz zu den übrigen Informationssystemen Geoobjekte  der realen Welt modellieren und diese in ein digitales Informationssystem abbilden [...]. Die Gegenstände eines Geoinformationssystems  besitzen  wie  auch  bei  allen  anderen  Informationssystemen  eine 
-Thematik (und Dynamik). Das Besondere bei Geoinformationssystemen ist, dass Geoobjekte darüber hinaus Geometrie und Topologie als implizite und untrennbare Bestandteile aufweisen!  Die Verarbeitung derartiger raumbezogener Informationen erfordert spezielle Werkzeuge bzw. Funktionen, die von den übrigen Informationssystemen nicht bereitgestellt werden [...].\footnote{\cite[S.337]{book:gi-theopluspraxis3}}
+Thematik (und Dynamik). Das Besondere bei Geoinformationssystemen ist, dass Geoobjekte darüber hinaus Geometrie und Topologie als implizite und untrennbare Bestandteile aufweisen!  Die Verarbeitung derartiger raumbezogener Informationen erfordert spezielle Werkzeuge bzw. Funktionen, die von den übrigen Informationssystemen nicht bereitgestellt werden [...]. \cite[S.337]{book:gi-theopluspraxis3}
 \end{quote}
 
 Die Klärung dieses Begriffes ist wichtig, da die zu untersuchenden Frameworks \Gls{gis} sind und anhand der Definition eines \Gls{gis} untersucht und bewertet werden.
@@ -151,12 +158,14 @@ Die Klärung dieses Begriffes ist wichtig, da die zu untersuchenden Frameworks \
 
 \subsection{Java Bibliothek GeoTools}
 \label{geotools}
-GeoTools ist eine in Java geschriebene Open Source Bibliothek welche Standardkonforme Operationen zur Verarbeitung von geografischen Daten bereitstellt.
+GeoTools\footnote{Ein Projekt der Open Source Heisoatuiak foundation} ist eine in Java geschriebene Open Source Bibliothek welche Standardkonforme Operationen zur Verarbeitung von geografischen Daten bereitstellt.
+%TODO osgeo als unterestützer/Gründer bennen mit url in fußzeile
 Sie wird von Java nahen Frameworks im Kontext von \Gls{gis} verwendet, sodass die Bewertung dieser Frameworks die Kenntnis über GeoTools voraus setzt.
 Die Implementation erfolgte nach Anforderungen des \Gls{ogc}, worauf beispielsweise Geometrien des \Gls{jts} unterstützt werden und die OGC Filter Encoding Spezifikation von Attributen und räumlichen Filtern verwendet wird.(vgl. \cite{website:geotools})
 Eine detaillierte Auflistung der Funktionalitäten ist im Anhang \ref{appendix-B} zu finden.
 
 \subsection{PostgreSQL mit Erweiterung PostGIS}
+%TODO Gründer mit bennen: ein projekt von...
 PostGIS ist eine geografische Erweiterung der Objekt-relationalen Datenbank PostgreSQL.
 PostgreSQL wird dabei um geografische Datentypen, geografische Indizes und Funktionen erweitert.
 Konkret wird der Simple Feature Access Standard verwendet und um den Datentyp raster und weitere Funktionen zur Datenverarbeitung erweitert. (siehe \cite{website:postgisdocu-opengis})
@@ -174,17 +183,14 @@ Dafür wurden herkömmliche relationale Systeme nicht konzipiert.
 Die Menge an Daten und die geografische Verteilung dieser erzwang die Einführung neuer Methoden und Prinzipien.
 Der Ursprung wird in der Literatur verschieden hergeleitet, jedoch wird immer zu den ersten Vertretern der NoSQL Bewegung Systeme mit einer anderen Abfragesprache und einfache Key Value Datenbanken gezählt.
 Auf einer Messe zu aktuellen Trends im Datenbankbereich wurde der Begriff NoSQL zuerst öffentlich für Lösungen dieser Bewegung verwendet (vgl. \cite{website:originnosql}) und ist seitdem ein Sammelbegriff für eine hohe Anzahl an Systemen.
-Einen Überblick der bestehenden Systeme stellt Edlich auf einer eigenen Homepage bereit.\footnote{\url{http://nosql-database.org/}}
-
-\subsubsection{Nicht relationale GIS}
+Einen Überblick der bestehenden Systeme stellt Edlich auf einer eigenen Homepage bereit.\footnote{Übersicht über NoSQL DBMS: \url{http://nosql-database.org/}}
 
 In Bezug auf NoSQL kann \Gls{gis} wie in \ref{grundlagen:gis} definiert werden, jedoch muss das zugrunde liegende System nicht relational sein.
 Im Rahmen dieser Arbeit ist mit \Gls{gis} ein System oder die Teilsysteme zur räumlichen Datenhaltung, Datenverarbeitung und Bereitstellung gemeint, unabhängig des Konsistenzbegriffes und der Abfragesprache.
 
 \subsection{Kategorisierung}
-Edlich unterscheidet NoSQL Datenbanken nach vier Kategorien.
+Edlich unterscheidet NoSQL Datenbanken nach den vier unten aufgeführten Kategorien \cite{book:nosql-einfuehrung}.
 Jedoch kann eine eindeutige Zuteilung nicht für jedes System erfolgen, da Prinzipien verschiedener Kategorien auf eines zutreffen können.
-Für dieses Kapitel diente wesentlich \cite{book:nosql-einfuehrung} als Quelle.
 
 
 \subsubsection{Key Value Datenbank}
@@ -214,13 +220,13 @@ Dagegen besteht ein hoher Aufwand beim Lesen und Schreiben von zusammengehörige
 
 Googles Big Table erweitert diesen Ansatz und beschreibt es in dessen Paper wie folgt:
 \begin{quote}
-A  Bigtable  is  a  sparse,  distributed,  persistent  multi-dimensional sorted map. The map is indexed by a row key, column key, and a timestamp; each value in the map is an uninterpreted array of bytes.\footnote{\cite[S.1]{paper:bigtable}}
+A  Bigtable  is  a  sparse,  distributed,  persistent  multi-dimensional sorted map. The map is indexed by a row key, column key, and a timestamp; each value in the map is an uninterpreted array of bytes. \cite[S.1]{paper:bigtable}
 \end{quote}
 Die mehrdimensionalen Tabellen oder Maps sind vom Format:\\
 $n*[Domain / Keyspace]\ x\ [item / Column\ Family]\ x\ [Key\ x]*n*[key+Value]$
 %Dans zeug dazu anschauen
 Googles Ansatz wurde OpenSource in HBase und Cassandra umgesetzt. Die konkrete Implementierung von Google wurde jedoch nicht veröffentlicht.
-HBase verwendet folgendes Format: Pro Table Zugriff auf Zeilen per Rowkey, diese enthalten Column Familys oder Spalten welche wiederum eine Map namens Column Qualifier mit Tupeln aus der Version als Schlüssel und ein Byte-Array als Wert besitzen.(vgl. \cite[S.13]{ba:dan})
+HBase verwendet folgendes Format: Pro Table Zugriff auf Zeilen per Rowkey, diese enthalten Column Familys oder Spalten welche wiederum eine Map namens Column Qualifier mit Tupeln aus der Version als Schlüssel und ein Byte-Array als Wert besitzen (vgl. \cite[S.13]{ba:dan}).
 
 \subsubsection{Graphenbasierte Datenbank}
 
@@ -257,7 +263,7 @@ MapReduce wurde von Google definiert.
 In Abbildung \ref{fig:mapreduce} ist der beschriebene Ablauf dargestellt.
 Auch hier werden keine besonderen Anforderungen an die Hardware gestellt.(vgl. \cite[S.3]{paper:mapreduce})
 %
-\begin{figure}[h]
+\begin{figure}[h!]
 \centering
 \includegraphics[width=\textwidth]{Abbildungen/mapreduce.png}
 \caption[Übersicht der Ausführung von Googles MapReduce]{Übersicht der Ausführung von Googles MapReduce, Quelle: \cite{paper:mapreduce} S. 3}
@@ -335,6 +341,7 @@ Damit kann mit einer Konfigurationsdatei ein Cluster definiert sowie erstellt we
 \caption[Aufbau Postgres-XL]{Aufbau Postgres-XL, Quelle: \url{http://www.postgres-xl.org/wp-content/uploads/2014/04/xl_cluster_architecture1.jpg}}
 \label{fig:postgresxl}
 \end{figure}
+%TODO mit als referenz aufnhemen und url in fußnote
 %Das System wird somit analog einer PostgreSQL Instanz angesprochen.
 Ebenso sind Erweiterungen wie PostGIS, DBLink oder PL/R installierbar.
 Es ist zu erwähnen, dass die Version 9.2.34 keine Trigger unterstützt\footnote{siehe \url{http://files.postgres-xl.org/documentation/intro-whatis.html} Ergänzung 4} und und der Transition Typ internal nicht verwendet werden kann.

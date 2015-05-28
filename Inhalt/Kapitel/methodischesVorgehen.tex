@@ -47,7 +47,7 @@ Diese Aufrufstatistik belegt das die Nutzung der Website etwa zur Hälfte durch 
 
 \textbf{Auswahl eines Frameworks}\\
 Aus der untersuchten Menge ist eines anhand der gemessenen Nutzwertes auszuwählen.
-Der Ist-Stand\footnote{siehe \ref{IstStand}} der Agri~Con ist über Jahre hinweg durch wachsende  Anforderungen im technischen und organisatorischen Bereich entstanden.
+Der Ist-Stand unter \ref{IstStand} der Agri~Con ist über Jahre hinweg durch wachsende  Anforderungen im technischen und organisatorischen Bereich entstanden.
 Aus diesem Grund ist die Auswahl eines Frameworks für den gesuchten Anwendungsfall aufwendig.
 Die Wahrscheinlichkeit der Eignung mehrerer Frameworks scheint daher nach der Einschätzung des Autors gering.
 Diese induktive Hypothese gilt es in dieser Teilaufgabe zu belegen.
@@ -56,7 +56,7 @@ Deshalb ist die Nutzwertanalyse zunächst anhand deren Spezifikationen durchzuf�
 
 Für derartige Entscheidungen kann stattdessen das Vorgehen \Gls{ahp} verwendet werden.
 Dabei werden verschiedene Alternativen für eine Anforderung entsprechend Kriterien hierarchisch bewertet.
-Schlussendlich wird der Wert einer Alternative über Matrizenberechnungen der Kriteriumswerte unter Berücksichtigung der Wertigkeit der einzelnen Kriterien und Unterkriterien erstellt. (siehe \cite{website:ahp-gaul})
+Schlussendlich wird der Wert einer Alternative über Matrizenberechnungen der Kriteriumswerte unter Berücksichtigung der Wertigkeit der einzelnen Kriterien und Unterkriterien erstellt (siehe \cite{website:ahp-gaul}).
 Dieser Entscheidungsvorgang ist für Szenarien geeignet, in welchen eine Vielzahl von etwa gleich geeigneten Alternativen vorliegt und die Bewertung eines Kriteriums Teilbewertungen anderer Alternativen berücksichtigen muss, um die beste Alternative herausarbeiten zu können.
 Dies ist im Szenario dieser Arbeit nicht gegeben:
 \begin{itemize}
@@ -78,6 +78,7 @@ Das ausgewählte Framework ist detailliert zu untersuchen.
 Aus dieser Untersuchung soll ein Entwurf zum Einsatz bei der Agri~Con entstehen.
 Dabei ist besonders dessen Architektur, die Konfiguration und fehlende Funktionalitäten zu beleuchten, welche mit nachträglicher Implementierung in das Framework einzubinden sind.
 Auf Grund der wesentlich unterschiedlichen Frameworks, kann vor der Auswahl keine konkrete Architekturempfehlung verwendet werden. Dieser Entwurf ist nach den Anforderungen und den Eigenheiten des Frameworks zu erstellen. Eine wesentliche Grundlage sind dabei Referenzimplementierungen und Guidelines des entsprechendem Rahmenwerkes.
+%TODO Referenz zu thema oder sogar satz
 
 \textbf{Prototypische Implementierung}\\
 Der Entwurf wird schlussendlich umgesetzt und anhand der Funktions- und Leistungstests bewertet.
@@ -100,15 +101,15 @@ Es handelt es sich somit um systematische Tests:
 Ein systematischer Test ist ein Test, bei dem\\
 die Randbedingungen definiert oder präzise erfasst sind,\\
 die Eingaben systematisch ausgewählt wurden,\\
-die Ergebnisse dokumentiert und nach Kriterien beurteilt werden, die vor dem Test festgelegt wurden.\footnote{\cite[S.446]{book:softwareengineering}}
+die Ergebnisse dokumentiert und nach Kriterien beurteilt werden, die vor dem Test festgelegt wurden.\cite[S.446]{book:softwareengineering}
 \end{quote}
 
 \label{grundlagen-funktionstests}
-Um die Systeme auf Softwarequalität, beschrieben auf Seite \pageref{softwarequalität}, zu testen, sind Funktionstests notwendig.
+Um die Systeme auf Softwarequalität, beschrieben in Kapitel \ref{softwarequalität}, zu testen, sind Funktionstests notwendig.
 Im folgenden bezieht sich \glqq Systeme\grqq\ auf auf die untersuchten Frameworks.
-\cite{book:softwareengineering} verweist auf Funktionstests auf Seite 455 wie folgt:
+Ludwig verweist auf Funktionstests wie folgt:
 \begin{quote}
-Werden die Testfälle auf Basis der in der Spezifikation geforderten Eigenschaften des Prüflings ausgewählt (z.B. Funktionalität, Antwortzeit), dann spricht man von einem Block-Box-Test oder auch von einem Funktionstest (19.5).
+Werden die Testfälle auf Basis der in der Spezifikation geforderten Eigenschaften des Prüflings ausgewählt (z.B. Funktionalität, Antwortzeit), dann spricht man von einem Block-Box-Test oder auch von einem Funktionstest (19.5). \cite[S.455]{book:softwareengineering}
 \end{quote}
 Dazu wird auf Seite 471 der Umfang des Funktionstestes wie folgt umrissen:
 \begin{quote}
@@ -140,11 +141,11 @@ Diese sind jedoch nicht für den zu untersuchenden Anwendungsfall geeignet, da s
 
 Der in diesem Zusammenhang in der Literatur verwendete Begriff Benchmark ist hier jedoch ungeeignet, da die Software und nicht die Hardware untersucht werden soll:
 \begin {quote}
-Benchmarking ist eine Methode der Analyse des Leistungsverhaltens von Rechensystemen anhand von Referenzprogrammen oder Sätzen von Referenzprogrammen (Benchmarks). Dabei wird das Leistungsverhalten verschiedener Rechensysteme in Relation gesetzt, um so Vergleichskriterien  für Rechensysteme zu erhalten.\footnote{\cite[S.24]{book:Leistungsanalyse}}
+Benchmarking ist eine Methode der Analyse des Leistungsverhaltens von Rechensystemen anhand von Referenzprogrammen oder Sätzen von Referenzprogrammen (Benchmarks). Dabei wird das Leistungsverhalten verschiedener Rechensysteme in Relation gesetzt, um so Vergleichskriterien  für Rechensysteme zu erhalten. \cite[S.24]{book:Leistungsanalyse}
 \end{quote}
 Eine hier betrachtete Leistungs- und Laufzeitmessung ist dabei wie folgt definiert:
 \begin {quote}
-Unter Leistungsmessung versteht man die Beobachtung des Ablaufverhaltens eines Programms bei der Ausführung auf einem realen System. Das Ziel das dabei verfolgt wird, ist die Gewinnung von Erkenntnissen, die zur Optimierung eines Programms genutzt werden können.\footnote{\cite[S.28]{book:Leistungsanalyse}}
+Unter Leistungsmessung versteht man die Beobachtung des Ablaufverhaltens eines Programms bei der Ausführung auf einem realen System. Das Ziel das dabei verfolgt wird, ist die Gewinnung von Erkenntnissen, die zur Optimierung eines Programms genutzt werden können. \cite[S.28]{book:Leistungsanalyse}
 \end{quote}
 Die aus der Leistungsmessung gewonnenen Erkenntnisse dienen hierbei als Qualitätsmerkmale und werden nach definierten Metriken gewichtet.
 

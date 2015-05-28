@@ -13,6 +13,7 @@ In den letzten 3 Jahren wurde beispielsweise nur zum Thema N-Versorgung\footnote
 
 Daraus ergeben sich verschiedenen Anforderungen an die Technologie, die für die Verarbeitung, Analyse und Darstellung verwendet wird:
 \begin{itemize}
+%TODO nicht dick mit stichpunkten
 \item PostgreSQL mit PostGIS zum Datenimport und -export nutzbar
 \item Gruppieren und Filtern mit geringer Laufzeit
 \item parallele Berechnung\footnote{hier Geostatistik} über große Datenmengen mit geringer Laufzeit
@@ -315,12 +316,15 @@ Alle Schemata beinhalten Funktionen, Trigger, Tabellen, Typen, Indizes und Contr
 
 
 \section{Stand der Forschung}
+%TODO stand und zukunft zu angeschnittenen Themen(frameworks, nosql,  BigData, ...) mit suchen (aus sicht des unternehmens - volkmar), auch bei publikationen der unis schaun
+%TODO auch thema: semantische verknüpfung der geodaten übers web
+%TODO 4-5 Seiten
 %Diskussion der Literatur
-Die jährlich stattfindende Internationale Messe FOSSGIS\footnote{Messe für freie und Open Source Software für Geoinformationssysteme \url{https://www.fossgis.de/}} zeigte das PostgreSQL mit PostGIS in der Regel als freies \Gls{dbms} für \Gls{gis} eingesetzt wird.
+Die jährlich stattfindende Internationale Messe FOSSGIS\footnote{Industriemesse für freie und Open Source Software für Geoinformationssysteme \url{https://www.fossgis.de/}} zeigte das PostgreSQL mit PostGIS in der Regel als freies \Gls{dbms} für \Gls{gis} eingesetzt wird.
 Zwar existiert eine Vielzahl von Elementen zur Darstellung und Kartenverwaltung% erzeugt aus den vorhandenen Daten
 , aber es scheint keine geeignete Alternative zur Datenhaltung und Verarbeitung von komplexen geografischen Daten zu geben.
 
-Die Literaturrecherche bestätigt dies.\\
+Diese unternehmerische Sicht wird durch wissenschaftliche Arbeiten bestätigt.\\
 So vergleicht Ahlers in seiner Bachelorarbeit\footnote{\cite{ba:pgvsoracle}} PostGIS mit Oracle Spatial, da auch für ihn PostGIS der größte freie Vertreter eines GIS ist.\\
 Thurm untersucht in \cite{ba:nosqlfuergeodaten} gängige NoSQL \Gls{dbms} für Eignung mit geografischen Daten im Vergleich mit PostGIS und Oracle Spatial.
 Darin kommt der Autor zu dem Schluss, dass es für einfache Datenobjekte in begrenzten Mengen nützlich ist die NoSQL Alternativen in Betracht zu ziehen.

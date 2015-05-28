@@ -14,10 +14,10 @@ Nicht nur Agri~Con steht vor dieser Notwendigkeit, sondern der Großteil der Unt
 PostgreSQL mit der Erweiterung PostGIS erfüllt nicht alle Anforderungen, wenn große Datenmengen zur Laufzeit aggregiert und verarbeitet werden müssen. %vertikale Skalierung nicht mehr effizient
 Eine bereits durchgeführte vertikale Skalierung der Hardware verringerte die Laufzeit kritischer Operationen, jedoch muss das zu Grunde liegende System wachsenden Anforderungen stand halten.
 Es ist zu untersuchen, welche Vorteile andere Datenhaltungssysteme bieten bzw. welche alternativen Herangehensweisen wie NoSQL und die verteilte Datenhaltung geeignet sind, um die Anforderungen zu erfüllen. %woher kommen die Anforderungen? Anforderungen nennen
-Dafür sind existierende \Glspl{gis} zu untersuchen und deren Eignung für den in Kapitel \ref{chapter:ausgangsszenario} beschriebenen Anwendungsfall festzustellen.
+Dafür sind existierende \Gls{gis} zu untersuchen und deren Eignung für den in Kapitel \ref{chapter:ausgangsszenario} beschriebenen Anwendungsfall festzustellen.
 Die Schwerpunkte der Untersuchung sind die Möglichkeiten und die Leistungsfähigkeit der räumlichen Datenverarbeitung und nicht die Formen der Datendarstellung.
 %Dabei werden NoSQL und Open-Source Frameworks bevorzugt untersucht.
-Aus geeigneten wird eines ausgewählt.
+Aus geeigneten Systemen wird eines ausgewählt.
 Dieses wird untersucht, für den Einsatz bei Agri~Con validiert und hinsichtlich Funktionalität und Leistung bewertet.
 Schlussendlich soll eine Entscheidungsgrundlage in Form einer Nutzwertanalyse anhand von bewerteten Qualitätsmerkmalen und durchgeführten Tests für die Eignung entsprechend des Anwendungsfalles gegeben werden.
 % Die Auswahl zwischen vorhandenen Systemen nach ausgesuchten Merkmalen soll für ähnliche  Untersuchungen als Handelsempfehlung dienen.
@@ -28,26 +28,29 @@ Dieses Forschungsziel ist von allgemeinem Interesse, da damit eine Erkenntnislü
 
 \section{Einordnung der Arbeit}
 %EInordnung - big picture: Zwar allgemein Datenhaltung und -verarbeitung bis Informationssystem, jedoch durch geodaten ein Spezialfall; verteiltes system ist wesentliche einschränkung zum zwecke der aktualität  und führt zu NoSQL
-Es handelt sich um eine Softwareauswahl mit Hilfe von Nutzwertanalysen sowie die ergänzende Bewertung eines Frameworks hinsichtlich Funktionalität und Leistung durch Tests.
-Diese Frameworks entsprechen der Definition eines \Gls{gis}, gehen somit über die Funktionalität und den Umfang über Frameworks zur reinen Datenhaltung und -verarbeitung hinaus.
+Im Rahmen der Arbeit erfolgt eine Softwareauswahl mit Hilfe von Nutzwertanalysen.
+%TODO
+ sowie eine ergänzende Bewertung eines Frameworks hinsichtlich Funktionalität und Leistung durch Tests.
+Diese Frameworks entsprechen der Definition eines \Gls{gis}, gehen somit über die Funktionalität und den Umfang über Frameworks zur reinen Datenhaltung und -ver\-ar\-beitung hinaus.
+%kapitel ergänzen
 Zusätzlich handelt es sich um räumliche Daten und Datenverarbeitung.
-Die Bewertung von \Gls{gis} erfolgt mit Bewertungsmaßnahmen von Informationssystemen, mit Berücksichtigung des Spezialfalles des räumlichen Bezuges der Daten.
+Die Bewertung von \Gls{gis} erfolgt mit Bewertungsmaßstäben von Informationssystemen (vgl. Kapitel \ref{}), mit Berücksichtigung des Spezialfalles des räumlichen Bezuges der Daten.
 Die Einschränkung auf verteilt arbeitende Frameworks führt allein genommen bereits zur Betrachtung von Alternativen des relationalen Modells, da bekannte Vertreter eine verteilte Arbeitsweise unterstützen.
-
 Die Methodik lässt sich auf ähnliche Ausgangsszenarios übertragen.
 Sie lässt sich somit als Handlungsempfehlung zur Auswahl eines \Gls{gis} Frameworks verwenden.
 
 \section{Aufbau der Arbeit}
 %empirisches Vorgehen für Spezialfall nicht Allgemeinheit
 %systematisches Vorgehen - softwareauswahl ist technologische Aussage
-Zu Beginn werden theoretische Grundlagen zu Datenbanken, geographischer Datenverarbeitung und NoSQL festgehalten.
+%immer Kapitel referenzieren!
+Zum Verständnis der Arbeit werden zu Beginn theoretische Grundlagen und Fachbegriffe zu Datenbanken, geographischer Datenverarbeitung und NoSQL dargestellt.
 Daran schließt sich die Darstellung und Begründung des methodischen Vorgehens an, was Definitionen der Begriffe Nutzwertanalyse und Funktions- sowie Leistungstest beinhaltet.
 Anschließend definiert Kapitel \ref{chapter:ausgangsszenario} das Ausgangsszenario, für welches die Frameworks analysiert und getestet werden sollen, sowie die dazugehörigen Anforderungen.
 Darauf folgend bewertet eine Nutzwertanalyse ausgewählte Frameworks nach den Anforderungen des Anwendungsfalles.
 Das darauf folgende Kapitel stellt das ausgewählte Framework unter den Punkten Installation, Schnittstellen sowie Verarbeitung dar und präsentiert die Möglichkeiten zum Einsatz bei Agri~Con.
-Dazu werden Funktions- und Leistungstest im Kapitel \ref{chapter:tests} durchgeführt und ausgewertet.
+Entsprechend werden Funktions- und Leistungstest im Kapitel \ref{chapter:tests} durchgeführt und ausgewertet.
 Die Arbeit endet mit einer Zusammenfassung, einer Empfehlung bzw. Wertung der Ergebnisse und einem Ausblick auf die zukünftige Handhabung der räumlichen Daten bei Agri~Con.
-
+%letzten Satz in Abstract übernehmen!
 
 
 %weitere Punkte: EInordnung des Themas, Ausgangslage, Ziel der Arbeit, Aufbau der Arbeit, Hinweise zu rArbeit

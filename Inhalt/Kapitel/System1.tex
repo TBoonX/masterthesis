@@ -18,7 +18,7 @@ Für das Verständnis werden grundlegende Linux Kenntnisse und ein root Zugang v
 \subsection{Installation}
 
 \subsubsection{Systemvoraussetzungen}
-Die Dokumentation\footnote{\url{http://files.postgres-xl.org/documentation/install-requirements.html}} verwendet hierbei deckungsgleich die offizielle Dokumentation zu den Systemanforderungen von PostgreSQL\footnote{\url{http://www.postgresql.org/docs/9.2/static/install-requirements.html}}.
+Die Dokumentation\footnote{Dokumentation Postgres-XL: \url{http://files.postgres-xl.org/documentation/install-requirements.html}} verwendet hierbei deckungsgleich die offizielle Dokumentation zu den Systemanforderungen von PostgreSQL\footnote{Dokumentation PostgreSQL: \url{http://www.postgresql.org/docs/9.2/static/install-requirements.html}}.
 Dabei wird ein Linux Betriebssystem, 155MB freien Festplattenspeicher für die Übersetzung, Installation und Erstellung eines leeren Datenbankclusters sowie eine Menge von Paketen genannt.
 Diese ist: GNU make, gcc, tar und zlib als benötigte sowie libperl oder libpython als optionale Pakete.
 Zusätzlich werden für die Erzeugung der Dokumentation oder über Übersetzung des Quellcodes weitere Pakete benötigt.
@@ -92,6 +92,7 @@ Die Daten können auch analog des Schema übertragen werden, dies dauert jedoch 
 %R -> auf welchen Knoten wird das ausgeführt? Coordinator?
 %PostGIS
 Die Datenverarbeitung erfolgt analog des Ist-Standes bei Agri~Con.
+%TODO fußnote in text
 Mit der Installation\footnote{Skript siehe \ref{appendix:postgis}} von PostGIS als Erweiterung, können die vorhandenen SQL Funktionen übernommen werden, ebenso die R Bibliotheken des speziellen Krigings.
 Dafür ist neben R als Programmiersprache mit notwendigen Paketen auf den Systemen, Pl/R als Erweiterung in Postgres-XL, zu installieren.
 Die Installation von Pl/R mit dem Quellcode als Grundlage ist in Anhang \ref{appendix:plr} zu finden.
@@ -274,6 +275,7 @@ Der Beweis stellt die erfolgte Übernahme der Daten des Ist-Standes dar.
 
 \textbf{FT04:}\\
 Mit PostGIS kann mit der Funktion st\_{}transform direkt zwischen den Koordinatenreferenzsystemen umgerechnet werden:\\
+%TODO listing
 \textit{select id, st\_{}astext(st\_{}transform(geom, 3857)) as transformed, st\_{}srid(st\_{}transform(geom, 3857)) as newsrid, st\_{}astext(st\_{}transform(st\_{}transform(geom, 3857), 4326)) as original, st\_{}srid(st\_{}transform(st\_{}transform(geom, 3857), 4326)) as srid from nutrients.samples limit 10;}\\
 So werden die Punkte der Tabelle samples im Schema nutrients mit dem EPSG Code 4326 zum EPSG Code 3857 sowie wieder zurück umgerechnet.
 Die Funktionsdeklaration lautet:

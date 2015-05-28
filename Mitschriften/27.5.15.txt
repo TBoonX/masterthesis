@@ -1,0 +1,50 @@
+Abstract:
+Quelloffen nicht vergessen
+Agri COn beschreiben
+
+
+Danksagung:
+volkmar zu erst nennen
+leiter der softwareabteilung - volkmar - nennen
+historie raus nehmen
+
+Grundlagen:
+2.1 ohne unterkapitel alles als fließtext
+
+hyphenation für silbentrennung
+
+
+"dazu" zu umgangssprachlich - entweder satzumbau oder entsprechend
+
+
+GmbH immer dazu wenn es ums geschäft geht. bei fachlichen ohne GmbH
+
+
+d.h -> d.\,h.  auch für z.B.
+
+
+tabelle in meinem Stil halten
+
+Fußnote mehr als link
+
+
+Ein Abschnitt sollte mindestens 2 sätz haben
+
+zu jedem system eine referenz als literatur: dokumentation oder produktinformation
+
+
+zwischenüberschriften zwischen 2. und 3. anders?
+
+alle eigennamen kursiv! (erste Ausschreibung bei Abkürzungen) (vorallem in 3.)
+
+keine seitenangaben - immer kapitel
+
+position latex: t oder b
+
+tabellen mit rahmen versehen
+
+in 5. urls in fußnoten
+
+6. kommandos als listing
+
+Schläge definieren oder ausschreiben

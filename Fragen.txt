@@ -1,10 +1,11 @@
+Deckblatt mit HTWK Logo? egal
+"freie" in Titel lassen? -> quelloffen
+Einfache Tiefe des Inhaltverzeichnisses IO? ja
 Die Nutzungsstatistik nicht auf Arbeitnehmer beziehen - anzahl ist grund für relevanz?
-Softwarequalität in Grundlagen verschieben?
-Anfang von 7.3 in den Anhang packen?
-"freie" in Titel lassen?
-Einfache Tiefe des Inhaltverzeichnisses IO?
+Softwarequalität in Grundlagen verschieben? nein
+Anfang von 7.3 in den Anhang packen? nein
 2 der 3 Versionen für die HTWK auch in gehefteter Form?
 4.3 nun rausnehmen?
-Deckblatt mit HTW Logo?
 
-Was ist mit der Note in semantic web?
+Was ist mit der Note in semantic web? Frau Wermann wurde angeschrieben.
+Bindung: 3 varianten klebebindung siehe bild; Merkur im Stadtzentrum ist preiswert
