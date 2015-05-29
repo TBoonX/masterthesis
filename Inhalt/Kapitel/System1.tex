@@ -603,7 +603,7 @@ Bei der Erstellung der Kartenausschnitte wurden die aufgeführten fileids berüc
 Die angeforderten Kartenausschnitte werden als Bilder in den Arbeitsspeicher geladen.
 
 In Vorbereitung des Testes wurde eine sehr hohe Auslastung der CPU in der \Gls{vm} beobachtet, welche die \Gls{umn} Instanz beinhaltet, im Gegensatz zu einer geringen Auslastung der restlichen \Gls{vm}s.
-Um einen höheren Durchsatz zu erreichen und das Postgres-XL Cluster mehr auszulasten, wurden der UMN \Gls{vm} zwei weitere CPU Kerne zugeordnet.
+Um einen höheren Durchsatz zu erreichen und das Postgres-XL Cluster mehr auszulasten, wurden der UMN \Gls{vm} zwei weitere Prozessorkerne zugeordnet.
 Da bereits alle 16 Kerne vergeben sind, wurde die Prozessor Affinität der GTM \Gls{vm} so geändert, dass diese sich ihre zwei Prozessorkerne mit der UMN \Gls{vm} teilt.
 Es wurde dafür die GTM \Gls{vm} verwendet, da sie auch bei Benutzung des Postgres-XL Clusters eine geringe CPU Auslastung aufwies\footnote{siehe Abbildung \ref{fig:auslastungTest1_gtm}}.
 Diese Ressourcenaufteilung beeinträchtigt die Leistungsfähigkeit des Clusters somit nicht.
@@ -646,7 +646,7 @@ Dabei befindet sich die Auslastung je nach Knoten zwischen 0.01 und 0.31.
 \end{figure}
 Bezüglich der GTM \Gls{vm} steigt auch in diesem Test die Arbeitsspeicher Auslastung stetig und die CPU Auslastung ist sehr gering.
 Der Arbeitsspeicher wird mit etwa 1GB belastet und die CPU wird einzig von 11:15 bis 11:21 Uhr bis zu einem Maximalwert von 0,06 genutzt.
-Trotz der Nutzung von vier Prozessoren ist die Auslastung der CPU durch die \Gls{umn} Instanz sehr hoch.
+Trotz der Nutzung von vier Prozessorkerne ist die Auslastung der CPU durch die \Gls{umn} Instanz sehr hoch.
 Diese bewegt sich während der Tests zwischen 4.5 und 6.5.
 Zu Beginn wird rund 260MB Arbeitsspeicher der \Gls{umn} Instanz zugewiesen, ist zwischen den Tests 40MB niedriger und ansonsten gleich.
 \begin{figure}[h!]
