@@ -10,7 +10,7 @@ Weiterhin ist die Mächtigkeit der zu untersuchenden Systeme abzugrenzen.
 Dies erfolgt mit der Definition von Frameworks und von \Gls{gis}.
 %Zentral für die Arbeit ist die Klärung des Begriffes Framework.
 Ein Framework ist eine Softwareumgebung zur wiederverwendbaren Herstellung einer Struktur oder Anwendung.
-Entweder werden Anwendung mit Frameworks vervollständigt oder aus daraus erstellt.
+Entweder werden Anwendungen mit Frameworks vervollständigt oder aus daraus erstellt.
 In dieser Arbeit dienen Frameworks, oder auch Ordnungsrahmen genannt, zur Lösung spezieller Aufgaben und sind somit domänenspezifische Frameworks.
 Das heißt, dass notwendige Funktionen und Strukturen zur Lösung von speziellen Aufgaben bereits vorhanden sind, die konkreten Lösungen müssen jedoch mit Hilfe des Frameworks erstellt werden.
 Die am Ende dieses Kapitels vorgestellten Frameworks zählen zu Alternativen des relationalen Datenbankmodell, weshalb dieser und dazugehörige Begriffe definiert werden.
@@ -19,7 +19,7 @@ Die am Ende dieses Kapitels vorgestellten Frameworks zählen zu Alternativen des
 
 Grundlegende Kenntnisse zu Datenbankmanagementsystemen und deren Mechanismen sind Voraussetzung für das Verständnis von Informationssystemen.
 Dazu zählt Sharding.
-Bei Sharding wird eine Relation in disjunkte Partitionen aufgeteilt, die auf verschiedenen Platten gespeichert werden.
+Bei Sharding wird eine Relation in disjunkte Partitionen aufgeteilt, die auf verschiedenen Datenträgern gespeichert werden.
 Vorteile dieser Methode sind Anfrageoptimierung durch Auslastung der Partitionen, Vereinfachung der Administration der Partitionen und parallele Verarbeitung (vgl. \cite[S.296]{book:kudrass}).
 Dies setzt einen auf dieser Weise angepassten Query-Planer des \Gls{dbms} voraus.
 Nach Kudraß wird ebenfalls nach drei Arten unterschieden.
@@ -41,8 +41,8 @@ Erfolgt die Verarbeitung durch mehrere Rechner mit jeweils einem \Gls{dbms}, wob
 Bei shared disk handelt es sich um mehrere lokal angeordnete, lose oder nah gekoppelte Rechner mit je einem \Gls{dbms} und einer gemeinsamen Speicherzuordnung.
 Lokal verteilte Systeme werden als parallele Datenbanksysteme bezeichnet.
 Ein Spezialfall stellen verteilte Datenbanksysteme dar.
-\cite[S.398]{book:kudrass} beschreibt Verteilte Datenbanksysteme (VDBS) als geografisch verteilte Shared-Nothing Systeme mit homogenen lokalen DBMS, die gemeinsam ein globales konzeptionelles DB-Schema unterstützen.
-Dagegen sind förderierte Datenbanksysteme (FDBS) ebenfalls geografisch verteilte Shated nothing systeme, wobei die beteiligten lokalen DBMS eine höhere Autonomie aufweisen, d.\,h. dass jeweils eine eigene lokale Datenbank mit lokalem DB-schema vorliegt.
+\cite[S.398]{book:kudrass} beschreibt Verteilte Datenbanksysteme (VDBS) als geografisch verteilte shared nothing Systeme mit homogenen lokalen DBMS, die gemeinsam ein globales konzeptionelles DB-Schema unterstützen.
+Dagegen sind förderierte Datenbanksysteme (FDBS) ebenfalls geografisch verteilte shared nothing systeme, wobei die beteiligten lokalen DBMS eine höhere Autonomie aufweisen, d.\,h. dass jeweils eine eigene lokale Datenbank mit lokalem DB-Schema vorliegt.
 
 
 \section{Verarbeitung raumbezogener Daten}
@@ -77,7 +77,7 @@ Multipolygone werden oft verwendet um Löcher in Polygonen abzubilden oder kompl
 \subsubsection{Vektorenmodell}
 
 Es besteht die Möglichkeit eine Menge von Punkten als Vektoren aufzufassen und daraus topologische Objekte entstehen zu lassen.
-Um damit geografisch zu modellieren, ist eine Diskretisierung d.\,h. eine Zuordnung der Vektoren untereinander notwendig. 
+Um damit geografisch zu modellieren ist eine Diskretisierung notwendig, d.\,h. die Vektoren sind miteinander in Beziehung zu setzen.
 
 \subsubsection{Rastermodell}
 Ein Raster löst einen rechteckigen Bereich mit in einem Koordinatensystem gleichmäßig angeordneten quadratischen Bildelementen bzw. Pixeln fester Größe auf.
@@ -96,11 +96,12 @@ Dabei werden die Koordinatenreferenzsysteme, die Objekte und die topologischen I
 Graeme führt Beispiele solcher Transformationen tabellarisch auf, siehe Tabelle  \ref{table:spatialfunctions}.
 \begin{table}[h]
 \centering
-\begin{tabular}{c|c|c|C{4cm}}
+\begin{tabular}{|c|c|c|C{4cm}|}
+\hline
 \textbf{Von/Nach} & \textbf{Punkte} & \textbf{Linien} & \textbf{Flächen} \\ \hline
 \textbf{Punkte} & Interpolation & Contouring & Thiessen Polygone \\ \hline
 \textbf{Linien} & Linienüberschneidung & Linienglättung & Pufferzonen \\ \hline
-\textbf{Flächen} & \glqq{}sample at points\grqq & Mediale Achse & Wieder\-holungs\-proben\-nahme auf Flächen \\ 
+\textbf{Flächen} & \glqq{}sample at points\grqq & Mediale Achse & Wieder\-holungs\-proben\-nahme auf Flächen \\ \hline
 \end{tabular}
 \caption[Beispiele für räumliche Transformationen]{Beispiele für räumliche Transformationen nach \cite[S.139]{book:gisforgeoscientists}}
 \label{table:spatialfunctions}
@@ -125,9 +126,9 @@ Ein Informationssystem ist eine Softwareumgebung zur umfassenden Verwendung von 
 Es stellt Möglichkeiten der Erfassung, Speicherung und Verarbeitung zur Verfügung.
 Außerdem können Daten analysiert, übertragen, angezeigt und gepflegt werden.
 Alle Daten und Ergebnisse sind Gegenstand der Verwendung von Informationssystemen. (vgl. \cite[S.32]{book:kudrass})
-Wird ein Informationssystem im geografischen Kontext benötigt, wird ein dafür explizit programmiertes benötigt.
-Die geometrischen und topologischen Informationen der Geodaten müssen sich im Informationssystem widerspiegeln.
-So hat das System die topologischen Zusammenhänge zu berücksichtigen und die Daten bevorzugt optisch darzustellen.
+Wird ein Informationssystem im geografischen Kontext benötigt, muss es für die speziellen Aufgaben angepasst oder gegen ein dafür vorgesehenes ausgetauscht werden.
+Der spezielle Einsatz liegt darin begründet, dass die geometrischen und topologischen Informationen der Geodaten sich im Informationssystem widerspiegeln müssen.
+Somit hat das System die topologischen Zusammenhänge zu berücksichtigen und die Daten bevorzugt optisch darzustellen.
 
 Lange definiert \Gls{gis} ähnlich:
 \begin{quote}
@@ -159,10 +160,10 @@ PostGIS ist ein Projekt der Refractions Research\footnote{Refractions Research: 
 Alternativen des relationalen Datenbankmodells werden unter dem Stichwort NoSQL zusammengefasst und dieses soll hier als Synonym dienen.
 NoSQL ist ein Begriff, dessen Kontext die Abkehr von klassischen relationalen Systemen fordert oder zumindest ein Umdenken bestehender Strukturen, Vorgehen und Grundsätze anstrebt.
 Dies wird durch andere Abfragesprachen, nicht relationale Datenbankmodelle oder Neudefinitionen von Begriffen wie der Konsistenz zum Ausdruck gebracht.
-Zu den Gründen des Umdenkens zählen die im Web 2.0 anfallenden unstrukturierten Daten, welche kostenarm persistiert und Zugänglich gemacht werden müssen.
+Zu den Gründen des Umdenkens zählen die im Web 2.0 anfallenden unstrukturierten Daten, welche kostengünstig persistiert und zugänglich gemacht werden müssen.
 Dafür wurden herkömmliche relationale Systeme nicht konzipiert.
 Die Menge an Daten und die geografische Verteilung dieser erzwang die Einführung neuer Methoden und Prinzipien.
-Der Ursprung wird in der Literatur verschieden hergeleitet, jedoch wird immer zu den ersten Vertretern der NoSQL Bewegung Systeme mit einer anderen Abfragesprache und einfache Key Value Datenbanken gezählt.
+Der Ursprung wird in der Literatur verschieden hergeleitet, jedoch zählen immer Systeme mit einer anderen Abfragesprache und einfache Key Value Datenbanken zu den ersten Vertretern der NoSQL Bewegung.
 Auf einer Messe zu aktuellen Trends im Datenbankbereich wurde der Begriff NoSQL zuerst öffentlich für Lösungen dieser Bewegung verwendet (vgl. \cite{website:originnosql}) und ist seitdem ein Sammelbegriff für eine hohe Anzahl an Systemen.
 Einen Überblick der bestehenden Systeme stellt Edlich auf einer eigenen Homepage bereit.\footnote{Übersicht über NoSQL DBMS: \url{http://nosql-database.org/}}
 
@@ -186,16 +187,16 @@ Diese Datenbanken eignen sich für heterogene Daten, horizontale Skalierung und 
 \subsubsection{Dokumentenbasierende Datenbank}
 
 Hierbei werden strukturierte Daten, hier Dokumente, unter einem Hash abgelegt und sind über diesen abrufbar.
-Diese Dokumente sind im großteil der dokumentenbasierten Datenbanken versioniert.
-Häufige Formate sind \Gls{json}, \Gls{bson} und YAML.
-Ziel ist hier schemafreie Daten zu speichern und den Zugriff zu skalieren.
-Dabei können zumeist keine Joins verwendbar.
+Diese Dokumente sind im Großteil der dokumentenbasierten Datenbanken versioniert.
+Häufige Formate sind \Gls{json}, \Gls{bson} und \Gls{yaml}.
+Ziel ist dabei, schemafreie Daten zu speichern und den Zugriff zu skalieren.
+Dabei sind zumeist keine Joins verwendbar.
 Bekannte Vertreter sind MongoDB, CouchDB und Terrastore.
 
 \subsubsection{Spaltenorientierte Datenbank}
 
 Im Gegensatz zu zeilenorientierten Datenbanken legen spalteniorientierte Datenbanken ihre Werte, hier Attribute einer Tabelle, spaltenweise ab.
-Dies eignet sich für OLAP und Data Warehouse, da Spalteneinfügungen kostengünstig und Garbage Collection effektiv ist.
+Dies eignet sich für \Gls{olap} und Data Warehouse, da Spalteneinfügungen kostengünstig und Garbage Collection effektiv ist.
 Dagegen besteht ein hoher Aufwand beim Lesen und Schreiben von zusammengehörigen Spaltendaten.
 
 Googles Big Table erweitert diesen Ansatz und beschreibt es in dessen Paper wie folgt:
@@ -205,7 +206,7 @@ A  Bigtable  is  a  sparse,  distributed,  persistent  multi-dimensional sorted 
 Die mehrdimensionalen Tabellen oder Maps sind vom Format:\\
 $n*[Domain / Keyspace]\ x\ [item / Column\ Family]\ x\ [Key\ x]*n*[key+Value]$
 %Dans zeug dazu anschauen
-Googles Ansatz wurde OpenSource in HBase und Cassandra umgesetzt. Die konkrete Implementierung von Google wurde jedoch nicht veröffentlicht.
+Googles Ansatz wurde Open Source in HBase und Cassandra umgesetzt. Die konkrete Implementierung von Google wurde jedoch nicht veröffentlicht.
 HBase verwendet folgendes Format: Pro Table Zugriff auf Zeilen per Rowkey, diese enthalten Column Familys oder Spalten welche wiederum eine Map namens Column Qualifier mit Tupeln aus der Version als Schlüssel und ein Byte-Array als Wert besitzen (vgl. \cite[S.13]{ba:dan}).
 
 \subsubsection{Graphenbasierte Datenbank}
@@ -216,16 +217,16 @@ Ein Graph besteht dabei aus Knoten und gerichteten Kanten.
 Knoten sind dabei strukturierte Objekte und Kanten Beziehungen zwischen den Objekten.
 Diese strukturierten Objekte sind Key Value Tupel.
 Zur Abbildung verschiedener Beziehungen, können Kanten typisiert sein.
-Somit lassen sich direkt Beziehungen zwischen Daten definieren, was sich für semantic web, social network, Bioinformatik und Internetrouting eignet.
+Somit lassen sich direkt Beziehungen zwischen Daten definieren, was sich für semantische Netze, Abbildungen von Beziehungen, Bioinformatik und Internetrouting eignet.
 Diese Datenbanken sind nur optional mit einem Schema versehen und besitzen keine einheitliche Abfragesprache.
-Auch sind im allgemeinen keine Joins vorgesehen.
+Auch sind laut Spezifikation keine Joins vorgesehen.
 
 
 \subsection{Hadoop}
 \label{hadoop}
 % http://blog.samibadawi.com/2012/03/hive-pig-scalding-scoobi-scrunch-and.html
 Hadoop\footnote{Apache Hadoop: \url{https://hadoop.apache.org/}} ist ein unter der Apache Lizenz 2.0 stehendes Java-Framework zur Datenhaltung und Verarbeitung von großen Datenmengen auf einem Verbund von mehreren Computern.
-Es basiert auf MapReduce und dem Dateisystem HDFS.\\
+Es basiert auf MapReduce und dem Dateisystem HDFS.
 Das \Gls{hdfs} ist ein verteiltes Dateisystem, welches keine besonderen Anforderungen an die Hardware stellt und für die Verwendung von mehreren hundert bis mehreren tausend Computern ausgelegt ist.
 Die in einem verteilten System teilnehmenden Computer heißen Knoten.
 Es besitzt eine hohe Fehlertoleranz und ist für den Einsatz auf kostengünstiger Hardware ausgelegt.
@@ -233,10 +234,11 @@ Hoher Datendurchsatz und die Verwendung großer Dateien\footnote{Eine Datei kann
 Die Datei-Blöcke werden redundant auf die Knoten verteilt und sind mit Hilfe des Name-Node abrufbar (vgl. \cite[S.7]{ba:dan}).
 
 Die verteilte Verarbeitung übernimmt MapReduce.
-Entsprechend dem Namen entspringt der Name MapReduce aus der funktionalen Programmierung, in welcher die Funktionen \glqq map\grqq \ und \glqq reduce\grqq \ zum Einsatz kommen.
+Der Name MapReduce stammt aus der funktionalen Programmierung, in welcher die Funktionen \glqq map\grqq \ und \glqq reduce\grqq \ zum Einsatz kommen.
 So werden hier die Daten mit einer map-Funktion modifiziert gesammelt und mit reduce-Funktion aggregiert.
 Ein Master weist die Daten und Funktionen den Slaves zu, in diesem Zusammenhang werden die Slaves Worker genannt.
 Die Slaves führen die Funktionen mit den ihnen zugewiesenen Daten aus und speichern ihre Ergebnisse auf deren Festplatte ab.
+Slaves sind dabei Threads oder exklusive physische Recheneinheiten.
 MapReduce wurde von Google definiert.
 In Abbildung \ref{fig:mapreduce} ist der beschriebene Ablauf dargestellt.
 Auch hier werden keine besonderen Anforderungen an die Hardware gestellt (vgl. \cite[S.3]{paper:mapreduce}).
@@ -266,7 +268,7 @@ Weitere Funktionen sind folgende:
 \item Eingebaute temporäre Datenhaltung im Arbeitsspeicher
 \item Bereitstellung von Testimplementierungen per API
 \end {itemize}
-Es existieren weiterhin verschiedene Erweiterungen zum Datenmanagement und Änderung des Ordnungsrahmens zur Verfügung. (vgl. \cite{website:accumulo_features})
+Es stehen weiterhin verschiedene Erweiterungen zu Datenmanagement und Änderung des Ordnungsrahmens zur Verfügung. (vgl. \cite{website:accumulo_features})
 
 \subsection{GIS GeoMesa}
 GeoMesa\footnote{GeoMesa: \url{http://www.geomesa.org/}} ist eine unter Apache License Version 2.0 stehende geografische Datenbank der Firma LocationTech\footnote{LocationTech: \url{https://www.locationtech.org/}} mit den Möglichkeiten der verteilten Verarbeitung und Versionierung von geografischen Daten.
@@ -278,7 +280,7 @@ verwaltet. (vgl. \cite{website:geomesaeclipse})
 GeoMesa wird in Verbindung mit stream processing\footnote{Bspw. Spark oder Storm} und batch processing\footnote{Bspw. Pig oder Cascading} verwendet.
 Zur räumlichen Datenverarbeitung werden Scala Bibliotheken wie \Gls{jts} und GeoTools eingesetzt.
 Vorrangig werden Vektordaten von GeoMesa verarbeitet, durch eine optionale Erweiterung sind auch Rasterdaten verwendbar.
-Datenimport wird ingest genannt, erfolgt über die Kommandazeile und unterstützt die Datenformate CSV, TSV und SHP.
+Der Datenimport wird ingest genannt, erfolgt über die Kommandazeile und unterstützt die Datenformate CSV, TSV und SHP.
 CSV, TSV, Shapefile, GeoJSON, and GML können dagegen über den selben Weg exportiert werden.
 Weiterhin erfolgt der Datenexport und -import über Scala. (vgl. \cite{website:geomesa-ingest})
 GeoMesa ist konzipiert, um initial große Datenmengen per Ingest zu laden und diese anschließend mit Frameworks zur verteilten Datenverarbeitung wie Spark und dafür vorgesehenen Bibliotheken zu verarbeiten.
@@ -299,7 +301,7 @@ Die Elemente sind nach \cite{website:postgresxl-about} wie folgt beschrieben:
 \begin{description}
 \item[Global Transaction Manager] Dient als Verwaltungselement der Transaktionen und realisiert \Gls{mvcc} über das System. Laut Dokumentation existiert genau ein GTM pro Cluster, um \Gls{mvcc}  mit einem globalen Kontext realisieren zu können. Der GTM wird von jeder Coordinator Instanz angesprochen. Es wird jedoch zusätzlich pro physischem Knoten des Clusters ein GTM-Proxy empfohlen, welcher die Anfragen an den GTM bündelt.
 \item[Coordinator] Jeder Coordinator dient als Eintrittspunkt in den Cluster, ruft von der GTM Instanz pro SQL Statement eindeutige Transaktionsnummern und globale Informationen ab sowie formuliert Subquerys für die relevanten DataNodes entsprechend seines Query-Planers.
-\item[Data Node] Diese Elemente sind PostgreSQL Instanzen, welche die konkreten Daten vorhalten und das Transaktionsmanagement an den GTM abgegeben haben. Die Datenbanken und Tabellen der DataNodes werden entweder per partition verteilt oder repliziert. Anfragen können von verschiedenen Coordinators gleichzeitig in unterschiedlichen Sitzungen erfolgen. Auf Grund der Kapselung besitzt jeder Data Node seinen eigenen Kontext zur Transaktion.
+\item[Data Node] Diese Elemente sind PostgreSQL Instanzen, welche die konkreten Daten vorhalten und das Transaktionsmanagement an den GTM abgegeben haben. Die Datenbanken und Tabellen der DataNodes werden entweder per Partition verteilt oder repliziert. Anfragen können von verschiedenen Coordinators gleichzeitig in unterschiedlichen Sitzungen erfolgen. Auf Grund der Kapselung besitzt jeder Data Node seinen eigenen Kontext zur Transaktion.
 \end{description}
 Dabei besitzt jeder Coordinator und jeder DataNode einen ConnectionPool, welcher die Verbindungen verwaltet.
 Veränderungen des Datenbankschemas werden auf alle Coordinators und DataNodes propagiert.
@@ -310,7 +312,7 @@ Zur Erhöhung der Ausfallsicherheit, besteht die Möglichkeit, für jedes Elemen
 Jedes Element im Cluster ist einzeln zu konfigurieren, was zu $ n*3+1 $ verschiedenen Konfigurationen bei $n$ DataNodes führt.
 Zur Vereinfachung der Erstellung und Verwaltung eines Clusters sind neben den von PostgreSQL gelieferten Kommandozeilentools weitere durch Postgres-XL gegeben.
 Zur Erstellung und Verwaltung eines Clusters kann pgxc-ctl eingesetzt werden.
-Damit kann mit einer Konfigurationsdatei ein Cluster definiert sowie erstellt werden oder das Cluster mit einem Befehl um Knoten ergänzt werden.
+Mit diesem Kommandozeilen Tool kann mit einer Konfigurationsdatei ein Cluster definiert sowie erstellt werden oder das Cluster mit einem Befehl um Knoten ergänzt werden.
 \begin{figure}[h!]
 \centering
 \includegraphics[width=.7\textwidth]{Abbildungen/postgresxl-structure.jpg}
@@ -323,7 +325,7 @@ Es ist zu erwähnen, dass die Version 9.2.34 keine Trigger unterstützt\footnote
 %Verteilung findet nach Attribut statt, schließt aber bigint aus
 
 \subsection{Array DBMS Rasdaman}
-Rasdaman\footnote{Rasdaman: \cite{website:rasdaman.org}} ist ein Array-Datenbanksystem speziell zum speichern und verarbeiten von Rasterdaten der rasdaman GmbH.
+Rasdaman\footnote{Rasdaman: \cite{website:rasdaman.org}} ist ein Array-Datenbanksystem speziell zur Speicherung und Verarbeitung von Rasterdaten der rasdaman GmbH.
 Es erweitert eine relationale Datenbank und wird mit  multi-dimensionalität der Daten, einer eigenen SQL ähnlichen Abfragesprache, Parallelisierung und Skalierbarkeit in beliebigen Maßstab sowie OGC konformen Diensten beworben.
 Es ist als Client bzw. API unter der \Gls{lgpl} 3 und als Server unter der \Gls{gpl} 3 für Linux, MacOS und Solaris verfügbar.
 Als OGC konforme Dienste werden WMS 1.3, WCS 2.0, WCS-T 1.4, WCPS 1.0 und WPS 1.0 bereitgestellt.
@@ -337,6 +339,6 @@ Der beschriebene Aufbau ist unter Abbildung \ref{fig:rasdaman}\footnote{Link zur
 \end{figure}
 
 Es besteht die Möglichkeit, Rasdaman zu einer bestehenden PostgreSQL zu installieren und direkten Datenaustausch zwischen den beiden Systemen zu ermöglichen.
-Weiterhin kann Rasdaman in Verbindung mit GDAL verwendet werden.
+Weiterhin kann Rasdaman in Verbindung mit \Gls{gdal} verwendet werden.
 Momentan existiert eine Community und eine Enterprise Variante. Dabei verfügt die Enterprise Variante über mehr Features wie beispielsweise Datenkomprimierung, Serververwaltung per Webbrowser, Laufzeitoptimierungen und verschiedene Datenbankschnittstellen.
-Von der verwendeten Datenbank wird BLOB als Datenbankinterner Datentyp verwendet. (vgl. \cite{website:rasdamanowiki})
+Von der verwendeten Datenbank wird \Gls{blob} als Datenbankinterner Datentyp verwendet. (vgl. \cite{website:rasdamanowiki})

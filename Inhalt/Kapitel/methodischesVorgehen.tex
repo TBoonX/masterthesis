@@ -18,7 +18,7 @@ Das Thema "\titel{}" besteht aus vier Unteraufgaben:
 Die erste Hälfte dieser Arbeit ist eine Softwareauswahl im Bereich der Datenverarbeitung.
 Es handelt sich dabei nicht um Anwendersoftware, wodurch keine empirischen Studien der Benutzung der Frameworks durch Anwender und keine Kopplung mit der Unternehmensstruktur notwendig ist.
 In diesem speziellen technischen Kontext sind wissenschaftliche Vorgehensweisen zur Softwareauswahl notwendig.
-Darin soll mit Mitteln des Softwarequalitätsmanagement und allgemein Prinzipien der Softwareentwicklung eine nachvollziehbare, auch auf ähnliche Projekte übertragbare und wissenschaftlich korrekte Vorgehensweise erreicht werden.
+Darin soll mit Mitteln des Softwarequalitätsmanagement und Prinzipien der Softwareentwicklung eine nachvollziehbare, auch auf ähnliche Projekte übertragbare und wissenschaftlich korrekte Vorgehensweise erreicht werden.
 Dafür geeignet ist eine Nutzwertanalyse.
 
 Aus gegebenen Anforderungen\footnote{siehe \ref{Anforderungen}} sind Qualitätsmerkmale zu erstellen.
@@ -46,12 +46,12 @@ Weiterhin war zu den Weihnachtsfeiertagen eine wesentlich geringere Anzahl an Au
 Diese Aufrufstatistik belegt das die Nutzung der Website etwa zur Hälfte durch Arbeitnehmer erfolgt und somit für Unternehmen interessant ist.
 
 \subsubsection{Auswahl eines Frameworks}
-Aus der untersuchten Menge ist eines anhand der gemessenen Nutzwertes auszuwählen.
+Aus der untersuchten Menge ist ein Framework anhand des gemessenen Nutzwertes auszuwählen.
 Der Ist-Stand unter \ref{IstStand} der Agri~Con ist über Jahre hinweg durch wachsende  Anforderungen im technischen und organisatorischen Bereich entstanden.
 Aus diesem Grund ist die Auswahl eines Frameworks für den gesuchten Anwendungsfall aufwendig.
 Die Wahrscheinlichkeit der Eignung mehrerer Frameworks scheint daher nach der Einschätzung des Autors gering.
 Diese induktive Hypothese gilt es in dieser Teilaufgabe zu belegen.
-Eine detaillierte Bewertung der Frameworks anhand aller Qualitäten würde danach dazu führen, dass kein Framework geeignet erscheint.
+Eine detaillierte Bewertung der Frameworks anhand aller Qualitäten würde somit dazu führen, dass kein Framework geeignet erscheint.
 Deshalb ist die Nutzwertanalyse zunächst anhand deren Spezifikationen durchzuführen.
 
 Für derartige Entscheidungen kann stattdessen das Vorgehen \Gls{ahp} verwendet werden.
@@ -106,10 +106,10 @@ die Ergebnisse dokumentiert und nach Kriterien beurteilt werden, die vor dem Tes
 
 \label{grundlagen-funktionstests}
 Um die Systeme auf Softwarequalität, beschrieben in Kapitel \ref{softwarequalität}, zu testen, sind Funktionstests notwendig.
-Im folgenden bezieht sich \glqq Systeme\grqq\ auf auf die untersuchten Frameworks.
+Im Folgenden meint \glqq Systeme\grqq\ die untersuchten Frameworks.
 Ludwig verweist auf Funktionstests wie folgt:
 \begin{quote}
-Werden die Testfälle auf Basis der in der Spezifikation geforderten Eigenschaften des Prüflings ausgewählt (z.B. Funktionalität, Antwortzeit), dann spricht man von einem Block-Box-Test oder auch von einem Funktionstest (19.5). \cite[S.455]{book:softwareengineering}
+Werden die Testfälle auf Basis der in der Spezifikation geforderten Eigenschaften des Prüflings ausgewählt (z.B. Funktionalität, Antwortzeit), dann spricht man von einem Black-Box-Test oder auch von einem Funktionstest (19.5). \cite[S.455]{book:softwareengineering}
 \end{quote}
 Dazu wird auf Seite 471 der Umfang des Funktionstestes wie folgt umrissen:
 \begin{quote}
@@ -123,7 +123,7 @@ alle definierten Fehlersituationen herbeiführen.
 \end{quote}
 Im Rahmen dieser Arbeit soll dieser Umfang wie folgt begrenzt werden:
 \begin{description}
-\item[Funktionsüberdeckung] Zur Einschätzung der Eignung eines Systems für den Anwendungsfall sind ausgewählte Funktionen zu testen, Im allgemeinen besitzen die ausgewählten Systeme Funktionen die in diesem Rahmen nicht genutzt werden sollen, jedoch auch Funktionen die von Hand ergänzt werden müssen. Die notwendige Menge an Funktionen soll einzig getestet und somit abgedeckt werden.
+\item[Funktionsüberdeckung] Zur Einschätzung der Eignung eines Systems für den Anwendungsfall sind ausgewählte Funktionen zu testen. Im allgemeinen besitzen die ausgewählten Systeme Funktionen, die in diesem Rahmen nicht genutzt werden sollen, jedoch auch Funktionen die von Hand ergänzt werden müssen. Die notwendige Menge an Funktionen soll einzig getestet und somit abgedeckt werden.
 \item[Eingabeüberdeckung] Auch hierbei stehen verschiedene von den Systemen bereitgestellte Schnittstellen und Austauschformate zur Verfügung, aber es sollen nur die relevanten untersucht werden.
 \item[Ausgabeüberdeckung] siehe Eingabeüberdeckung
 \item[Leistungsgrenzen] Dafür werden eigene Tests definiert und verwendet.\footnote{siehe \ref{Leistungstests}}
@@ -152,6 +152,6 @@ Die aus der Leistungsmessung gewonnenen Erkenntnisse dienen hierbei als Qualitä
 Gleichzeitig zur Durchführung der Leistungstests ist die Auslastung des Systems zu überwachen und zu protokollieren.
 Im Allgemeinen wird die Auslastung der CPU, der Anteil des reservierten Arbeitsspeichers und die Anzahl an Operationen auf der Festplatte überwacht.
 Die Durchführung unterscheidet sich je nach Betriebssystem und Art des logischen Systems.
-Jedoch ist darauf zu achten die eigentlichen Messungen nicht nennenswert zu beeinflussen.
+Jedoch ist darauf zu achten, die eigentlichen Messungen nicht nennenswert zu beeinflussen.
 Ziel ist ein Kompromiss aus hochfrequenter Auflösung der Daten der Systemauslastung und dem dafür notwendigen Aufwand in Form von Rechenzeit.
 Außerdem ist die Auslastung des Systems vor dem Start der Leistungstests festzuhalten, um den Grundwert zu erhalten.

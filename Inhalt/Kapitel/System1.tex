@@ -22,7 +22,7 @@ Die Dokumentation\footnote{Dokumentation Postgres-XL: \url{http://files.postgres
 Dabei wird ein Linux Betriebssystem, 155MB freien Festplattenspeicher für die Übersetzung, Installation und Erstellung eines leeren Datenbankclusters sowie eine Menge von Paketen genannt.
 Diese ist: GNU make, gcc, tar und zlib als benötigte sowie libperl oder libpython als optionale Pakete.
 Zusätzlich werden für die Erzeugung der Dokumentation oder über Übersetzung des Quellcodes weitere Pakete benötigt.
-Diese Anforderungen setzen eine Standard Installation voraus.
+Diese Anforderungen setzen eine Standardinstallation voraus.
 Neben Linux Derivaten wird auch FreeBSD und Max OS X unterstützt.
 Die Prozessorarchitektur von Intel wird unterstützt, andere sind laut Dokumentation ebenso verwendbar.
 Im Rahmen dieser Arbeit konnte Postgres-XL auch auf einem Raspberry Pi 1 Model B, basierend auf einem ARMv6 Prozessor und dem Linux Derivat Raspbian, übersetzt und verwendet werden.
@@ -40,7 +40,7 @@ Das Installationsskript muss für andere Systemumgebungen angepasst werden, da P
 Weiterhin ist zu erwähnen, dass Änderungen an der Kernel-Konfiguration vorzunehmen  sind, jedoch ebenso abhängig von der Systemumgebung.
 Im Testsystem musste der Wert des für jede Anwendung nutzbaren geteilten Speichers erhöht werden, um Postgres-XL starten zu können.
 
-Um das Kommandozeilentool \verb+pgxc_ctl+ nutzen zu können, muss im Quellcode Ordner in \verb+./contrib/pgxc_ctl+ gewechselt und dort \verb+make+ sowie \verb+make install+ ausgeführt werden. Damit wird das Tool übersetzt und in den in der vorangegangenen Installation festgelegten Ordner kopiert.
+Um das Kommandozeilentool \verb+pgxc_ctl+ nutzen zu können, muss im Quellcodeordner in \verb+./contrib/pgxc_ctl+ gewechselt und dort \verb+make+ sowie \verb+make install+ ausgeführt werden. Damit wird das Tool übersetzt und in den in der vorangegangenen Installation festgelegten Ordner kopiert.
 
 \subsubsection{Einrichtung}
 Postgres-XL ist für den Einsatz als Cluster konzipiert.
@@ -112,7 +112,7 @@ Die Erfüllung der Anforderungen liegt entsprechen der Nutzwertanalyse von Postg
 %Ersetzung
 Aus diesem Grund besteht die geeignete Möglichkeit einen Entwurf zu erzeugen, welcher wesentliche Aufgaben des Ist-Standes übernimmt oder den Ist-Stand ersetzt.
 
-Gegen eine Ersetzung spricht das Trigger in der aktuellen Postgres-XL Version nicht verwendet werden können.
+Gegen eine Ersetzung spricht, dass Trigger in der aktuellen Postgres-XL Version nicht verwendet werden können.
 Zwar können Trigger in Funktionen ausgelagert und bei Verwendung der Tabellen aufgerufen werden, aber dies würde einen erheblichen Implementationsaufwand bedeuten und nicht zu 100\%{} die bestehende Funktionalitäten abbilden.
 %Teilintegration
 Jedoch ist eine grundlegende Integration in den Ist-Stand notwendig. %warum?
@@ -186,7 +186,7 @@ Als Virtualisierungssoftware kommt \Gls{esxi} in der kostenlosen Version 6.0 mit
 Mit dieser Virtualisierungslösung ist es möglich, Ressourcen explizit und ausschließlich einer \Gls{vm} zuzuordnen.
 So werden die Prozessorkerne in Paaren und der Arbeitsspeicher direkt und mit exklusiver Verwendung den einzelnen \Gls{vm}s zugeordnet.
 
-Ziel dieser unter Abbildung \ref{fig:physAufb} skizzierten Testumgebung ist es einen homogenen Cluster zu erzeugen und Postgres-XL mit der PostgreSQL Konfiguration des Ist Standes zu vergleichen.
+Ziel dieser unter Abbildung \ref{fig:physAufb} skizzierten Testumgebung ist es einen homogenen Cluster zu erzeugen und Postgres-XL mit der PostgreSQL Konfiguration des Ist-Standes zu vergleichen.
 % und Aussagen über die Skalierbarkeit von Postgres-XL zu treffen.
 
 Die Ausstattung des Computers zur Verwaltung der Virtualisierung wird nicht definiert, da dies keinen Einfluss auf Messungen hat.
@@ -228,8 +228,8 @@ Damit sind historische Daten für einzelne \Gls{vm}s und ausgewählte Zeiträume
 Deshalb wird zur Überwachung Zabbix eingesetzt.
 
 Zabbix ist ein freies Framework zur Überwachung von Computern und Netzwerken.
-Auf einem Zabbix Server werden Daten zentral von beliebigen Zabbix Clients empfangen.
-Dabei sind die Art der zu überwachenden Daten beliebig, standardmäßig wird die Systemauslastung und allgemeine Daten zum jeweiligen System an den Server gesendet.
+Auf einem Zabbix Server werden Daten zentral von beliebigen Zabbix Clients empfangen, wobei die Art der zu überwachenden Daten beliebig ist.
+Standardmäßig wird die Systemauslastung und allgemeine Daten zum jeweiligen System an den Server gesendet.
 Dazu können eigene Skripts installiert werden und Protokolle wie \Gls{snmp} oder \Gls{ipmi} zur Datenerhebung und Verwaltung genutzt werden.
 Ein Zabbix Server wird zur Analyse und Verwaltung der Zabbix Clients mit einem PHP Web-Frontend versehen.
 Über dieses Frontend können Clients konfiguriert, deren Status eingesehen, Diagramme zu erhobenen Daten definiert und angezeigt werden.
@@ -239,7 +239,7 @@ Weiterhin ist Zabbix ein Mehrbenutzer System und reagiert mit Funktionsaufrufen 
 %Überwachung der logs?
 
 \section{Funktionstests}
-Im Abschnitt Prototypische Implementierung auf Seite \pageref{grundlagen-funktionstests} wurden die Funktionstests bereits als Black-Box Tests definiert und der Umfang im Kapitel \ref{subsection:testfaelle} genauer festgesetzt.
+Im Abschnitt Prototypische Implementierung \ref{grundlagen-funktionstests} wurden die Funktionstests bereits als Black-Box Tests definiert und der Umfang im Kapitel \ref{subsection:testfaelle} genauer festgesetzt.
 In diesem Abschnitt werden die Funktionstests für die Durchführung spezifiziert und deren Ergebnis festgehalten.
 Es wird eine vollständige Erfüllung der Funktionstests erwartet, da PostgreSQL 9.2 und PostGIS 2.1.5 an sich die gesetzten Anforderungen erfüllen.
 Das Fehlen von Triggerfunktionen in Postgres-XL wird durch die Funktionstests nicht aufgedeckt.
@@ -251,6 +251,7 @@ Entsprechend der Reihenfolge der Testfälle im Anhang werden nachfolgend die Tes
 Die Testfälle werden durchnummeriert und mit einem vorangestellten FT für Funktionstest bezeichnet.
 Dabei werden die Testfälle mit absteigender Priorität aufgelistet.
 Die Priorität hängt vom geschätzten Implementationsaufwand zur Behebung des Fehlschlages des Testfalles ab.
+Der Begriff des Schlages wird nachfolgend verwendet und meint ein bewirtschaftes Flurstück.
 
 \textbf{FT01:}\\
 Die Schnittstellen sind nicht explizit zu testen, da Postgres-XL und PostgreSQL wie in Abschnitt \ref{subsection:interface} demonstriert direkt Daten austauschen können.
@@ -290,7 +291,7 @@ Auch in diesem Funktiontests findet die Validierung anhand von Bildern statt.
 Es werden sich überlappende Polygone aus farm.fields heraus gesucht und mit Hilfe von PostGIS Funktionen verschnitten.
 Dafür werden folgende Funktionen verwendet:
 \begin{lstlisting}[language=bash,caption={PostGIS Funktionen der Verschneidung},label=lst:fctsinsection]
-geometry ST_Intersection( geometry geomA , geometry geomB );
+geometry ST_Intersection(geometry geomA , geometry geomB);
 geometry ST_Union(geometry g1, geometry g2);
 geometry ST_Difference(geometry geomA, geometry geomB);
 geometry ST_SymDifference(geometry geomA, geometry geomB);
@@ -350,7 +351,7 @@ Die Geometrien der Schläge 1 und 2 wurden getauscht und beide Ergebnisse mit da
 \caption{Ergebnisse Verschneidungsfunktionen Difference}
 \label{fig:intersects2}
 \end{figure}
-In allen Fällen sind die Ergebnisse korrekt und DIe Funktionalität der Verschneidung bewiesen
+In allen Fällen sind die Ergebnisse korrekt und die Funktionalität der Verschneidung ist damit für die untersuchten Fälle bewiesen
 
 \textbf{FT06:}\\
 Dies wird im zweiten Szenario der Lasttests im nachfolgenden Abschnitt durchgeführt.
@@ -437,14 +438,14 @@ Diese erstellt Unterabfragen entsprechend der Verteilung der Daten auf den DataN
 Diese Unterabfragen werden lokal vom entsprechendem DataNode verarbeitet und das Ergebnis an den Coordinator zurück gesendet.
 Diese Zwischenergebnisse werden schlussendlich vom Coordinator zusammengefasst.
 Somit sind die Daten entsprechend ihrer Verknüpfung hinsichtlich des Datenbankschemas und des Anwendungsfalles für ein geeignetes Zerlegen von Aufgaben durch den Query Planer zu verteilen.
-Geeignet meint hier das die Unterabfragen bereits wesentlich die Daten filtern, damit der Coordinator einzig die Untermengen zu einer Menge zusammenfassen und nicht mehr als notwendig Datenmengen aggregiert und diese selbst verknüpfen sowie filtern muss.
+Geeignet meint hier, dass die Unterabfragen bereits wesentlich die Daten filtern, damit der Coordinator einzig die Untermengen zu einer Menge zusammenfassen und nicht mehr als notwendig Datenmengen aggregiert und diese selbst verknüpfen sowie filtern muss.
 Auf das Schema angewendet bedeutet dies:
 Die Tabellen fields und farms des Schemas farm werden per Replikation auf alle Knoten verteilt, da diese häufig zur nummerischen und räumlichen Filterung verwendet werden und somit jedem DataNode zur Vorfilterung zur Verfügung stehen.
 Die Tabelle nsensorlogs im Schema n und die Tabelle samples im Schema nutrients werden anhand des Attributes fileid mit modulo auf die DataNodes verteilt, da dieses Attribut als primäres Filterargument verwendet wird.
 Das Attribut fileid ist für eine modulo Verteilung geeignet, da Gruppen von files mit aufsteigender id zu einem Betrieb gehören und bei modulo Verteilung die Wahrscheinlichkeit erhöht wird, dass ein DataNode die files eines Betriebes vorhält.\footnote{Bezogen auf eine betriebsübergreifende Verarbeitung.}\\
 Diese Verteilung sollte sich positiv auf die Ergebnisse der Leistungstests auswirken.
 Es wurden einzig Tabellen berücksichtigt, welche in den Tests verwendet werden.
-Für den produktiven Einsatz bei der Agri~Con entsprechend des Anwendungsfalles sind weitere Änderung in der Verteilung der Daten durchzuführen.
+Für den produktiven Einsatz bei der Agri~Con entsprechend des Anwendungsfalles sind weitere Änderungen in der Verteilung der Daten durchzuführen.
 %In Verwendung verschieben?
 %Verteilung in Ausblick aufnehmen
 %Nach Kudraß
@@ -455,7 +456,7 @@ Entscheidend für die Leistungsfähigkeit des \Gls{dbms} ist ebenfalls die Konfi
 Dazu zählt die Vergabe von Kostenwerten an Funktionen und das Setzen von Konfigurationen wie den Kostenfaktoren und der Algorithmennutzung in den postgresql.conf Dateien.
 Diese Einstellungen werden im Rahmen dieser Arbeit auf Standardwerten belassen.
 %, da eine solche Konfiguration sehr stark von den Anfragen und somit von Anwendungsfall abhängt.
-Da das Vergleichssystem mit PostgreSQL die selbe Konfiguration besitzt ist eine relative Vergleichbarkeit gewährleistet.
+Da das Vergleichssystem mit PostgreSQL die selbe Konfiguration besitzt, ist eine relative Vergleichbarkeit gewährleistet.
 Für einen produktiven Einsatz ist die Berücksichtigung dessen zu empfehlen.
 So besteht auch die Möglichkeit Coordinator mit unterschiedlichen Konfigurationen auszustatten, um mehrere Aspekte des Anwendungsfalles abzudecken.
 %Im Ausblick erneut darauf eingehen
@@ -500,7 +501,7 @@ Der erste Lasttest misst die Laufzeit der Aggregation von Punktdaten aus der Tab
 Die Abfrage und Messung erfolgt mit dem SQL Statement \verb+Select * From n.nsensorlogs Where fileid=%;+ sowie \verb+Explain Verbose+\\
 \verb+Select * From n.nsensorlogs Where fileid=%;+.
 Die erste Query liefert die Daten sowie Laufzeit\footnote{Sofern in PostgreSQL die Zeiterfassung mit \textbackslash{}timing eingeschaltet wurde.} und die zweite die Aufteilung des SQL Statements an die Knoten des Clusters.
-Der Aufruf der ersten Query erfolgt parallel an alle Coordinator und wird für den Lasttest verwendet.
+Der Aufruf der ersten Query erfolgt parallel an alle Coordinator Instanzen und wird für den Lasttest verwendet.
 Diese zweite Query wird ein mal pro Coordinator abgerufen, um die Verteilung der Daten zu validieren.
 \%{} steht dafür für einen Integer Wert und ist einer der Einträge in files.soilsamplefiles.id.
 Es werden die sechs Werte mit der größten Menge an Einträgen, aufgelistet in Tabelle \ref{tbl:entrysnnsensorlogs}, in n.nsensorlogs verwendet.
@@ -509,14 +510,15 @@ Somit werden alle Knoten gleichmäßig angesprochen.
 \begin{table}[h!]
 \centering
 %\small
-\begin{tabular}{c|c|c|c}
+\begin{tabular}{|c|c|c|c|}
+\hline
 \textbf{fileid} & \textbf{Anzahl Einträge} & \textbf{Betroffener Knoten} & \textbf{Betroffener DataNode} \\ \hline
 10591 & 37.926 & 3 & 5 \\ \hline	%dn 5 node3
 9396 & 36.873 & 1 & 1 \\ \hline		%dn 1 node1
 34791 & 33.913 & 6 & 12 \\ \hline 	%dn 12 node6
 9394 & 33.391 & 4 & 8 \\ \hline 	%dn 8 node4
 10595 & 28.342 & 5 & 9 \\ \hline	%dn 9 node5
-44982 & 20.494 & 2 & 4 \\ 			%dn 4 node2
+44982 & 20.494 & 2 & 4 \\ \hline	%dn 4 node2
 \end{tabular}
 \caption{Anzahl der Einträge in n.nsensorlogs nach fileid}
 \label{tbl:entrysnnsensorlogs}
@@ -541,7 +543,8 @@ Wird der erste Durchgang ignoriert und die restlichen zehn Werte gemittelt, laut
 \begin{table}[h!]
 \centering
 %\small
-\begin{tabular}{c|c|c}
+\begin{tabular}{|c|c|c|}
+\hline
 \textbf{Durchlauf} & \textbf{Durchschnittliche Antwortzeit in ms} & \textbf{Laufzeit des Tests in s} \\ \hline
 1 & 3771 & 101 \\ \hline
 2 & 3561 & 99 \\ \hline
@@ -553,7 +556,7 @@ Wird der erste Durchgang ignoriert und die restlichen zehn Werte gemittelt, laut
 8 & 3602 & 101 \\ \hline 
 9 & 3813 & 104 \\ \hline
 10 & 3707 & 102 \\ \hline
-11 & 3541 & 98 \\ 			
+11 & 3541 & 98 \\ \hline		
 \end{tabular}
 \caption[Testergebnis Lasttest Aggregation]{Testergebnis Lasttest der Aggregation}
 \label{tbl:ergebnisseTest1}
@@ -610,7 +613,8 @@ Entsprechend der genannten Berechnungsvorschrift ergibt sich eine mittlere Antwo
 \begin{table}[h!]
 \centering
 %\small
-\begin{tabular}{c|c|c}
+\begin{tabular}{|c|c|c|}
+\hline
 \textbf{Durchlauf} & \textbf{Durchschnittliche Antwortzeit in ms} & \textbf{Laufzeit des Tests in s} \\ \hline
 1 & 2418 & 155 \\ \hline
 2 & 2389 & 153 \\ \hline
@@ -622,7 +626,7 @@ Entsprechend der genannten Berechnungsvorschrift ergibt sich eine mittlere Antwo
 8 & 2404 & 154 \\ \hline 
 9 & 2380 & 153 \\ \hline
 10 & 2394 & 152 \\ \hline
-11 & 2375 & 152 \\ 			
+11 & 2375 & 152 \\ \hline	
 \end{tabular}
 \caption[Testergebnis Lasttest der Aggregation mit Kartendarstellung]{Testergebnis Lasttest der Aggregation mit Kartendarstellung unter Nutzung des \Gls{umn}}
 \label{tbl:ergebnisseTest1UMN}
@@ -661,7 +665,8 @@ Die Aggregation mit SQL ergab nach Tabelle \ref{tbl:ergebnisseTest1PG} für die 
 \begin{table}[h!]
 \centering
 %\small
-\begin{tabular}{c|c|c}
+\begin{tabular}{|c|c|c|}
+\hline
 \textbf{Durchlauf} & \textbf{Durchschnittliche Antwortzeit in ms} & \textbf{Laufzeit des Tests in s} \\ \hline
 1 & 4348 & 113 \\ \hline
 2 & 4214 & 110 \\ \hline
@@ -673,7 +678,7 @@ Die Aggregation mit SQL ergab nach Tabelle \ref{tbl:ergebnisseTest1PG} für die 
 8 & 4369 & 114 \\ \hline
 9 & 4363 & 114 \\ \hline 
 10 & 4154 & 109 \\ \hline
-11 & 4226 & 110 \\	
+11 & 4226 & 110 \\ \hline
 \end{tabular}
 \caption[Testergebnis Lasttest der Aggregation mit PostgreSQL \Gls{vm}]{Testergebnis Lasttest der Aggregation mit PostgreSQL \Gls{vm}}
 \label{tbl:ergebnisseTest1PG}
@@ -695,7 +700,8 @@ Die Aggregation mit dem \Gls{umn} ergab für die PostgreSQL \Gls{vm} 2595ms durc
 \begin{table}[h!]
 \centering
 %\small
-\begin{tabular}{c|c|c}
+\begin{tabular}{|c|c|c|}
+\hline
 \textbf{Durchlauf} & \textbf{Durchschnittliche Antwortzeit in ms} & \textbf{Laufzeit des Tests in s} \\ \hline
 1 & 2302 & 151 \\ \hline
 2 & 2370 & 150 \\ \hline
@@ -707,7 +713,7 @@ Die Aggregation mit dem \Gls{umn} ergab für die PostgreSQL \Gls{vm} 2595ms durc
 8 & 2352 & 150 \\ \hline
 9 & 2352 & 150 \\ \hline 
 10 & 2348 & 150 \\ \hline
-11 & 2365 & 150 \\	
+11 & 2365 & 150 \\ \hline
 \end{tabular}
 \caption[Testergebnis Lasttest der Aggregation mit Kartendarstellung und PostgreSQL \Gls{vm}]{Testergebnis Lasttest der Aggregation mit Kartendarstellung und PostgreSQL \Gls{vm}}
 \label{tbl:ergebnisseTest1PG_UMN}
@@ -728,14 +734,15 @@ Die Auslastung beträgt 165MB bis 270MB der Arbeitsspeichers und 450\%{} bis 680
 
 
 \subsection{Verarbeitung}
-Der Lasttest zum messen der Verarbeitungsleistung ruft die SQL Funktion\\
+Der Lasttest zum messen der Verarbeitungsleistung ruft die SQL Funktion
 \textit{nutrients.contouringcorrectedatop(integer)} auf.
 Diese führt den speziellen Kriging Algorithmus anhand der übergebenen fileid mit den Werten in nutrients.samples durch.
 Es werden fileids aus der Tabelle \ref{tbl:entrysnsamples} verwendet.
 \begin{table}[h!]
 \centering
 %\small
-\begin{tabular}{c|c|c|c}
+\begin{tabular}{|c|c|c|c|}
+\hline
 \textbf{fileid} & \textbf{Anzahl Einträge} & \textbf{Betroffener Knoten} & \textbf{Betroffener DataNode} \\ \hline
 4004 & 494 & 3 & 6 \\ \hline	%dn 6    
 3110 & 404 & 6 & 11 \\ \hline	%dn 11    geht nicht
@@ -745,7 +752,7 @@ Es werden fileids aus der Tabelle \ref{tbl:entrysnsamples} verwendet.
 %4204 & 197 & 1 & 2 \\ \hline	%dn 2
 4186 & 160 & 4 & 8 \\ \hline	%dn 8
 5796 & 143 & 1 & 1 \\ \hline	%dn 1
-5915 & 110 & 5 & 9 \\ %\hline	%dn 9
+5915 & 110 & 5 & 9 \\ \hline	%dn 9
 %5050 & 12 & 4 & 8 \\
 \end{tabular}
 \caption{Anzahl der Einträge in nutrients.samples nach fileid}
@@ -762,7 +769,7 @@ In der Fehlermeldung wird auf unbekannte Parameter verwiesen, obwohl alle Daten 
 Aus diesem Grund wurden Nebenwirkungen der Funktionen der Berechnungen entfernt, sodass zwar alle Berechnungen durchgeführt werden, die Ergebnisse aber nicht verfügbar sind.
 Weiterhin zeigte sich, dass Funktionen welche die Erweiterung plr für die Nutzung der Sprache R verwenden, zufällige Fehler werfen.
 Die Wahrscheinlichkeit des Auftretens des Fehlers konnte durch neu laden der verwendeten R Bibliotheken bei jedem Funktionsaufruf veringert werden.
-So wird\\\verb+nutrients.contouringcorrectedatop(integer)+ ohne Nebenwirkungen ausgeführt.
+So wird \verb+nutrients.contouringcorrectedatop(integer)+ ohne Nebenwirkungen ausgeführt.
 
 Die Testdefinition wurde aus dem Leistungstest der Aggregation übernommen.
 Geändert wurde dabei die SQL Anfrage und die Anzahl der Anfragen an Postgres-XL.
@@ -773,12 +780,13 @@ Aus diesem Grund wird ein Coordinator verwendet und die Anfragen erfolgen sequen
 
 Dieser Lasttest hat eine durchschnittliche Laufzeit von 975s im Postgres-XL Cluster.
 Tabelle \ref{tbl:ergebnisseTest2} enthält die einzelnen Laufzeiten und die maximale und minimale Antwortzeit der Anfragen.
-Die durchschnittliche Antwortzeit wird nicht aufgeführt, da 6 Anfragen gestellt werden, der Durchschnitt somit leicht berechenbar ist, und sich die Laufzeiten der Berechnungen bis zum 20 fachen unterscheiden.
+Die durchschnittliche Antwortzeit wird nicht aufgeführt, da 6 Anfragen gestellt werden, der Durchschnitt somit leicht berechenbar ist, und sich die Laufzeiten der Berechnungen bis zum 20-fachen unterscheiden.
 Die Laufzeit der Anfragen ist direkt proportional Abhängig zur Anzahl der betroffenen Einträge in nutrients.samples.
 \begin{table}[h!]
 \centering
 %\small
-\begin{tabular}{c|C{3.4cm}|C{3.4cm}|c}
+\begin{tabular}{|c|C{3.4cm}|C{3.4cm}|c|}
+\hline
 \textbf{Durchlauf} & \textbf{Maximale Antwortzeit in ms} & \textbf{Minimale Antwortzeit in ms} & \textbf{Laufzeit des Tests in s} \\ \hline
 1 & 563130 & 24992 & 987 \\ \hline
 2 & 553914 & 24948 & 978 \\ \hline
@@ -790,7 +798,7 @@ Die Laufzeit der Anfragen ist direkt proportional Abhängig zur Anzahl der betro
 8 & 553931 & 24843 & 976 \\ \hline
 9 & 554989 & 24947 & 979 \\ \hline 
 10 & 554304 & 24916 & 978 \\ \hline
-11 & 552536 & 24915 & 975 \\	
+11 & 552536 & 24915 & 975 \\ \hline
 \end{tabular}
 \caption[Testergebnis Lasttest der Verarbeitung]{Testergebnis Lasttest der Verarbeitung}
 \label{tbl:ergebnisseTest2}
@@ -801,7 +809,7 @@ Knoten eins, in Abbildung Node1 genannt, verwendet für die Testreihe 400MB und 
 Die Auslastung der CPU bewegt sich während der Testreihe zwischen 33\%{} und 78\%{}.
 Die restlichen Knoten reservierten während des Testlaufes stetig Arbeisspeicher, bis zu 100MB pro Knoten.
 Bezüglich der CPU kann von einer nicht relevanten Auslastung ausgegangen werden.
-Zwar existieren bei jedem Knoten Leistungsspitzen bis zu 80\%{}, jedoch dauert eine solche Auslastung maximal 5 Minuten und das Auftreten dieser Spitzenwerte ist während der Testreihe unterschiedlich sowie nicht deckungsgleich zwischen den Knoten.
+Zwar existieren bei jedem Knoten Leistungsspitzen bis zu 80\%{}, jedoch dauert eine solche Auslastung maximal fünf Minuten und das Auftreten dieser Spitzenwerte ist während der Testreihe unterschiedlich sowie nicht deckungsgleich zwischen den Knoten.
 \begin{figure}[h!]
 \centering
 \includegraphics[width=\textwidth]{Testergebnisse/jdbc_contouring_Testlauf.png}
@@ -821,7 +829,8 @@ Das Testergebnis mit der PostgreSQL \Gls{vm} ist 969 Sekunden als durchschnittli
 \begin{table}[h!]
 \centering
 %\small
-\begin{tabular}{c|C{3.4cm}|C{3.4cm}|c}
+\begin{tabular}{|c|C{3.4cm}|C{3.4cm}|c|}
+\hline
 \textbf{Durchlauf} & \textbf{Maximale Antwortzeit in ms} & \textbf{Minimale Antwortzeit in ms} & \textbf{Laufzeit des Tests in s} \\ \hline
 1 & 551859 & 23890 & 966 \\ \hline
 2 & 551287 & 23919 & 966 \\ \hline
@@ -833,7 +842,7 @@ Das Testergebnis mit der PostgreSQL \Gls{vm} ist 969 Sekunden als durchschnittli
 8 & 553376 & 23946 & 969 \\ \hline
 9 & 552566 & 23947 & 968 \\ \hline 
 10 & 553648 & 24010 & 970 \\ \hline
-11 & 556751 & 24039 & 974 \\	
+11 & 556751 & 24039 & 974 \\ \hline
 \end{tabular}
 \caption[Testergebnis Lasttest der Verarbeitung der PostgreSQL \Gls{vm}]{Testergebnis Lasttest der Verarbeitung der PostgreSQL \Gls{vm}}
 \label{tbl:ergebnisseTest2_pg}
@@ -841,7 +850,7 @@ Das Testergebnis mit der PostgreSQL \Gls{vm} ist 969 Sekunden als durchschnittli
 
 Die Auslastung der \Gls{vm} ist ähnlich, wie in Abbildung \ref{fig:auslastungTest2_pg} dargestellt.
 Dabei liegt die Auslastung der CPU zwischen 30\%{} und 62\%{}.
-Pro Testdurchlauf wird etwa 150MB Arbeitsspeicher verwendet und bei Ende des Durchlaufes wieder frei gegeben.
+Pro Testdurchlauf wird etwa 150MB Arbeitsspeicher verwendet und bei Ende des Durchlaufes wieder freigegeben.
 \begin{figure}[h!]
 \centering
 \includegraphics[width=\textwidth]{Testergebnisse/jdbc_contouring_pg_Testlauf.png}
@@ -866,10 +875,11 @@ Postgres-XL besitzt somit bei sechsfacher Hardwareausstattung 16\%{} bzw. 8\%{} 
 \begin{table}[h!]
 \centering
 %\small
-\begin{tabular}{c|c|C{4cm}}
+\begin{tabular}{|c|c|C{4cm}|}
+\hline
 \textbf{Durchschnittliche Antwortzeit} & \textbf{Aggregation} & \textbf{Aggregation mit Kartendarstellung} \\ \hline
 \textbf{Postgres-XL} & 3,6s & 2,4s \\ \hline
-\textbf{PostgreSQL} & 4,3s & 2,6s \\	
+\textbf{PostgreSQL} & 4,3s & 2,6s \\ \hline
 \end{tabular}
 \caption[Vergleich der Testergebnisse]{Vergleich der Testergebnisse}
 \label{tbl:verglergebnisse}
@@ -881,17 +891,18 @@ Diese geringe Auslastung ist positiv zu bewerten und wird nicht als Vergleichskr
 \begin{table}[h!]
 \centering
 %\small
-\begin{tabular}{C{3.4cm}|c|C{3.6cm}|c}
+\begin{tabular}{|C{3.4cm}|c|C{3.6cm}|c|}
+\hline
 \textbf{Mittlere CPU Auslastung} & \textbf{Aggregation} & \textbf{Aggregation mit Kartendarstellung} & \textbf{Verarbeitung} \\ \hline
 \textbf{Postgres-XL} & 0,2 & 0,1 & 0,5 \\ \hline
-\textbf{PostgreSQL} & 3,6 & 0,4 & 0,5 \\	
+\textbf{PostgreSQL} & 3,6 & 0,4 & 0,5 \\ \hline	
 \end{tabular}
 \caption[Vergleich der CPU Auslastung]{Vergleich der CPU Auslastung, GTM \Gls{vm} nicht berücksichtigt}
 \label{tbl:verglcpu}
 \end{table}
 Die Auslastung der CPU ist in Tabelle \ref{tbl:verglcpu} aufgeführt.
 Entsprechend den abgebildeten Graphen wurden die Werte der CPU Auslastung gemittelt.
-Die Mittlung fand je Graph statt. Bei Postgres-XL wurden aus sechs gemittelten Werte ein Durchschnittswert erzeugt.
+Die Mittlung fand je Graph statt. Bei Postgres-XL wurden aus sechs gemittelten Werten ein Durchschnittswert erzeugt.
 
 
 Die Verarbeitungsleistung konnte bei Postgres-XL nur mit einem Coordinator gemessen werden.
@@ -900,10 +911,11 @@ Aus diesem Grund ist unterscheidet sich die Laufzeit eines Testlaufes nicht rele
 \begin{table}[h!]
 \centering
 %\small
-\begin{tabular}{c|c}
+\begin{tabular}{|c|c|}
+\hline
  & \textbf{Durchschnittliche Laufzeit} \\ \hline
 \textbf{Postgres-XL} & 975s \\ \hline
-\textbf{PostgreSQL} & 969s \\	
+\textbf{PostgreSQL} & 969s \\ \hline	
 \end{tabular}
 \caption[Vergleich der Testergebnisse der Verarbeitung]{Vergleich der Testergebnisse der Verarbeitung}
 \label{tbl:verglergebnisse2}

@@ -11,13 +11,14 @@ Aufbauend auf die Definition der Nutzwertanalyse in Abschnitt \ref{section:defin
 %Wertungsmaßstab ergänzen und anpassen
 \begin{table}[h!]
 \centering
-\begin{tabular}{l|l}
+\begin{tabular}{|l|l|}
+\hline
 \textbf{Metrik} & \textbf{Gewichtung in \%} \\ \hline
 Interoperabilität & 20 \\ \hline
 Funktionsumfang & 20 \\ \hline
 Dokumentation & 15 \\ \hline
 Zeitverhalten & 40 \\ \hline
-Modifizierbarkeit & 5
+Modifizierbarkeit & 5 \\ \hline
 \end{tabular}
 \caption{Neuer Wertungsmaßstab der einzelnen Metriken}
 \label{table:Wertungsmassstab2}
@@ -33,7 +34,7 @@ Dies ergibt einen Wert von 53.
 
 Der Wert der Dokumentation wird um eins auf acht vermindert, da fehlender Funktionsumfang schlecht oder gar nicht dokumentiert ist.
 Dies ist aber eine wesentliche Information für die Auswahl und Verwendung eines Frameworks.
-Funktionsumfang in Dokumentation wird mit eins bewertet.
+Der Funktionsumfang in der Dokumentation wird mit eins bewertet.
 
 Das Zeitverhalten wurde mit den Lasttests in Kapitel \ref{section:leistungstests} ermittelt.
 Die Laufzeit der Aggregation mit Postgres-XL liegt unter der mit PostgreSQL.
@@ -46,13 +47,14 @@ Hinsichtlich der Modifizierbarkeit gab es keine neuen Erkenntnisse, somit änder
 \begin{table}[h!]
 \centering
 \small
-\begin{tabular}{l|p{1.8cm}|c|p{3.1cm}|p{1.8cm}}
+\begin{tabular}{|l|p{1.8cm}|l|p{3.1cm}|p{1.8cm}|}
+\hline
 \textbf{Metrik} & \textbf{erreichter Wert} & \textbf{Erfüllung in \%} & \textbf{Kommentar} & \textbf{gewichteter Teilnutzen} \\ \hline
 Interoperabilität & 12 & 100 & Analog des Ist-Standes. & 20 \\ \hline
 Funktionsumfang & 53 & 87 & Mindestabdeckung erfüllt, jedoch sind Geostatistik und Versionierung nicht vorhanden. Außerdem keine parallele Nutzung einer Funktion. & 17 \\ \hline
 Dokumentation & 8 & 69 & Dokumentation zu PostGIS ist sehr gut, zu Postgres-XL grob mit Mängeln bei fehlenden Funktionalitäten. Mindestabdeckung ist erfüllt. & 10 \\ \hline
 Zeitverhalten & 2 & 67 & Bei Nutzung aller Coordinator besseres Zeitverhalten als PostgreSQL, jedoch bestehen hohe Kosten in der Hardwareanschaffung. & 27 \\ \hline
-Modifizierbarkeit & 5 & 100 & Vollständige Abdeckung vorhanden. Möglichkeiten sind in SQL gegeben. & 5 \\
+Modifizierbarkeit & 5 & 100 & Vollständige Abdeckung vorhanden. Möglichkeiten sind in SQL gegeben. & 5 \\ \hline
 \end{tabular}
 \caption{Neue Nutzwertanalyse von Postgres-XL}
 \label{table:nutzwertanalyse2-postgresxl}
@@ -87,13 +89,13 @@ Die Frameworks GeoMesa und Rasdaman erhielten dabei die Wertung 56 bzw. 51.
 
 Postgres-XL erfuhr im darauf folgenden Kapitel eine Untersuchung hinsichtlich der allgemeinen Verwendung und der Möglichkeiten für den Einsatz bei Agri~Con.
 So wurde das Vorgehen der Installation, die Nutzung der Schnittstellen und die Möglichkeiten der Verarbeitung erörtert, wobei die Schnittstellen und die Verwendung analog zu den Schnittstellen und der Verwendung von PostgreSQL sind.
-Der Einsatz bei Agri~Con wurde heraus gearbeitet und eine tief greifende Integration in den Ist-Stand als notwendig ermittelt.
+Der Einsatz bei Agri~Con wurde heraus gearbeitet und eine tiefgreifende Integration in den Ist-Stand als notwendig ermittelt.
 Doch auf Grund von fehlender Funktionalität ist die Integration von Postgres-XL im Rahmen dieser Arbeit nicht möglich.
 Für das weitere Vorgehen wurde die Anpassung des Ist-Standes an Postgres-XL für die Untersuchung mit Funktions- und Leistungstests beschrieben.
 
 Kapitel \ref{chapter:tests} enthält die Definition der Testumgebung sowie die Definition und die Ergebnisse der Funktions- und Leistungstests.
 Als Testumgebung diente ein IBM Server, auf welchem mit virtualisierten Maschinen Postgres-XL und PostgreSQL installiert und miteinander vergleichbar konfiguriert wurden.
-Die Funktionstests validierten die Funktionalität von Postgres-XL, wobei einzig der Test FT06 fehlschlug, da Speicher Befehle in SQL Funktionen Fehler verursachten und mit R berechneten Werte nicht validiert werden konnten.
+Die Funktionstests validierten die Funktionalität von Postgres-XL, wobei einzig der Test FT06 fehlschlug, da Speicherbefehle in SQL Funktionen Fehler verursachten und mit R berechnete Werte nicht validiert werden konnten.
 Die Leistungsfähigkeit bezüglich der Aggregation und Verarbeitung von Daten wurde mit den Leistungstests ermittelt.
 Diese Ermittlung fand mit Postgres-XL und PostgreSQL statt, um relative Aussagen treffen zu können.
 In der Präambel fand eine Auseinandersetzung mit den Begriffen Leistung, Lastmessung, Auswertung, Datenverteilung und Verbesserungen in Postgres-XL, der Lastverteilung und der Skalierung statt.
@@ -137,11 +139,11 @@ Darin werden keine Trigger und Sub-Transaktionen unterstützt, der Transaktionst
 Lagert man die virtuellen Maschinen auf eigenständige physische Maschinen aus, muss mit zu berücksichtigenden Kosten für den Netzwerkverkehr und höherer Lese - und Schreibgeschwindigkeit des Festspeichers pro Knoten gerechnet werden.
 In beiden Fällen ist der Leistungsgewinn durch Einsatz eines Clusters zu gering, als das sich ein sechsfacher Hardwareaufwand lohnt.
 Ein Nutzen ergibt sich mit Postgres-XL, wenn Daten in wenigen Relationen verteilt gespeichert und gelesen werden müssen.
-Besonders bei Datenmengen, welche die Größe von Festplatten übersteigen.
+Dies zeigt sich besonders bei Datenmengen, welche die Größe von Festplatten übersteigen.
 Bei Agri~Con wäre der Bereich Docu dafür geeignet.
 So könnten alle Positionsdaten der Maschinen aller Betriebe unveränderlich abgelegt und mit kurzen Laufzeiten aggregiert werden.
 
-Für die Agri~Con GmbH ist das Ergebnis, dass der Ist-Stand mit der eingesetzten Technologie für diese umfangreichen Anforderungen am besten geeignet ist, sofern kostenlose Frameworks berücksichtigt werden.
+Für die Agri~Con GmbH ist das Ergebnis, dass der Ist-Stand mit der eingesetzten Technologie für diese umfangreichen Anforderungen am meisten geeignet ist, sofern kostenlose Frameworks berücksichtigt werden.
 Änderungen am Datenbankschema, an den Kostenwerten der Funktionen, an der Konfiguration des Query Planers und den Datenbank nahen Anwendungen erhöhen die Leistungsfähigkeit der PostgreSQL Installation um die gewünschte Verminderungen im Laufzeitverhalten zu erwirken.
 Der Einsatz von anderen Frameworks ist dagegen für Teilaufgaben sinnvoll.
 Beispielsweise würde sich Rasdaman bei wesentlicher Nutzung von Rasterdaten, welche unabhängig vom Datenbankschema sind, zur Speicherung, Verarbeitung und Bereitstellung eignen.
@@ -155,7 +157,7 @@ Beispielsweise würde sich Rasdaman bei wesentlicher Nutzung von Rasterdaten, we
 %- zu geeigneten zeitpunkt erneute analyse relevanter frameworks
 %- ist stand sollte optimiert werden
 
-Die Agri~Con GmbH wird Änderung an der PostgreSQL Installation vornehmen, um die gewünschten Effekte zu erzielen.
+Die Agri~Con GmbH wird Änderungen an der PostgreSQL Installation vornehmen, um die gewünschten Effekte zu erzielen.
 Die in dieser Arbeit durchgeführte Untersuchung wird mittelfristig nicht erneut durchgeführt.
 Bei Änderung des Szenarios werden Untersuchungen spezieller Frameworks für diese Änderungen erhoben.
 

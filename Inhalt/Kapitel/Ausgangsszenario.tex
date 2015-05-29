@@ -1,8 +1,8 @@
 \chapter{Ausgangsszenario}
 \label{chapter:ausgangsszenario}
-Nach Darlegung der Methodik im voran gegangenen Kapitel, wird in diesem präsentiert worauf sie angewendet wird.
-So werden die Anforderungen definiert und messbar gemacht wie auch Funktions-und Leistungstests skizziert.
-Zur Einordnung der Gewichtung der zu untersuchenden Qualitäten und Heranführung an die Absichten der Agri~Con, wird der Ist Stand und die gewünschte Integration eines neuen Frameworks ausgeführt.
+Nach Darlegung der Methodik im vorangegangenen Kapitel, wird in diesem präsentiert worauf sie angewendet wird.
+So werden die Anforderungen definiert und messbar gemacht wie auch Funktions- und Leistungstests skizziert.
+Zur Einordnung der Gewichtung der zu untersuchenden Qualitäten und Heranführung an die Absichten der Agri~Con, wird der Ist-Stand und die gewünschte Integration eines neuen Frameworks ausgeführt.
 
 \section{Anforderungen}
 \label{Anforderungen}
@@ -47,13 +47,13 @@ Das System stellt alle geforderten Funktionen mit den definierten Eigenschaften 
 Die originalen räumlichen Daten werden von Sensoren erfasst, in wessen Toleranzbereich die Ergebnisse der Verarbeitung durch das Framework liegen müssen.
 \item \textbf{Interoperabilität:} Es sind Schnittstellen zur Ein- und Ausgabe vorhanden. Dabei soll es sich um PostgreSQL Import sowie PostgreSQL und \Gls{umn} Export handeln.
 \item \textbf{Funktionsumfang:} Mindestens die benannte und essentielle Menge an Funktionalitäten wird bereitgestellt. Dazu zählt:
-parallele Verarbeitung, Gruppierungs-, Filter-, Verschneidungs- sowie Overlayfunktionen, Geostatistik und Umrechnung zwischen Koordinatensystemen und -formaten. Außerdem sind vorhandene Datentypen und Schemaversionierung von Interesse.
-\item \textbf{Ordnungsmäßigkeit:} Die Implementation des Systems und dessen Funktionen erfüllt Normen, Vereinbarungen, gesetzliche Bestimmungen und andere Vorschriften. Hierzu ist zu nennen, dass besonders Berechnungsfunktionen nach mathematischen Gesetzen implementiert sein müssen. Konkret sind Berechnungen der räumlichen Verarbeitung nach anerkannten definierten Algorithmen durchzuführen. Weiterhin sind Definitionen der Koordinatenreferenzsysteme\footnote{siehe \Glspl{epsg-code}}, die mathematisch korrekte deterministische sowie stochastische Interpolation und Interpolation nach Krige einzuhalten. Auch Allgemeine Anforderungen an \Gls{dbms} wie Integritätssicherung, Datensicherheit, Mehrbenutzerbetrieb, Datenunabhängigkeit und Zugangssicherung müssen erfüllt werden.
+parallele Verarbeitung, Gruppierungs-,\\Filter-, Verschneidungs- sowie Overlayfunktionen, Geostatistik und Umrechnung zwischen Koordinatensystemen und -formaten. Außerdem sind vorhandene Datentypen und Schemaversionierung von Interesse.
+\item \textbf{Ordnungsmäßigkeit:} Die Implementation des Systems und dessen Funktionen erfüllt Normen, Vereinbarungen, gesetzliche Bestimmungen und andere Vorschriften. Hierzu ist zu nennen, dass besonders Berechnungsfunktionen nach mathematischen Gesetzen implementiert sein müssen. Konkret sind Berechnungen der räumlichen Verarbeitung nach anerkannten definierten Algorithmen durchzuführen. Weiterhin sind Definitionen der Koordinatenreferenzsysteme\footnote{siehe \Glspl{epsg-code}}, die mathematisch korrekte deterministische sowie stochastische Interpolation und Interpolation nach Krige einzuhalten. Auch allgemeine Anforderungen an \Gls{dbms} wie Integritätssicherung, Datensicherheit, Mehrbenutzerbetrieb, Datenunabhängigkeit und Zugangssicherung müssen erfüllt werden.
 \end{itemize}
 \ \\
 %
 \textbf{Zuverlässigkeit}\\
-Nach \cite[S.259]{book:lehrbuchsoftware} wird Zuverlässigkeit als die Fähigkeit einer Software ihr Leistungsniveau unter festgelegten Bedingungen über einen festgelegten Zeitraum bewahren definiert.
+Nach \cite[S.259]{book:lehrbuchsoftware} wird Zuverlässigkeit als die Fähigkeit einer Software definiert,  ihr Leistungsniveau unter festgelegten Bedingungen über einen festgelegten Zeitraum zu bewahren.
 %Nutzung von Tools zur Überwachung und Konfiguration immanent.
 \begin{itemize}
 \item \textbf{Fehlertoleranz:} Das System sollte auftretende Fehler des Tagesgeschäftes abfangen und weiterarbeiten. Besonders Fehler in den Quelldaten können zu Fehlern während der Ausführung von Berechnungen führen, was per s\'{e} abgefangen werden muss.
@@ -128,11 +128,12 @@ Die geforderte Mindestbewertung ist 7.
 Tabelle \ref{table:funktionsumfang} gibt die Wertung bei Existenz der einzelnen Funktionen wieder.
 Existiert die Funktion nicht, ist die Wertung Null.
 Ein Zwischenwert bei eingeschränkter Funktionalität ist möglich.
-Maximale Wertung: 61 %\FPtrunc\Gesamtsumme\Gesamtsumme{0}\FPprint\Gesamtsumme\\
+Die maximale Wertung ist dabei 61. %\FPtrunc\Gesamtsumme\Gesamtsumme{0}\FPprint\Gesamtsumme\\
 Es müssen mindestens geografische Datentypen, Filterfunktionen und parallele Verarbeitung vorhanden sein.
 \begin{table}[h]
 \centering
-\begin{tabular}{l|c}
+\begin{tabular}{|l|c|}
+\hline
 \textbf{Funktion} & \textbf{Wertung} \\ \hline
 parallele Verarbeitung & \psum{2} \\ \hline
 geografische Datentypen & \psum{14} \\ \hline
@@ -142,7 +143,7 @@ Verschneidungsfunktionen & \psum{4} \\ \hline
 Overlayfunktionen & \psum{4} \\ \hline
 Geostatistik & \psum{6} \\ \hline
 Filterfunktionen & \psum{10} \\ \hline
-Schemaversionierung & \psum{1}
+Schemaversionierung & \psum{1} \\ \hline
 \end{tabular}
 \caption{Wertungstabelle Funktionsumfang}
 \label{table:funktionsumfang}
@@ -158,11 +159,12 @@ Vorhandene Dokumentation ist nach einzelnen Themen zu bewerten.
 Dabei kann ein maximaler Wert von 13 erreicht werden.
 \begin{table}[h]
 \centering
-\begin{tabular}{l|l}
+\begin{tabular}{|l|l|}
+\hline
 \textbf{Dokumentation zu} & \textbf{Wertung je Eintrag} \\ \hline
 Installation, Zeitverhalten & 1 \\ \hline
 Funktionsumfang & 2 \\ \hline
-Interoperabilität, Best practise, Anpassbarkeit & 3 
+Interoperabilität, Best practise, Anpassbarkeit & 3 \\ \hline
 \end{tabular}
 \caption{Wertungstabelle Dokumentation}
 \label{table:dokumentation}
@@ -200,7 +202,7 @@ Folgende Schnittstellen sind zu testen:
 \item \Gls{umn}
 \end{itemize}
 
-Als Austauschformat ist mindestens eines der folgenden Datentypen zum Datenaustausch notwendig:
+Als Austauschformat ist mindestens ein der folgenden Datentypen zum Datenaustausch notwendig:
 \begin{itemize}
 \item Simple Feature Access
 \item Objekte der JTS
@@ -235,9 +237,9 @@ Die Werkzeuge sollten dabei eine Abfragesprache wie SQL und bei Vorhandensein de
 Über eine Abfragesprache sind neben der Laufzeit weitere Informationen abrufbar.
 Mit SQL kann das Vorgehen des Query Planers ausgegeben werden, was für die Auswertung herangezogen werden kann.
 Die Verwendung des \Gls{umn} zielt auf eine anwendungsnahe Darstellung der Leistungsfähigkeit ab.
-Die hohe Leistungsfähig des \Gls{umn} für ein solches Szenario wurde bereits in \cite{ba:kurt} dargestellt, sodass von einer hohen Auslastung des \Gls{dbms} ausgegangen werden kann.
+Die hohe Leistungsfähigkeit des \Gls{umn} für ein solches Szenario wurde bereits in \cite{ba:kurt} dargestellt, sodass von einer hohen Auslastung des \Gls{dbms} ausgegangen werden kann.
 
-Analog zu diesem ersten Szenario ist ein weiterer zur Interpolation bzw. Kriging durchzuführen.
+Analog zu diesem ersten Szenario ist ein weiterer Test zur Interpolation bzw. Kriging durchzuführen.
 Darin sollen Punktdaten zu Vektordaten mit Interpolation im Rahmen eines Krigings verarbeitet werden.
 Damit soll die Verarbeitungsleistung bewertet werden.
 
@@ -302,7 +304,7 @@ Für das Verständnis des Kapitels 6 wird nachfolgend das Datenbankschema knapp 
 Es handelt sich um ein umfangreiches Schema, weshalb es aus mehreren Schemata besteht:
 adwork, apps, bu, bucardo, catalogs, checks, common, demo, docu, farm, files, import, information\_{}schema, ips, krig, log, n, nutrients, ogeo, pg\_{}catalog, pp, public, rax, statistics, tasks, temp, topology, umn, utils und yield.
 catalogs enthält statische Einträge analog eines globalen Kataloges.
-common enthält Benutzerspezifische, farm dagegen Betriebsspezifisce Daten.
+common enthält Benutzerspezifische, farm dagegen Betriebsspezifische Daten.
 Das Schema files beinhaltet Informationen zu Dateien, welche von Kunden auf den Server hochgeladen wurden sowie Metainformationen zu Dateiarten.
 In den Schemata n und nutrients sind Daten zu N-Sensor zu finden.
 Hilfsfunktionen und -tabellen des \Gls{umn} sind im Schema umn zu finden.
@@ -334,7 +336,7 @@ Die NoSQL Systeme im Bereich der Datenverarbeitung von räumlichen Daten sind in
 
 Wissenschaftliche Dokumente in Form von Paper sind zu diesem Thema vorhanden.
 Diese beschreiben aber nur knapp Entwürfe eines Systems für einen speziellen Anwendungsfall, weshalb sie in diesem Zusammenhang nicht gebraucht werden können.
-\cite{paper:hdfsspatial} beschreibt einen Entwurf zur Speicherung und Verarbeitung räumlichen Daten mit Hadoop, VegaGiStore genannt.
+\cite{paper:hdfsspatial} beschreibt einen Entwurf zur Speicherung und Verarbeitung räumlicher Daten mit Hadoop, VegaGiStore genannt.
 \cite{paper:spatialdistribution} erläutert dagegen Methoden zur Verteilung von Daten in einem verteilten System auf Grund der räumlichen Informationen.
 
 Es existieren Arbeiten zu Randthemen und -betrachtungen sowie Teilproblemen, aber nicht zu den Fragen \textit{Gibt es eine freie Alternative zu PostGIS?} und \textit{Welche verteilten GIS eignen sich für einen komplexen Anwendungsfall?}.
@@ -344,7 +346,7 @@ Das Fehlen von verlässlichen konkreten Informationen erschwert die Literaturrec
 Speziell Leistungsvergleiche sind in diesem Zusammenhang interessant, sind aber auf Grund fehlender Informationen nicht reproduzierbar.
 Nachfolgend zwei Beispiele einer solchen Werbung:\\
 %Unternehmen werben mit höher Leistung als PostGIS:\\
-GeoMesa: Zehn bis 60 fache Antwortgeschwindigkeit bei GeoMesa gegenüber PostGIS, entsprechend der Abbildung \ref{fig:geomesaversuspostgis}.
+GeoMesa: Zehn- bis 60-fache Antwortgeschwindigkeit bei GeoMesa gegenüber PostGIS, entsprechend der Abbildung \ref{fig:geomesaversuspostgis}.
 \begin{figure}[h!]
 \centering
 \includegraphics[width=.8\textwidth]{Abbildungen/geomesa_versus_postgis.png}
@@ -352,7 +354,7 @@ GeoMesa: Zehn bis 60 fache Antwortgeschwindigkeit bei GeoMesa gegenüber PostGIS
 \label{fig:geomesaversuspostgis}
 \end{figure}
 \newpage
-Postgres-XL: Bis zu sechs fache Antwortdauer von PostgreSQL gegenüber Postgres-XL in einem standardisierten TPC-H\footnote{\url{http://www.tpc.org/tpch/}} Benchmark bei Verwendung von vier DataNodes. Abbildung \ref{fig:pgxcversuspgsql} zeigt das Diagramm mit dem genannten Wert.
+Postgres-XL: Bis zu sechsfache Antwortdauer von PostgreSQL gegenüber Postgres-XL in einem standardisierten TPC-H\footnote{\url{http://www.tpc.org/tpch/}} Benchmark bei Verwendung von vier DataNodes. Abbildung \ref{fig:pgxcversuspgsql} zeigt das Diagramm mit dem genannten Wert.
 Die x-Achse ist nicht beschriftet, weswegen die Zuordnung der 15 Ergebnisse zu den 22 vorgegebenen Abfragen des TPC-H Benchmark nicht möglich ist.
 Somit kann keine Bewertung der Laufzeiten erfolgen.
 \begin{figure}[h!]

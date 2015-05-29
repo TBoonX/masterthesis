@@ -25,7 +25,8 @@ Tabelle \ref{table:Wertungsmassstab} zeigt die für die Nutzwertanalyse notwendi
 Die Metriken Richtigkeit, Fehlertoleranz und Zeitverhalten werden nicht in die Analyse aufgenommen, da sie über die Spezifikation nicht belegbar sind.
 \begin{table}[h!]
 \centering
-\begin{tabular}{l|l}
+\begin{tabular}{|l|l|}
+\hline
 \textbf{Metrik} & \textbf{Gewichtung in \%} \\ \hline
 %Richtigkeit & 10 \\ \hline
 Interoperabilität & 30 \\ \hline
@@ -33,12 +34,11 @@ Funktionsumfang & 20 \\ \hline
 %Fehlertoleranz & 8 \\ \hline
 Dokumentation & 35 \\ \hline
 %Zeitverhalten & 16 \\ \hline
-Modifizierbarkeit & 15
+Modifizierbarkeit & 15 \\ \hline
 \end{tabular}
 \caption{Wertungsmaßstab der einzelnen Metriken}
 \label{table:Wertungsmassstab}
 \end{table}
-
 Für jedes Framework wird eine Nutzwertanalyse durchgeführt und die dazugehörige Tabellen dazu präsentiert.
 Zu jeder Metrik wird der erreichte Wert, die ungewichtete Erfüllung, die gewichtete Erfüllung und ein Kommentar angegeben.
 Die ungewichtete Erfüllung bezieht sich auf den maximal zu erreichenden Wert der Metrik, die gewichtete Erfüllung dagegen auf die Erfüllung der Metrik in Bezug auf Tabelle \ref{table:Wertungsmassstab}.
@@ -47,20 +47,22 @@ Der schlussendliche Nutzwert ergibt sich nach Zangemeister in \cite{website:nutz
 Der Teilnutzen ist hier der Prozentuale Anteil der erreichten Punktzahl an der maximalen Punktzahl des Kriteriums.
 Diese Prozentangabe wird als Wert mit der Gewichtung des Kriteriums multipliziert, woraus sich der Nutzwert für das Kriterium ergibt.
 Die Summe aller dieser Teilnutzwerte ergibt den Nutzwert des Frameworks für den Anwendungsfall.
-Die granulare Bewertung der einzelnen Kriterien der drei Systeme ist dagegen im Anhang \ref{appendix:systembewertung} zu finden.
 
 \section{Nutzwertanalyse}
+Dieses Unterkapitel leg die Ergebnisse der Nutzwertanalysen zu den Frameworks GeoMesa, Postgres-XL und Rasdaman dar.
+Die granulare Bewertung der einzelnen Kriterien der drei Systeme ist dagegen im Anhang \ref{appendix:systembewertung} zu finden.
 
 \subsection{GeoMesa}
 \begin{table}[h!]
 \centering
 \small
-\begin{tabular}{l|p{1.8cm}|c|p{3.1cm}|p{1.8cm}}
+\begin{tabular}{|l|p{1.8cm}|l|p{3.1cm}|p{1.8cm}|}
+\hline
 \textbf{Metrik} & \textbf{erreichter Wert} & \textbf{Erfüllung in \%} & \textbf{Kommentar} & \textbf{gewichteter Teilnutzen} \\ \hline
 Interoperabilität & 7 & 58 & Implementationen für beide Schnittstellen notwendig. & 17 \\ \hline
 Funktionsumfang & 48 & 79 & Die meisten Funktionen sind nur mit Scala verfügbar, Mindestabdeckung jedoch gegeben. & 16 \\ \hline
 Dokumentation & 4 & 31 & Mindestabdeckung nicht erfüllt. & 11 \\ \hline
-Modifizierbarkeit & 4 & 80 & Mit Simple Features und Spark umfangreiche Problemlösungen erstellbar. Fehlende Funktionen können nachgerüstet werden. & 12 \\
+Modifizierbarkeit & 4 & 80 & Mit Simple Features und Spark umfangreiche Problemlösungen erstellbar. Fehlende Funktionen können nachgerüstet werden. & 12 \\ \hline
 \end{tabular}
 \caption{Nutzwertanalyse GeoMesa}
 \label{table:nutzwertanalyse-geomesa}
@@ -97,7 +99,7 @@ LocationTech ist eine Arbeitsgruppe der non-for-profit Stiftung Eclipse.
 In diesem Rahmen erhält diese Arbeitsgruppe 20 Mitglieder für Projektplanung und Projektumsetzung.
 Weiterhin findet die Finanzierung im Rahmen von Mitgliedschaft an der Arbeitsgruppe statt.
 Darin können Mitglieder je nach Beitrag Teile der Entscheidungsorgane der Arbeitsgruppe werden und Zugang zu Ergebnissen dieser erhalten. \cite{website:locationtech-about}
-LocationTech ist mit GeoMesa mitten in der Entwicklung und hat keine permanenten aktive Unterstützer.
+LocationTech ist mit GeoMesa mitten in der Entwicklung und hat keine durchgängig aktive Unterstützer.
 Dieser Stand spricht gegen eine Auswahl von GeoMesa zum produktiven Einsatz.
 
 \subsection{Postgres-XL}
@@ -105,12 +107,13 @@ Dieser Stand spricht gegen eine Auswahl von GeoMesa zum produktiven Einsatz.
 \begin{table}[h!]
 \centering
 \small
-\begin{tabular}{l|p{1.8cm}|c|p{3.1cm}|p{1.8cm}}
+\begin{tabular}{|l|p{1.8cm}|l|p{3.1cm}|p{1.8cm}|}
+\hline
 \textbf{Metrik} & \textbf{erreichter Wert} & \textbf{Erfüllung in \%} & \textbf{Kommentar} & \textbf{gewichteter Teilnutzen} \\ \hline
 Interoperabilität & 12 & 100 & Analog des Ist-Standes. & 30 \\ \hline
 Funktionsumfang & 53 & 87 & Mindestabdeckung erfüllt, jedoch sind Geostatistik und Versionierung nicht vorhanden. & 17 \\ \hline
 Dokumentation & 9 & 69 & Dokumentation zu PostGIS ist sehr gut, zu Postgres-XL grob. Mindestabdeckung ist erfüllt. & 24 \\ \hline
-Modifizierbarkeit & 5 & 100 & Vollständige Abdeckung vorhanden. Möglichkeiten sind in SQL gegeben. & 15 \\
+Modifizierbarkeit & 5 & 100 & Vollständige Abdeckung vorhanden. Möglichkeiten sind in SQL gegeben. & 15 \\ \hline
 \end{tabular}
 \caption{Nutzwertanalyse Postgres-XL}
 \label{table:nutzwertanalyse-postgresxl}
@@ -144,19 +147,20 @@ Dieses wurde darauf in Postgres-XL umbenannt und erweitert.
 Diese Änderung rief die Verringerung der contributors seit Anfang 2014 hervor.
 TransLattice verwaltet seitdem das Projekt und stellt technischen sowie theoretischen Support.
 Postgres-XL ist durch die langjährige Entwicklung empfehlenswert für den produktiven Einsatz.
-Jedoch ist die Aktivität der TransLattice Entwickler zu beobachten, da die Gefahr besteht das dieses Projekt vom Unternehmen nicht mehr gefördert wird und somit Fehler und Verbesserungen nicht eingepflegt werden und neue PostgreSQL Versionen nicht unterstützt werden.
+Jedoch ist die Aktivität der TransLattice Entwickler zu beobachten, da die Gefahr besteht, dass dieses Projekt vom Unternehmen nicht mehr gefördert wird und somit Fehler und Verbesserungen nicht eingepflegt werden und neue PostgreSQL Versionen nicht unterstützt werden.
 
 
 \subsection{Rasdaman}
 \begin{table}[h!]
 \centering
 \small
-\begin{tabular}{l|p{1.8cm}|c|p{3.1cm}|p{1.8cm}}
+\begin{tabular}{|l|p{1.8cm}|l|p{3.1cm}|p{1.8cm}|}
+\hline
 \textbf{Metrik} & \textbf{erreichter Wert} & \textbf{Erfüllung in \%} & \textbf{Kommentar} & \textbf{gewichteter Teilnutzen} \\ \hline
 Interoperabilität & 7 & 58 & \Gls{umn} Schnittstelle ist nicht vorhanden. & 17 \\ \hline
 Funktionsumfang & 10 & 16 & Umfangreiche Rasterverarbeitung möglich. Kostenlose Version enthält keine Optimierungen. Abbildung von Simple Features auf Arrays mit Aufwand verbunden und nur bedingt sinnvoll. Mindestabdeckung wird nicht erfüllt. & 3 \\ \hline
 Dokumentation & 8 & 62 & Mindestabdeckung erfüllt. & 22 \\ \hline
-Modifizierbarkeit & 3 & 60 & Einfache Java und C++ API bietet zwar Erweiterungsmöglichkeiten, aber die Mindestabdeckung ist durch fehlende Datentypen nicht gegeben. & 9 \\
+Modifizierbarkeit & 3 & 60 & Einfache Java und C++ API bietet zwar Erweiterungsmöglichkeiten, aber die Mindestabdeckung ist durch fehlende Datentypen nicht gegeben. & 9 \\ \hline
 \end{tabular}
 \caption{Nutzwertanalyse Rasdaman}
 \label{table:nutzwertanalyse-rasdaman}
@@ -181,8 +185,8 @@ Director of Product Development der \mbox{rasdaman} GmbH.
 Herr Campalani und Herr Aiordachioaie haben wie Herr Misev an der Jacobs Universität in Bremen studiert, arbeiten aber nicht bei der \mbox{rasdaman} GmbH.
 
 Rasdaman ist laut der Meldung \glqq Führender Rasterserver kostenfrei zum Download\grqq\ in \cite{website:rasdaman-newsarchive} seit September 2008 in einer freien Version verfügbar.
-Außerdem ist es aus Forschungsarbeiten der TU Darmstadt, der TU München und der Jacobs University Bremen entstanden.
-Förderer war dabei das Community Research and Development Information Service der EU. \cite{website:rasdaman-cordis}
+Außerdem ist es aus Forschungsarbeiten der TU Darmstadt, der TU München und der Jacobs Universität Bremen entstanden.
+Förderer war dabei Community Research and Development Information Service der EU. \cite{website:rasdaman-cordis}
 
 \section{Zusammenfassung}
 %Auf Hypothese zu sprechen kommen - durch hinreichenden Informationsgehalt und empirische Beobachtungen bewiesen
