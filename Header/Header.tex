@@ -59,7 +59,7 @@
 
 % Beispiel f�r eine Listings-Codeumbebungen
 % Bei mehreren Definitionen empfielt sich das auslagern in eine externe Datei
-\lstloadlanguages{Java,HTML}
+\lstloadlanguages{Java,HTML,SQL}
 \lstset{
 	frame=tb,
 	framesep=5pt,
@@ -76,6 +76,11 @@
 	belowskip=\bigskipamount
 } 
 
+%Formatierung Quellcodeverzeichnis
+\renewcommand\lstlistingname{Listing}
+\renewcommand\lstlistlistingname{Quellcodeverzeichnis}
+\def\lstlistingautorefname{Listing}
+
 %Den Punkt am Ende jeder Beschreibung deaktivieren
 \renewcommand*{\glspostdescription}{}
 
@@ -91,6 +96,8 @@
 \captionsetup[figure]{labelfont={},textfont={}}
 % Beschriftung der Tabelle
 \captionsetup[table]{labelfont={},textfont={}}
+% Beschriftung der Figure
+\captionsetup[lstlisting]{labelfont={},textfont={}}
 
 
 % Rechnungsvorschriften paket fp

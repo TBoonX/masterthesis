@@ -482,3 +482,48 @@ direct and indirect measurement: direct by involving no other attribute or  enti
 
 S. 154
 Good data: Correctness(data collect along with metrics definition), accuracy(difference between actual data and measured data), precision(precsion of measurement), consistent(consistency of measurement doing - always the same algorithm/act), time relevant data (save data with their timestamp)
+
+-----------------------------------------------------
+Praxis der Wirtschaftsinformatik 276
+
+thomas brinkhoff
+S. 30: OGC standardisierung mit iso 19125 simple feature access
+S.36: konkrete GIS - propriätar: iBM informix spatial, ibm db2 spatial, oracle locator/spatial, SQL Anywhere; opensource: PostGIS, MySQL
+S. 37: "trotz aller standardisierungsbemühungen unterscheiden sich die genannten Geodatenbanksysteme hinsichtlich Leistungsumfgang und auch Syntax zum Teil deutlich von einander"
+
+Bernd Resch
+S. 53 f.: geosensoretzwerke - 2008 CitySense, 2010 London Air Quality network, 2010 Oklahoma city micronet, 2010 nowcoast-application  ; Standardisierung von OGC mit sensor web enablement
+
+-----------------------------------------------------
+postgreSQL Administration
+
+S. 206 ff.: indexe zur leistungssteigeung, müssen effizient eingesetzt werden - verschiedene wie GIST, B+, unique partiell
+S. 227 ff.: Planer wählt plan nach kosten aus: statistik liefert größe der relationen und # belegter blöcke zur schtzung des io aufwandes; weitere einstellungsmöglichkeiten für planerstellung in postgres.conf
+S. 241: fremdschlüssel bedingen länger dauernde inserts
+S. 245: connection pooling
+S. 246 ff.: Clustering: im allgemeinen beschreibt er die verteilung der Daten auf mehrere Knoten, um den Transaktionsdurchsatz im System zu erhöhen oder um die Ausfallsicherheit zu erhöhen; ersatzsysteme im standby, pgpool-II, pgbouncer, pl/proxy, Slony-I für Master-Slave replikation; DRBD; 
+
+-------------------------------------------------------
+bigdata@work
+
+S.1: BigData: sammelbegriff, zu umfangreich für einen server, zu unstrukturiert für eine relationale DB, fallen kontinuierlich an
+
+-------------------------------------------------------
+Semantic Enablement for Spatial Data Infrastructures
+
+S.2: OGC guarantee interoperability  on a syntactic level; target is semantic  interoparability so theres a minimum of human interaction; 
+S. 2 f.: semantic interoperability between OGC services with ontologys for spatial-temporal dbs, semantic reference systems, work on semantic geospatial web services, semantically-enabled Sensor Observation service SemSOS <- they donts share common interfaces, keine einheitliche Lösung vorhanden
+S.16: an 2 services gezeigt, dass nachträglich semantisch erweitert werden kann
+
+
+---------------------------------------------------------
+LinkedGeoData: A Core for a Web of Spatial Open Data
+
+S.1: OSM tranformed and represented as RDF; linked with other spatial data sets;  
+
+
+-------------------------------------------------------
+Ein Entscheidungsmodell für die
+Auswahl von Standardanwendungssoftware
+am Beispiel von Warenwirtschaftssystemen
+

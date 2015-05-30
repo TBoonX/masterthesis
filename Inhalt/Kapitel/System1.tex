@@ -64,13 +64,13 @@ Anhang \ref{appendix:pgxcctlconfig} enthält die Konfigurationsdatei des Testsys
 Der Zugriff auf Daten eines Postgres-XL Clusters erfolgt über die Coordinators.
 Dazu sind Programme und Tools aus dem PostgreSQL Umfeld zu verwenden.
 Dazu zählen \Gls{jdbc}, das Kommandozeilentool \verb+psql+ und das grafische Programm zur Datenbankverwaltung pgAdminIII.
-So wird im Testsystem der erste Coordinator mit folgendem Aufruf angesprochen:\begin{lstlisting}[language=sql,caption={Verbindung zu erstem Coordinator herstellen}]
+So wird im Testsystem der erste Coordinator mit folgendem Aufruf angesprochen:\begin{lstlisting}[language=sql,caption={Verbindung zu erstem Coordinator herstellen},captionpos=b]
 psql -h node1 -p 20004 agrodb
 \end{lstlisting}
 Ebenso sind die SQL Befehle bis auf ein paar Ausnahmen deckungsgleich.
 Diese Ausnahmen beziehen sich auf die Verteilung der Daten und Verwaltung des Clusters.
 Beispielsweise das SQL Statement in Listing \ref{lst:createtable} weicht durch die Ergänzung \verb+Distribute by+ vom PostgreSQL SQL Syntax ab.
-\begin{lstlisting}[language=sql,caption={SQL Query zum erzeugen einer Tabelle in Postgres-XL},label=lst:createtable]
+\begin{lstlisting}[language=sql,caption={SQL Query zum erzeugen einer Tabelle in Postgres-XL},label=lst:createtable,captionpos=b]
 Create Table tblname (serial id, text data) Distribute by Hash(id);
 \end{lstlisting}
 Jede Tabelle wird in jeder Coordinator und DataNode Instanz erzeugt.
@@ -78,12 +78,12 @@ Dabei werden die Daten entweder nach einem Attribut verteilt oder zwischen den D
 Das Schlüsselwort \verb+Distributed+ veranlasst eine Verteilung der Daten, \verb+Replicate+ dagegen eine Replikation der Tabelle über alle Nodes.
 Die unterstützten Datentypen sind der Dokumentation zu entnehmen.
 Weiterhin zu erwähnen ist der Befehl des Listings \ref{lst:createnode}, welcher direkt als SQL Statement verwendet werden kann und dem Cluster einen Knoten hinzufügt.
-\begin{lstlisting}[language=sql,caption={SQL Query zum hinzufügen eines aktiven Knoten in einen Postgres-XL Cluster},label=lst:createnode]
+\begin{lstlisting}[language=sql,caption={SQL Query zum hinzufügen eines aktiven Knoten in einen Postgres-XL Cluster},label=lst:createnode,captionpos=b]
 Create Node nodename With (TYPE=, HOST=, PORT=)
 \end{lstlisting}
 Analog zum hinzufügen existiert der Befehl \verb+Drop Node nodename+ zum entfernen eines Knotens.
 Wurde das Cluster verändert, ist dies mit Listing \ref{lst:pgxcreload} für alle Knoten zu propagieren.
-\begin{lstlisting}[language=sql,caption={SQL Query  zur Aktualisierung der Cluster Zusammensetzung},label=lst:pgxcreload]
+\begin{lstlisting}[language=sql,caption={SQL Query  zur Aktualisierung der Cluster Zusammensetzung},label=lst:pgxcreload,captionpos=b]
 Select * From pgxc_pool_reload();
 \end{lstlisting}
 Weitere Abweichungen sind der Dokumentation zu entnehmen.\footnote{siehe \url{http://files.postgres-xl.org/documentation/sql-commands.html}}
@@ -277,7 +277,7 @@ Der Beweis stellt die erfolgte Übernahme der Daten des Ist-Standes dar.
 
 \textbf{FT04:}\\
 Mit PostGIS kann mit der Funktion st\_{}transform direkt zwischen den Koordinatenreferenzsystemen umgerechnet werden:
-\begin{lstlisting}[language=sql,caption={SQL Query zur Umrechnung zwischen Koordinatenreferenzsystemen},label=lst:sttransform]
+\begin{lstlisting}[language=sql,caption={SQL Query zur Umrechnung zwischen Koordinatenreferenzsystemen},label=lst:sttransform,captionpos=b]
 select id, st_astext(st_transform(geom, 3857)) as transformed, st_srid(st_transform(geom, 3857)) as newsrid, st_astext(st_transform(st_transform(geom, 3857), 4326)) as original, st_srid(st_transform(st_transform(geom, 3857), 4326)) as srid from nutrients.samples limit 10;
 \end{lstlisting}
 So werden die Punkte der Tabelle samples im Schema nutrients mit dem EPSG Code 4326 zum EPSG Code 3857 sowie wieder zurück umgerechnet.
@@ -290,7 +290,7 @@ geometry steht dagegen für einen beliebigen räumlichen Datentyp.
 Auch in diesem Funktiontests findet die Validierung anhand von Bildern statt.
 Es werden sich überlappende Polygone aus farm.fields heraus gesucht und mit Hilfe von PostGIS Funktionen verschnitten.
 Dafür werden folgende Funktionen verwendet:
-\begin{lstlisting}[language=bash,caption={PostGIS Funktionen der Verschneidung},label=lst:fctsinsection]
+\begin{lstlisting}[language=bash,caption={PostGIS Funktionen der Verschneidung},label=lst:fctsinsection,captionpos=b]
 geometry ST_Intersection(geometry geomA , geometry geomB);
 geometry ST_Union(geometry g1, geometry g2);
 geometry ST_Difference(geometry geomA, geometry geomB);
@@ -361,7 +361,7 @@ Da das Ergebnis nicht überprüft werden kann, gilt der Test als nicht bestanden
 \textbf{FT07:}\\
 %Betrieb mit kleinen Userlayern verwenden
 Userlayer einer Halbjahresplanung besitzen begrenzende Rechtecke, welche im WKT Format wie folgt beschrieben sind:
-\begin{lstlisting}[language=bash,caption={Begrenzendes Rechteck im WKT Format},label=lst:koordinaten]
+\begin{lstlisting}[language=bash,caption={Begrenzendes Rechteck im WKT Format},label=lst:koordinaten,captionpos=b]
 POLYGON((13.2547868501418 50.7878870616778,
 13.2833057640198 50.7878870616778,13.2833057640198 50.7935526493687,
 13.2547868501418 50.7935526493687,13.2547868501418 50.7878870616778))
@@ -492,7 +492,7 @@ Die Vorgehensweise stammt von der Postgres-XL Dokumentation\footnote{\url{http:/
 \item[Coordinator] Eine Verbindung mit einem anderen Coordinator herstellen und darin \verb+DROP NODE coordinatorname;+ und \verb+SELECT pgxc_pool_reload();+ ausführen.
 \item[DataNode] Mit beliebigen Coordinator verbinden und für jede Relation, welche auf die zu löschende DataNode verteilt ist, \verb+ALTER TABLE tablename DELETE NODE+\\\verb+(datanodename);+ ausführen. Betroffene Relationen können mit Listings \ref{st:getdatanodes} ermittelt werden. Das Tool \verb+pgxc_ctl+ starten und darin \verb+stop datanode datanodename+ ausführen. Auf jedem Coordinator \verb+DROP NODE datanodename;+ und \verb+SELECT pgxc_pool_reload();+ ausführen.
 \end{description}
-\begin{lstlisting}[language=sql,caption={SQL Query zur Ermittlung betroffener DataNodes ausgewählter Relationen},label=lst:getdatanodes]
+\begin{lstlisting}[language=sql,caption={SQL Query zur Ermittlung betroffener DataNodes ausgewählter Relationen},label=lst:getdatanodes,captionpos=b]
 \SELECTc.pcrelid FROM pgxc_class c, pgxc_node n WHERE n.node_name ='datanodename' AND n.oid = ANY (c.nodeoids);
 \end{lstlisting}
 
@@ -529,7 +529,7 @@ Fünf der sechs fileids\footnote{Jeder Coordinator verwendet andere fünf fileid
 
 Vor Ausführung des Tests ist der Query Plan der Aggregation zu untersuchen.\\
 \verb+Explain Verbose Select+ liefert für die fileid 44982 folgenden Query Plan:
-\begin{lstlisting}[language=sql,caption={Explain Verbose Ergebnis eines Coordinator}]
+\begin{lstlisting}[language=sql,caption={Explain Verbose Ergebnis eines Coordinator},captionpos=b]
 Remote Subquery Scan on all (datanode4)
   -> Index Scan using idx_fileid on n.nsensorlogs
     Index Cond: (nsensorlogs.fileid = 44982)}

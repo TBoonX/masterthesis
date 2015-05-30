@@ -8,8 +8,8 @@ Zur Einordnung der Gewichtung der zu untersuchenden Qualitäten und Heranführun
 \label{Anforderungen}
 
 % kartografisches Produkt
-Aktuelle Möglichkeiten der Datenerfassung über Sensoren und moderne Probenahmegeräte führen zu mehr und mehr Datensätzen, die für einen Landwirtschaftsbetrieb ausgewertet werden müssen. Darüber hinaus besteht die Notwendigkeit, Daten Jahresübergreifend und betriebsübergreifend auszuwerten, um pflanzenbauliche Zusammenhänge über statistische Methoden untersuchen zu können.
-In den letzten 3 Jahren wurde beispielsweise nur zum Thema N-Versorgung\footnote{Stickstoffdüngung und -aufnahme} für einen Betrieb etwa 800 Datensätze mit 1,9 Mio Einträgen erfasst. Alle diese Daten haben einen räumlichen Bezug, sie müssen weiterverarbeitet, kartographisch aufbereitet und dargestellt werden.
+Aktuelle Möglichkeiten der Datenerfassung über Sensoren und moderne Probenahmegeräte führen zu mehr und mehr Datensätzen, die für einen Landwirtschaftsbetrieb ausgewertet werden müssen. Darüber hinaus besteht die Notwendigkeit, Daten Jahres übergreifend und betriebsübergreifend auszuwerten, um pflanzenbauliche Zusammenhänge über statistische Methoden untersuchen zu können.
+In den letzten 3 Jahren wurde beispielsweise nur zum Thema N-Versorgung\footnote{Stickstoffdüngung und -aufnahme} für einen Betrieb etwa 800 Datensätze mit 1,9 Mio. Einträgen erfasst. Alle diese Daten haben einen räumlichen Bezug, sie müssen weiterverarbeitet, kartographisch aufbereitet und dargestellt werden.
 
 Daraus ergeben sich verschiedenen Anforderungen an die Technologie, die für die Verarbeitung, Analyse und Darstellung verwendet wird:
 \begin{itemize}
@@ -317,16 +317,19 @@ Alle Schemata beinhalten Funktionen, Trigger, Tabellen, Typen, Indizes und Contr
 
 
 \section{Stand der Forschung}
-%TODO stand und zukunft zu angeschnittenen Themen(frameworks, nosql,  BigData, ...) mit suchen (aus sicht des unternehmens - volkmar), auch bei publikationen der unis schaun
-%TODO auch thema: semantische verknüpfung der geodaten übers web
+
 %TODO 4-5 Seiten
 %Diskussion der Literatur
+%grundlage für softwareauswahl: Ein Entscheidungsmodell für die Auswahl von Standardanwendungssoftware am Beispiel von Warenwirtschaftssystemen
+
 Die jährlich stattfindende Internationale Messe FOSSGIS\footnote{Industriemesse für freie und Open Source Software für Geoinformationssysteme \url{https://www.fossgis.de/}} zeigte das PostgreSQL mit PostGIS in der Regel als freies \Gls{dbms} für \Gls{gis} eingesetzt wird.
 Zwar existiert eine Vielzahl von Elementen zur Darstellung und Kartenverwaltung% erzeugt aus den vorhandenen Daten
 , aber es scheint keine geeignete Alternative zur Datenhaltung und Verarbeitung von komplexen geografischen Daten zu geben.
 
 Diese unternehmerische Sicht wird durch wissenschaftliche Arbeiten bestätigt.\\
-So vergleicht Ahlers in seiner Bachelorarbeit\footnote{\cite{ba:pgvsoracle}} PostGIS mit Oracle Spatial, da auch für ihn PostGIS der größte freie Vertreter eines GIS ist.\\
+So vergleicht Ahlers in seiner Bachelorarbeit \cite{ba:pgvsoracle} PostGIS mit Oracle Spatial, da auch für ihn PostGIS der größte freie Vertreter eines \Gls{gis} ist.\\
+Brinkhoff listet in \cite[S.36]{book:prawirtinf} einzig PostGIS und MySQL als quelloffene \Gls{gis}, wobei MySQL eine geringe Funktionalität als \Gls{gis} besitzt.
+Auf Seite 37 bringt er zum Ausdruck, dass sich die \Gls{gis} hinsichtlich Leistungsumfang und Syntax zum Teil deutlich von einander unterscheiden, was besonders im Vergleich von PostGIS und MySQL deutlich ist.
 Thurm untersucht in \cite{ba:nosqlfuergeodaten} gängige NoSQL \Gls{dbms} für Eignung mit geografischen Daten im Vergleich mit PostGIS und Oracle Spatial.
 Darin kommt der Autor zu dem Schluss, dass es für einfache Datenobjekte in begrenzten Mengen nützlich ist die NoSQL Alternativen in Betracht zu ziehen.
 Beispielsweise eignet sich die graphenbasierte Datenbank Neo4J für Operationen mit Strecken.
@@ -334,10 +337,10 @@ Für weniger spezielle und mehr komplexe Anforderungen sind einzig PostGIS und O
 Die NoSQL Systeme im Bereich der Datenverarbeitung von räumlichen Daten sind in den letzten Jahren entstanden und somit nicht ausgereift und umfangreich, so Thurm auf S.51.\\
 \cite{ma:neo4j} vergleicht dagegen Neo4J mit PostGIS und kommt auch zu dem Schluss, dass graphenbasierte Datenhaltung zwar Vorteile besitzt, aber die Eignung individuell validiert werden muss.
 
-Wissenschaftliche Dokumente in Form von Paper sind zu diesem Thema vorhanden.
+Wissenschaftliche Dokumente in Form von Papers sind zu diesem Thema vorhanden.
 Diese beschreiben aber nur knapp Entwürfe eines Systems für einen speziellen Anwendungsfall, weshalb sie in diesem Zusammenhang nicht gebraucht werden können.
 \cite{paper:hdfsspatial} beschreibt einen Entwurf zur Speicherung und Verarbeitung räumlicher Daten mit Hadoop, VegaGiStore genannt.
-\cite{paper:spatialdistribution} erläutert dagegen Methoden zur Verteilung von Daten in einem verteilten System auf Grund der räumlichen Informationen.
+\cite{paper:spatialdistribution} erläutert dagegen Methoden zur Verteilung von Daten in einem verteilten System auf Grundlage der räumlichen Informationen.
 
 Es existieren Arbeiten zu Randthemen und -betrachtungen sowie Teilproblemen, aber nicht zu den Fragen \textit{Gibt es eine freie Alternative zu PostGIS?} und \textit{Welche verteilten GIS eignen sich für einen komplexen Anwendungsfall?}.
 
@@ -353,8 +356,8 @@ GeoMesa: Zehn- bis 60-fache Antwortgeschwindigkeit bei GeoMesa gegenüber PostGI
 \caption[Antwortzeiten von GeoMesa und PostGIS]{Antwortzeiten von GeoMesa und PostGIS, Quelle \cite[S.24]{website:slideshare:geomesa}}
 \label{fig:geomesaversuspostgis}
 \end{figure}
-\newpage
-Postgres-XL: Bis zu sechsfache Antwortdauer von PostgreSQL gegenüber Postgres-XL in einem standardisierten TPC-H\footnote{\url{http://www.tpc.org/tpch/}} Benchmark bei Verwendung von vier DataNodes. Abbildung \ref{fig:pgxcversuspgsql} zeigt das Diagramm mit dem genannten Wert.
+
+Postgres-XL: Bis zu sechsfache Antwortdauer von PostgreSQL gegenüber Postgres-XL in einem standardisierten TPC-H\footnote{TPC-H: \url{http://www.tpc.org/tpch/}} Benchmark bei Verwendung von vier DataNodes. Abbildung \ref{fig:pgxcversuspgsql} zeigt das Diagramm mit dem genannten Wert.
 Die x-Achse ist nicht beschriftet, weswegen die Zuordnung der 15 Ergebnisse zu den 22 vorgegebenen Abfragen des TPC-H Benchmark nicht möglich ist.
 Somit kann keine Bewertung der Laufzeiten erfolgen.
 \begin{figure}[h!]
@@ -364,4 +367,30 @@ Somit kann keine Bewertung der Laufzeiten erfolgen.
 \label{fig:pgxcversuspgsql}
 \end{figure}
 
-%nichts da, weswegen interesant zu erforschen
+% Zusatz
+%TODO stand und zukunft zu angeschnittenen Themen(frameworks, nosql,  BigData, ...) mit suchen (aus sicht des unternehmens - volkmar), auch bei publikationen der unis schaun
+%GIS Frameworks; NoSQL (allgemein, gis bezug); BigData (allgemeine entwicklung, stand bei spatial data, allgemeine Methoden zur bewältigung); semantische räumliche daten; postgresql on steroids; technische entwicklung im precision farming
+%TODO auch thema: semantische verknüpfung der geodaten übers web
+Schnittthemen zur Arbeit sind ebenfalls von Interesse.
+%BigData
+Diese Arbeit bezieht sich auf umfangreiche strukturierte Daten.
+Die Verwendung des Begriffes BigData ist in diesem Zusammenhang falsch.
+Nach Davenport ist BigData ein Sammelbegriff für umfangreiche unstrukturierte Daten, welche kontinuierlich anfallen.
+Umfangreich meint dabei Größenordnungen, welche nicht mit einem Computer verwaltbar sind. (vgl. \cite[S.1]{book:bigdata})
+Werden dagegen andere Unternehmen untersucht oder die Datenquellen der Agri~Con GmbH erweitert, kann es sich zusätzlich um unstrukturierte Daten im Petabyte Bereich handeln.
+Die Berücksichtigung dessen führt zu anderen zu bewertenden Softwarequalitäten und somit zu anderen Ergebnissen.
+Die Möglichkeiten der schemalosen Speicherung und Verarbeitung muss sich in diesem Fall in der gesamten Arbeit widerspiegeln.
+%OGC
+Die Standardisierung räumlicher Daten und Dienste wird durch das \Gls{ogc} durchgeführt, welches auf deren Website\footnote{Liste der Standards, veröffentlicht durch das \Gls{ogc}: \url{http://www.opengeospatial.org/standards/is}} 89 Standards auflistet.
+Weit verbreitet ist Simple Features Access, womit räumliche Objekte allgemein für Implementationen in beliebigen Programmiersprachen definiert werden.
+Dieser Standard dient der Interoperabilität und effektiven Implementation.
+Standards zu Webdiensten wie \Gls{wms}, \Gls{wfs}, \Gls{wps} und \Gls{wcs} für die Bereitstellung und Beschreibung räumlicher Daten sind auch häufig anzutreffen.
+Zu nennen sind ebenso Formate für die Übertragung und Darstellung von räumlichen Daten wie \Gls{gml} und GeoTIFF.
+%semantic
+Bevor Standards vom \Gls{ogc} erstellt werden, wird die Notwendigkeit und der Umfang in der Forschung untersucht und diskutiert.
+Die Formulierung und Verbreitung eines neuen Standards ist jeweils ein langwieriger Prozess.
+Diese Prozesse dauern um so länger an, je mehr verschiedene Ansichten diskutiert werden müssen und wie viele Quasi-Standards bereits dazu existieren.
+Dies wird bei der semantischen Aufbereitung von Webdiensten mit räumlichen Datenkontext deutlich.
+Semantic Web zielt auf Verknüpfung von Wissen im Internet ab.
+Dafür werden semantische Endpunkte pro Wissensbasis erstellt, die Endpunkte untereinander verknüpft und Daten in Tripeln, bestehend aus Subjekt, Prädikat und Objekt, im \Gls{rdf} Format gespeichert und übertragen.
+Für Webdienste mit räumlichen Datenkontext existieren verschiedene Vorgehensweisen zur semantischen Aufbereitung\footnote{In der entsprechenden englischen Literatur wird statt spatial das Wort geospatial verwendet. Weiterhin wird eine Menge von Webdiensten mit räumlichen Datenkontext als Spatial Data Infrastructures (SPI) zusammengefasst.}.

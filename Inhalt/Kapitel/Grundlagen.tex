@@ -57,7 +57,7 @@ Lange ergänzt die allgemeine Definition von Kudraß indem er eine Unterscheidun
 
 Allen Bezugssystemen wird zur Identifikation ein weltweit eindeutiger Code zugeordnet.
 Dieser ist ein von der \Gls{epsg} vergebener so genannter \Gls{epsg-code}.
-Das auf einem Ellipsoiden basierende Bezugssystem World Geodetic System von 1984 (WGS84) mit dem EPSG Code EPSG:4326\footnote{EPSG:4326: \url{http://spatialreference.org/ref/epsg/wgs-84/}} wird von der Agri~Con GmbH verwendet.
+Das auf einem Ellipsoiden basierende Bezugssystem World Geodetic System von 1984 (WGS84) mit dem EPSG Code EPSG:4326\footnote{EPSG:4326: \url{http://spatialreference.org/ref/epsg/wgs-84/}} wird von der Agri~Con verwendet.
 
 
 \subsection{Räumliche Objekte}
@@ -68,23 +68,24 @@ Weiterhin werden Geoobjekte mit Sachinformationen gespeichert und je nach Anwend
 
 
 \subsubsection{Einfache Objekte}
+Zu den einfachen Objekten zählen Punkte, Linien, Polygone, Multilines und Multipolygone.
 Ein Punkt besteht aus einer zwei- oder dreidimensionalen Koordinate und beliebigen Sach-, Topologie- und Dynamikinformationen.
 Mehrere Punkte bilden Linien.
-Bildet eine Linie eine geschlossene Fläche, handelt es sich um ein Polygon.
+Bildet eine Linie eine geschlossene Fläche, handelt es sich um einen Ring.
+Ein Ring mit beliebigen Innenringen\footnote{Innenringe werden auch Inseln genannt.} ist ein Polygon.
 Außerdem können Gruppen von Linien und Polygonen gebildet werden und Multilines und Multipolygone bilden.
-Multipolygone werden oft verwendet um Löcher in Polygonen abzubilden oder komplexe Polygone zu vereinfachen.
 
 \subsubsection{Vektorenmodell}
 
 Es besteht die Möglichkeit eine Menge von Punkten als Vektoren aufzufassen und daraus topologische Objekte entstehen zu lassen.
-Um damit geografisch zu modellieren ist eine Diskretisierung notwendig, d.\,h. die Vektoren sind miteinander in Beziehung zu setzen.
+Um damit geografisch zu arbeiten ist eine Diskretisierung notwendig, d.\,h. die Vektoren sind miteinander in topologische Beziehung zu setzen.
 
 \subsubsection{Rastermodell}
 Ein Raster löst einen rechteckigen Bereich mit in einem Koordinatensystem gleichmäßig angeordneten quadratischen Bildelementen bzw. Pixeln fester Größe auf.
 Geodaten werden ergo mit einer indizierten Matrix abgebildet.
 Ein geografischer Punkt wird näherungsweise durch ein einzelnes Pixel dargestellt.
 Linienzüge werden durch entsprechende Anordnungen zusammenhängender Pixel angenähert erfasst.
-Diese können dann z.B. durch Folgen von Indexpaaren (Zeile, Spalte) der zugehörigen Pixel beschrieben werden.
+Diese können dann z.\,B. durch Folgen von Indexpaaren (Zeile, Spalte) der zugehörigen Pixel beschrieben werden.
 Eine Fläche ist ebenfalls durch zusammenhängende Pixel darstellbar.
 Somit sind keine weiteren Zusatzinformationen zur Modellierung von Flächen wie im Vektormodell notwendig. (vgl. \cite[S.136]{book:gi-theopluspraxis3})
 Ein dreidimensionales Raster heißt Voxel.
@@ -114,10 +115,11 @@ In allen Transformationen werden Mittel der Statistik verwendet, da neben geogra
 Diese Verknüpfung von Statistik und räumlichen Operationen heißt Geostatistik.
 
 %Geostatistik
-In den weiteren Ausführungen wird die Transformationsmethode kriging als Spezialfall von Contouring angewandt.
+In den weiteren Ausführungen wird kriging als Methode der Geostatistik verwendet.
 Der Entwickler war Kriging, welcher diese Transformation zur Vorhersage von Goldvorkommen in Süd Afrika verwendete (vgl. \cite[S.317]{book:spatialdataanalysis}).
 Entsprechend Akin und Simes nach \cite[S.76]{book:verarbeitungspatialdata} ist Kriging ein Schätzvorgang, der eine bestimmte Anzahl von Proben in einem Wichtungsprozess so einbezieht, dass die Schätzvarianz zu einem Minimum wird.
-Kriging wird bei Agri~Con eingesetzt, um aus Punktdaten mit Sachinformationen durch Wichtung bei hoher Erwartungstreue der Schätzwerte Vektordaten mit Sachinformationen zu erzeugen.
+So wird ein Raster mit Schätzwerten erzeugt und daraus Konturlinien für die optische Darstellung erzeugt.
+Kriging wird bei Agri~Con eingesetzt, um aus Punktdaten mit Sachinformationen Vektordaten mit geschätzten Sachinformationen zu erzeugen, wobei die Sachinformationen gewichtet werden und eine hohe Erwartungstreue der Schätzwerte gegeben ist.
 
 \subsection{Geografisches Informationssystem}
 \label{grundlagen:gis}
@@ -277,7 +279,7 @@ Es erweitert Accumulo, unterstützt die GeoTools API und bietet ein Plugin für 
 Die Daten werden nach Geohash %\footnote{siehe \ref{geohash}}
 verwaltet. (vgl. \cite{website:geomesaeclipse})
 
-GeoMesa wird in Verbindung mit stream processing\footnote{Bspw. Spark oder Storm} und batch processing\footnote{Bspw. Pig oder Cascading} verwendet.
+GeoMesa wird in Verbindung mit stream processing und batch processing verwendet.
 Zur räumlichen Datenverarbeitung werden Scala Bibliotheken wie \Gls{jts} und GeoTools eingesetzt.
 Vorrangig werden Vektordaten von GeoMesa verarbeitet, durch eine optionale Erweiterung sind auch Rasterdaten verwendbar.
 Der Datenimport wird ingest genannt, erfolgt über die Kommandazeile und unterstützt die Datenformate CSV, TSV und SHP.
@@ -291,7 +293,7 @@ Postgres-XL\footnote{Postgres-XL: \url{http://www.postgres-xl.org/overview/}} is
 XL steht dabei für eXtensible Lattice, erweiterbarer Verbund.
 Damit soll es ermöglicht werden, mit PostgreSQL verteilt Schreiboperationen zu skalieren sowie parallele Datenverarbeitung auf mehreren physischen und virtuellen Systemen gleichzeitig zu betreiben.
 Es handelt sich um ein shared nothing Mehrrechner-Datenbanksystem.
-Dafür wird zur verteilten Datenhaltung \Gls{acid} mit \Gls{mvcc} und zur parallelen Verarbeitung ein \Gls{mpp} Mechanismus eingesetzt.
+Dafür wird zur verteilten Datenhaltung \Gls{acid} mit \Gls{mvcc}\footnote{\Gls{mvcc} ist bereits in PostgreSQL integriert} und zur parallelen Verarbeitung ein \Gls{mpp} Mechanismus eingesetzt.
 Die Postgres-XL Umgebung nutzt mehrere PostgreSQL Instanzen und bietet Schnittstellen für alle Instanzen an. (siehe \cite{website:postgresxl-about})
 
 Abbildung \ref{fig:postgresxl}\footnote{Link zur Abbildung: \url{http://www.postgres-xl.org/wp-content/uploads/2014/04/xl_cluster_architecture1.jpg}} verbildlicht den Aufbau.
