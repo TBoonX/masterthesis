@@ -129,14 +129,14 @@ Tabelle \ref{table:funktionsumfang} gibt die Wertung bei Existenz der einzelnen 
 Existiert die Funktion nicht, ist die Wertung null.
 Ein Zwischenwert bei eingeschränkter Funktionalität ist möglich.
 Die maximale Wertung ist dabei 61. %\FPtrunc\Gesamtsumme\Gesamtsumme{0}\FPprint\Gesamtsumme\\
-Es müssen mindestens geografische Datentypen, Filterfunktionen und parallele Verarbeitung vorhanden sein.
+Es müssen mindestens räumliche Datentypen, Filterfunktionen und parallele Verarbeitung vorhanden sein.
 \begin{table}[h]
 \centering
 \begin{tabular}{|l|c|}
 \hline
 \textbf{Funktion} & \textbf{Wertung} \\ \hline
-parallele Verarbeitung & \psum{2} \\ \hline
-geografische Datentypen & \psum{14} \\ \hline
+Parallele Verarbeitung & \psum{2} \\ \hline
+Räumliche Datentypen & \psum{14} \\ \hline
 Umrechnung zwischen Koordinatensystemen & \psum{10} \\ \hline
 Gruppierungsfunktionen & \psum{10} \\ \hline
 Verschneidungsfunktionen & \psum{4} \\ \hline
@@ -321,17 +321,17 @@ Alle Schemata beinhalten Funktionen, Trigger, Tabellen, Typen, Indizes und Contr
 
 Die jährlich stattfindende Internationale Messe FOSSGIS\footnote{Industriemesse für freie und Open Source Software für Geoinformationssysteme \url{https://www.fossgis.de/}} zeigte das PostgreSQL mit PostGIS in der Regel als freies \Gls{dbms} für \Gls{gis} eingesetzt wird.
 Zwar existiert eine Vielzahl von Elementen zur Darstellung und Kartenverwaltung% erzeugt aus den vorhandenen Daten
-, aber es scheint keine geeignete Alternative zur Datenhaltung und Verarbeitung von komplexen geografischen Daten zu geben.
+, aber es scheint keine geeignete Alternative zur Datenhaltung und Verarbeitung von komplexen räumlichen Daten zu geben.
 
 Diese unternehmerische Sicht wird durch wissenschaftliche Arbeiten bestätigt.\\
-So vergleicht Ahlers in seiner Bachelorarbeit \cite{ba:pgvsoracle} PostGIS mit Oracle Spatial, da auch für ihn PostGIS der größte freie Vertreter eines \Gls{gis} ist.\\
+So vergleicht Ahlers in seiner Bachelorarbeit \cite{ba:pgvsoracle} PostGIS mit Oracle Spatial, da auch für ihn PostGIS der größte freie Vertreter eines \Gls{gis} ist.
 Brinkhoff listet in \cite[S.36]{book:prawirtinf} einzig PostGIS und MySQL als quelloffene \Gls{gis}, wobei MySQL eine geringe Funktionalität als \Gls{gis} besitzt.
 Auf Seite 37 bringt er zum Ausdruck, dass sich die \Gls{gis} hinsichtlich Leistungsumfang und Syntax zum Teil deutlich von einander unterscheiden, was besonders im Vergleich von PostGIS und MySQL deutlich ist.
-Thurm untersucht in \cite{ba:nosqlfuergeodaten} gängige NoSQL \Gls{dbms} für Eignung mit geografischen Daten im Vergleich mit PostGIS und Oracle Spatial.
+Thurm untersucht in \cite{ba:nosqlfuergeodaten} gängige NoSQL \Gls{dbms} für Eignung mit räumlichen Daten im Vergleich mit PostGIS und Oracle Spatial.
 Darin kommt der Autor zu dem Schluss, dass es für einfache Datenobjekte in begrenzten Mengen nützlich ist die NoSQL Alternativen in Betracht zu ziehen.
 Beispielsweise eignet sich die graphenbasierte Datenbank Neo4J für Operationen mit Strecken.
 Für weniger spezielle und mehr komplexe Anforderungen sind einzig PostGIS und Oracle Spatial zu empfehlen.
-Die NoSQL Systeme im Bereich der Datenverarbeitung von räumlichen Daten sind in den letzten Jahren entstanden und somit nicht ausgereift und umfangreich, so Thurm auf S.51.\\
+Die NoSQL Systeme im Bereich der Datenverarbeitung von räumlichen Daten sind in den letzten Jahren entstanden und somit nicht ausgereift und umfangreich, so Thurm auf S.51.
 \cite{ma:neo4j} vergleicht dagegen Neo4J mit PostGIS und kommt auch zu dem Schluss, dass graphenbasierte Datenhaltung zwar Vorteile besitzt, aber die Eignung individuell validiert werden muss.
 
 Wissenschaftliche Dokumente in Form von Papers sind zu diesem Thema vorhanden.
@@ -347,17 +347,17 @@ Speziell Leistungsvergleiche sind in diesem Zusammenhang interessant, sind aber 
 Nachfolgend zwei Beispiele einer solchen Werbung:\\
 %Unternehmen werben mit höher Leistung als PostGIS:\\
 GeoMesa: Zehn- bis 60-fache Antwortgeschwindigkeit bei GeoMesa gegenüber PostGIS, entsprechend der Abbildung \ref{fig:geomesaversuspostgis}.
-\begin{figure}[h!]
+\begin{figure}[hp]
 \centering
 \includegraphics[width=.8\textwidth]{Abbildungen/geomesa_versus_postgis.png}
 \caption[Antwortzeiten von GeoMesa und PostGIS]{Antwortzeiten von GeoMesa und PostGIS, Quelle \cite[S.24]{website:slideshare:geomesa}}
 \label{fig:geomesaversuspostgis}
 \end{figure}
 
-Postgres-XL: Bis zu sechsfache Antwortdauer von PostgreSQL gegenüber Postgres-XL in einem standardisierten TPC-H\footnote{TPC-H: \url{http://www.tpc.org/tpch/}} Benchmark bei Verwendung von vier DataNodes. Abbildung \ref{fig:pgxcversuspgsql} zeigt das Diagramm mit dem genannten Wert.
+Postgres-XL: Bis zu sechsfache Antwortdauer von PostgreSQL gegenüber Postgres-XL in einem standardisierten TPC-H\footnote{TPC-H: \url{http://www.tpc.org/tpch/}} Benchmark bei Verwendung von vier DataNodes. Abbildung \ref{fig:pgxcversuspgsql} zeigt das Diagramm mit dem genannten Unterschied.
 Die x-Achse ist nicht beschriftet, weswegen die Zuordnung der 15 Ergebnisse zu den 22 vorgegebenen Abfragen des TPC-H Benchmark nicht möglich ist.
 Somit kann keine Bewertung der Laufzeiten erfolgen.
-\begin{figure}[h!]
+\begin{figure}
 \centering
 \includegraphics[width=.8\textwidth]{Abbildungen/postgresxl_versus_postgis.png}
 \caption[TPC-H Benchmark von PostgreSQL und Postgres-XL]{TPC-H Benchmark von PostgreSQL und Postgres-XL, Quelle \cite[S.12]{website:slideshare:pgxc}}
@@ -377,18 +377,52 @@ Umfangreich meint dabei Größenordnungen, welche nicht mit einem Computer verwa
 Werden dagegen andere Unternehmen untersucht oder die Datenquellen der Agri~Con GmbH erweitert, kann es sich zusätzlich um unstrukturierte Daten im Petabyte Bereich handeln.
 Die Berücksichtigung dessen führt zu anderen zu bewertenden Softwarequalitäten und somit zu anderen Ergebnissen.
 Die Möglichkeiten der schemalosen Speicherung und Verarbeitung muss sich in diesem Fall in der gesamten Arbeit widerspiegeln.
+
 %OGC
 Die Standardisierung räumlicher Daten und Dienste wird durch das \Gls{ogc} durchgeführt, welches auf deren Website\footnote{Liste der Standards, veröffentlicht durch das \Gls{ogc}: \url{http://www.opengeospatial.org/standards/is}} 89 Standards auflistet.
 Weit verbreitet ist Simple Features Access, womit räumliche Objekte allgemein für Implementierungen in beliebigen Programmiersprachen definiert werden.
-Dieser Standard dient der Interoperabilität und effektiven Implementierungen.
+Dieser Standard dient der Interoperabilität und effektiven Implementierung.
+Ergänzend dazu existiert die Filter Encoding Spezification, welche ein allgemeines Vorgehen zum Aufruf und zur Filterung von Datensätzen auf Programmierebene definiert.
+Ziel ist dabei diese Definition einfach für beliebige Programmiersprachen validiert, umgewandelt und übersetzt werden kann.
 Standards zu Webdiensten wie \Gls{wms}, \Gls{wfs}, \Gls{wps} und \Gls{wcs} für die Bereitstellung und Beschreibung räumlicher Daten sind auch häufig anzutreffen.
 Zu nennen sind ebenso Formate für die Übertragung und Darstellung von räumlichen Daten wie \Gls{gml} und GeoTIFF.
-%Filter Encoding Spezifikation
+Diese Standards kehren während der gesamten Untersuchung wieder, was den hohen Grad der Verbreitung betont.
+
 %semantic
 Bevor Standards vom \Gls{ogc} erstellt werden, wird die Notwendigkeit und der Umfang in der Forschung untersucht und diskutiert.
 Die Formulierung und Verbreitung eines neuen Standards ist jeweils ein langwieriger Prozess.
 Diese Prozesse dauern um so länger an, je mehr verschiedene Ansichten diskutiert werden müssen und wie viele Quasi-Standards bereits dazu existieren.
-Dies wird bei der semantischen Aufbereitung von Webdiensten mit räumlichen Datenkontext deutlich.
+Dies wird bei der Standardisierung der semantischen Aufbereitung von Webdiensten mit räumlichen Datenkontext deutlich.
 Semantic Web zielt auf Verknüpfung von Wissen im Internet ab.
 Dafür werden semantische Endpunkte pro Wissensbasis erstellt, die Endpunkte untereinander verknüpft und Daten in Tripeln, bestehend aus Subjekt, Prädikat und Objekt, im \Gls{rdf} Format gespeichert und übertragen.
-Für Webdienste mit räumlichen Datenkontext existieren verschiedene Vorgehensweisen zur semantischen Aufbereitung\footnote{In der entsprechenden englischen Literatur wird statt spatial das Wort geospatial verwendet. Weiterhin wird eine Menge von Webdiensten mit räumlichen Datenkontext als Spatial Data Infrastructures (SPI) zusammengefasst.}.
+Für Webdienste mit räumlichen Datenkontext existieren verschiedene Vorgehensweisen zur semantischen Aufbereitung\footnote{In der entsprechenden englischen Literatur wird statt spatial das Wort geospatial verwendet. Weiterhin wird eine Menge von zu verknüpfenden Webdiensten mit räumlichen Datenkontext als Spatial Data Infrastructures (SPI) zusammengefasst.}.
+2009 wird bereits mit dem Paper \cite{report:semgeospatinte} gezeigt, dass Webdienste mit der Fähigkeit der Kartenauslieferung per \glqq{}getMap\grqq{} Anfrage semantisch aufbereitet und integriert werden können.
+Ergänzend führen die Autoren Probleme und mögliche Lösungsansätze auf.
+Im Paper \cite{report:semenspa} von 2010 stellen die Autoren ein Vorgehen zur semantischen Aufbereitung von OGC Diensten vor.
+Für dieses Vorgehen bedienen sie sich vorhandener Untersuchungen und Werkzeuge.
+%Auf Seite 16 wird das Vorgehen in drei Schritten zusammengefasst.
+Der einzige Standard in Bezug auf Semantic Web des \Gls{ogc} ist GeoSPARQL\footnote{GeoSPARQL: \url{https://portal.opengeospatial.org/files/?artifact_id=47664}}.
+Dieser erweitert die Abfragesprache SPARQL sowie das \Gls{rdf} Vokabular um räumliche Objekte.
+Der Vorgang der semantischen Integration ist somit nicht standardisiert, jedoch die Werkzeuge und Rahmenbedingungen.
+Zu den Rahmenbedingungen zählt, dass die semantische Darstellung von Koordinatenreferenzsystemen\footnote{Beispiel für eine semantische Darstellung: \url{http://www.w3.org/2003/01/geo/}} verwendet werden kann und verschiedene Versionen von SPARQL in den semantischen Datenbanken zum Einsatz kommen\footnote{Verschiedene Versionen von SPARQL enthalten unterschiedliche Objekte und Möglichkeiten zur räumlichen Modellierung.} (vgl. \cite[S.5]{book:semgeosparql}).
+Für zukünftig relevante Standards, Methoden und Werkzeuge sind die Ergebnisse der Spatial Data on the Web Working Group (SDWWG)\footnote{Spatial Data on the Web Working Group (SDWWG): \url{https://www.w3.org/community/geosemweb/}} und der Geospatial Semantic Web Community Group (GSWCG)\footnote{Geospatial Semantic Web Community Group (GSWCG): \url{http://www.opengeospatial.org/projects/groups/sdwwg}} zu beobachten. 
+
+%postgresql on steroids
+Ein weiteres Thema ist die Steigerung der Leistungsfähigkeit von PostgreSQL.
+Dabei werden in der Regel die Dokumentation von PostgreSQL und Ratschläge der Community als Handlungsempfehlungen herangezogen.
+Im Zuge der großen Verbreitung von PostgreSQL erschien Literatur, welche diese Handlungsempfehlungen validierend aufbereitete und ergänzt veröffentlichte.
+Auf Grund kontinuierlich Verändernder Hardware und steigender Versionsnummern, ist diese Literatur trotzdem mit aktuellen Informationen aus der Community zu verwenden.
+Zur Steigerung der Leistungsfähigkeit sind \cite{book:postgresqladmin} und \cite{book:postgresqlperformance} relevante Bücher.
+%
+Eisentraut und Helmle gehen vorrangig auf PostgreSQL interne Veränderungen ein, dazu zählt:
+Szenariobasierte Verwendung von Indizes, Query Planer Konfiguration, Verwendung von Fremdschlüsseln, Handhabung von Verbindungen zu und zwischen PostgreSQL mit Einstellungsparametern und Tools sowie Clustering und Replikation. (vgl. \cite[S.206 ff.]{book:postgresqladmin})
+%
+Smith geht tief auf Änderungen und Verwendung der Hardware, interner Möglichkeiten und vorhandener Tools ein.
+So werden konkrete Hardwarekomponenten beleuchtet und die Messbarkeit dieser vorgestellt.
+Die Ausführungen beziehen sich dabei auch auf plattformspezifische Eigenheiten.
+Schwerpunkte sind routinemäßige Arbeiten und Erläuterungen sowie Verbesserungen zu SQL Querys.
+Trotz der Menge an Vorschlägen und Erfahrungswerten des Autors, weist dieser darauf hin, dass Probleme mit der Leistungsfähigkeit mit der Anwendung zusammenhängen und jedes Problem individuell gelöst werden muss (vgl. \cite[S.18]{book:postgresqlperformance}).
+
+
+
+
