@@ -115,14 +115,14 @@ Zu den wichtigen Qualitätsmerkmalen aus Kapitel \ref{softwarequalität} sind na
 
 \textbf{Richtigkeit:}\\
 Berechnungen sind zu 100\% korrekt. Ausnahme ist dabei die Berechnung von Koordinaten. Dabei haben die Ergebnisse bis acht Stellen nach dem Komma korrekt zu sein.
-Die statische Abbildung ist dabei $[korrekt, nicht\ korrekt]\ nach\ [1, 0]$ und die geforderte Mindestbewertung 1.
+Die statische Abbildung ist dabei $[korrekt, nicht\ korrekt]\ nach\ [1, 0]$ und die geforderte Mindestbewertung eins.
 
 \textbf{Interoperabilität:}\\
 Ist der Import und Export von räumlichen Daten aus PostgreSQL sowie eine Anbindungsmöglichkeit an den \Gls{umn}.
 Statische Abbildung:\\
 $[Datenschnittstelle\ und\ UMN\ Schnittstelle\ vorhanden,Datenschnittstelle\ vorhanden,$\\$UMN\ Schnittstelle\ vorhanden,keine\ Schnittstelle\ vorhanden]\ nach\ [12,7,5,0]$\\
 Der Bereich bis 12 soll die Wichtigkeit des Vorhandenseins der Schnittstellen verdeutlichen.
-Die geforderte Mindestbewertung ist 7.
+Die geforderte Mindestbewertung ist sieben.
 
 \textbf{Funktionsumfang:}\\
 Tabelle \ref{table:funktionsumfang} gibt die Wertung bei Existenz der einzelnen Funktionen wieder.
@@ -332,11 +332,10 @@ Darin kommt der Autor zu dem Schluss, dass es für einfache Datenobjekte in begr
 Beispielsweise eignet sich die graphenbasierte Datenbank Neo4J für Operationen mit Strecken.
 Für weniger spezielle und mehr komplexe Anforderungen sind laut Thurm einzig PostGIS und Oracle Spatial zu empfehlen.
 Die NoSQL Systeme im Bereich der Datenverarbeitung von räumlichen Daten sind in den letzten Jahren entstanden und somit nicht ausgereift und umfangreich, so Thurm auf S.51.
-%Übergang einbauen
-\cite{ma:neo4j} vergleicht dagegen Neo4J mit PostGIS und kommt auch zu dem Schluss, dass graphenbasierte Datenhaltung zwar Vorteile besitzt, aber die Eignung individuell für den jeweiligen Anwendungsfall validiert werden muss.
+Daneben vergleicht Baas in \cite{ma:neo4j} Neo4J mit PostGIS und kommt auch zu dem Schluss, dass graphenbasierte Datenhaltung zwar Vorteile besitzt, aber die Eignung individuell für den jeweiligen Anwendungsfall validiert werden muss.
 
-Wissenschaftliche Dokumente in Form von wissenschaftlichen Artikeln sind zu diesem Thema vorhanden.
-Diese beschreiben aber nur knapp Entwürfe eines Systems für einen speziellen Anwendungsfall, weshalb sie in diesem Zusammenhang nicht gebraucht werden können.
+Relevante Dokumente in Form von wissenschaftlichen Artikeln sind zu diesem Thema vorhanden.
+Diese beschreiben aber nur knapp Entwürfe eines Systems für einen speziellen Anwendungsfall, weshalb sie in diesem Zusammenhang nicht verwendet werden können.
 Der Artikel \cite{paper:hdfsspatial} beschreibt einen Entwurf zur Speicherung und Verarbeitung räumlicher Daten mit Hadoop, VegaGiStore genannt.
 Der Forschungsbericht \cite{paper:spatialdistribution} erläutert dagegen Methoden zur Verteilung von Daten in einem verteilten System auf Grundlage der räumlichen Informationen.
 
@@ -355,7 +354,7 @@ GeoMesa: Zehn- bis 60-fache Antwortgeschwindigkeit bei GeoMesa gegenüber PostGI
 \label{fig:geomesaversuspostgis}
 \end{figure}
 
-Postgres-XL: Bis zu sechsfache Antwortdauer von PostgreSQL gegenüber Postgres-XL in einem standardisierten TPC-H\footnote{TPC-H: \url{http://www.tpc.org/tpch/}} Benchmark bei Verwendung von vier DataNodes. Abbildung \ref{fig:pgxcversuspgsql} zeigt das Diagramm mit dem genannten Unterschied.
+Postgres-XL: Bis zu sechsfache Antwortdauer von PostgreSQL gegenüber Postgres-XL in einem standardisierten TPC-H\footnote{TPC-H: \url{http://www.tpc.org/tpch/}} Benchmark bei Verwendung von vier DataNodes. \mbox{Abbildung} \ref{fig:pgxcversuspgsql} zeigt das Diagramm mit dem genannten Unterschied.
 Die x-Achse ist nicht beschriftet, weswegen die Zuordnung der 15 Ergebnisse zu den 22 vorgegebenen Abfragen des TPC-H Benchmark nicht möglich ist.
 Somit kann keine Bewertung der Laufzeiten erfolgen.
 \begin{figure}
@@ -386,7 +385,7 @@ Die Standardisierung räumlicher Daten und Dienste wird durch das \Gls{ogc} durc
 Weit verbreitet ist Simple Features Access, womit räumliche Objekte allgemein für Implementierungen in beliebigen Programmiersprachen definiert werden.
 Dieser Standard dient der Interoperabilität und direkten Implementierung.
 Ergänzend dazu existiert die Filter Encoding Spezification, welche ein allgemeines Vorgehen zum Aufruf und zur Filterung von Datensätzen auf Programmierebene definiert.
-Ziel ist dabei diese Definition einfach für beliebige Programmiersprachen validiert, umgewandelt und übersetzt werden kann.
+Ziel ist dabei, diese Definition einfach für beliebige Programmiersprachen validiert, umgewandelt und übersetzt werden kann.
 Standards zu Webdiensten wie \Gls{wms}, \Gls{wfs}, \Gls{wps} und \Gls{wcs} für die Bereitstellung und Beschreibung räumlicher Daten sind auch häufig anzutreffen.
 Zu nennen sind ebenso Formate für die Übertragung und Darstellung von räumlichen Daten wie \Gls{gml} und GeoTIFF.
 Diese Standards kehren während der gesamten Untersuchung wieder, was den hohen Grad der Verbreitung betont.
@@ -400,9 +399,9 @@ Die semantische Verwendung im Internet heißt Semantic Web.
 Semantic Web zielt auf Verknüpfung von Wissen im Internet ab.
 Dafür werden semantische Endpunkte pro Wissensbasis erstellt, die Endpunkte untereinander verknüpft und Daten in Tripeln, bestehend aus Subjekt, Prädikat und Objekt, im \Gls{rdf} Format gespeichert und übertragen.
 Für Webdienste mit räumlichen Datenkontext existieren verschiedene Vorgehensweisen zur semantischen Aufbereitung\footnote{In der entsprechenden englischen Literatur wird statt spatial das Wort geospatial verwendet. Weiterhin wird eine Menge von zu verknüpfenden Webdiensten mit räumlichen Datenkontext als Spatial Data Infrastructures (SPI) zusammengefasst.}.
-2009 wird bereits mit dem Paper \cite{report:semgeospatinte} gezeigt, dass Webdienste mit der Fähigkeit der Kartenauslieferung per \glqq{}getMap\grqq{} Anfrage semantisch aufbereitet und integriert werden können.
+2009 wird bereits mit dem Artikel \cite{report:semgeospatinte} gezeigt, dass Webdienste mit der Fähigkeit der Kartenauslieferung per \glqq{}getMap\grqq{} Anfrage semantisch aufbereitet und integriert werden können.
 Ergänzend führen die Autoren Probleme und mögliche Lösungsansätze auf.
-Im Paper \cite{report:semenspa} von 2010 stellen die Autoren ein Vorgehen zur semantischen Aufbereitung von OGC Diensten vor.
+Im Bericht \cite{report:semenspa} von 2010 stellen die Autoren ein Vorgehen zur semantischen Aufbereitung von OGC Diensten vor.
 Für dieses Vorgehen bedienen sie sich vorhandener Untersuchungen und Werkzeuge.
 %Auf Seite 16 wird das Vorgehen in drei Schritten zusammengefasst.
 Der einzige Standard in Bezug auf Semantic Web des \Gls{ogc} ist GeoSPARQL\footnote{GeoSPARQL: \url{https://portal.opengeospatial.org/files/?artifact_id=47664}}.
@@ -425,7 +424,7 @@ Smith geht tief auf Änderungen und Verwendung der Hardware, interner Möglichke
 So werden konkrete Hardwarekomponenten beleuchtet und die Messbarkeit dieser vorgestellt.
 Die Ausführungen beziehen sich dabei auch auf plattformspezifische Eigenheiten.
 Schwerpunkte sind routinemäßige Arbeiten und Erläuterungen sowie Verbesserungen zu SQL Querys.
-Neben der Menge an Vorschlägen und Erfahrungswerten des Autors, weist dieser darauf hin, dass Probleme mit der Leistungsfähigkeit mit der Anwendung zusammenhängen und jedes Problem individuell gelöst werden muss (vgl. \cite[S.18]{book:postgresqlperformance}).
+Neben der Menge an Vorschlägen und Erfahrungswerten des Autors, weist dieser darauf hin, dass Probleme der Leistungsfähigkeit mit der Anwendung zusammenhängen und jedes Problem individuell gelöst werden muss (vgl. \cite[S.18]{book:postgresqlperformance}).
 Die von Smith vorgestellten Methoden zu Zwischenspeicherung, Konfiguration, Benchmarking, Indexierung, SQL Query Veränderung, Datenbankstatistiken, Monitoring, Pooling und Partitionierung werden von ihm als allgemeine Lösungsmethoden dargelegt, sodass die Durchführung dieser Methoden den Großteil der Probleme behebt und ihnen vorbeugt.
 
 
