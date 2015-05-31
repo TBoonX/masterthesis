@@ -1,41 +1,40 @@
 \chapter{Ausgangsszenario}
 \label{chapter:ausgangsszenario}
 Nach Darlegung der Methodik im vorangegangenen Kapitel, wird in diesem präsentiert worauf sie angewendet wird.
-So werden die Anforderungen definiert und messbar gemacht wie auch Funktions- und Leistungstests skizziert.
+Es werden die Anforderungen definiert und messbar gemacht, sowie Funktions- und Leistungstests skizziert.
 Zur Einordnung der Gewichtung der zu untersuchenden Qualitäten und Heranführung an die Absichten der Agri~Con, wird der Ist-Stand und die gewünschte Integration eines neuen Frameworks ausgeführt.
+Zur Einordnung der Arbeit und Einsicht in aktuelle Zusammenhänge, endet dieses Kapitel mit der Darlegung von wissenschaftlichen Dokumenten, welche im Zusammenhang dieser Arbeit stehen.
 
 \section{Anforderungen}
 \label{Anforderungen}
-
 % kartografisches Produkt
 Aktuelle Möglichkeiten der Datenerfassung über Sensoren und moderne Probenahmegeräte führen zu mehr und mehr Datensätzen, die für einen Landwirtschaftsbetrieb ausgewertet werden müssen. Darüber hinaus besteht die Notwendigkeit, Daten Jahres übergreifend und betriebsübergreifend auszuwerten, um pflanzenbauliche Zusammenhänge über statistische Methoden untersuchen zu können.
-In den letzten 3 Jahren wurde beispielsweise nur zum Thema N-Versorgung\footnote{Stickstoffdüngung und -aufnahme} für einen Betrieb etwa 800 Datensätze mit 1,9 Mio. Einträgen erfasst. Alle diese Daten haben einen räumlichen Bezug, sie müssen weiterverarbeitet, kartographisch aufbereitet und dargestellt werden.
+In den letzten 3 Jahren wurde beispielsweise nur zum Thema N-Versorgung\footnote{N-Versorgung betrifft die Stickstoffdüngung und -aufnahme.} für einen Betrieb etwa 800 Datensätze mit 1,9 Mio. Einträgen erfasst. Alle diese Daten haben einen räumlichen Bezug, sie müssen weiterverarbeitet, kartographisch aufbereitet und dargestellt werden.
 
 Daraus ergeben sich verschiedenen Anforderungen an die Technologie, die für die Verarbeitung, Analyse und Darstellung verwendet wird:
 \begin{itemize}
 \item PostgreSQL mit PostGIS zum Datenimport und -export nutzbar
-\item Gruppieren und Filtern mit geringer Laufzeit
-\item parallele Berechnung\footnote{hier Geostatistik} über große Datenmengen mit geringer Laufzeit
-\item Räumliche Berechnungen wie Verschneiden und Overlays
+\item Gruppierung und Filterung mit geringer Laufzeit
+\item Parallele Berechnung über große Datenmengen mit geringer Laufzeit
+\item Räumliche Berechnungen wie Verschneidung und Overlays
 %\item  Unterschiedliche Prinzipien der Kartengenerierung, hier dynamisches rendern aus dem Datenbestand zur Laufzeit oder dynamisches rendern bei Dateneingang wodurch vorgerenderte Karten bereitstehen % caches wirklich mit untersuchen? wenn ja in Schnittstellen aufnehmen
-\item nutzbare Schnittstelle zur Darstellung mit dem \Gls{umn}
+\item Nutzbare Schnittstelle zur Darstellung mit dem \Gls{umn}
 \end{itemize}
 
 % TODO: ergänzen, dass Anforderungen von Ist-Stand und möglichen Verbesserungen herrühren
 
 % Eventuell technische Sicht extra darstellen, um Eignung der Systeme besser herausarbeiten zu können
-\newpage
 Konkret handelt es sich bei den Eingangsdaten um folgende:
 \begin{itemize}
-\item Pflanzenbauliche Daten\footnote{Sensoren, Bodenuntersuchung, \Gls{bonitur}, Logger}: Punktdaten
-\item Basisdaten wie Feldgrenzen sowie Interpolationen\footnote{Interpolationen als Ergebnis von Nährstoffverteilung und Bodenscanner}: Vektordaten
+\item Pflanzenbauliche Daten\footnote{Pflanzenbauliche Daten sind: Sensoren, Bodenuntersuchung, \Gls{bonitur} und Logger}: Punktdaten
+\item Basisdaten wie Feldgrenzen sowie Interpolationen\footnote{Interpolationen als aufbereitetes Ergebnis von Daten der Nährstoffverteilung und Bodenscanner.}: Vektordaten
 \item Externe Satelliteninformationen und Multispektralanalysen: Rasterdaten
 \end{itemize}
 
 \subsection{Softwarequalität}
 \label{softwarequalität}
 %TODO: warum hier die qualitätsmerkmale
-Qualitätsmerkmale sind nach DIN 9126\footnote{DIN 9126 wurde durch ISO/IEC 25000 ersetzt, jedoch sind beide nur proprietär verfügbar} in \cite[S.258 f.]{book:lehrbuchsoftware} Funktionalität, Zuverlässigkeit, Benutzbarkeit, Effizienz, Änderbarkeit und Übertragbarkeit.
+Qualitätsmerkmale sind nach DIN 9126\footnote{DIN 9126 wurde durch ISO/IEC 25000 ersetzt, jedoch sind beide nur proprietär verfügbar.} in \cite[S.258 f.]{book:lehrbuchsoftware} Funktionalität, Zuverlässigkeit, Benutzbarkeit, Effizienz, Änderbarkeit und Übertragbarkeit.
 Diese Merkmale werden durch Qualitätskriterien für jeden Anwendungsfall konkretisiert.
 Nachfolgend werden die Qualitätsmerkmale für diesen Anwendungsfall dargestellt und darauf die zu untersuchenden aufgelistet.
 Da die zu analysierenden Systeme eine Datenbank beinhalten, welche mit räumlichen Datentypen arbeitet, wurde die im Anhang C von \cite{book:objdbs} enthaltene Checkliste zur Auswahl eines \Gls{odbms} berücksichtigt.
@@ -47,8 +46,9 @@ Das System stellt alle geforderten Funktionen mit den definierten Eigenschaften 
 Die originalen räumlichen Daten werden von Sensoren erfasst, in wessen Toleranzbereich die Ergebnisse der Verarbeitung durch das Framework liegen müssen.
 \item \textbf{Interoperabilität:} Es sind Schnittstellen zur Ein- und Ausgabe vorhanden. Dabei soll es sich um PostgreSQL Import sowie PostgreSQL und \Gls{umn} Export handeln.
 \item \textbf{Funktionsumfang:} Mindestens die benannte und essentielle Menge an Funktionalitäten wird bereitgestellt. Dazu zählt:
-parallele Verarbeitung, Gruppierungs-,\\Filter-, Verschneidungs- sowie Overlayfunktionen, Geostatistik und Umrechnung zwischen Koordinatensystemen und -formaten. Außerdem sind vorhandene Datentypen und Schemaversionierung von Interesse.
-\item \textbf{Ordnungsmäßigkeit:} Die Implementation des Systems und dessen Funktionen erfüllt Normen, Vereinbarungen, gesetzliche Bestimmungen und andere Vorschriften. Hierzu ist zu nennen, dass besonders Berechnungsfunktionen nach mathematischen Gesetzen implementiert sein müssen. Konkret sind Berechnungen der räumlichen Verarbeitung nach anerkannten definierten Algorithmen durchzuführen. Weiterhin sind Definitionen der Koordinatenreferenzsysteme\footnote{siehe \Glspl{epsg-code}}, die mathematisch korrekte deterministische sowie stochastische Interpolation und Interpolation nach Krige einzuhalten. Auch allgemeine Anforderungen an \Gls{dbms} wie Integritätssicherung, Datensicherheit, Mehrbenutzerbetrieb, Datenunabhängigkeit und Zugangssicherung müssen erfüllt werden.
+Parallele Verarbeitung, Gruppierungs-,\\Filter-, Verschneidungs- sowie Overlayfunktionen, Geostatistik und Umrechnung zwischen Koordinatensystemen und -formaten.
+Außerdem sind vorhandene Datentypen und Schemaversionierung von Interesse.
+\item \textbf{Ordnungsmäßigkeit:} Die Implementierung des Systems und dessen Funktionen erfüllt Normen, Vereinbarungen, gesetzliche Bestimmungen und andere Vorschriften. Hierzu ist zu nennen, dass besonders Berechnungsfunktionen nach mathematischen Gesetzen implementiert sein müssen. Konkret sind Berechnungen der räumlichen Verarbeitung nach anerkannten definierten Algorithmen durchzuführen. Weiterhin sind Definitionen der Koordinatenreferenzsysteme\footnote{Koordinatenreferenzsysteme siehe \Glspl{epsg-code}}, die mathematisch korrekte deterministische sowie stochastische Interpolation und Algorithmen nach Krige einzuhalten. Auch allgemeine Anforderungen an \Gls{dbms} wie Integritätssicherung, Datensicherheit, Mehrbenutzerbetrieb, Datenunabhängigkeit und Zugangssicherung müssen erfüllt werden.
 \end{itemize}
 \ \\
 %
@@ -57,7 +57,7 @@ Nach \cite[S.259]{book:lehrbuchsoftware} wird Zuverlässigkeit als die Fähigkei
 %Nutzung von Tools zur Überwachung und Konfiguration immanent.
 \begin{itemize}
 \item \textbf{Fehlertoleranz:} Das System sollte auftretende Fehler des Tagesgeschäftes abfangen und weiterarbeiten. Besonders Fehler in den Quelldaten können zu Fehlern während der Ausführung von Berechnungen führen, was per s\'{e} abgefangen werden muss.
-\item \textbf{Wiederherstellbarkeit:} Auch die Möglichkeit bei einem schwerwiegendem den Zustand der abgebrochenen Operationen wiederherzustellen ist ein zu betrachtendes Qualitätskriterium.
+\item \textbf{Wiederherstellbarkeit:} Auch die Möglichkeit bei einem schwerwiegendem Fehler den Zustand der abgebrochenen Operationen wiederherzustellen ist ein zu betrachtendes Qualitätskriterium.
 \item \textbf{\Gls{mttf}:} Diese statische Kenngröße der erfahrungsgemäßen mittleren Lebensdauer ist für kritische Systeme relevant.
 \end{itemize}
 \ \\
@@ -111,7 +111,7 @@ Die zu untersuchenden Qualitätskriterien für die Softwareauswahl sind Funktion
 \subsection{Qualitätsmetriken}
 \label{qualitätsmetriken}
 %TODO: essentielles markieren oder stärker wichten
-Zu den wichtigen Qualitätsmerkmalen aus Kapitel \ref{softwarequalität} sind folgend Kriterien definiert, sowie je eine Bewertungsvorschrift und die geforderte Mindestbewertung für den Anwendungsfall angegeben.
+Zu den wichtigen Qualitätsmerkmalen aus Kapitel \ref{softwarequalität} sind nachfolgend Kriterien definiert, sowie je eine Bewertungsvorschrift und die geforderte Mindestbewertung für den Anwendungsfall angegeben.
 
 \textbf{Richtigkeit:}\\
 Berechnungen sind zu 100\% korrekt. Ausnahme ist dabei die Berechnung von Koordinaten. Dabei haben die Ergebnisse bis acht Stellen nach dem Komma korrekt zu sein.
@@ -126,7 +126,7 @@ Die geforderte Mindestbewertung ist 7.
 
 \textbf{Funktionsumfang:}\\
 Tabelle \ref{table:funktionsumfang} gibt die Wertung bei Existenz der einzelnen Funktionen wieder.
-Existiert die Funktion nicht, ist die Wertung Null.
+Existiert die Funktion nicht, ist die Wertung null.
 Ein Zwischenwert bei eingeschränkter Funktionalität ist möglich.
 Die maximale Wertung ist dabei 61. %\FPtrunc\Gesamtsumme\Gesamtsumme{0}\FPprint\Gesamtsumme\\
 Es müssen mindestens geografische Datentypen, Filterfunktionen und parallele Verarbeitung vorhanden sein.
@@ -152,7 +152,7 @@ Schemaversionierung & \psum{1} \\ \hline
 \textbf{Fehlertoleranz:}\\
 Es gilt zu messen, ob Fehler bei einer Berechnung andere verschränkt gleichzeitig laufende Berechnungen beeinträchtigen.
 Aus diesem Grund wird Unabhängigkeit auf eins und Abhängigkeit auf null abgebildet.
-Die geforderte Mindestbewertung ist 1.
+Die geforderte Mindestbewertung ist eins.
 
 \textbf{Dokumentation:}\\
 Vorhandene Dokumentation ist nach einzelnen Themen zu bewerten.
@@ -169,7 +169,7 @@ Interoperabilität, Best practise, Anpassbarkeit & 3 \\ \hline
 \caption{Wertungstabelle Dokumentation}
 \label{table:dokumentation}
 \end{table}
-Die geforderte Mindestbewertung ist 6.
+Die geforderte Mindestbewertung ist sechs.
 
 \textbf{Zeitverhalten:}\\
 \label{bf:zeitverhalten}%
@@ -204,8 +204,8 @@ Folgende Schnittstellen sind zu testen:
 
 Als Austauschformat ist mindestens ein der folgenden Datentypen zum Datenaustausch notwendig:
 \begin{itemize}
-\item Simple Feature Access
-\item Objekte der JTS
+\item Simple Feature Access\footnote{Simple Feature Access siehe Kapitel \ref{forschungsstand}}
+\item Objekte der \Gls{jts}
 \item PostGIS geometry
 \end{itemize}
 
@@ -220,19 +220,19 @@ Für folgende Aufgaben sind die Funktionen zu analysieren:
 %\item Geostatistik
 \item Interpolation
 \item Kriging
-\item topologische Filterung
-\item räumliche Filterung
+\item Topologische Filterung
+\item Räumliche Filterung
 \end{itemize}
-Dabei ist stets zu berücksichtigen mit welchen Datentypen die Funktionen verwendet werden können.
+Dabei ist stets zu berücksichtigen, mit welchen Datentypen die Funktionen verwendet werden können.
 
 \subsubsection{Lasttests}
 Die Basis für die Erstellung von Lasttests ist Kapitel \ref{iststand-vorgaenge}.
 Eine exakte Definition der Lasttests ist in diesem Kapitel nicht möglich, da das zu verwendende Framework noch nicht ausgewählt wurde und somit die darin zu verwendenden Werkzeuge und Daten nicht bekannt sind.
 Es werden jedoch die zu testenden Szenarien benannt.
-Da es sich bei den zu untersuchenden Frameworks um verteilte Systeme handelt, ist in allen Tests die Verteilung der Daten und der Verarbeitungsschritte zu berücksichtigen.
+Da es sich bei den zu untersuchenden Frameworks um verteilte Systeme handelt, ist in allen Tests die Verteilung der Daten und die Verteilung der Verarbeitungsschritte zu berücksichtigen.
 
 Ein zu testendes Szenario ist die Aggregation von Daten.
-Dabei ist eine Menge von mehreren hundert Megabyte an Punktdaten mit den gegebenen Werkzeugen abzurufen und die Laufzeit zu messen.
+Dabei ist eine Menge von mehreren hundert Megabyte (MB) an Punktdaten mit den gegebenen Werkzeugen abzurufen und die Laufzeit zu messen.
 Die Werkzeuge sollten dabei eine Abfragesprache wie SQL und bei Vorhandensein der Schnittstelle der \Gls{umn} sein.
 Über eine Abfragesprache sind neben der Laufzeit weitere Informationen abrufbar.
 Mit SQL kann das Vorgehen des Query Planers ausgegeben werden, was für die Auswertung herangezogen werden kann.
@@ -245,15 +245,12 @@ Damit soll die Verarbeitungsleistung bewertet werden.
 
 %Lasttests zur Persistierung von Eingangsdaten?
 
-
-
 \section{Aktuelles System}
 \label{IstStand}
 %groben Ablauf textuell und grafisch darstellen
 % geplanten Einsatz des Prototypen ebenso darstellen 
-
 Die Durchführung einer Softwareauswahl zum teilweisen Ersatz eines bestehenden Systems setzt die Analyse des Systems voraus.
-In diesem Unterkapitel wird das aktuelle System sowie der der angestrebte Zustand nach Einbau des Prototypen dargestellt.
+In diesem Unterkapitel wird das aktuelle System sowie der angestrebte Zustand nach Einbau des Prototypen dargestellt.
 Firmeninterne Schnittstellen mit dem ist-Stand werden nicht konkretisiert, da sie den Anwendungsfall nicht schneiden.
 
 In Abbildung \ref{fig:iststand} ist die Übersicht des Aufbaus ersichtlich.
@@ -275,17 +272,17 @@ Als zentrales Element enthält die Datenbank neben den agrartechnischen Kennzahl
 \label{iststand-vorgaenge}
 
 Es existiert eine Vielzahl von Vorgängen, welche zur Erhöhung der Useability in Hinsicht auf ihre Laufzeit verbessert werden können.
-Für die Bewertung der Frameworks und schließlich zum Entwurf des Prototypen, ist es notwendig eine Auswahl der zu untersuchenden Vorgängen zu treffen.
+Für die Bewertung der Frameworks und schließlich zum Entwurf des Prototypen, ist es notwendig eine Auswahl der zu untersuchenden Vorgänge zu treffen.
 Die Auswahl erfolgt durch Mitarbeiter der Agri~Con und hat Vorgänge mit der längsten Laufzeit als Ergebnis.
 Dazu zählt das Laden von Daten zum Zwecke der Verarbeitung und Anzeige.
 Die größten Datenmengen sind bei Punkten aus dem N-Sensor Bereich zu finden.
 Die Anzeige der Punktdaten für einen Betrieb kann bis zu neun Sekunden dauern.
 Punktdaten aus dem Docu Bereich werden ebenfalls nach mehreren Sekunden ausgegeben.
 Die Punktdaten aus dem N-Sensor Bereich sind jedoch repräsentativ und werden deshalb betrachtet.
-Weiterhin zählt Interpolation zu diesen Vorgängen.
+Weiterhin zählt Geostatistik zu diesen Vorgängen.
 Punkte und Fahrspuren werden mit einem angepassten Kriging interpoliert und als Vektoren oder Raster abgespeichert.
 Dies wird mit einer R Bibliothek realisiert und bei großen Datenmengen Nachts angestoßen.
-Das spezielle Kriging im jeweiligen Framework zu implementieren ist aufwendig, weshalb ein unveränderter Kriging Algorithmus für den Vergleich verwendet werden muss, sofern R nicht verwendet werden kann.\footnote{Dieser Algorithmus wurde im Auftrag durch dritte erstellt.}
+Das spezielle Kriging im jeweiligen Framework zu implementieren ist aufwendig, weshalb ein unveränderter Kriging Algorithmus für den Vergleich verwendet werden muss, sofern R nicht verwendet werden kann.\footnote{Dieser spezielle kriging Algorithmus wurde im Auftrag durch Dritte erstellt.}
 Diese zwei charakteristischen Vorgänge sind durch ein Framework zu realisieren.
 
 \begin{figure}[h!]
@@ -294,13 +291,13 @@ Diese zwei charakteristischen Vorgänge sind durch ein Framework zu realisieren.
 \caption[Aufbau Wunsch-Stand]{\"{U}bersicht des Aufbaus des Wunsch-Standes bei Agri Con}
 \label{fig:wunschstand}
 \end{figure}
-Das Ziel ist es, ein Framework zusätzlich in den Ist-Stand zu integrieren.
+Das Ziel ist es, ein Framework zusätzlich in den Ist-Stand zu integrieren, wie in Abbildung \ref{fig:wunschstand} abgebildet.
 Es soll dabei die aufwendigen Vorgänge durchführen, als Permanentspeicher für historische Daten dienen und Daten zur späteren Anzeige aufbereiten und bereitstellen.
 Die aufwendigen Vorgänge werden in den Lasttests untersucht.
 In welcher konkreten Form das Framework als Speicher für historische und aufbereitete Daten dient, ist abhängig vom Framework.
 Auf Grund dessen ist dies nach Auswahl des Frameworks im Entwurf des Prototypen zu konkretisieren.
 
-Für das Verständnis des Kapitels 6 wird nachfolgend das Datenbankschema knapp beschrieben.
+Für das Verständnis der Kapitel \ref{chapter:postgresxl} und \ref{chapter:tests} wird nachfolgend das Datenbankschema knapp beschrieben.
 Es handelt sich um ein umfangreiches Schema, weshalb es aus mehreren Schemata besteht:
 adwork, apps, bu, bucardo, catalogs, checks, common, demo, docu, farm, files, import, information\_{}schema, ips, krig, log, n, nutrients, ogeo, pg\_{}catalog, pp, public, rax, statistics, tasks, temp, topology, umn, utils und yield.
 catalogs enthält statische Einträge analog eines globalen Kataloges.
@@ -317,7 +314,7 @@ Alle Schemata beinhalten Funktionen, Trigger, Tabellen, Typen, Indizes und Contr
 
 
 \section{Stand der Forschung}
-
+\label{forschungsstand}
 %TODO 4-5 Seiten
 %Diskussion der Literatur
 %grundlage für softwareauswahl: Ein Entscheidungsmodell für die Auswahl von Standardanwendungssoftware am Beispiel von Warenwirtschaftssystemen
@@ -382,10 +379,11 @@ Die Berücksichtigung dessen führt zu anderen zu bewertenden Softwarequalitäte
 Die Möglichkeiten der schemalosen Speicherung und Verarbeitung muss sich in diesem Fall in der gesamten Arbeit widerspiegeln.
 %OGC
 Die Standardisierung räumlicher Daten und Dienste wird durch das \Gls{ogc} durchgeführt, welches auf deren Website\footnote{Liste der Standards, veröffentlicht durch das \Gls{ogc}: \url{http://www.opengeospatial.org/standards/is}} 89 Standards auflistet.
-Weit verbreitet ist Simple Features Access, womit räumliche Objekte allgemein für Implementationen in beliebigen Programmiersprachen definiert werden.
-Dieser Standard dient der Interoperabilität und effektiven Implementation.
+Weit verbreitet ist Simple Features Access, womit räumliche Objekte allgemein für Implementierungen in beliebigen Programmiersprachen definiert werden.
+Dieser Standard dient der Interoperabilität und effektiven Implementierungen.
 Standards zu Webdiensten wie \Gls{wms}, \Gls{wfs}, \Gls{wps} und \Gls{wcs} für die Bereitstellung und Beschreibung räumlicher Daten sind auch häufig anzutreffen.
 Zu nennen sind ebenso Formate für die Übertragung und Darstellung von räumlichen Daten wie \Gls{gml} und GeoTIFF.
+%Filter Encoding Spezifikation
 %semantic
 Bevor Standards vom \Gls{ogc} erstellt werden, wird die Notwendigkeit und der Umfang in der Forschung untersucht und diskutiert.
 Die Formulierung und Verbreitung eines neuen Standards ist jeweils ein langwieriger Prozess.

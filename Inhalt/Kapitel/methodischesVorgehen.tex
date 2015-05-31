@@ -12,10 +12,10 @@
 %zu bewertung von software/is würde ich auf softwaretechnik bücher verweisen ... die du verwenden kannst, um dir eine eigene Liste von  Bewertungskritierien für deinen Anwendungsfall zu erstellen
 Dieses Kapitel führt die angewandte Methodik dieser Arbeit an.
 Um die umfangreiche Fragestellung methodisch angehen zu können, wird sie in Teilfragen zerlegt.
-Das Thema "\titel{}" besteht aus vier Unteraufgaben:
+Das Thema \glqq{}\titel{}\grqq{} besteht aus vier Unteraufgaben:
 
 \subsubsection{Untersuchung bestehender Frameworks anhand von Qualitätsmerkmalen}
-Die erste Hälfte dieser Arbeit ist eine Softwareauswahl im Bereich der Datenverarbeitung und ein typisches Vorgehen zur Auswahl von Standardsoftware, zu finden in \cite[S.4]{book:softwareauswahl}.
+Die erste Hälfte dieser Arbeit ist eine Softwareauswahl im Bereich der Datenverarbeitung und ist gleichzeitig ein typisches Vorgehen zur Auswahl von Standardsoftware\footnote{Das Vorgehen zur Auswahl von Standardsoftware ist zu finden in \cite[S.4]{book:softwareauswahl}}.
 Alle Schritte dieses Vorgehens werden wie in diesem Kapitel dargelegt abgearbeitet.
 Es handelt sich bei den Frameworks nicht um Anwendersoftware, wodurch keine empirischen Studien der Benutzung der Frameworks durch Anwender und keine Kopplung mit der Unternehmensstruktur notwendig ist.
 In diesem speziellen technischen Kontext sind wissenschaftliche Vorgehensweisen zur Softwareauswahl notwendig.
@@ -51,24 +51,24 @@ Diese Aufrufstatistik belegt das die Nutzung der Website etwa zur Hälfte durch 
 
 \subsubsection{Auswahl eines Frameworks}
 Aus der untersuchten Menge ist ein Framework anhand des gemessenen Nutzwertes auszuwählen.
-Der Ist-Stand unter \ref{IstStand} der Agri~Con ist über Jahre hinweg durch wachsende  Anforderungen im technischen und organisatorischen Bereich entstanden.
+Der Ist-Stand, dargestellt in Kapitel \ref{IstStand}, der Agri~Con ist über Jahre hinweg durch wachsende  Anforderungen im technischen und organisatorischen Bereich entstanden.
 Aus diesem Grund ist die Auswahl eines Frameworks für den gesuchten Anwendungsfall aufwendig.
 Die Wahrscheinlichkeit der Eignung mehrerer Frameworks scheint daher nach der Einschätzung des Autors gering.
 Diese induktive Hypothese gilt es in dieser Teilaufgabe zu belegen.
 Eine detaillierte Bewertung der Frameworks anhand aller Qualitäten würde somit dazu führen, dass kein Framework geeignet erscheint.
-Deshalb ist die Nutzwertanalyse zunächst anhand deren Spezifikationen durchzuführen.
+Deshalb ist die Nutzwertanalyse zunächst anhand der Spezifikationen der Frameworks durchzuführen.
 
 Für derartige Entscheidungen kann stattdessen das Vorgehen \Gls{ahp} verwendet werden.
 Dabei werden verschiedene Alternativen für eine Anforderung entsprechend Kriterien hierarchisch bewertet.
 Schlussendlich wird der Wert einer Alternative über Matrizenberechnungen der Kriteriumswerte unter Berücksichtigung der Wertigkeit der einzelnen Kriterien und Unterkriterien erstellt (siehe \cite{website:ahp-gaul}).
 Dieser Entscheidungsvorgang ist für Szenarien geeignet, in welchen eine Vielzahl von etwa gleich geeigneten Alternativen vorliegt und die Bewertung eines Kriteriums Teilbewertungen anderer Alternativen berücksichtigen muss, um die beste Alternative herausarbeiten zu können.
-Dies ist im Szenario dieser Arbeit nicht gegeben:
+Dies ist im Szenario dieser Arbeit nicht gegeben, da:
 \begin{itemize}
-\item Die Menge an für den Vergleich verwendbaren Kriterien ist gering, da nur die Spezifikation als Quelle dienen soll.
-\item Die Kriterien sind zwar unterschiedlich zu werden, aber nicht direkt hierarchisch abbildbar.
+\item Die Menge an verwendbaren Kriterien ist gering, da nur die Spezifikation als Quelle dienen soll.
+\item Die Kriterien sind zwar unterschiedlich zu werten, aber diese Wertung ist nicht direkt hierarchisch abbildbar.
 \item Defizite der Frameworks sind im Anschluss an die Auswahl  zu implementieren, wobei der Aufwand abhängig von Kriterium und Framework ist. Eine Berücksichtigung dessen ist in \Gls{ahp} nicht gegeben.
 \item Die Menge an Alternativen ist gering.
-\item Die Alternativen unterscheiden sich in Hauptelementen wesentlich voneinander, wodurch die Bewertung eines Kriteriums bereits das Framework ausscheiden lassen kann.
+\item Die Alternativen unterscheiden sich in Grundzügen wesentlich voneinander, wodurch die Bewertung eines Kriteriums bereits das Framework ausscheiden lassen kann.
 \end{itemize}
 
 Das Vorgehen \Gls{topsis} eignet sich auf Grund der Ähnlichkeit zur Nutzwertanalyse ebenfalls.
@@ -85,7 +85,7 @@ Auf Grund der wesentlich unterschiedlichen Frameworks, kann vor der Auswahl kein
 %TODO Referenz zu thema oder sogar satz
 
 \subsubsection{Prototypische Implementierung}
-Der Entwurf wird schlussendlich umgesetzt und anhand der Funktions- und Leistungstests bewertet.
+Der Entwurf wird schlussendlich umgesetzt und anhand von Funktions- und Leistungstests bewertet.
 Auch diese Bewertung erfolgt im Rahmen einer Nutzwertanalyse, jedoch Anhand des bestehenden Entwurfs und der gemessenen Daten aus den Tests.
 Ziel ist dabei die Eignung des Prototypen hinsichtlich des geforderten Einsatzzweckes darzustellen.
 Dafür werden die definierten Qualitäten herangezogen.
@@ -105,7 +105,7 @@ Es handelt es sich somit um systematische Tests:
 Ein systematischer Test ist ein Test, bei dem\\
 die Randbedingungen definiert oder präzise erfasst sind,\\
 die Eingaben systematisch ausgewählt wurden,\\
-die Ergebnisse dokumentiert und nach Kriterien beurteilt werden, die vor dem Test festgelegt wurden.\cite[S.446]{book:softwareengineering}
+die Ergebnisse dokumentiert und nach Kriterien beurteilt werden, die vor dem Test festgelegt wurden. \cite[S.446]{book:softwareengineering}
 \end{quote}
 
 \label{grundlagen-funktionstests}
@@ -127,12 +127,12 @@ alle definierten Fehlersituationen herbeiführen.
 \end{quote}
 Im Rahmen dieser Arbeit soll dieser Umfang wie folgt begrenzt werden:
 \begin{description}
-\item[Funktionsüberdeckung] Zur Einschätzung der Eignung eines Systems für den Anwendungsfall sind ausgewählte Funktionen zu testen. Im allgemeinen besitzen die ausgewählten Systeme Funktionen, die in diesem Rahmen nicht genutzt werden sollen, jedoch auch Funktionen die von Hand ergänzt werden müssen. Die notwendige Menge an Funktionen soll einzig getestet und somit abgedeckt werden.
+\item[Funktionsüberdeckung] Zur Einschätzung der Eignung eines Systems für den Anwendungsfall sind ausgewählte Funktionen zu testen. Im Allgemeinen besitzen die ausgewählten Systeme Funktionen, die in diesem Rahmen nicht genutzt werden sollen, jedoch auch Funktionen die von Hand ergänzt werden müssen. Die notwendige Menge an Funktionen soll einzig getestet und somit abgedeckt werden.
 \item[Eingabeüberdeckung] Auch hierbei stehen verschiedene von den Systemen bereitgestellte Schnittstellen und Austauschformate zur Verfügung, aber es sollen nur die relevanten untersucht werden.
 \item[Ausgabeüberdeckung] siehe Eingabeüberdeckung
-\item[Leistungsgrenzen] Dafür werden eigene Tests definiert und verwendet.\footnote{siehe \ref{Leistungstests}}
-\item[Mengengrenzen] Die zu untersuchenden Systeme eignen sich zum Speichern großer Datenmengen die mehrere Terrabyte bis Petabyte umfassen. Da die vorhandenen Datenmengen diese Größe unterschreitet, müssen die Mengengrenzen nicht wesentlich getestet werden.
-\item[Fehlersituationen] Es besteht nicht das Ziel die Fehleranfälligkeit als einzelnes Merkmal zu untersuchen, weshalb dafür keine Testfälle erstellt oder durchgeführt werden. Einzig die Korrektheit der Berechnungen wird überprüft, indem die Ergebnisse des aktuellen ist-Standes zum Vergleich herangezogen werden. 
+\item[Leistungsgrenzen] Dafür werden eigene Tests definiert und verwendet.
+\item[Mengengrenzen] Die zu untersuchenden Systeme eignen sich zum Speichern großer Datenmengen die mehrere Terrabyte bis Petabyte umfassen. Da die vorhandenen Datenmengen diese Größe um ein Vielfaches unterschreitet, müssen die Mengengrenzen nicht getestet werden.
+\item[Fehlersituationen] Es besteht nicht das Ziel die Fehleranfälligkeit als einzelnes Merkmal zu untersuchen, weshalb dafür keine Testfälle erstellt oder durchgeführt werden. Einzig die Korrektheit der Berechnungen wird überprüft, indem die Ergebnisse des aktuellen Ist-Standes zum Vergleich herangezogen werden. 
 \end{description}
 
 \label{Leistungstests}

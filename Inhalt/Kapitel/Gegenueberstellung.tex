@@ -2,7 +2,8 @@
 \label{chapter:systemauswahl}
 Mit den unter \ref{qualitätsmetriken} erstellten Metriken sind die Frameworks GeoMesa, Postgres-XL und Rasdaman zu vergleichen.
 Der Vergleich findet im Rahmen einer Nutzwertanalyse statt.
-Hierbei werden keine Daten von durchgeführten Tests herangezogen, sondern es wird anhand der Spezifikation der einzelnen Frameworks untersucht ergo eine Inspektion als Prüfmethode verwendet.
+Hierbei werden keine Daten von durchgeführten Tests herangezogen, sondern es wird anhand der Spezifikation der einzelnen Frameworks untersucht.
+Ergo wird eine Inspektion als Prüfmethode verwendet.
 
 \section{Definition der Nutzwertanalyse}
 \label{section:definitionnutzwertanalyse}
@@ -45,7 +46,7 @@ Zu jeder Metrik wird der erreichte Wert, die ungewichtete Erfüllung, die gewich
 Die ungewichtete Erfüllung bezieht sich auf den maximal zu erreichenden Wert der Metrik, die gewichtete Erfüllung dagegen auf die Erfüllung der Metrik in Bezug auf Tabelle \ref{table:Wertungsmassstab}.
 Die Kommentarspalte dient der Darstellung des Erreichens der Mindestanforderungen.
 Der schlussendliche Nutzwert ergibt sich nach Zangemeister in \cite{website:nutzwertanalyse} aus der Summe der Produkte des Teilnutzens des jeweiligen Kriteriums mit der Gewichtung des Kriteriums.
-Der Teilnutzen ist hier der Prozentuale Anteil der erreichten Punktzahl an der maximalen Punktzahl des Kriteriums.
+Der Teilnutzen ist hier der prozentuale Anteil der erreichten Punktzahl an der maximalen Punktzahl des Kriteriums.
 Diese Prozentangabe wird als Wert mit der Gewichtung des Kriteriums multipliziert, woraus sich der Nutzwert für das Kriterium ergibt.
 Die Summe aller dieser Teilnutzwerte ergibt den Nutzwert des Frameworks für den Anwendungsfall.
 
@@ -54,13 +55,13 @@ Dieses Unterkapitel leg die Ergebnisse der Nutzwertanalysen zu den Frameworks Ge
 Die granulare Bewertung der einzelnen Kriterien der drei Systeme ist dagegen im Anhang \ref{appendix:systembewertung} zu finden.
 
 \subsection{GeoMesa}
-\begin{table}[h!]
+\begin{table}[ht]
 \centering
 \small
 \begin{tabular}{|l|p{1.8cm}|l|p{3.1cm}|p{1.8cm}|}
 \hline
 \textbf{Metrik} & \textbf{erreichter Wert} & \textbf{Erfüllung in \%} & \textbf{Kommentar} & \textbf{gewichteter Teilnutzen} \\ \hline
-Interoperabilität & 7 & 58 & Implementationen für beide Schnittstellen notwendig. & 17 \\ \hline
+Interoperabilität & 7 & 58 & Implementierungen für beide Schnittstellen notwendig. & 17 \\ \hline
 Funktionsumfang & 48 & 79 & Die meisten Funktionen sind nur mit Scala verfügbar, Mindestabdeckung jedoch gegeben. & 16 \\ \hline
 Dokumentation & 4 & 31 & Mindestabdeckung nicht erfüllt. & 11 \\ \hline
 Modifizierbarkeit & 4 & 80 & Mit Simple Features und Spark umfangreiche Problemlösungen erstellbar. Fehlende Funktionen können nachgerüstet werden. & 12 \\ \hline
@@ -75,21 +76,21 @@ Darin waren die wichtigsten Quellen die offiziellen Webseiten von GeoMesa \cite{
 Neben dem messbaren Nutzwert sind die nichttechnischen Kriterien zu nennen, welche auf die Auswahl eines Frameworks Einfluss haben.
 Dazu zählt die Herstellerfirma mit Marktposition, Produktplanung und Service sowie das Produkt in Hinsicht auf Preis, Lebendigkeit in Form von Entwickleraktivität und Größe der Benutzer.\\
 \url{https://github.com/locationtech/geomesa} zählt am 17.2.2015 271 commits, 20 contributors und 186 branches.
-Eine solche hohe Anzahl an branches spricht normalerweise für eine hohe Nutzung und Lebendigkeit des Projektes.
+Eine solche hohe Anzahl an branches spricht für eine hohe Nutzung und Lebendigkeit des Projektes.
 Jedoch wurde die Mehrzahl der branches nicht in den master Zweig übernommen.
-\begin{figure}[h!]
+\begin{figure}
 \centering
 \includegraphics[width=\textwidth]{Abbildungen/geomesa_timeline_contributors.png}
 \caption[Zeitleiste der contributor von GeoMesa]{Zeitleiste der contributor von GeoMesa vom 17.2.2015 nach \url{https://github.com/locationtech/geomesa/graphs/contributors}}
 \label{fig:timeline_contr_geomesa}
 \end{figure}
-\begin{figure}[h!]
+\begin{figure}
 \centering
 \includegraphics[width=\textwidth]{Abbildungen/geomesa_timeline_commits.png}
 \caption[Zeitleiste der commits von GeoMesa]{Zeitleiste der commits von GeoMesa vom 17.2.2015 nach \url{https://github.com/locationtech/geomesa/graphs/commit-activity}}
 \label{fig:timeline_commits_geomesa}
 \end{figure}
-Das GeoMesa Projekt auf GitHub hat nach Abbildung \ref{fig:timeline_contr_geomesa} eins bis vier Stammprogrammierer und ist im zweiten und dritten Quartal gegenüber mit der doppelten Anzahl an contributors gegenüber den anderen Quartalen fragmentiert.
+Das GeoMesa Projekt auf GitHub hat nach Abbildung \ref{fig:timeline_contr_geomesa} einen bis vier Stammprogrammierer und ist im zweiten und dritten Quartal mit der doppelten Anzahl an contributors gegenüber den anderen Quartalen fragmentiert.
 Die drei contributors mit dem größten Anteil an Änderungen sind vorwiegend in Projekten von LocationTech aktiv was darauf schließen lässt, dass sie für das Unternehmen arbeiten.
 Daraus folgt das zum wesentlichen Teil das Unternehmen LocationTech das Projekt wartet.
 Die Anzahl der commits geht mit dem Verlauf der aktiven Programmierer einher.
@@ -99,7 +100,7 @@ Dabei ist der Unterschied zwei zu neun commits pro Woche.
 LocationTech ist eine Arbeitsgruppe der non-for-profit Stiftung Eclipse.
 In diesem Rahmen erhält diese Arbeitsgruppe 20 Mitglieder für Projektplanung und Projektumsetzung.
 Weiterhin findet die Finanzierung im Rahmen von Mitgliedschaft an der Arbeitsgruppe statt.
-Darin können Mitglieder je nach Beitrag Teile der Entscheidungsorgane der Arbeitsgruppe werden und Zugang zu Ergebnissen dieser erhalten. \cite{website:locationtech-about}
+Darin können Mitglieder je nach Beitrag Teile der Entscheidungsorgane der Arbeitsgruppe werden und Zugang zu Ergebnissen dieser erhalten. (vgl. \cite{website:locationtech-about})
 LocationTech ist mit GeoMesa mitten in der Entwicklung und hat keine durchgängig aktive Unterstützer.
 Dieser Stand spricht gegen eine Auswahl von GeoMesa zum produktiven Einsatz.
 
@@ -124,31 +125,31 @@ Das Ergebnis bezieht sich auf Anhang \ref{gegenuerbestellung:postgresxl}.
 Es wurde vorrangig die Postgres-XL Dokumentation \cite{website:postgresxl-manual} und jene von PostGIS \cite{website:postgisdocu-functions} verwendet.
 
 Dazu sind ebenso nichttechnische Faktoren zu berücksichtigen.\\
-\url{https://github.com/snaga/postgres-xl} zählt am 17.2.2015 35.266 commits, 23 contributors und drei branches.
+\url{https://github.com/snaga/postgres-xl} zählt am 17.2.2015 35.266 commits, 23 contributors und drei branches.%
 \begin{figure}[h!]
 \centering
 \includegraphics[width=\textwidth]{Abbildungen/postgresxl_timeline_contributors.png}
 \caption[Zeitleiste der contributor von Postgres-XL]{Zeitleiste der contributor von Postgres-XL vom 17.2.2015 nach \url{https://github.com/snaga/postgres-xl/graphs/contributors}}
 \label{fig:timeline_contr_postgresxl}
-\end{figure}
+\end{figure}%
 \begin{figure}[h!]
 \centering
 \includegraphics[width=\textwidth]{Abbildungen/postgresxl_timeline_commits.png}
 \caption[Zeitleiste der commits von Postgres-XL]{Zeitleiste der commits von Postgres-XL vom 17.2.2015 nach \url{https://github.com/snaga/postgres-xl/graphs/commit-activity}}
 \label{fig:timeline_commits_postgresxl}
-\end{figure}
+\end{figure}%
 Abbildung \ref{fig:timeline_contr_postgresxl} zeigt einerseits, dass dieses Projekt seit 1998 besteht, andererseits das die Zahl der aktiven contributors im Gegensatz der Jahre 1998 bis 2012 zu 2014/2015 in etwa ein viertel beträgt.
 Diese deutliche abrupte Abnahme der aktiven Programmierer deutet eine Veränderung im Projekt oder den Projektverantwortlichen an.
 Die commits des vergangenen Jahres sind in Abbildung \ref{fig:timeline_commits_postgresxl} dargestellt.
 Danach wurden im ersten Halbjahr 2014 nur insgesamt 6 commits und im zweiten Halbjahr 2014 etwa täglich ein commit durchgeführt.
 
-Das Unternehmen TransLattice\footnote{\url{http://www.translattice.com/}} übernahm im Mai 2014 das Unternehmen StormDB.
+Das Unternehmen TransLattice übernahm im Mai 2014 das Unternehmen StormDB.
 Die Übernahme schloss das Projekt Postgres bzw. Postgres-XC ein. (siehe \cite{website:translattice-stormdb})
 Dieses wurde darauf in Postgres-XL umbenannt und erweitert.
 Diese Änderung rief die Verringerung der contributors seit Anfang 2014 hervor.
 TransLattice verwaltet seitdem das Projekt und stellt technischen sowie theoretischen Support.
 Postgres-XL ist durch die langjährige Entwicklung empfehlenswert für den produktiven Einsatz.
-Jedoch ist die Aktivität der TransLattice Entwickler zu beobachten, da die Gefahr besteht, dass dieses Projekt vom Unternehmen nicht mehr gefördert wird und somit Fehler und Verbesserungen nicht eingepflegt werden und neue PostgreSQL Versionen nicht unterstützt werden.
+Jedoch ist die Aktivität der TransLattice Entwickler zu beobachten, da die Gefahr besteht, dass dieses Projekt vom Unternehmen nicht mehr gefördert wird und somit Fehlerbehebungen und Verbesserungen nicht eingepflegt werden und neue PostgreSQL Versionen nicht unterstützt werden.
 
 
 \subsection{Rasdaman}
@@ -167,16 +168,16 @@ Modifizierbarkeit & 3 & 60 & Einfache Java und C++ API bietet zwar Erweiterungsm
 \label{table:nutzwertanalyse-rasdaman}
 \end{table}
 Aus Tabelle \ref{table:nutzwertanalyse-rasdaman} ergibt sich ein Nutzwert von 51.
-Die granulare Bewertung befindet sich im Anhang \ref{appendix:systembewertung-rasdaman}.
-Als Quelle diente dabei \cite{website:rasdaman-features} mit verlinkten Websites des gleichem Domain Namen.
+Die granulare Bewertung befindet sich in Anhang \ref{appendix:systembewertung-rasdaman}.
+Als Quelle diente dabei \cite{website:rasdaman-features} mit verlinkten Websites des gleichen Domain Namen.
 
 Die Statistiken der Entwicklung des Repository müssen händisch gewonnen werden, da es auf einem Trac Verwaltungssystem mit Git basiert.
 Das Repository ist unter\\\url{kahlua.eecs.jacobs-university.de/rasdaman.git} verfügbar.
 Es kann mit der Konsolenanwendung Git heruntergeladen und ausgewertet werden.
-So erhält man mit \textit{git log --pretty=format:\grqq \%h - \%an, \%ad : \%s\grqq\ | tail -1} das der erste commit 2009 erstellt wurde:
-\begin{quote}
+So erhält man mit \textit{git log --pretty=format:\grqq \%h - \%an, \%ad : \%s\grqq\ | tail -1} das der erste commit 2009 erstellt wurde:\\\\
+\begin{lstlisting}[language=bash,caption={Erster Commit des Projektes Rasdaman},label=lst:rasdamancom1,captionpos=b]
 0f1055b - Constantin Jucovschi, Tue Mar 31 06:18:54 2009 -0400 : Initial commit
-\end{quote}
+\end{lstlisting}
 Somit sind auch die commits des vergangenen Jahres ermittelbar.
 So wurden vom 19.2.2014 bis zum 19.2.2015 1949 commits durchgeführt.
 \textit{git shortlog -sne} liefert dagegen alle Autoren der vorhandenen commits.
@@ -184,6 +185,7 @@ Die Autoren der meisten commits sind Dimitar Misev mit 456, Piero Campalani mit 
 Herr Misev ist %laut seinem Linkedin Profil auf\\\url{https://de.linkedin.com/in/dimitarmisev}
 Director of Product Development der \mbox{rasdaman} GmbH.
 Herr Campalani und Herr Aiordachioaie haben wie Herr Misev an der Jacobs Universität in Bremen studiert, arbeiten aber nicht bei der \mbox{rasdaman} GmbH.
+Der Großteil der Entwicklung erfolgt somit in einem kleinen Kreis von Programmierern.
 
 Rasdaman ist laut der Meldung \glqq Führender Rasterserver kostenfrei zum Download\grqq\ in \cite{website:rasdaman-newsarchive} seit September 2008 in einer freien Version verfügbar.
 Außerdem ist es aus Forschungsarbeiten der TU Darmstadt, der TU München und der Jacobs Universität Bremen entstanden.

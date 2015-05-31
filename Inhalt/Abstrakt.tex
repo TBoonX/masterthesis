@@ -5,20 +5,20 @@
 %handlungsempfehlung
 In dieser Arbeit werden quelloffene verteilte geografische Informationssysteme für den Anwendungsfall des Einsatzes bei der Agri~Con GmbH untersucht, bewertet und ausgewählt.
 %Was ist Agri Con? - auch nennen warum nur freie software
-Die Agri~Con GmbH agiert als Berater, Verkäufer und Dienstleister für Agrarunternehmer mit dem Schwerpunkt der Modernisierung der landwirtschaftlichen Vorgänge, um ein niedriges Verhältnis von Aufwand zu Ertrag zu erhalten.
-Dieses mittelständische Unternehmen zielt auf eine kostengünstige und effiziente Datenhaltung und -verarbeitung ab.
-Die Anforderungen der Agri~Con GmbH zur Auswahl eines Systems werden in Form von Qualitätsmetriken messbar gemacht, wodurch mit einer Nutzwertanalyse eine Bewertung möglich ist.
-Diese Nutzwertanalyse wird auf die Frameworks GeoMesa, Postgres-XL und Rasdaman angewandt.
-An Hand dieser Bewertung erfolgt die Auswahl des Frameworks mit dem höchten Nutzwert, hier Postgres-XL.
+Die Agri~Con GmbH agiert als Berater, Verkäufer und Dienstleister für Agrarunternehmen die ihre Produktionsprozesse durch den Einsatz von \Gls{prec_farm}-Technologien optimieren wollen.
+Dabei steht die kostengünstige und effiziente Datenhaltung und -verarbeitung zunehmend im Mittelpunkt.
+Die Anforderungen der Agri~Con GmbH zur Auswahl eines Systems werden in Form von Qualitätsmetriken messbar gemacht, wodurch eine Bewertung mit einer Nutzwertanalyse möglich ist.
+Diese Nutzwertanalyse wird auf ausgewählte Frameworks wie GeoMesa, Postgres-XL und Rasdaman angewandt.
+Anhand dieser Bewertung erfolgt die Auswahl des Frameworks mit dem höchsten Nutzwert, hier Postgres-XL.
 %Anschließend erfolgt eine genauere Untersuchung des Systems.
-Dieses wird anschließend genauer untersucht, wobei auf die Verwendung und den möglichen Einsatz bei der Agri~Con GmbH eingegangen wird.
-Weiterhin werden Tests zur Feststellung von ausgewählter Funktionalität und Leistungsfähigkeit bezüglich Schwächen des aktuellen Systems durchgeführt.
-Um die Vergleichbarkeit zu gewährleisten, wurde das aktuelle System in eine virtuelle Maschine exportiert und Postgres-XL in eine identische virtuelle Maschine installiert.
+Das ausgewählte Framework wird anschließend genauer untersucht und es wird die Verwendung sowie der mögliche praktische Einsatz bei der Agri~Con GmbH bewertet.
+Weiterhin werden Tests zur Feststellung von ausgewählter Funktionalität und Leistungsfähigkeit bezüglich identifizierter Schwächen des aktuellen Systems durchgeführt.
+Um eine Vergleichbarkeit zu gewährleisten, wurde das aktuelle System in eine virtuelle Maschine exportiert und Postgres-XL in eine identisch konfigurierte virtuelle Maschine installiert.
 %Vergleichbar! - mit VM vergleichbar gemacht - konkret werden
 Die Arbeit endet mit einer Zusammenfassung, einer Wertung der Ergebnisse und einem Ausblick auf die zukünftige Handhabung der räumlichen Daten bei der Agri~Con GmbH.
 
-Im Ergebnis der Arbeit wird gezeigt, dass die untersuchte Funktionalität von Postgres-XL für den Anwendungsfall ausreichend ist, jedoch ein produktiver Einsatz nicht empfohlen werden kann.
-Gegen einen produktiven Einsatz spricht, dass Trigger in der aktuellen Version nicht unterstützt werden und die Erweiterung Plr nicht verteilt verwendet werden kann.
+Im Ergebnis der Arbeit wird gezeigt, dass die untersuchte Funktionalität von Postgres-XL für den Anwendungsfall ausreichend ist, jedoch ein produktiver Einsatz unter den konkreten Praxisbedingungen nicht empfohlen werden kann.
+Gegen einen produktiven Einsatz spricht, dass Trigger in der aktuellen Version nicht unterstützt werden und die Programmiersprache R nicht verteilt verwendet werden kann.
 Das Ergebnis hinsichtlich der Leistungsfähigkeit ist kein signifikanter Leistungszuwachs im Gegensatz zum aktuellen Stand.
 Signifikant meint 30\%{} bis 100\%{} Leistungszuwachs bei 200\%{} Hardwareeinsatz.
 %dass das aktuelle System nicht durch zu Hilfenahme oder durch Austausch von GIS Frameworks verbessert werden kann.

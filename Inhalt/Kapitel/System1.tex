@@ -11,7 +11,7 @@ Nach der Auswahl von Postgres-XL im vorangegangenen Kapitel% aus einer geeignete
 
 Im Abschnitt \ref{grundlagen:postgresxl} der Grundlagen wurde Postgres-XL allgemein beschrieben und im Unterkapitel \ref{gegenuerbestellung:postgresxl} wurde es hinsichtlich des Anwendungsfalles mit einer Nutzwertanalyse bewertet.
 Darauf aufbauend folgt die Darstellung der konkreten praktischen Verwendung entsprechend den Abschnitten Installation, Schnittstelle und Verarbeitung.
-Für das Verständnis werden grundlegende Linux Kenntnisse und ein root Zugang voraus gesetzt.
+Für das Verständnis werden grundlegende Linux Kenntnisse und ein root Zugang auf einem Linux System voraus gesetzt.
 %tiefe der ausführungen
 %für wen geeignet?
 
@@ -19,10 +19,10 @@ Für das Verständnis werden grundlegende Linux Kenntnisse und ein root Zugang v
 
 \subsubsection{Systemvoraussetzungen}
 Die Dokumentation\footnote{Dokumentation Postgres-XL: \url{http://files.postgres-xl.org/documentation/install-requirements.html}} verwendet hierbei deckungsgleich die offizielle Dokumentation zu den Systemanforderungen von PostgreSQL\footnote{Dokumentation PostgreSQL: \url{http://www.postgresql.org/docs/9.2/static/install-requirements.html}}.
-Dabei wird ein Linux Betriebssystem, 155MB freien Festplattenspeicher für die Übersetzung, Installation und Erstellung eines leeren Datenbankclusters sowie eine Menge von Paketen genannt.
-Diese ist: GNU make, gcc, tar und zlib als benötigte sowie libperl oder libpython als optionale Pakete.
-Zusätzlich werden für die Erzeugung der Dokumentation oder über Übersetzung des Quellcodes weitere Pakete benötigt.
-Diese Anforderungen setzen eine Standardinstallation voraus.
+Dabei wird ein Linux Betriebssystem, 155MB freier Festplattenspeicher für die Übersetzung, Installation und Erstellung eines leeren Datenbankclusters sowie eine Menge von Paketen genannt.
+Diese Pakete sind: GNU make, gcc, tar und zlib als benötigte sowie libperl oder libpython als optionale Pakete.
+Zusätzlich werden für die Erzeugung der Dokumentation oder der Übersetzung des Quellcodes weitere Pakete benötigt.
+Diese Anforderungen setzen eine Standardinstallation eines aktuellen Linux voraus.
 Neben Linux Derivaten wird auch FreeBSD und Max OS X unterstützt.
 Die Prozessorarchitektur von Intel wird unterstützt, andere sind laut Dokumentation ebenso verwendbar.
 Im Rahmen dieser Arbeit konnte Postgres-XL auch auf einem Raspberry Pi 1 Model B, basierend auf einem ARMv6 Prozessor und dem Linux Derivat Raspbian, übersetzt und verwendet werden.
@@ -45,7 +45,7 @@ Um das Kommandozeilentool \verb+pgxc_ctl+ nutzen zu können, muss im Quellcodeor
 \subsubsection{Einrichtung}
 Postgres-XL ist für den Einsatz als Cluster konzipiert.
 So muss die Installation für jeden Knoten vorgenommen werden.
-Die Einrichtung der einzelnen Knoten variiert je nach Art des Knotens, wobei ein Knoten entweder eine GTM Instanz oder mehrere Coordinator sowie DataNodes Instanzen mit einer GTM-Proxy Instanz enthält.
+Die Einrichtung der einzelnen Knoten variiert je nach Art des Knotens, wobei ein Knoten entweder eine GTM Instanz oder mehrere Coordinator sowie DataNode Instanzen mit einer GTM-Proxy Instanz enthält.
 Jede Instanz kann automatisiert mit \verb+pgxc_ctl+ oder manuell erstellt und konfiguriert werden.
 Das Testsystem wurde mit \verb+pgxc_ctl+ eingerichtet.
 Voraussetzung der Nutzung dieses Kommandozeilentools ist der Zugang zu allen Knoten per SSH ohne Passwortabfrage für den selben Benutzer und die Vergabe eindeutiger Hostnames an die Knoten.
@@ -61,7 +61,7 @@ Anhang \ref{appendix:pgxcctlconfig} enthält die Konfigurationsdatei des Testsys
 \subsection{Schnittstelle}
 \label{subsection:interface}
 %Datenimport gehört dazu
-Der Zugriff auf Daten eines Postgres-XL Clusters erfolgt über die Coordinators.
+Der Zugriff auf Daten eines Postgres-XL Clusters erfolgt über die Coordinator.
 Dazu sind Programme und Tools aus dem PostgreSQL Umfeld zu verwenden.
 Dazu zählen \Gls{jdbc}, das Kommandozeilentool \verb+psql+ und das grafische Programm zur Datenbankverwaltung pgAdminIII.
 So wird im Testsystem der erste Coordinator mit folgendem Aufruf angesprochen:\begin{lstlisting}[language=sql,caption={Verbindung zu erstem Coordinator herstellen},captionpos=b]
@@ -69,29 +69,29 @@ psql -h node1 -p 20004 agrodb
 \end{lstlisting}
 Ebenso sind die SQL Befehle bis auf ein paar Ausnahmen deckungsgleich.
 Diese Ausnahmen beziehen sich auf die Verteilung der Daten und Verwaltung des Clusters.
-Beispielsweise das SQL Statement in Listing \ref{lst:createtable} weicht durch die Ergänzung \verb+Distribute by+ vom PostgreSQL SQL Syntax ab.
+Beispielsweise das SQL Statement in Listing \ref{lst:createtable} weicht durch die Ergänzung \verb+Distribute by+ vom PostgreSQL SQL Syntax ab.%
 \begin{lstlisting}[language=sql,caption={SQL Query zum erzeugen einer Tabelle in Postgres-XL},label=lst:createtable,captionpos=b]
-Create Table tblname (serial id, text data) Distribute by Hash(id);
-\end{lstlisting}
+Create Table name (serial id, text data) Distribute by Hash(id);
+\end{lstlisting}%
 Jede Tabelle wird in jeder Coordinator und DataNode Instanz erzeugt.
 Dabei werden die Daten entweder nach einem Attribut verteilt oder zwischen den Datenbankinstanzen gespiegelt.
 Das Schlüsselwort \verb+Distributed+ veranlasst eine Verteilung der Daten, \verb+Replicate+ dagegen eine Replikation der Tabelle über alle Nodes.
 Die unterstützten Datentypen sind der Dokumentation zu entnehmen.
-Weiterhin zu erwähnen ist der Befehl des Listings \ref{lst:createnode}, welcher direkt als SQL Statement verwendet werden kann und dem Cluster einen Knoten hinzufügt.
+Weiterhin zu erwähnen ist der Befehl des Listings \ref{lst:createnode}, welcher direkt als SQL Statement verwendet werden kann und dem Cluster einen Knoten hinzufügt.%
 \begin{lstlisting}[language=sql,caption={SQL Query zum hinzufügen eines aktiven Knoten in einen Postgres-XL Cluster},label=lst:createnode,captionpos=b]
 Create Node nodename With (TYPE=, HOST=, PORT=)
-\end{lstlisting}
+\end{lstlisting}%
 Analog zum hinzufügen existiert der Befehl \verb+Drop Node nodename+ zum entfernen eines Knotens.
-Wurde das Cluster verändert, ist dies mit Listing \ref{lst:pgxcreload} für alle Knoten zu propagieren.
+Wurde das Cluster verändert, ist dies mit Listing \ref{lst:pgxcreload} für alle Knoten zu propagieren.%
 \begin{lstlisting}[language=sql,caption={SQL Query  zur Aktualisierung der Cluster Zusammensetzung},label=lst:pgxcreload,captionpos=b]
 Select * From pgxc_pool_reload();
-\end{lstlisting}
-Weitere Abweichungen sind der Dokumentation zu entnehmen.\footnote{siehe \url{http://files.postgres-xl.org/documentation/sql-commands.html}}
+\end{lstlisting}%
+Weitere Abweichungen sind der Dokumentation zu entnehmen.\footnote{Dokumentation der SQL Befehle: \url{http://files.postgres-xl.org/documentation/sql-commands.html}}
 
 Das Datenbankschema wurde mit \verb+pg_dump+ in eine Textdatei geladen und als SQL Befehle in Postgres-XL übernommen.
 Die Übernahme der Daten erfolgte mit \verb+db_link+, welches auch zwischen unterschiedlichen PostgreSQL Versionen funktioniert.
 %Der Ist-Zustand verwendet PostgreSQL Version 9.3.
-Die Daten können auch analog des Schema übertragen werden, dies dauert jedoch auf Grund der Umwandlung von zu zu Textformaten länger.
+Die Daten können auch analog des Schema übertragen werden, dies dauert jedoch auf Grund der Umwandlung von zu Textformaten länger.
 
 \subsection{Verarbeitung}
 %SQL
@@ -113,21 +113,21 @@ Die Erfüllung der Anforderungen liegt entsprechen der Nutzwertanalyse von Postg
 Aus diesem Grund besteht die geeignete Möglichkeit einen Entwurf zu erzeugen, welcher wesentliche Aufgaben des Ist-Standes übernimmt oder den Ist-Stand ersetzt.
 
 Gegen eine Ersetzung spricht, dass Trigger in der aktuellen Postgres-XL Version nicht verwendet werden können.
-Zwar können Trigger in Funktionen ausgelagert und bei Verwendung der Tabellen aufgerufen werden, aber dies würde einen erheblichen Implementationsaufwand bedeuten und nicht zu 100\%{} die bestehende Funktionalitäten abbilden.
+Zwar können Trigger in Funktionen ausgelagert und bei Verwendung der Tabellen aufgerufen werden, aber dies würde einen erheblichen Implementierungsaufwand bedeuten und nicht zu 100\%{} die bestehende Funktionalitäten abbilden.
 %Teilintegration
 Jedoch ist eine grundlegende Integration in den Ist-Stand notwendig. %warum?
 Dies ist in der Datenabhängigkeit der Bestandsdaten und der Eignung von Postgres-XL begründet.
 Das Datenbankschema befindet sich in der ersten und zweiten Normalform, wodurch eine Abhängigkeit über Fremdschlüssel zu häufig verwendeten Tabellen wie farm.farms oder farm.fields besteht, was eine Auslagerung von Tabellen und Funktionen nicht trivial macht.
 Eine teilweise Schemaintegration mit anschließender Normalisierung der zwei Datenbankschemata würde Änderung aller Programme nach sich ziehen und in diesem Rahmen zu aufwendig ausfallen.
 Abbildung \ref{fig:aufwand} skizziert den notwendigen Zeitraum zur Umsetzung dessen.
+Deshalb ist die Erstellung eines umfassenden Entwurfs hinsichtlich des speziellen Szenarios bei Agri~Con im Rahmen dieser Arbeit nicht möglich.
+Ebenso ist der Aufwand zur Implementierung der Trigger Funktionalität in Postgres-XL zu hoch.%
 \begin{figure}[h!]
 \centering
 \includegraphics[width=.8\textwidth]{Abbildungen/gantt_aufwand_umsetzung_cropped.pdf}
 \caption[Aufwandsschätzung Umsetzung einer teilweisen Integration von Postgres-XL]{Aufwandsschätzung Umsetzung einer teilweisen Integration von Postgres-XL in den Ist-Stand}
 \label{fig:aufwand}
-\end{figure}
-Deshalb ist die Erstellung eines umfassenden Entwurfs hinsichtlich des speziellen Szenarios bei Agri~Con im Rahmen dieser Arbeit nicht möglich.
-Ebenso ist der Aufwand zur Implementierung der Trigger Funktionalität in Postgres-XL zu hoch.
+\end{figure}%
 
 Der Entwurf wird daher als Klon des Ist-Standes, jedoch ohne Trigger, erstellt.
 Entsprechend den Leistungstests soll der Entwurf die Produktivdaten liefern und anwendungsnahe Berechnungen ausführen.
@@ -143,8 +143,7 @@ Weiterhin wurden die zu testenden Funktionen an den Funktionsumfang von Postgres
 Dabei wurden interne Transaktionen und inserts aus den verwendeten Funktionen entfernt.
 Das Vorgehen zur Erstellung dieses Aufbaus war zusammengefasst folgender:
 Postgres-XL auf sieben VMs installiert, eine Konfigurationsdatei für \verb+pgxc_ctl+ erstellt, den Cluster mit \verb+pgxc_ctl+ erzeugt, eine Datenbank mit dem Namen agrodb erzeugt, darin die Erweiterungen plr, dblink und PostGIS installiert, das Datenbankschema mit Funktionen angepasst, das Datenbankschema und Hilfsfunktionen eingespielt und die Daten mit dblink für ausgewählte Betriebe übernommen.
-Die Schritte sind mit entsprechender Zeitschätzung in Abbildung \ref{fig:getan} zu finden.
-
+Die Schritte sind mit entsprechender Zeitschätzung in Abbildung \ref{fig:getan} zu finden.%
 \begin{figure}[h!]
 \centering
 \includegraphics[width=.8\textwidth]{Abbildungen/gantt_done_cropped.pdf}
@@ -174,15 +173,15 @@ Außerdem kann es dazu kommen, dass bei einer Fehlkonfiguration von Postgres-XL 
 Postgres-XL wird hinsichtlich Funktionalität und Leistungsfähigkeit bezüglich der Anforderungen getestet.
 %pgbench http://www.postgresql.org/docs/devel/static/pgbench.html
 Die systematischen Tests werden in diesem Kapitel vorgestellt.
-Die Kriterien wurden in Kapitel \ref{qualitätsmetriken} definiert, somit werden hier die Randbedingungen, Eingaben, Durchführung und Ergebnisse dargelegt.
+Die Kriterien wurden in Kapitel \ref{qualitätsmetriken} definiert, somit werden hier die Randbedingungen, Eingaben, Durchführungen und Ergebnisse dargelegt.
 
 \section{Testumgebung}
 Die wesentliche Randbedingung Testumgebung wurde nach der Softwareauswahl und vor der Durchführung der Tests erstellt.
 Die Testumgebung ist Hardware aus dem Jahr 2007 und dient dazu, relative Aussagen über die Leistung von Postgres-XL zu treffen.
-Dafür steht ein IBM Rack Server x3850 M2\footnote{\url{http://www.redbooks.ibm.com/redpapers/pdfs/redp4362.pdf}} mit folgender Ausstattung zur Verfügung:
+Dafür steht ein IBM Rack Server x3850 M2\footnote{IBM x3850 M2: \url{http://www.redbooks.ibm.com/redpapers/pdfs/redp4362.pdf}} mit folgender Ausstattung zur Verfügung:
 vier Xeon E7330 Quad-Core mit 2,4 GHz, 64GB DDR2 RAM, vier 500GB 2,5 Zoll SATA Festplatten von Western Digital mit 7.200 U/min und einem MR10k Raid-Controller.
-Der Postgres-XL Cluster wird mit Virtualisierung der einzelnen Knoten erstellt.
-Als Virtualisierungssoftware kommt \Gls{esxi} in der kostenlosen Version 6.0 mit \Gls{vsphere} 6.0\footnote{\url{https://www.vmware.com/de/products/vsphere}} als Testversion zum Einsatz.
+Der Postgres-XL Cluster wird mit Virtualisierung der einzelnen Knoten realisiert.
+Als Virtualisierungssoftware kommt \Gls{esxi} in der kostenlosen Version 6.0 mit \Gls{vsphere} 6.0\footnote{VMware vSphere: \url{https://www.vmware.com/de/products/vsphere}} als Testversion zum Einsatz.
 Mit dieser Virtualisierungslösung ist es möglich, Ressourcen explizit und ausschließlich einer \Gls{vm} zuzuordnen.
 So werden die Prozessorkerne in Paaren und der Arbeitsspeicher direkt und mit exklusiver Verwendung den einzelnen \Gls{vm}s zugeordnet.
 
@@ -250,7 +249,7 @@ Darin wird der Testfall beschrieben, die Testdaten konkretisiert, das Sollergebn
 Entsprechend der Reihenfolge der Testfälle im Anhang werden nachfolgend die Tests mit deren Durchführung und deren Ergebnissen präsentiert.
 Die Testfälle werden durchnummeriert und mit einem vorangestellten FT für Funktionstest bezeichnet.
 Dabei werden die Testfälle mit absteigender Priorität aufgelistet.
-Die Priorität hängt vom geschätzten Implementationsaufwand zur Behebung des Fehlschlages des Testfalles ab.
+Die Priorität hängt vom geschätzten Implementierungsaufwand zur Behebung des Fehlschlages des Testfalles ab.
 Der Begriff des Schlages wird nachfolgend verwendet und meint ein bewirtschaftes Flurstück.
 
 \textbf{FT01:}\\
@@ -276,11 +275,11 @@ Da beide Systeme PostGIS 2.1.5 verwenden, sind die Austauschformate für geograf
 Der Beweis stellt die erfolgte Übernahme der Daten des Ist-Standes dar.
 
 \textbf{FT04:}\\
-Mit PostGIS kann mit der Funktion st\_{}transform direkt zwischen den Koordinatenreferenzsystemen umgerechnet werden:
+Mit PostGIS kann mit der Funktion st\_{}transform direkt zwischen den Koordinatenreferenzsystemen umgerechnet werden, siehe Listing \ref{lst:sttransform}.
+So werden die Punkte der Tabelle samples im Schema nutrients mit dem EPSG Code 4326 zum EPSG Code 3857 sowie wieder zurück umgerechnet.\\
 \begin{lstlisting}[language=sql,caption={SQL Query zur Umrechnung zwischen Koordinatenreferenzsystemen},label=lst:sttransform,captionpos=b]
 select id, st_astext(st_transform(geom, 3857)) as transformed, st_srid(st_transform(geom, 3857)) as newsrid, st_astext(st_transform(st_transform(geom, 3857), 4326)) as original, st_srid(st_transform(st_transform(geom, 3857), 4326)) as srid from nutrients.samples limit 10;
 \end{lstlisting}
-So werden die Punkte der Tabelle samples im Schema nutrients mit dem EPSG Code 4326 zum EPSG Code 3857 sowie wieder zurück umgerechnet.
 Die Funktionsdeklaration lautet:
 \textit{geometry ST\_{}Transform(geometry g1, integer srid);}\\
 srid ist dabei ein EPSG Code aus der Tabelle SPATIAL\_{}REF\_{}SYS, welche 3911 Einträge im Testsystem enthält.
@@ -310,7 +309,7 @@ Der Rechteckige Schlag erhält die Nummer 1 und der darüber liegende die Nummer
 \end{figure}
 Das Ergebnis der Funktionen ist in den Abbildungen \ref{fig:intersects1} und \ref{fig:intersects2} abgebildet.
 Bei Difference ist das Ergebnis abhängig der Reihenfolge der Parameter.
-Die Geometrien der Schläge 1 und 2 wurden getauscht und beide Ergebnisse mit dargestellt.
+Die Geometrien der Schläge 1 und 2 wurden getauscht und beide Ergebnisse dargestellt.
 \begin{figure}[h!]
 \centering
 \begin{subfigure}{.3\textwidth}
@@ -356,7 +355,7 @@ In allen Fällen sind die Ergebnisse korrekt und die Funktionalität der Verschn
 \textbf{FT06:}\\
 Dies wird im zweiten Szenario der Lasttests im nachfolgenden Abschnitt durchgeführt.
 %auf schwierigkeiten hinweisen
-Da das Ergebnis nicht überprüft werden kann, gilt der Test als nicht bestanden.
+Da das Ergebnis jedoch nicht überprüft werden kann, gilt der Test als nicht bestanden.
 
 \textbf{FT07:}\\
 %Betrieb mit kleinen Userlayern verwenden
@@ -368,16 +367,14 @@ POLYGON((13.2547868501418 50.7878870616778,
 \end{lstlisting}
 Mit diesem können alle Schläge abhängig des Userlayers räumlich gefiltert werden.
 So sind im Testsystem 13803 Schläge vorhanden.
-Mit der Funktion \textit{boolean ST\_{}Intersects( geometry geomA , geometry geomB );} werden mit dem begrenzenden Rechteck überlappende Schläge gefiltert.
+Mit der Funktion \textit{boolean ST\_{}Intersects(geometry geomA ,geometry geomB)} werden mit dem begrenzenden Rechteck überlappende Schläge gefiltert.
 Dies ergibt mit dem oben genannten Rechteck 382 Schläge.
-Mit \textit{boolean ST\_{}Disjoint( geometry A , geometry B );} erhält man dagegen räumlich disjunkte Schläge, 13421 in diesem Fall.
+Mit \textit{boolean ST\_{}Disjoint(geometry A , geometry B)} erhält man dagegen räumlich disjunkte Schläge, 13421 in diesem Fall.
 %Screenshots?
 Dies soll als Beweis der Verwendbarkeit und Korrektheit der PostGIS Funktionen dienen.
 Da die PostGIS Version des Ist-Standes mit der des Testsystems übereinstimmt, kann von voller Funktionalität  ausgegangen werden.
 Davon ausgenommen sind Teile der Funktionsmenge zur Verarbeitung von Rasterdaten.
-Da Postgres-XL internal als Transition Typ nicht unterstützt, ist die Funktionen zur Bildung der Vereinigung mit einem Raster nicht verfügbar\footnote{Installation von PostGIS wirft Fehler und legt die entsprechenden Funktionen nicht an.}.
-
-%Darstellung mit UMN?
+Da Postgres-XL internal als Transition Typ nicht unterstützt, ist die Funktionen zur Bildung der Vereinigung mit einem Raster nicht verfügbar\footnote{Die Installation von PostGIS wirft Fehler und legt die entsprechenden Funktionen nicht an.}.
 
 %Zusammenfassen!
 
@@ -391,12 +388,12 @@ Zusammenfassend ist das Ziel dieser Leistungstests, die spezielle Leistung gegen
 %und die Skalierbarkeit von Postgres-XL zu ermitteln.
 %Skalierbarkeit(T(1)/T(p))/Effizienz(S(p)/p)
 Es wird von einer höheren Leistung, abhängig der Anzahl der verwendeten Knoten, bei der Aggregation und der Verarbeitung im Gegensatz zum Ist-Stand ausgegangen.
-Zwar ist bei Postgres-XL die Verarbeitung lokaler Anfragen mit mehr administrativen Aufwand verbunden,  wird somit langsamer gegenüber einer PostgreSQL Instanz bearbeitet, jedoch stehen mehrere Zugriffspunkte auf exklusiven Hardwaresystemen zur Verfügung.
+Zwar ist bei Postgres-XL die Verarbeitung lokaler Anfragen mit mehr administrativen Aufwand verbunden,  wird somit länger gegenüber einer PostgreSQL Instanz bearbeitet, jedoch stehen mehrere Zugriffspunkte auf exklusiven Hardwaresystemen zur Verfügung.
 %Der Faktor der Beschleunigung der Abarbeitung einer festgelegten Menge von gleichzeitigen Abfragen abhängig der Anzahl der Knoten ist zu ermitteln.%Wenn Skalierbarkeit weg, dann auch anzahl der knoten weglassen
 
 %gleichmäßige Beeinflussung durch Zabbix nennen
-Analog des Testaufbaus der Bachelorarbeit des Autors\footnote{\cite{ba:kurt}} wird zur Generierung der Last das freie Java Programm JMeter verwendet, welches mehrere vorbereitete Anfragen parallel und verschränkt erzeugt sowie eine Auswertung der Laufzeiten zur Verfügung stellt.
-Ein Testlauf wir dabei per Kommandozeile gestartet und die Ergebnisse in einer .csv Datei festgehalten.
+Analog des Testaufbaus der Bachelorarbeit des Autors\footnote{Bachelorarbeit des Autors: \cite{ba:kurt}} wird zur Generierung der Last das freie Java Programm JMeter verwendet, welches mehrere vorbereitete Anfragen parallel und verschränkt erzeugt sowie eine Auswertung der Laufzeiten zur Verfügung stellt.
+Ein Testlauf wird dabei per Kommandozeile gestartet und die Ergebnisse in einer .csv Datei festgehalten.
 Diese Datei wird anschließend mit der grafischen Oberfläche von JMeter geöffnet und die Daten mit Graphen und Tabellen ausgewertet.
 JMeter wird von einem externen Computer ausgeführt.
 Dieser ist mit 1GBit/s an das Testsystem angebunden und besitzt die folgende Ausstattung:
@@ -408,7 +405,7 @@ Einzig \verb+max_connections+ und \verb+max_prepared_transactions+ wurden auf 16
 Um ein statistisches Mittel zu erreichen und Nebeneffekte des Caching der Datenbank und des Betriebssystems zu reduzieren, wird ein Test elf mal ausgeführt.
 Es werden die zehn letzten Tests gemittelt.
 Außerdem wird Postgres-XL vor jeder Testreihe neu gestartet.
-Dieses Vorgehen orientiert sich an der Masterarbeit von Baas Kapitel 6.1 Objective measurements\footnote{\cite[S.51]{ma:neo4j}}.
+Dieses Vorgehen orientiert sich an der Masterarbeit von Baas Kapitel 6.1 Objective measurements \cite[S.51]{ma:neo4j}.
 Die Graphen der Auslastung der Knoten liegen als Bilder vor.
 Zur Einschätzung der Auslastung wird der Durchlauf einer gesamten Testreihe mit einem Graph pro Knoten und den dazugehörigen Laufzeiten festgehalten.
 Ein Graph enthält die Auslastung der CPU und die Menge des verwendeten Arbeitsspeichers in MB.
@@ -418,13 +415,14 @@ Der Wert eins bedeutet eine Auslastung aller Kerne von 100\%{}.
 Werte über eins zeigen an, dass das Vielfache der momentan verrichteten Arbeit noch für den Prozessor anliegt.
 
 Es besteht die Möglichkeit die theoretische Leistung anhand des Kostenmaßes zu bestimmen.
-Nach \cite[S.300 f.]{book:kudrass} setzen sich die Kosten für die Verarbeitung einer Anfrage aus folgendem zusammen:
+Nach Kudraß setzen sich die Kosten für die Verarbeitung einer Anfrage aus folgendem zusammen:
 \begin{description}
 \item[Rechenzeit] Dazu zählt die Zeit des Syntaxprüfers, des Ausführungsplaners, der Kombinierung und der Sortierung.
 \item[Ein- und Ausgabe] Besteht aus der Anzahl der Aufrufe an das Speichersystem und der Protokollierung mit internem Speichermanagement.
-\item[Datenübertragung] Meint die Übertragung von Befehlen und Daten zwischen Komponenten.
+\item[Datenübertragung] Meint die Übertragung von Befehlen und Daten zwischen Komponenten. (vgl. \cite[S.300 f.]{book:kudrass})
 \end{description}
-Weiterhin sind Einflussfaktoren das  logische Datenbank Design, die Anwendung, die Abfrage, der Ausführungsplan, die Datenmenge der Abfrage, das physisches Datenbank Design, die Größe der Datenbank, das \Gls{dbms}, die Systemlast, das Netzwerk, die  Parallelität und das Betriebssystem.
+Weiterhin zählt folgendes zu den Einflussfaktoren:
+Das logische Datenbank Design, die Anwendung, die Abfrage, der Ausführungsplan, die Datenmenge der Abfrage, das physische Datenbank Design, die Größe der Datenbank, das \Gls{dbms}, die Systemlast, das Netzwerk, die Parallelität und das Betriebssystem.
 Eine Berechnung des einheitenlosen Kostenmaßes fällt auf Grund der Komplexität des Anwendungsfalles und der Menge der Einflussfaktoren aufwendig aus.
 Deshalb wird die Verarbeitungsleistung empirisch mit Tests festgestellt.
 %In Grundlagen-Tests vrschieben?
@@ -487,20 +485,31 @@ Dabei sind Techniken zur Lastverteilung oder auf gleiche Belastung aller Element
 Die Tests mit dem Testsystem zeigten Fehleranfälligkeiten der Verbindungen zwischen den Elementen des Clusters, weshalb auf empirische Ermittlung der Skalierbarkeit von Postgres-XL im Cluster abgesehen wird.
 Jedoch wird die theoretische Vorgehensweise für das Entfernen von Instanzen gegeben.
 Das Hinzufügen von Instanzen erfolgt analog mit kleinen Änderungen.
-Die Vorgehensweise stammt von der Postgres-XL Dokumentation\footnote{\url{http://files.postgres-xl.org/documentation/index.html}}.
+Die Vorgehensweise stammt von der Postgres-XL Dokumentation.
 \begin{description}
-\item[Coordinator] Eine Verbindung mit einem anderen Coordinator herstellen und darin \verb+DROP NODE coordinatorname;+ und \verb+SELECT pgxc_pool_reload();+ ausführen.
-\item[DataNode] Mit beliebigen Coordinator verbinden und für jede Relation, welche auf die zu löschende DataNode verteilt ist, \verb+ALTER TABLE tablename DELETE NODE+\\\verb+(datanodename);+ ausführen. Betroffene Relationen können mit Listings \ref{st:getdatanodes} ermittelt werden. Das Tool \verb+pgxc_ctl+ starten und darin \verb+stop datanode datanodename+ ausführen. Auf jedem Coordinator \verb+DROP NODE datanodename;+ und \verb+SELECT pgxc_pool_reload();+ ausführen.
+\item[Coordinator] Eine Verbindung mit einem anderen Coordinator herstellen und darin Listing \ref{lst:removecoordinator} ausführen.
+\item[DataNode] Mit beliebiger Coordinator Instanz verbinden und für jede Relation, welche auf die zu löschende DataNode verteilt ist, \verb+ALTER TABLE tablename DELETE NODE (datanodename);+ ausführen. Betroffene Relationen können mit Listings \ref{lst:getdatanodes} ermittelt werden. Das Tool \verb+pgxc_ctl+ starten und darin \verb+stop datanode datanodename+ ausführen. Auf jedem Coordinator Listing \ref{lst:removedatanode} ausführen.
 \end{description}
+\begin{lstlisting}[language=sql,caption={SQL Query zur Entfernung eines Coordinator},label=lst:removecoordinator,captionpos=b]
+DROP NODE coordinatorname;
+SELECT pgxc_pool_reload();
+\end{lstlisting}
 \begin{lstlisting}[language=sql,caption={SQL Query zur Ermittlung betroffener DataNodes ausgewählter Relationen},label=lst:getdatanodes,captionpos=b]
-\SELECTc.pcrelid FROM pgxc_class c, pgxc_node n WHERE n.node_name ='datanodename' AND n.oid = ANY (c.nodeoids);
+SELECTc.pcrelid FROM pgxc_class c, pgxc_node n WHERE n.node_name ='datanodename' AND n.oid = ANY (c.nodeoids);
+\end{lstlisting}
+\begin{lstlisting}[language=sql,caption={SQL Query zur Entfernung eines DataNode},label=lst:removedatanode,captionpos=b]
+DROP NODE datanodename;
+SELECT pgxc_pool_reload();
 \end{lstlisting}
 
 \subsection{Aggregation}
 Der erste Lasttest misst die Laufzeit der Aggregation von Punktdaten aus der Tabelle nsensorlogs des Schemas n.
-Die Abfrage und Messung erfolgt mit dem SQL Statement \verb+Select * From n.nsensorlogs Where fileid=%;+ sowie \verb+Explain Verbose+\\
-\verb+Select * From n.nsensorlogs Where fileid=%;+.
-Die erste Query liefert die Daten sowie Laufzeit\footnote{Sofern in PostgreSQL die Zeiterfassung mit \textbackslash{}timing eingeschaltet wurde.} und die zweite die Aufteilung des SQL Statements an die Knoten des Clusters.
+Die Abfrage und Messung erfolgt mit den SQL Statements des Listings \ref{lst:sqlaggregate}.
+\begin{lstlisting}[language=sql,caption={SQL Query der Aggregation},label=lst:sqlaggregate,captionpos=b]
+Select * From n.nsensorlogs Where fileid=%;
+Explain Verbose Select * From n.nsensorlogs Where fileid=%;
+\end{lstlisting}
+Die erste Query liefert die Daten sowie Laufzeit\footnote{Die Laufzeit wird angezeigt, sofern die Erfassung mit \textbackslash{}timing eingeschaltet wurde.} und die zweite die Aufteilung des SQL Statements an die Knoten des Clusters.
 Der Aufruf der ersten Query erfolgt parallel an alle Coordinator Instanzen und wird für den Lasttest verwendet.
 Diese zweite Query wird ein mal pro Coordinator abgerufen, um die Verteilung der Daten zu validieren.
 \%{} steht dafür für einen Integer Wert und ist einer der Einträge in files.soilsamplefiles.id.
@@ -523,9 +532,10 @@ Somit werden alle Knoten gleichmäßig angesprochen.
 \caption{Anzahl der Einträge in n.nsensorlogs nach fileid}
 \label{tbl:entrysnnsensorlogs}
 \end{table}
+
 Der JMeter Lasttest ist wie folgt geplant:
 Pro Coordinator werden drei Threads erzeugt, welche je fünf Wiederholungen folgender Abfragen durchführen:
-Fünf der sechs fileids\footnote{Jeder Coordinator verwendet andere fünf fileids, sodass alle fünf mal verwendet werden.} werden für die beschriebene Anfrage verwendet und die Ergebnisse in den Arbeitsspeicher geladen.
+Fünf der sechs fileids\footnote{Jeder Coordinator verwendet andere fünf fileids, sodass alle fünf verwendet werden.} werden für die beschriebene Anfrage verwendet und die Ergebnisse in den Arbeitsspeicher geladen.
 
 Vor Ausführung des Tests ist der Query Plan der Aggregation zu untersuchen.\\
 \verb+Explain Verbose Select+ liefert für die fileid 44982 folgenden Query Plan:
@@ -534,7 +544,7 @@ Remote Subquery Scan on all (datanode4)
   -> Index Scan using idx_fileid on n.nsensorlogs
     Index Cond: (nsensorlogs.fileid = 44982)}
 \end{lstlisting}
-Das Ergebnis ist auf allen Coordinatorn gleich.\footnote{Tabelle wurde mit \textit{vacuum} und \textit{analyze} vorbereitet.}
+Das Ergebnis ist auf allen Coordinatorn gleich.\footnote{Die Tabelle wurde mit den SQL Befehlen \textit{vacuum} und \textit{analyze} vorbereitet.}
 Bei unterschiedlichen fileids ändert sich der datanode entsprechend der Tabelle \ref{tbl:entrysnnsensorlogs}.
 Damit kann von einer gleichen Auslastung aller Knoten ausgegangen werden.
 
@@ -603,9 +613,9 @@ Bei der Erstellung der Kartenausschnitte wurden die aufgeführten fileids berüc
 Die angeforderten Kartenausschnitte werden als Bilder in den Arbeitsspeicher geladen.
 
 In Vorbereitung des Testes wurde eine sehr hohe Auslastung der CPU in der \Gls{vm} beobachtet, welche die \Gls{umn} Instanz beinhaltet, im Gegensatz zu einer geringen Auslastung der restlichen \Gls{vm}s.
-Um einen höheren Durchsatz zu erreichen und das Postgres-XL Cluster mehr auszulasten, wurden der UMN \Gls{vm} zwei weitere Prozessorkerne zugeordnet.
+Um einen höheren Durchsatz zu erreichen und das Postgres-XL Cluster höher auszulasten, wurden der UMN \Gls{vm} zwei weitere Prozessorkerne zugeordnet.
 Da bereits alle 16 Kerne vergeben sind, wurde die Prozessor Affinität der GTM \Gls{vm} so geändert, dass diese sich ihre zwei Prozessorkerne mit der UMN \Gls{vm} teilt.
-Es wurde dafür die GTM \Gls{vm} verwendet, da sie auch bei Benutzung des Postgres-XL Clusters eine geringe CPU Auslastung aufwies\footnote{siehe Abbildung \ref{fig:auslastungTest1_gtm}}.
+Es wurde dafür die GTM \Gls{vm} verwendet, da sie auch bei Benutzung des Postgres-XL Clusters eine geringe CPU Auslastung aufwies\footnote{Geringe CPU Auslastung der GTM \Gls{vm}: Abbildung \ref{fig:auslastungTest1_gtm}}.
 Diese Ressourcenaufteilung beeinträchtigt die Leistungsfähigkeit des Clusters somit nicht.
 
 Die Ergebnisse der Testdurchläufe sind in Tabelle \ref{tbl:ergebnisseTest1UMN} aufgeführt.
@@ -632,7 +642,7 @@ Entsprechend der genannten Berechnungsvorschrift ergibt sich eine mittlere Antwo
 \label{tbl:ergebnisseTest1UMN}
 \end{table}
 
-Die Auslastung aller \Gls{vm}s ist in Abbildung \ref{fig:auslastungTest1UMN} sowie \ref{fig:auslastungTest1UMN_gtm_umn} abgebildet.
+Die Auslastung aller \Gls{vm}s ist in Abbildung \ref{fig:auslastungTest1UMN} sowie \ref{fig:auslastungTest1UMN_gtm_umn} dargestellt.
 In den Knoten eins bis sechs ist zu Beginn eine Erhöhung des genutzten Arbeitsspeichers von etwa 100 MB  zu verzeichnen.
 Nach zwei Minuten ändert sich die Auslastung nicht mehr.
 Die CPU Auslastung schwankt stark, enthält regelmäßige Leistungsspitzen und ist nicht deckungsgleich zwischen den Knoten.
@@ -721,7 +731,7 @@ Die Aggregation mit dem \Gls{umn} ergab für die PostgreSQL \Gls{vm} 2595ms durc
 
 Die Auslastung der PostgreSQL und UMN \Gls{vm} besitzt Ähnlichkeit mit jener der Knoten in Abbildung \ref{fig:auslastungTest1UMN} und \ref{fig:auslastungTest1UMN_gtm_umn}.
 Die UMN \Gls{vm} wird bezüglich der CPU um ein Vielfaches der Kapazität belastet.
-Die Auslastung beträgt 165MB bis 270MB der Arbeitsspeichers und 450\%{} bis 680\%{} der CPU.
+Die Auslastung beträgt 165MB bis 270MB der Arbeitsspeichers und 450\%{} bis 680\%{} der CPU, siehe Abbildung \ref{fig:auslastungTest1UMN_pg}.
 \begin{figure}[h!]
 \centering
 \includegraphics[width=\textwidth]{Testergebnisse/umn_aggregation_pg_Testlauf.png}
@@ -730,15 +740,12 @@ Die Auslastung beträgt 165MB bis 270MB der Arbeitsspeichers und 450\%{} bis 680
 \end{figure}
 
 
-
-
-
 \subsection{Verarbeitung}
 Der Lasttest zum messen der Verarbeitungsleistung ruft die SQL Funktion
 \textit{nutrients.contouringcorrectedatop(integer)} auf.
 Diese führt den speziellen Kriging Algorithmus anhand der übergebenen fileid mit den Werten in nutrients.samples durch.
 Es werden fileids aus der Tabelle \ref{tbl:entrysnsamples} verwendet.
-\begin{table}[h!]
+\begin{table}
 \centering
 %\small
 \begin{tabular}{|c|c|c|c|}
@@ -810,7 +817,7 @@ Die Auslastung der CPU bewegt sich während der Testreihe zwischen 33\%{} und 78
 Die restlichen Knoten reservierten während des Testlaufes stetig Arbeisspeicher, bis zu 100MB pro Knoten.
 Bezüglich der CPU kann von einer nicht relevanten Auslastung ausgegangen werden.
 Zwar existieren bei jedem Knoten Leistungsspitzen bis zu 80\%{}, jedoch dauert eine solche Auslastung maximal fünf Minuten und das Auftreten dieser Spitzenwerte ist während der Testreihe unterschiedlich sowie nicht deckungsgleich zwischen den Knoten.
-\begin{figure}[h!]
+\begin{figure}
 \centering
 \includegraphics[width=\textwidth]{Testergebnisse/jdbc_contouring_Testlauf.png}
 \caption[Auslastung der Knoten 1 bis 6 im Lasttest der Verarbeitung]{Auslastung der Knoten 1 bis 6 im Lasttest der Verarbeitung, 10:07-13:09 Uhr}
@@ -848,7 +855,7 @@ Das Testergebnis mit der PostgreSQL \Gls{vm} ist 969 Sekunden als durchschnittli
 \label{tbl:ergebnisseTest2_pg}
 \end{table}
 
-Die Auslastung der \Gls{vm} ist ähnlich, wie in Abbildung \ref{fig:auslastungTest2_pg} dargestellt.
+Die Auslastung der PostgreSQL \Gls{vm} ist ähnlich, wie in Abbildung \ref{fig:auslastungTest2_pg} dargestellt.
 Dabei liegt die Auslastung der CPU zwischen 30\%{} und 62\%{}.
 Pro Testdurchlauf wird etwa 150MB Arbeitsspeicher verwendet und bei Ende des Durchlaufes wieder freigegeben.
 \begin{figure}[h!]
@@ -865,14 +872,14 @@ Pro Testdurchlauf wird etwa 150MB Arbeitsspeicher verwendet und bei Ende des Dur
 \subsection{Zusammenfassung}
 \label{subsection:leistungstests:summary}
 Nach der Definition der Leistungsmessung und der Testszenarien erfolgte die Durchführung dieser mit anschließender Wiedergabe der Messergebnisse.
-Als Testsystem kam ein Postgres-XL Cluster mit zwölf DataNodes, sechs Coordinator, sechs GTM Proxys und einem GTM sowie eine PostgreSQL Installation zum Einsatz.
-Diese zwei Systeme werden gegenüber gestellt.
+Als Testsystem kam ein Postgres-XL Cluster mit zwölf DataNodes, sechs Coordinators, sechs GTM Proxys und einem GTM sowie eine PostgreSQL Installation zum Einsatz.
+Die Ergebnisse zu den zwei Systemen werden gegenüber gestellt.
 
 Tabelle \ref{tbl:verglergebnisse} stellt die durchschnittlichen Antwortzeiten der beiden Systeme für die Aggregation mit SQL und die Aggregation mit dem \Gls{umn} gegenüber.
 Bezüglich der Aggregation mit SQL Abfragen besteht ein Unterschied von 0,7 Sekunden.
 Ebenso ist die Antwortzeit bei der Aggregation über den \Gls{umn} mit Postgres-XL um 0,2 Sekunden kürzer.
 Postgres-XL besitzt somit bei sechsfacher Hardwareausstattung 16\%{} bzw. 8\%{} mehr Leistung bezüglich der Aggregation.
-\begin{table}[h!]
+\begin{table}
 \centering
 %\small
 \begin{tabular}{|c|c|C{4cm}|}
@@ -888,7 +895,7 @@ Postgres-XL besitzt somit bei sechsfacher Hardwareausstattung 16\%{} bzw. 8\%{} 
 Die Auslastung des Arbeitsspeichers beträgt auf beiden System bei allen Testdurchläufen maximal 180MB pro \Gls{vm}, was 3\%{} des verfügbaren Arbeitsspeichers darstellt.
 Diese geringe Auslastung ist positiv zu bewerten und wird nicht als Vergleichskriterium verwendet.
 %
-\begin{table}[h!]
+\begin{table}
 \centering
 %\small
 \begin{tabular}{|C{3.4cm}|c|C{3.6cm}|c|}
@@ -906,9 +913,9 @@ Die Mittlung fand je Graph statt. Bei Postgres-XL wurden aus sechs gemittelten W
 
 
 Die Verarbeitungsleistung konnte bei Postgres-XL nur mit einem Coordinator gemessen werden.
-Aus diesem Grund ist unterscheidet sich die Laufzeit eines Testlaufes nicht relevant zwischen den Systemen.
+Aus diesem Grund unterscheidet sich die Laufzeit eines Testlaufes nicht relevant zwischen den Systemen.
 975 Sekunden zu 969 Sekunden beträgt 99,5\%{} zu 100\%{} Leistung, entsprechend Tabelle \ref{tbl:verglergebnisse2}.
-\begin{table}[h!]
+\begin{table}
 \centering
 %\small
 \begin{tabular}{|c|c|}
