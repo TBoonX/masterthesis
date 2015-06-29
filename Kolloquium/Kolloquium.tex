@@ -1,0 +1,132 @@
+% Dieser Text ist urheberrechtlich geschützt
+% Er stellt einen Auszug eines von mir erstellten Referates dar
+% und darf nicht gewerblich genutzt werden
+% die private bzw. Studiums bezogen Nutzung ist frei
+% Januar 2006
+% Autor: Sascha Frank 
+% Universität Freiburg 
+% www.informatik.uni-freiburg.de/~frank/
+% www.namsu.de/
+
+
+\documentclass{beamer}
+%%\usetheme{Warsaw-seahorse}
+%\usepackage{german}
+%\usepackage{ngerman}
+\usepackage[utf8]{inputenc}
+\usepackage[ngerman]{babel}
+\usepackage{hyperref}
+
+\usetheme{Warsaw}
+%\usecolortheme{seahorse}
+%\usefonttheme{serif}
+\useinnertheme{rectangles}
+%\usepackage{bookman}
+\setbeamercovered{transparent}
+
+%\setbeamertemplate{navigation symbols}{}
+%\setbeamertemplate{footline}{}
+%\setbeamertemplate{headline}{}
+
+
+\usepackage{color} % used for comments
+\usepackage{listings}%Quellcode
+
+\usepackage{wrapfig}%floating elements
+
+\definecolor{Navy}{rgb}{0,0,0.5}
+\definecolor{Gray}{gray}{0.5}
+\definecolor{dunkelgrau}{rgb}{0.8,0.8,0.8}
+\definecolor{hellgrau}{rgb}{0.95,0.95,0.95}
+\definecolor{hellgrau2}{rgb}{0.93,0.93,0.93}
+\definecolor{red}{rgb}{1,0, 0.2}
+\definecolor{green}{rgb}{0,1,0.2}
+
+\lstset {
+  language=xml,
+  basicstyle={\footnotesize\ttfamily},
+  numbers=none,
+  aboveskip=5mm,
+  belowskip=5mm,
+  showstringspaces=false,
+  columns=flexible,
+  keywordstyle={\bfseries\color{green}},
+  commentstyle={\color{Red}\textit},
+  stringstyle={\color{red}},
+  frame=single,
+  breaklines=true,
+  breakatwhitespace=true,
+  tabsize=4,
+  morekeywords={xmlns:rdf, xmlns:rdfs, rdf:about, rdf:resource}  % <-- adding custom keywords
+}
+\lstset {
+  language=sparql,
+  basicstyle={\footnotesize\ttfamily},
+  numbers=left,
+  aboveskip=5mm,
+  belowskip=5mm,
+  showstringspaces=false,
+  columns=flexible,
+  keywordstyle={\bfseries\color{green}},
+  commentstyle={\color{hellgrau}\textit},
+  stringstyle={\color{red}},
+  frame=single,
+  breaklines=true,
+  breakatwhitespace=true,
+  tabsize=4,
+  morekeywords={PREFIX, select, SELECT, where, WHERE, Filter, filter, FILTER}  % <-- adding custom keywords
+}
+
+% Fußnoten korrigieren:
+\makeatletter
+ \renewcommand\@makefntext[1]{%
+  \setlength{\hangindent}{2em}
+  \noindent
+  \hb@xt@\hangindent{%
+     \hss\@textsuperscript{\normalfont\@thefnmark}\hspace{.1em}}#1}
+\makeatother
+
+
+\begin{document}
+
+\title{Kolloquium Masterarbeit}
+\subtitle{Untersuchung quelloffener verteilter geografischer Informationssysteme zur Verarbeitung agrartechnischer Kennzahlen} 
+\author{Kurt Junghanns, B.Sc. \\(kjungha@htwk-leipzig.de)} 
+\date{\today}
+%\logo{\includegraphics[scale=0.08]{logo-SF}}
+
+\begin{frame}
+\titlepage
+\end{frame}
+
+\begin{frame}
+\frametitle{Inhaltsverzeichnis}\tableofcontents
+\end{frame}
+
+\section{Einleitung}
+%Hintergrund, Vorhaben, Grundlagen
+
+\section{Methodisches Vorgehen}
+%wie in Thesis
+
+\section{Ausgangsszenario}
+%analog Thesis
+
+\section{Systemauswahl}
+%analog Thesis
+
+\section{Untersuchung von Postgres-XL}
+%Ausschnitt aus Thesis
+
+\section{Tests}
+%Ausschnitt aus Thesis
+
+\section{Fazit}
+%analog Thesis
+ 
+\begin{frame}
+
+
+\end{frame}
+
+\end{document}
