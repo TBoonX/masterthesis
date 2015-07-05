@@ -1,7 +1,32 @@
 Ihr Fazit der Arbeit?
 
-Logos?
-Standard LateX warsaw io?
-30 min.?
-Diagramme aus Tests grafisch abstrahieren?
+Logos? ja!
+Standard LateX warsaw io? ja
+30 min.? ja
+Diagramme aus Tests grafisch abstrahieren? ja
 "Was wurde gemacht" oder "Was wurde vorgenommen und anschließend umgesetzt"?
+
+
+
+Vortrag:
+Inhalt der Arbeit mit Darstellung des gesamten know hows
+davon ausgehen das die arbeit nicht gelesen wurde
+Inhalt:
+in motivation: realen anwendungsfall!
+5 min für hinführung mit firma und Grund der arbeit (Grad des themas hervorheben - begründung das masterarbeit)
+Grundlagen weglassen/in einleitung übernehmen
+Systeme mit Logos gegenüberstellen (auch bei vorüberlegungen aus grundlagen)
+Ablaufbilder des Anwendungsfalles verwenden
+Anforderungen: sehr grob (nur erstes als stichpunkte) und mit den 2 abbildungen
+tabelle aus wikipedia aufnehmen und einfärben <- erklären
+6.: unterkapitel für schnittstelle/Verarbeitung
+Tests: einen Test heraus greifen
+
+
+
+formloses Gutachten
+bis 9.7 gutachten fertig (Prof.)
+
+anrufen: mi ab 14 uhr außer diesen (1.7), 1.7 um 11
+
+handout bis 13 uhr 

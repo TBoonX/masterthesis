@@ -17,7 +17,11 @@
 \usepackage[ngerman]{babel}
 \usepackage{hyperref}
 
+% Dia Abbildungen
+\usepackage{tikz}
+
 \usetheme{Warsaw}
+\setbeamertemplate{headline}{}
 %\usecolortheme{seahorse}
 %\usefonttheme{serif}
 \useinnertheme{rectangles}
@@ -33,6 +37,10 @@
 \usepackage{listings}%Quellcode
 
 \usepackage{wrapfig}%floating elements
+
+% Tabellen
+\usepackage{array}
+\usepackage{longtable}
 
 \definecolor{Navy}{rgb}{0,0,0.5}
 \definecolor{Gray}{gray}{0.5}
@@ -105,15 +113,198 @@
 
 \section{Einleitung}
 %Hintergrund, Vorhaben, Grundlagen
+\begin{frame}\frametitle{Einleitung}
+\underline{Betreuer:}\\
+M. Sc. Volkmar Herbst\\
+Prof. Dr. rer. nat. Thomas Riechert\\
+\vspace{\baselineskip}
+\begin{wrapfigure}{r}{0.66\textwidth}\centering
+    \includegraphics[scale=0.21]{Firma.png}
+    %\caption{Image3.png}
+\end{wrapfigure}
+\underline{Unternehmen:}\\
+Agri Con GmbH\\\url{http://agricon.de}\\
+% Datenerfassung über Sensoren und Probenahmegräte 
+% Technik (Elekktronik) und Erfahrungen
+% Einsatzplanung von Maschinen, Betriebsmitteln und Arbeitszeit
+% EInklang von Ertrags- und Qualitätsziele mit den wachsenden Umweltanforderungen
+% Sensoren, GPS, Terminal, Telemetrie, Datenmanegement, Grunddüngung
+\vspace{\baselineskip}
+\vspace{\baselineskip}
+\textit{Precision Farming}
+\end{frame}
+
+\begin{frame}\frametitle{Einleitung}
+%TODO Abbildung von Anje
+\begin{figure}
+\centering
+\input{../Abbildungen/Ist-Stand.tex}
+\caption{Aktueller Stand bei Agri Con}
+\end{figure}
+\end{frame}
+
+\begin{frame}\frametitle{Einleitung}
+%TODO Abbildung von Anje
+\begin{figure}[h!]
+\centering
+\resizebox{.92\linewidth}{!}{\input{../Abbildungen/Wunsch-Stand.tex}}
+\caption{Ziel Installation}
+\end{figure}
+\end{frame}
+
+\begin{frame}\frametitle{Einleitung}
+%Normalerweise verwendete GIS
+%GIS hier erklären
+\begin{figure}
+\centering
+\includegraphics[width=1\hsize]{Logos.png}
+\caption{Relevante GIS}
+\end{figure}
+\end{frame}
+
+\begin{frame}\frametitle{}
+\underline{Anforderungen:}\\
+\begin{itemize}
+\item große Datenmengen
+\item räumliche Funktionen
+\item geringe Laufzeiten
+\end{itemize}
+\vspace{\baselineskip}
+\vspace{\baselineskip}
+Anforderungen bedingen Untersuchung alternativer Datenhaltung:\\
+\begin{itemize}
+\item NoSQL
+\item verteiltes System
+\end{itemize}
+%NoSQL hier erklären
+\end{frame}
 
 \section{Methodisches Vorgehen}
 %wie in Thesis
 
+\begin{frame}\frametitle{Methodisches Vorgehen}
+\textit{Untersuchung quelloffener verteilter geografischer Informationssysteme zur Verarbeitung agrartechnischer Kennzahlen:}\\
+% Informationssystem nach Kudraß:
+% S. 32
+% "Ein Informationssystem (IS) dient der rechnergestützten Erfassung, Speicherung, Verarbeitung, Pflege, Analyse, Verbreitung, Übertragung und Anzeige von Informationen. Es ist ein soziotechnisches System, das menschlische und maschinelle Komponenten (Teilsysteme) für die optimale Bereitstellung von Informationen und Kommunikation umfasst."
+% geometrische und tplologische Eigenschaften werden berücksichtigt
+\begin{enumerate} %GIS erklären
+\item Untersuchung bestehender Frameworks anhand von Qualitätsmerkmalen
+%Softwareauswahl, Softwarequalitätsmanagement, Nutzwertanalyse, Vorauswahl der Frameworks mit Wikipedia, 
+\item Auswahl eines Frameworks
+%Analytical hierarchy process nicht geeignet: zu wenig alternative, Nachimplementation unberücksichtigt, Wertung nicht hierarchisch
+%Technique for Order Preference by Similarity to Ideal Solution ist nicht geeignet: unübersichtlicher und abstrakte Entfernung zur bestmöglichen theoretischen Alternative nutzlos
+\item Entwurf eines Prototypen %aka Untersuchung des Frameworks
+%kein allgemines Vorgehen da spezielle Frameworks -nach dessen Guidelines richten
+\item Prototypische Implementierung %Bewertung anhand Tests+Nutzwertanalyse
+%Funktions- und Leistungstests
+%erweiterte Nutzwertanalyse
+%Tests definieren
+\end{enumerate}
+\end{frame}
+
 \section{Ausgangsszenario}
 %analog Thesis
 
+\begin{frame}\frametitle{Ausgangsszenario}
+\underline{Anforderungen an die Technologie:}
+\begin{itemize}
+\item PostgreSQL mit PostGIS zum Datenimport und -export nutzbar
+\item Gruppierung und Filterung mit geringer Laufzeit
+\item Parallele Berechnung über große Datenmengen mit geringer Laufzeit
+\item Räumliche Berechnungen wie Verschneidung und Overlays
+\item Nutzbare Schnittstelle zur Darstellung mit dem UMN MapServer
+\end{itemize}
+%funktionale und nicht-funktionale Anforderungen; technische Anforderungen
+\end{frame}
+
+\begin{frame}\frametitle{Ausgangsszenario}
+\underline{Softwarequalitätsmerkmale:}\\
+Funktionsumfang, Fehlertoleranz, Dokumentation, Zeitverhalten, Analysier- und Modifizierbarkeit.
+
+\vspace{\baselineskip}
+\vspace{\baselineskip}
+
+\underline{Qualitätsmetriken:}\\
+Richtigkeit, Interoperabilität, Funktionsumfang, Fehlertoleranz, Dokumentation, Zeitverhalten und Modifizierbarkeit.
+
+\vspace{\baselineskip}
+\vspace{\baselineskip}
+
+\underline{Testfälle:}\\
+Funktions- und Leistungstests.
+\end{frame}
+
+\begin{frame}\frametitle{Ausgangsszenario}
+Stand der Forschung
+
+
+\end{frame}
+
 \section{Systemauswahl}
 %analog Thesis
+
+\begin{frame}\frametitle{Systemauswahl}
+\begin{figure}
+\centering
+\includegraphics[width=1\hsize]{spatial_databases.png}
+\caption{Relevante GIS nach Recherche}
+\end{figure}
+\begin{center}
+\tiny
+\url{https://en.wikipedia.org/wiki/Spatial_database}
+\end{center}
+%Auswahl nach Farbgebung
+%Nutzwertanalyse mit Wichtung alle Metriken
+\end{frame}
+
+\begin{frame}\frametitle{Systemauswahl}
+%\underline{Nutzwertanalyse GeoMesa:}
+Nutzwert GeoMesa: 56
+\begin{table}
+\begin{tabular}{|l|p{1.8cm}|l|p{1.9cm}|}
+\hline
+\textbf{Metrik} & \textbf{erreichter Wert} & \textbf{Erfüllung in \%} & \textbf{gewichteter Teilnutzen} \\ \hline
+Interoperabilität & 7 & 58 & 17 \\ \hline
+Funktionsumfang & 48 & 79 & 16 \\ \hline
+Dokumentation & 4 & 31 & 11 \\ \hline
+Modifizierbarkeit & 4 & 80 & 12 \\ \hline
+\end{tabular}
+\caption{Nutzwertanalyse GeoMesa}
+\end{table}
+\end{frame}
+
+\begin{frame}\frametitle{Systemauswahl}
+%\underline{Nutzwertanalyse Postgres-XL:}
+Nutzwert Postgres-XL: 86
+\begin{table}
+\begin{tabular}{|l|p{1.8cm}|l|p{1.9cm}|}
+\hline
+\textbf{Metrik} & \textbf{erreichter Wert} & \textbf{Erfüllung in \%} & \textbf{gewichteter Teilnutzen} \\ \hline
+Interoperabilität & 12 & 100 & 30 \\ \hline
+Funktionsumfang & 53 & 87 & 17 \\ \hline
+Dokumentation & 9 & 69 & 24 \\ \hline
+Modifizierbarkeit & 5 & 100 & 15 \\ \hline
+\end{tabular}
+\caption{Nutzwertanalyse Postgres-XL}
+\end{table}
+\end{frame}
+
+\begin{frame}\frametitle{Systemauswahl}
+%\underline{Nutzwertanalyse Rasdaman:}
+Nutzwert Rasdaman: 51
+\begin{table}
+\begin{tabular}{|l|p{1.8cm}|l|p{1.9cm}|}
+\hline
+\textbf{Metrik} & \textbf{erreichter Wert} & \textbf{Erfüllung in \%} & \textbf{gewichteter Teilnutzen} \\ \hline
+Interoperabilität & 7 & 58 & 17 \\ \hline
+Funktionsumfang & 10 & 16 & 3 \\ \hline
+Dokumentation & 8 & 62 & 22 \\ \hline
+Modifizierbarkeit & 3 & 60 & 9 \\ \hline
+\end{tabular}
+\caption{Nutzwertanalyse Rasdaman}
+\end{table}
+\end{frame}
 
 \section{Untersuchung von Postgres-XL}
 %Ausschnitt aus Thesis
@@ -124,7 +315,7 @@
 \section{Fazit}
 %analog Thesis
  
-\begin{frame}
+\begin{frame}\frametitle{}
 
 
 \end{frame}
