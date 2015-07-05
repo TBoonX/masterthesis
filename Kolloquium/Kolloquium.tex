@@ -163,19 +163,22 @@ Agri Con GmbH\\\url{http://agricon.de}\\
 \end{frame}
 
 \begin{frame}\frametitle{}
-\underline{Anforderungen:}\\
+\begin{block}{Anforderungen:}
 \begin{itemize}
 \item große Datenmengen
 \item räumliche Funktionen
 \item geringe Laufzeiten
 \end{itemize}
+\end{block}
 \vspace{\baselineskip}
 \vspace{\baselineskip}
-Anforderungen bedingen Untersuchung alternativer Datenhaltung:\\
+\begin{block}{
+Anforderungen bedingen Untersuchung alternativer Datenhaltung:}
 \begin{itemize}
 \item NoSQL
 \item verteiltes System
 \end{itemize}
+\end{block}
 %NoSQL hier erklären
 \end{frame}
 
@@ -219,20 +222,21 @@ Anforderungen bedingen Untersuchung alternativer Datenhaltung:\\
 \end{frame}
 
 \begin{frame}\frametitle{Ausgangsszenario}
-\underline{Softwarequalitätsmerkmale:}\\
+\begin{block}{Softwarequalitätsmerkmale:}
 Funktionsumfang, Fehlertoleranz, Dokumentation, Zeitverhalten, Analysier- und Modifizierbarkeit.
+\end{block}
 
 \vspace{\baselineskip}
-\vspace{\baselineskip}
 
-\underline{Qualitätsmetriken:}\\
+\begin{block}{Qualitätsmetriken:}
 Richtigkeit, Interoperabilität, Funktionsumfang, Fehlertoleranz, Dokumentation, Zeitverhalten und Modifizierbarkeit.
+\end{block}
 
 \vspace{\baselineskip}
-\vspace{\baselineskip}
 
-\underline{Testfälle:}\\
+\begin{block}{Testfälle:}
 Funktions- und Leistungstests.
+\end{block}
 \end{frame}
 
 \begin{frame}\frametitle{Ausgangsszenario}
@@ -259,8 +263,17 @@ Stand der Forschung
 \end{frame}
 
 \begin{frame}\frametitle{Systemauswahl}
-%\underline{Nutzwertanalyse GeoMesa:}
-Nutzwert GeoMesa: 56
+
+   \begin{columns}
+    \begin{column}{.5\textwidth}
+\ \ \ Nutzwert GeoMesa: 56
+    \end{column}
+    \begin{column}{.5\textwidth}
+    \includegraphics[width=.7\hsize]{geomesa.png}
+    \end{column}
+  \end{columns}
+%https://raw.githubusercontent.com/geomesa/geomesa.github.io/master/img/geomesa-2x.png
+
 \begin{table}
 \begin{tabular}{|l|p{1.8cm}|l|p{1.9cm}|}
 \hline
@@ -272,11 +285,26 @@ Modifizierbarkeit & 4 & 80 & 12 \\ \hline
 \end{tabular}
 \caption{Nutzwertanalyse GeoMesa}
 \end{table}
+
+\begin{center}
+\tiny
+\url{https://raw.githubusercontent.com/geomesa/geomesa.github.io/master/img/geomesa-2x.png}
+\end{center}
+
 \end{frame}
 
 \begin{frame}\frametitle{Systemauswahl}
-%\underline{Nutzwertanalyse Postgres-XL:}
-Nutzwert Postgres-XL: 86
+
+   \begin{columns}
+    \begin{column}{.5\textwidth}
+\ \ \ Nutzwert Postgres-XL: 86
+    \end{column}
+    \begin{column}{.5\textwidth}
+    \includegraphics[width=.45\hsize]{postgresxl.jpg}
+    \end{column}
+  \end{columns}
+%http://www.postgres-xl.org/wp-content/uploads/2014/04/xl592x497g.jpg
+
 \begin{table}
 \begin{tabular}{|l|p{1.8cm}|l|p{1.9cm}|}
 \hline
@@ -288,11 +316,26 @@ Modifizierbarkeit & 5 & 100 & 15 \\ \hline
 \end{tabular}
 \caption{Nutzwertanalyse Postgres-XL}
 \end{table}
+
+\begin{center}
+\tiny
+\url{http://www.postgres-xl.org/wp-content/uploads/2014/04/xl592x497g.jpg}
+\end{center}
+
 \end{frame}
 
 \begin{frame}\frametitle{Systemauswahl}
-%\underline{Nutzwertanalyse Rasdaman:}
-Nutzwert Rasdaman: 51
+
+   \begin{columns}
+    \begin{column}{.5\textwidth}
+\ \ \ Nutzwert Rasdaman: 51
+    \end{column}
+    \begin{column}{.5\textwidth}
+    \includegraphics[width=.6\hsize]{rasdaman.png}
+    \end{column}
+  \end{columns}
+%http://www.faculty.jacobs-university.de/pbaumann/iu-bremen.de_pbaumann/Courses/InformationArchitecture/Rasdaman-doc/html/rasj/rasj/logo-rasdaman.gif
+
 \begin{table}
 \begin{tabular}{|l|p{1.8cm}|l|p{1.9cm}|}
 \hline
@@ -304,10 +347,48 @@ Modifizierbarkeit & 3 & 60 & 9 \\ \hline
 \end{tabular}
 \caption{Nutzwertanalyse Rasdaman}
 \end{table}
+
+\begin{center}
+\tiny
+\url{http://www.rasdaman.org/chrome/site/trac_logo.png}
+\end{center}
+
 \end{frame}
 
 \section{Untersuchung von Postgres-XL}
 %Ausschnitt aus Thesis
+
+%
+\begin{frame}\frametitle{Untersuchung von Postgres-XL}
+
+\begin{figure}
+\centering
+\includegraphics[width=1\hsize]{../Abbildungen/postgresxl-structure.jpg}
+\caption{Aufbau von Postgres-XL}
+\end{figure}
+\end{frame}
+
+\begin{frame}\frametitle{Untersuchung von Postgres-XL}
+%Installation, Einrichtung
+\begin{block}{Schnittstellen:}
+Erfolgt analog zu PostgreSQL mit PostGIS mit Coordinator.
+%Für SQL und UMN
+\end{block}
+
+\vspace{\baselineskip}
+\vspace{\baselineskip}
+
+\begin{block}{Verarbeitung:}
+Abhängig der Verteilung der Daten sind ausgewählte Knoten aktiv.\\
+Aufruf und Bibliotheken analog zu PostgreSQL mit PostGIS.
+\end{block}
+
+\end{frame}
+
+\begin{frame}\frametitle{Untersuchung von Postgres-XL}
+
+
+\end{frame}
 
 \section{Tests}
 %Ausschnitt aus Thesis
