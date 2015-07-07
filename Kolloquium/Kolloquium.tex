@@ -50,6 +50,9 @@
 \definecolor{red}{rgb}{1,0, 0.2}
 \definecolor{green}{rgb}{0,1,0.2}
 
+% tabulator zentrierung
+\newcolumntype{C}[1]{>{\centering\arraybackslash}p{#1}} % zentriert mit Breitenangabe
+
 \lstset {
   language=xml,
   basicstyle={\footnotesize\ttfamily},
@@ -386,18 +389,152 @@ Aufruf und Bibliotheken analog zu PostgreSQL mit PostGIS.
 \end{frame}
 
 \begin{frame}\frametitle{Untersuchung von Postgres-XL}
+\begin{block}{Entwurf}
+Ähnlichkeit zu Ist-Stand bedingt Übernahme von Funktionalität.
+\end{block}
+% Fehlende Funktionalität wie Trigger und Problematik der verteilten Primärschlüssel bedingen Unmöglichkeit der kurzfristigen Realisierung
+% Entwurf ist Clon des ISt-Standes ohne Trigger und angepasste FUnktionen/Schlüssel
 
-
+\begin{figure}
+\centering
+\includegraphics[width=1\hsize]{../Abbildungen/gantt_aufwand_umsetzung_cropped.pdf}
+\caption{Aufwandsschätzung der teilweisen Integration}
+\end{figure}
 \end{frame}
 
 \section{Tests}
 %Ausschnitt aus Thesis
 
+\begin{frame}\frametitle{Tests}
+\centering\textbf{Testumgebung}
+
+   \begin{columns}
+    \begin{column}{.5\textwidth}
+\input{../Abbildungen/Testsystem_physischerAufbau.tex}
+    \end{column}
+    \begin{column}{.5\textwidth}
+\resizebox{1\linewidth}{!}{\input{../Abbildungen/Testsystem_VMs_2.tex}}
+    \end{column}
+  \end{columns}
+\end{frame}
+
+\begin{frame}\frametitle{Tests}
+\centering\textbf{Funktionstests}\\
+
+\vspace{\baselineskip}
+\vspace{\baselineskip}
+
+Funktionstests überprüfen grundlegende Funktionen des realen Anwendungsfalles.
+
+\vspace{\baselineskip}
+\vspace{\baselineskip}
+
+6 von 7 bestanden Funktionstests.
+%kriging mit R 
+\end{frame}
+
+\begin{frame}\frametitle{Tests}
+\centering\textbf{Funktionstests}
+
+\begin{table}[h!]
+\centering
+\small
+\begin{tabular}{p{2.3cm}|p{7cm}}
+\textbf{Testfall:} & Verschneidung von räumlichen Daten. \\ \hline
+\textbf{Beschreibung:} & Überlagernde Vektordaten werden miteinander verschnitten. \\ \hline
+\textbf{Testdaten:} & Ausgewählte Schläge und Teilschläge aus farm.fields. \\ \hline
+\textbf{Sollergebnis:} & Intersection, Union, Difference und Symmetric Difference ist durchführbar und liefert das korrekte Ergebnis. \\ \hline
+\textbf{Ist Ergebnis:} & Die Verschneidung erfolgt korrekt und kann dargestellt werden. \\ \hline
+\textbf{Bestanden:} & Ja \\
+\end{tabular}
+\caption{FT05}
+\end{table}
+\end{frame}
+
+\begin{frame}\frametitle{Tests}
+\centering\textbf{Leistungstests}
+
+\begin{block}{Testdefinition}
+\begin{itemize}
+\item Identisch für PostgreSQL und Postgres-XL
+\item Durchführung mit JMeter
+\item Messung mit Zabbix
+\item Mittelung de Ergebnisse %11 Durchführungen, 10 verwenden
+\end{itemize}
+\end{block}
+
+\begin{block}{Vorüberlegungen}
+\begin{itemize}
+\item Kostenmaß als Möglichkeit der Berechnung der theoretischen Leistung
+\item Anpassung des Datenbankschemas an Verteilung der Daten
+\item Optimierung des Query Planers
+\item Skalierbarkeit für verteilt arbeitende System möglich
+\end{itemize}
+\end{block}
+\end{frame}
+
+\begin{frame}\frametitle{Tests}
+\centering\textbf{Leistungstests - Aggregation}
+%Punktdaten aus nsensorlogs
+%gleich verteilt auf coordinator und DataNodes - mit explain verbose select
+
+\vspace{\baselineskip}
+
+\begin{block}{Definition}
+\begin{itemize}
+\item Pro Coordinator 3 Threads
+\item 5 Wiederholungen
+\item Aggregation von 5 Datensätzen %fileids
+\end{itemize}
+\end{block}
+
+\vspace{\baselineskip}
+
+\begin{block}{Ergebnis}
+Postgres-XL: 3619ms\\
+PostgreSQL: 4319ms
+\end{block}
+\end{frame}
+
+\begin{frame}\frametitle{Tests}
+\centering\textbf{Leistungstests - Aggregation}
+\begin{figure}
+\centering
+\includegraphics[width=1\hsize]{jdbc_aggregation_Testlauf_node6.png}
+\caption{Auslastung des Knotens 6}
+\end{figure}
+\end{frame}
+
+\begin{frame}\frametitle{}
+\begin{table}
+\centering
+\small
+\begin{tabular}{|c|c|C{3cm}|}
+\hline
+\textbf{Durchschnittliche Antwortzeit} & \textbf{Aggregation} & \textbf{Aggregation mit Kartendarstellung} \\ \hline
+\textbf{Postgres-XL} & 3,6s & 2,4s \\ \hline
+\textbf{PostgreSQL} & 4,3s & 2,6s \\ \hline
+\end{tabular}
+\caption{Vergleich der Testergebnisse}
+\end{table}
+
+\begin{table}
+\centering
+\small
+\begin{tabular}{|C{2.4cm}|c|C{2.9cm}|c|}
+\hline
+\textbf{Mittlere CPU Auslastung} & \textbf{Aggregation} & \textbf{Aggregation mit Kartendarstellung} & \textbf{Verarbeitung} \\ \hline
+\textbf{Postgres-XL} & 0,2 & 0,1 & 0,5 \\ \hline
+\textbf{PostgreSQL} & 3,6 & 0,4 & 0,5 \\ \hline	
+\end{tabular}
+\caption{Vergleich der CPU Auslastung, GTM VM nicht berücksichtigt}
+\end{table}
+\end{frame}
+
 \section{Fazit}
 %analog Thesis
  
 \begin{frame}\frametitle{}
-
 
 \end{frame}
 
