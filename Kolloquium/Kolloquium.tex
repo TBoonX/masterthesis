@@ -243,8 +243,17 @@ Funktions- und Leistungstests.
 \end{frame}
 
 \begin{frame}\frametitle{Ausgangsszenario}
-Stand der Forschung
+\begin{center}
+\textbf{Stand der Forschung}
+\end{center}
 
+\begin{itemize}
+\item Thema der Arbeit noch nicht existent
+\item Vergleiche mit Oracle Spatial\footnote{AHLERS,Jöhrn: Untersuchung von Techniken verteilter Datenbanksysteme zur Speicherung und Abfrage von räumlichen Daten} und Neo4J\footnote{BAAS, Bart: NoSQL spatial Neo4j versus PostGIS} sind vorhanden
+\item Zur räumlichen Datenverarbeitung sind Standards des OGC\footnote{Standards des OGC: \url{http://www.opengeospatial.org/standards/is}} ausschlaggebend
+\item Semantic Web momentan ungeeignet
+\item Steigerung der Leistungsfähigkeit von PostgreSQL existiert thematisch als Handlungsempfehlung\footnote{SMITH,Gregory: PostgreSQL 9.0 High Performance} und nicht in Form von wissenschaftlichen Dokumenten
+\end{itemize}
 
 \end{frame}
 
@@ -419,7 +428,9 @@ Aufruf und Bibliotheken analog zu PostgreSQL mit PostGIS.
 \end{frame}
 
 \begin{frame}\frametitle{Tests}
-\centering\textbf{Funktionstests}\\
+\begin{center}
+\textbf{Funktionstests}\\
+\end{center}
 
 \vspace{\baselineskip}
 \vspace{\baselineskip}
@@ -439,13 +450,14 @@ Funktionstests überprüfen grundlegende Funktionen des realen Anwendungsfalles.
 \begin{table}[h!]
 \centering
 \small
-\begin{tabular}{p{2.3cm}|p{7cm}}
+\begin{tabular}{|p{2.3cm}|p{7cm}|}
+ \hline
 \textbf{Testfall:} & Verschneidung von räumlichen Daten. \\ \hline
 \textbf{Beschreibung:} & Überlagernde Vektordaten werden miteinander verschnitten. \\ \hline
 \textbf{Testdaten:} & Ausgewählte Schläge und Teilschläge aus farm.fields. \\ \hline
 \textbf{Sollergebnis:} & Intersection, Union, Difference und Symmetric Difference ist durchführbar und liefert das korrekte Ergebnis. \\ \hline
 \textbf{Ist Ergebnis:} & Die Verschneidung erfolgt korrekt und kann dargestellt werden. \\ \hline
-\textbf{Bestanden:} & Ja \\
+\textbf{Bestanden:} & Ja \\ \hline
 \end{tabular}
 \caption{FT05}
 \end{table}
@@ -533,6 +545,37 @@ PostgreSQL: 4319ms
 
 \section{Fazit}
 %analog Thesis
+ 
+\begin{frame}\frametitle{Fazit}
+\begin{center}
+Nutzwertanalyse mit Zeitverhalten und angepasster Wertung % AUßerdem wurde Wert für Dokumentation und Funktionsalität geändert
+\end{center}
+\begin{table}[h!]
+\centering
+\small
+\begin{tabular}{|l|p{1.8cm}|l|p{1.8cm}|}
+\hline
+\textbf{Metrik} & \textbf{erreichter Wert} & \textbf{Erfüllung in \%} & \textbf{gewichteter Teilnutzen} \\ \hline
+Interoperabilität & 12 & 100 & 20 \\ \hline
+Funktionsumfang & 53 & 87 & 17 \\ \hline
+Dokumentation & 8 & 69 & 10 \\ \hline
+Zeitverhalten & 2 & 67 &  27 \\ \hline
+Modifizierbarkeit & 5 & 100 & 5 \\ \hline
+\end{tabular}
+\caption{Neue Nutzwertanalyse von Postgres-XL}
+\end{table}
+\end{frame}
+ 
+\begin{frame}\frametitle{Fazit}
+\textbf{Ergebnisse:}\\
+\begin{itemize}
+\item Nutzwertanalyse und Tests sind geeignet%für Softwareauswahl
+\item Softwarequalitäten und -metriken sind geeignet zur Messung von Qualität
+\item Keine thematisch vergleichbare Arbeit vorhanden
+\item PostGIS ist für Agri Con geeignet
+\item Postgres-XL kann für einen produktiven Einsatz nicht empfohlen werden
+\end{itemize}
+\end{frame}
  
 \begin{frame}\frametitle{}
 
