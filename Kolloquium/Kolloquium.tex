@@ -16,6 +16,7 @@
 \usepackage[utf8]{inputenc}
 \usepackage[ngerman]{babel}
 \usepackage{hyperref}
+\usepackage{subcaption}
 
 % Dia Abbildungen
 \usepackage{tikz}
@@ -123,7 +124,6 @@ Prof. Dr. rer. nat. Thomas Riechert\\
 \vspace{\baselineskip}
 \begin{wrapfigure}{r}{0.66\textwidth}\centering
     \includegraphics[scale=0.21]{Firma.png}
-    %\caption{Image3.png}
 \end{wrapfigure}
 \underline{Unternehmen:}\\
 Agri Con GmbH\\\url{http://agricon.de}\\
@@ -165,7 +165,7 @@ Agri Con GmbH\\\url{http://agricon.de}\\
 \end{figure}
 \end{frame}
 
-\begin{frame}\frametitle{}
+\begin{frame}\frametitle{Einleitung}
 \begin{block}{Anforderungen:}
 \begin{itemize}
 \item große Datenmengen
@@ -178,8 +178,8 @@ Agri Con GmbH\\\url{http://agricon.de}\\
 \begin{block}{
 Anforderungen bedingen Untersuchung alternativer Datenhaltung:}
 \begin{itemize}
-\item NoSQL
 \item verteiltes System
+\item NoSQL
 \end{itemize}
 \end{block}
 %NoSQL hier erklären
@@ -471,7 +471,7 @@ Funktionstests überprüfen grundlegende Funktionen des realen Anwendungsfalles.
 \item Identisch für PostgreSQL und Postgres-XL
 \item Durchführung mit JMeter
 \item Messung mit Zabbix
-\item Mittelung de Ergebnisse %11 Durchführungen, 10 verwenden
+\item Mittlung der Ergebnisse %11 Durchführungen, 10 verwenden
 \end{itemize}
 \end{block}
 
@@ -579,6 +579,88 @@ Modifizierbarkeit & 5 & 100 & 5 \\ \hline
  
 \begin{frame}\frametitle{}
 
+\end{frame} 
+
+\begin{frame}\frametitle{Nutzwertanalyse}
+\begin{table}
+\begin{tabular}{|l|l|}
+\hline
+\textbf{Metrik} & \textbf{Gewichtung in \%} \\ \hline
+%Richtigkeit & 10 \\ \hline
+Interoperabilität & 30 \\ \hline
+Funktionsumfang & 20 \\ \hline
+%Fehlertoleranz & 8 \\ \hline
+Dokumentation & 35 \\ \hline
+%Zeitverhalten & 16 \\ \hline
+Modifizierbarkeit & 15 \\ \hline
+\end{tabular}
+\caption{Wertungsmaßstab der einzelnen Metriken}
+\end{table}
+
+\begin{table}
+\begin{tabular}{|l|l|}
+\hline
+\textbf{Metrik} & \textbf{Gewichtung in \%} \\ \hline
+Interoperabilität & 20 \\ \hline
+Funktionsumfang & 20 \\ \hline
+Dokumentation & 15 \\ \hline
+Zeitverhalten & 40 \\ \hline
+Modifizierbarkeit & 5 \\ \hline
+\end{tabular}
+\caption{Neuer Wertungsmaßstab der einzelnen Metriken}
+\end{table}
 \end{frame}
+
+\begin{frame}\frametitle{FT05}
+\begin{figure}
+\includegraphics[width=.5\textwidth]{../Abbildungen/2fields.png}
+\caption[Kartenausschnitt mit 2 überlappenden Schlägen]{Kartenausschnitt mit 2 überlappenden Schlägen}
+\end{figure}
+\end{frame}
+
+\begin{frame}\frametitle{FT05}
+\setcounter{subfigure}{0}\begin{figure}
+\begin{subfigure}{.3\textwidth}
+  \includegraphics[width=.7\linewidth]{../Abbildungen/st_intersection.png}
+  \caption{Intersection}
+\end{subfigure}%
+\begin{subfigure}{.3\textwidth}
+  \includegraphics[width=.7\linewidth]{../Abbildungen/st_union.png}
+  \caption{Union}
+\end{subfigure}
+\begin{subfigure}{.3\textwidth}
+  \includegraphics[width=.7\linewidth]{../Abbildungen/st_symdifference.png}
+  \caption{Symmetric Difference}
+\end{subfigure}
+\caption{Ergebnisse Verschneidungsfunktionen Intersection, Union und Symmetric Difference}
+\end{figure}
+\end{frame}
+
+\begin{frame}\frametitle{FT05}
+\setcounter{subfigure}{0}\begin{figure}
+\begin{subfigure}{.5\textwidth}
+  \includegraphics[width=.7\linewidth]{../Abbildungen/st_difference1.png}
+  \caption{Difference mit Schlag 1 zu Schlag 2}
+\end{subfigure}%
+\begin{subfigure}{.5\textwidth}
+  \includegraphics[width=.7\linewidth]{../Abbildungen/st_difference2.png}
+  \caption{Difference mit Schlag 2 zu Schlag 1}
+\end{subfigure}
+\caption{Ergebnisse Verschneidungsfunktionen Difference}
+\end{figure}
+\end{frame}
+ 
+\begin{frame}\frametitle{Verarbeitung}
+Interpolation mit Hilfe spezieller Algorithmen von Punkten zu Flächen.
+
+\begin{block}{Probleme:}
+\begin{itemize}
+\item Insert Into in Funktionen nicht möglich
+\item Die meisten Datensätzen konnten nicht verarbeitet werden
+\item Nur ein Coordinator in Testläufen verwendbar
+\item Keine Kontrolle der Korrektheit der Ergebnisse
+\end{itemize}
+\end{block}
+\end{frame} 
 
 \end{document}
