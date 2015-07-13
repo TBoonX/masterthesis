@@ -213,18 +213,6 @@ Anforderungen bedingen Untersuchung alternativer Datenhaltung:}
 %analog Thesis
 
 \begin{frame}\frametitle{Ausgangsszenario}
-\underline{Anforderungen an die Technologie:}
-\begin{itemize}
-\item PostgreSQL mit PostGIS zum Datenimport und -export nutzbar
-\item Gruppierung und Filterung mit geringer Laufzeit
-\item Parallele Berechnung über große Datenmengen mit geringer Laufzeit
-\item Räumliche Berechnungen wie Verschneidung und Overlays
-\item Nutzbare Schnittstelle zur Darstellung mit dem UMN MapServer
-\end{itemize}
-%funktionale und nicht-funktionale Anforderungen; technische Anforderungen
-\end{frame}
-
-\begin{frame}\frametitle{Ausgangsszenario}
 \begin{block}{Softwarequalitätsmerkmale:}
 Funktionsumfang, Fehlertoleranz, Dokumentation, Zeitverhalten, Analysier- und Modifizierbarkeit.
 \end{block}
@@ -399,7 +387,7 @@ Aufruf und Bibliotheken analog zu PostgreSQL mit PostGIS.
 \end{frame}
 
 \begin{frame}\frametitle{Untersuchung von Postgres-XL}
-\begin{block}{Entwurf}
+\begin{block}{Entwurf:}
 Ähnlichkeit zu Ist-Stand bedingt Übernahme von Funktionalität.
 \end{block}
 % Fehlende Funktionalität wie Trigger und Problematik der verteilten Primärschlüssel bedingen Unmöglichkeit der kurzfristigen Realisierung
@@ -467,7 +455,7 @@ Funktionstests überprüfen grundlegende Funktionen des realen Anwendungsfalles.
 \begin{frame}\frametitle{Tests}
 \centering\textbf{Leistungstests}
 
-\begin{block}{Testdefinition}
+\begin{block}{Testdefinition:}
 \begin{itemize}
 \item Identisch für PostgreSQL und Postgres-XL
 \item Durchführung mit JMeter
@@ -476,11 +464,11 @@ Funktionstests überprüfen grundlegende Funktionen des realen Anwendungsfalles.
 \end{itemize}
 \end{block}
 
-\begin{block}{Vorüberlegungen}
+\begin{block}{Vorüberlegungen:}
 \begin{itemize}
 \item Kostenmaß als Möglichkeit der Berechnung der theoretischen Leistung
 \item Anpassung des Datenbankschemas an Verteilung der Daten
-\item Optimierung des Query Planers
+\item Anpassung des Query Planers
 \item Skalierbarkeit für verteilt arbeitende System möglich
 \end{itemize}
 \end{block}
@@ -493,7 +481,7 @@ Funktionstests überprüfen grundlegende Funktionen des realen Anwendungsfalles.
 
 \vspace{\baselineskip}
 
-\begin{block}{Definition}
+\begin{block}{Definition:}
 \begin{itemize}
 \item Pro Coordinator 3 Threads
 \item 5 Wiederholungen
@@ -503,7 +491,7 @@ Funktionstests überprüfen grundlegende Funktionen des realen Anwendungsfalles.
 
 \vspace{\baselineskip}
 
-\begin{block}{Ergebnis}
+\begin{block}{Ergebnis:}
 Postgres-XL: 3619ms\\
 PostgreSQL: 4319ms
 \end{block}
@@ -518,7 +506,7 @@ PostgreSQL: 4319ms
 \end{figure}
 \end{frame}
 
-\begin{frame}\frametitle{}
+\begin{frame}\frametitle{Tests}
 \begin{table}
 \centering
 \small
@@ -549,7 +537,8 @@ PostgreSQL: 4319ms
  
 \begin{frame}\frametitle{Fazit}
 \begin{center}
-Nutzwertanalyse mit Zeitverhalten und angepasster Wertung % AUßerdem wurde Wert für Dokumentation und Funktionsalität geändert
+Nutzwertanalyse mit Zeitverhalten und angepasster Wertung\\ % Außerdem wurde Wert für Dokumentation und Funktionsalität geändert
+Nutzwert: 79
 \end{center}
 \begin{table}[h!]
 \centering
@@ -573,13 +562,43 @@ Modifizierbarkeit & 5 & 100 & 5 \\ \hline
 \item Nutzwertanalyse und Tests sind geeignet%für Softwareauswahl
 \item Softwarequalitäten und -metriken sind geeignet zur Messung von Qualität
 \item Keine thematisch vergleichbare Arbeit vorhanden
-\item PostGIS ist für Agri Con geeignet
+\item PostGIS ist für die Agri Con geeignet
 \item Postgres-XL kann für einen produktiven Einsatz nicht empfohlen werden
 \end{itemize}
 \end{frame}
  
+\begin{frame}\frametitle{Kolloquium}
+\begin{center}
+\textbf{Vielen Dank für Ihre Aufmerksamkeit!}
+\end{center}
+\end{frame} 
+ 
 \begin{frame}\frametitle{}
 
+\end{frame} 
+
+\begin{frame}\frametitle{Ausgangsszenario}
+\underline{Anforderungen an die Technologie:}
+\begin{itemize}
+\item PostgreSQL mit PostGIS zum Datenimport und -export nutzbar
+\item Gruppierung und Filterung mit geringer Laufzeit
+\item Parallele Berechnung über große Datenmengen mit geringer Laufzeit
+\item Räumliche Berechnungen wie Verschneidung und Overlays
+\item Nutzbare Schnittstelle zur Darstellung mit dem UMN MapServer
+\end{itemize}
+%funktionale und nicht-funktionale Anforderungen; technische Anforderungen
+\end{frame}
+ 
+\begin{frame}\frametitle{Qualität: Interoperabilität}
+\begin{block}{Qualitätskriterium:}
+Es sind Schnittstellen zur Ein- und Ausgabe vorhanden. Dabei soll es sich um PostgreSQL Import sowie PostgreSQL und UMN Export handeln.
+\end{block}
+
+\begin{block}{Qualitätsmetrik:}
+Ist der Import und Export von räumlichen Daten aus PostgreSQL sowie eine Anbindungsmöglichkeit an den UMN.
+Statische Abbildung:\\
+$[Datenschnittstelle\ und\ UMN\ Schnittstelle\ vorhanden,$\\$Datenschnittstelle\ vorhanden,\ UMN\ Schnittstelle\ vorhanden,$\\$keine\ Schnittstelle\ vorhanden]\ nach\ [12,7,5,0]$
+\end{block}
 \end{frame} 
 
 \begin{frame}\frametitle{Nutzwertanalyse}
