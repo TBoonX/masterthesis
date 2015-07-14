@@ -151,7 +151,7 @@ Agri Con GmbH\\\url{http://agricon.de}\\
 \begin{figure}[h!]
 \centering
 \resizebox{.92\linewidth}{!}{\input{../Abbildungen/Wunsch-Stand.tex}}
-\caption{Ziel Installation}
+\caption{Ziel-Installation}
 \end{figure}
 \end{frame}
 
@@ -236,7 +236,7 @@ Funktions- und Leistungstests.
 \end{center}
 
 \begin{itemize}
-\item Thema der Arbeit noch nicht existent
+%\item Thema der Arbeit noch nicht existent
 \item Vergleiche mit Oracle Spatial\footnote{AHLERS,Jöhrn: Untersuchung von Techniken verteilter Datenbanksysteme zur Speicherung und Abfrage von räumlichen Daten} und Neo4J\footnote{BAAS, Bart: NoSQL spatial Neo4j versus PostGIS} sind vorhanden
 \item Zur räumlichen Datenverarbeitung sind Standards des OGC\footnote{Standards des OGC: \url{http://www.opengeospatial.org/standards/is}} ausschlaggebend
 \item Semantic Web momentan ungeeignet
@@ -380,7 +380,7 @@ Erfolgt analog zu PostgreSQL mit PostGIS mit Coordinator.
 \vspace{\baselineskip}
 
 \begin{block}{Verarbeitung:}
-Abhängig der Verteilung der Daten sind ausgewählte Knoten aktiv.\\
+Abhängig von der Verteilung der Daten sind ausgewählte Knoten aktiv.\\
 Aufruf und Bibliotheken analog zu PostgreSQL mit PostGIS.
 \end{block}
 
@@ -469,7 +469,7 @@ Funktionstests überprüfen grundlegende Funktionen des realen Anwendungsfalles.
 \item Kostenmaß als Möglichkeit der Berechnung der theoretischen Leistung
 \item Anpassung des Datenbankschemas an Verteilung der Daten
 \item Anpassung des Query Planers
-\item Skalierbarkeit für verteilt arbeitende System möglich
+\item Skalierbarkeit für verteilt arbeitende Systeme relevant
 \end{itemize}
 \end{block}
 \end{frame}
@@ -559,11 +559,10 @@ Modifizierbarkeit & 5 & 100 & 5 \\ \hline
 \begin{frame}\frametitle{Fazit}
 \textbf{Ergebnisse:}\\
 \begin{itemize}
-\item Nutzwertanalyse und Tests sind geeignet%für Softwareauswahl
-\item Softwarequalitäten und -metriken sind geeignet zur Messung von Qualität
-\item Keine thematisch vergleichbare Arbeit vorhanden
-\item PostGIS ist für die Agri Con geeignet
+\item Die Methodik ist geeignet für die Softwareauswahl
+\item Das Forschungsziel wurde erreicht
 \item Postgres-XL kann für einen produktiven Einsatz nicht empfohlen werden
+\item PostgreSQL mit PostGIS ist für Agri Con geeignet
 \end{itemize}
 \end{frame}
  
@@ -675,10 +674,10 @@ Interpolation mit Hilfe spezieller Algorithmen von Punkten zu Flächen.
 
 \begin{block}{Probleme:}
 \begin{itemize}
-\item Insert Into in Funktionen nicht möglich
+\item SQL Befehl $Insert\ Into$ ist nicht verwendbar
 \item Die meisten Datensätzen konnten nicht verarbeitet werden
 \item Nur ein Coordinator in Testläufen verwendbar
-\item Keine Kontrolle der Korrektheit der Ergebnisse
+\item Keine Kontrolle der Ergebnisse
 \end{itemize}
 \end{block}
 \end{frame} 
