@@ -1,0 +1,8 @@
+Tipps:
+- ersten teil kürzer, rest länger
+- graphen besser erklären (cpu wert)
+- ergebnis postgresql ist geeignet kann nicht getroffen werden
+- Schwächen der Nutzwertanalyse aufzeigen! Trotz Nutzwert sind Gründe gegen das Franework nicht ersichtlich
+- Folie 16 hat schlexhte formulierung
+- wiki tabelle lesbar machen
+- 
