@@ -251,7 +251,7 @@ Funktions- und Leistungstests.
 \begin{frame}\frametitle{Systemauswahl}
 \begin{figure}
 \centering
-\includegraphics[width=1\hsize]{spatial_databases.png}
+\includegraphics[height=.7\vsize]{spatial_databases3.png}
 \caption{Relevante GIS nach Recherche}
 \end{figure}
 \begin{center}
@@ -372,7 +372,7 @@ Modifizierbarkeit & 3 & 60 & 9 \\ \hline
 \begin{frame}\frametitle{Untersuchung von Postgres-XL}
 %Installation, Einrichtung
 \begin{block}{Schnittstellen:}
-Erfolgt analog zu PostgreSQL mit PostGIS mit Coordinator.
+Zugriff erfolgt analog zu PostgreSQL mit PostGIS über Coordinators.
 %Für SQL und UMN
 \end{block}
 
@@ -380,8 +380,8 @@ Erfolgt analog zu PostgreSQL mit PostGIS mit Coordinator.
 \vspace{\baselineskip}
 
 \begin{block}{Verarbeitung:}
-Abhängig von der Verteilung der Daten sind ausgewählte Knoten aktiv.\\
-Aufruf und Bibliotheken analog zu PostgreSQL mit PostGIS.
+Aufruf und Bibliotheken analog zu PostgreSQL mit PostGIS.\\
+Abhängig von der Verteilung der Daten sind ausgewählte Knoten aktiv.
 \end{block}
 
 \end{frame}
@@ -559,10 +559,10 @@ Modifizierbarkeit & 5 & 100 & 5 \\ \hline
 \begin{frame}\frametitle{Fazit}
 \textbf{Ergebnisse:}\\
 \begin{itemize}
-\item Die Methodik ist geeignet für die Softwareauswahl
 \item Das Forschungsziel wurde erreicht
-\item Postgres-XL kann für einen produktiven Einsatz nicht empfohlen werden
-\item PostgreSQL mit PostGIS ist für Agri Con geeignet
+\item Postgres-XL ist für einen produktiven Einsatz nicht geeignet
+\item Die Methodik ist geeignet für die Softwareauswahl%Nutzwertanalyse beschränkt aussagekräftig
+\item Der Ist-Stand ist zu verbessern
 \end{itemize}
 \end{frame}
  
